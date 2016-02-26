@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MNsure_Regression_1.ApplicationDo">
+    <Position X="2.25" Y="0.5" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAFAAACAABQAAAIACQAAQAIAAAIAglIACAAAgAgA=</HashCode>
+      <FileName>ApplicationDo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MNsure_Regression_1.CaseWorker">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAIAAAAAAAAAAAAACAAAAAAAAAAIAAAAQAAAAAAA=</HashCode>
+      <FileName>CaseWorker.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MNsure_Regression_1.Enrollments">
+    <Position X="6" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAACAAAAAAAAAAAAAQAAAAAAAgA=</HashCode>
+      <FileName>Enrollments.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MNsure_Regression_1.AccountCreation">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAABAEAAAgA=</HashCode>
+      <FileName>AccountCreate.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MNsure_Regression_1.OpenSiteURL">
+    <Position X="0.5" Y="3" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAQBAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>OpenSiteURL.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MNsure_Regression_1.HouseholdMembers">
+    <Position X="6" Y="2.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAAAIAAAAAFgAASAAAAAAAAAMAAAQAAAEAAAgA=</HashCode>
+      <FileName>HouseholdMembers.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
