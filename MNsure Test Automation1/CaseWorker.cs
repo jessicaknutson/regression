@@ -352,23 +352,24 @@ namespace MNsure_Regression_1
             try
             {
                 System.Threading.Thread.Sleep(2000);
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"))));
+                /*new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"))));
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);                
+                driver.SwitchTo().Frame(iFrameElement);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//div[@class='image-second-line age'"))));
-                IWebElement myParticipantAge = driver.FindElement(By.XPath("//div[@class='image-second-line age'"));
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[6]/div[2]"))));
+                IWebElement myParticipantAge = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[6]/div[2]"));
                 String participantAge = myParticipantAge.Text;
 
+                driver.SwitchTo().DefaultContent();*/
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[4]/a"))));
+                /*new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[4]/a"))));
                 IWebElement myParticipant = driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[4]/a"));
                 String participant = myParticipant.Text;                
 
-                participant = participant + " (" + participantAge.Substring(0, 2) + ")";
+                participant = participant + " (" + participantAge.Substring(0, 2) + ")";*/
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span"))));
                 driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow
@@ -381,20 +382,20 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
-                IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                
-                if (participant == null)
-                {
+                /*if (participant == null)
+                {*/
+                    IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
                     participantArrow.Click();//select participant arrow
                     System.Threading.Thread.Sleep(1000);
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-                } else                    
+                /*} else                    
                 {
+                    IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
                     participantArrow.SendKeys(participant);                
-                }
+                }*/
 
                 System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
