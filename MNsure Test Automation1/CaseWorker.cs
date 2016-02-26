@@ -689,7 +689,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click(); //coverage period arrow                
 
                 System.Threading.Thread.Sleep(4000);
-                System.Threading.Thread.Sleep(1000);//jk added
+                System.Threading.Thread.Sleep(2000);//jk added
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
