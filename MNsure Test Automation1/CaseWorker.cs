@@ -694,7 +694,7 @@ namespace MNsure_Regression_1
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
-                return 1;//gp added 27 new change jess
+                return 1;//gp added 27 new change Greg jess
             }
             catch (Exception e)
             {

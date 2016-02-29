@@ -94,6 +94,10 @@ namespace MNsure_Regression_1
                         myApplication.myEnrollmentPlanType = reader.GetString(50);
                         myApplication.myFosterCare = reader.GetString(51);
                         myApplication.myMailingAddressYN = reader.GetString(52);
+                        myApplication.myTribeName = reader.GetString(53);
+                        myApplication.myLiveRes = reader.GetString(54);
+                        myApplication.myTribeId = reader.GetString(55);
+                        myApplication.myFederalTribe = reader.GetString(56);
                     }
 
                     

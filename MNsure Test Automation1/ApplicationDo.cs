@@ -316,8 +316,16 @@ namespace MNsure_Regression_1
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[6]/table/tbody/tr/td[1]"));
                 outsideClick.Click();
 
-                IWebElement checkboxRace = driver.FindElement(By.Id("__o3id17"));
-                checkboxRace.Click();
+                if (myApplication.myRace == "Indian")
+                {
+                    IWebElement checkboxRace = driver.FindElement(By.Id("__o3idc"));
+                    checkboxRace.Click();
+                }
+                else
+                {
+                    IWebElement checkboxRace = driver.FindElement(By.Id("__o3id17"));
+                    checkboxRace.Click();
+                }
 
                 IWebElement listboxSSN = driver.FindElement(By.Id("__o3id1c"));
                 listboxSSN.SendKeys(myApplication.mySSN);
@@ -335,8 +343,7 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myApplication.myCitizen);
-                outsideClick.Click();
-                
+                outsideClick.Click();                
 
                 var tempDT = DateTime.Parse(myApplication.myDOB).Year;
                 string tempCutoff = Convert.ToString(DateTime.Now);
@@ -353,6 +360,8 @@ namespace MNsure_Regression_1
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next_label")));
                 IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -750,23 +759,23 @@ namespace MNsure_Regression_1
                 }
 
                 //From 10/31 - 1/1 additional income verification is asked
-                //
-                /* if (mySelectedTest.myInTimeTravel == "Yes")
+
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                  {
-                     if (mySelectedTest.myTimeTravelDate > Convert.ToDateTime("10/31/2015") &&
-                         mySelectedTest.myTimeTravelDate < Convert.ToDateTime("1/1/2016"))
+                     if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
+                         myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
                      {
                          IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                          listboxIncomeNextYear.SendKeys(myApplication.myIncomeExpected);
                      }
                  }
-                 else*/
-                if (DateTime.Now > Convert.ToDateTime("10/31/2015") &&
-                    DateTime.Now < Convert.ToDateTime("1/1/2016"))
+
+                /*if (DateTime.Now > Convert.ToDateTime("10/31/2016") &&
+                    DateTime.Now < Convert.ToDateTime("1/1/2017"))
                 {
                     IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                     listboxIncomeNextYear.SendKeys(myApplication.myIncomeExpected);
-                }
+                }*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -937,7 +946,18 @@ namespace MNsure_Regression_1
                 listboxCondition.SendKeys("No");
 
                 IWebElement listboxNative = driver.FindElement(By.Id("__o3ida"));
-                listboxNative.SendKeys("No");
+                if (myApplication.myRace == "Indian")
+                {
+                    listboxNative.SendKeys("Yes");
+                    IWebElement outsideClick = driver.FindElement(By.Id("__o3id8"));
+                    outsideClick.Click();
+                    IWebElement listboxNativePerson = driver.FindElement(By.Id("__o3idb"));
+                    listboxNativePerson.Click();
+                }
+                else
+                {
+                    listboxNative.SendKeys("No");
+                }
 
                 IWebElement listboxVisitMN = driver.FindElement(By.Id("__o3idc"));
                 listboxVisitMN.SendKeys("No");
@@ -960,6 +980,8 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxMedicaidEligibility = driver.FindElement(By.Id("__o3id16"));
                 listboxMedicaidEligibility.SendKeys("No");
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement listboxMedicaidHome = driver.FindElement(By.Id("__o3id18"));
                 listboxMedicaidHome.SendKeys("No");
@@ -984,7 +1006,6 @@ namespace MNsure_Regression_1
                     IWebElement listboxMAStartDate = driver.FindElement(By.Id("__o3id1c"));
                     listboxMAStartDate.SendKeys("No");
                 }
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next"));
                 buttonNext.Click();
@@ -997,6 +1018,54 @@ namespace MNsure_Regression_1
             {
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail"; 
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoAddInfoIndian(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]")));
+
+                IWebElement listboxFederalTribe = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"));
+                listboxFederalTribe.SendKeys(myApplication.myFederalTribe);
+
+                IWebElement outsideClick = driver.FindElement(By.Id("__o3ida"));
+                outsideClick.Click();
+
+                if (myApplication.myFederalTribe == "Yes")
+                {
+                    IWebElement listboxTribeName = driver.FindElement(By.Id("__o3id7"));
+                    listboxTribeName.SendKeys(myApplication.myTribeName);
+
+                    IWebElement listboxLiveRes = driver.FindElement(By.Id("__o3id8"));
+                    listboxLiveRes.SendKeys(myApplication.myLiveRes);
+                }
+
+                IWebElement listboxTribeId = driver.FindElement(By.Id("__o3ida"));
+                listboxTribeId.SendKeys(myApplication.myTribeId);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;

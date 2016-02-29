@@ -317,6 +317,8 @@ namespace MNsure_Regression_1
                             XlRangeValueDataType.xlRangeValueDefault);
 
                 excelWorksheet.Cells[4, 2] = myHistoryInfo.myIcnumber;
+                excelWorksheet.Cells[3, 5] = myHistoryInfo.myExecutedBy;
+                excelWorksheet.Cells[3, 6] = mystringExecutionDate;
                 excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
                     + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
                     + ", SSN: " + myApplication.mySSNNum + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
@@ -349,7 +351,7 @@ namespace MNsure_Regression_1
                 excelWorksheet2.Cells[4, 3] = "Exception";
 
                 i = 0;
-                int topImagePosition = 200;
+                int topImagePosition = 250;
                 int leftImagePosition = 0;
 
                 foreach (string s in myHistoryInfo.myRequiredScreenshots)

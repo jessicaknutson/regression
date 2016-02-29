@@ -43,6 +43,7 @@ struct mystructHistoryInfo
     public int myCitizenWait;
     public string myInTimeTravel;
     public DateTime myTimeTravelDate;
+    public string myExecutedBy;
 }
 
 struct mystructSelectedTest
@@ -126,6 +127,10 @@ struct mystructSelectedTest
         public string myAuthRep;
         public string myApplyYourself;
         public string myHispanic;
+        public string myFederalTribe;
+        public string myTribeId;
+        public string myTribeName;
+        public string myLiveRes;
         public string myRace;
         public string mySSN;
         public string myCitizen;
@@ -199,6 +204,10 @@ struct mystructSelectedTest
         public string PlanMakeMNHome;
         public string SeekEmplMN;
         public string Hispanic;
+        public string FederalTribe;
+        public string TribeId;
+        public string TribeName;
+        public string LiveRes;
         public string Race;
         public string HaveSSN; 
         public string SSN;

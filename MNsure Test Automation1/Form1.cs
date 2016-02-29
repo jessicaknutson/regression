@@ -441,6 +441,10 @@ namespace MNsure_Regression_1
                             myApplication.myEnrollmentPlanType = reader.GetString(50);
                             myApplication.myFosterCare = reader.GetString(51);
                             myApplication.myMailingAddressYN = reader.GetString(52);
+                            myApplication.myTribeName = reader.GetString(53);
+                            myApplication.myLiveRes = reader.GetString(54);
+                            myApplication.myTribeId = reader.GetString(55);
+                            myApplication.myFederalTribe = reader.GetString(56);
                         }
                         else
                         {
@@ -487,6 +491,8 @@ namespace MNsure_Regression_1
                             myApplication.myCounty = "Hennepin";
                             myApplication.myAptSuite = "Suite 64";
                             myApplication.myHispanic = "No";
+                            myApplication.myLiveRes = "No";
+                            myApplication.myFederalTribe = "No";
                             myApplication.myRace = "White";
                             myApplication.mySSN = "Yes";
                             myApplication.myCitizen = "Yes";
@@ -543,7 +549,11 @@ namespace MNsure_Regression_1
                 comboBoxEnrollAuthRep.Text = myApplication.myAuthRep;
                 comboBoxEnrollApplyYourself.Text = myApplication.myApplyYourself;
                 comboBoxEnrollHispanic.Text = myApplication.myHispanic;
-                checkBoxEnrollWhite.Checked = true;
+                textBoxTribeName.Text = myApplication.myTribeName;
+                textBoxTribeId.Text = myApplication.myTribeId;
+                comboBoxRace.Text = myApplication.myRace; 
+                comboBoxLiveRes.Text = myApplication.myLiveRes;
+                comboBoxFederalTribe.Text = myApplication.myFederalTribe;
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
@@ -570,8 +580,6 @@ namespace MNsure_Regression_1
             radioButtonInformation.Checked = true;
             buttonSaveConfiguration.BackColor = Color.Yellow;
         }
-
-
 
         private void buttonSaveConfiguration_Click(object sender, EventArgs e)
         {
@@ -628,10 +636,11 @@ namespace MNsure_Regression_1
             myApplication.myAuthRep = comboBoxEnrollAuthRep.Text;
             myApplication.myApplyYourself = comboBoxEnrollApplyYourself.Text;
             myApplication.myHispanic = comboBoxEnrollHispanic.Text;
-            if (checkBoxEnrollWhite.Checked == true)
-            {
-                myApplication.myRace = "White";
-            }
+            myApplication.myRace = comboBoxRace.Text;
+            myApplication.myTribeName = textBoxTribeName.Text;
+            myApplication.myTribeId = textBoxTribeId.Text;
+            myApplication.myLiveRes = comboBoxLiveRes.Text;
+            myApplication.myFederalTribe = comboBoxFederalTribe.Text;
             myApplication.mySSN = comboBoxEnrollSSN.Text;
             myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
             myApplication.myCitizen = comboBoxEnrollCitizen.Text;
@@ -675,7 +684,7 @@ namespace MNsure_Regression_1
                 "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
                 "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @Address1, @Address2, @City, @State, " +
                 "@Zip, @Zip4, @AddressSame, @County, @AptSuite, @Hispanic, @Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN," +
-                "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN );";
+                "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe );";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -712,6 +721,10 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("County", myApplication.myCounty);
                     com2.Parameters.AddWithValue("AptSuite", myApplication.myAptSuite);
                     com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
+                    com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
+                    com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
+                    com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
+                    com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
@@ -1250,6 +1263,10 @@ namespace MNsure_Regression_1
                 comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
                 comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
                 comboBoxHMHispanic.Text = myHouseholdMembers.Hispanic;
+                textBoxTribeName.Text = myHouseholdMembers.TribeName;
+                textBoxTribeId.Text = myHouseholdMembers.TribeId;
+                comboBoxLiveRes.Text = myHouseholdMembers.LiveRes;
+                comboBoxFederalTribe.Text = myHouseholdMembers.FederalTribe;
                 comboBoxHMRace.Text = myHouseholdMembers.Race;
                 comboBoxHMHaveSSN.Text = myHouseholdMembers.HaveSSN;
                 textBoxHMSSN.Text = myHouseholdMembers.SSN;
@@ -1262,8 +1279,6 @@ namespace MNsure_Regression_1
                 comboBoxRelToNextMem.Text = myHouseholdMembers.RelationshiptoNextHM;
 
                 textBoxCurrentMember.Text = "2";
-
-
             }
 
             textBoxTotalMembers.Text = Convert.ToString(myHouseholdMembers.NumMembers + 1);
@@ -1315,6 +1330,10 @@ namespace MNsure_Regression_1
             myHouseholdMembers.SeekEmplMN = comboBoxHMSeekingEmployment.Text;
             myHouseholdMembers.PersonHighlighted = comboBoxHMPersonHighlighted.Text;
             myHouseholdMembers.Hispanic = comboBoxHMHispanic.Text;
+            myHouseholdMembers.TribeName = textBoxTribeName.Text;
+            myHouseholdMembers.TribeId = textBoxTribeId.Text;
+            myHouseholdMembers.LiveRes = comboBoxLiveRes.Text;
+            myHouseholdMembers.FederalTribe = comboBoxFederalTribe.Text;
             myHouseholdMembers.Race = comboBoxHMRace.Text;
             myHouseholdMembers.HaveSSN = comboBoxHMHaveSSN.Text;
             myHouseholdMembers.SSN = textBoxHMSSN.Text;
@@ -1347,7 +1366,7 @@ namespace MNsure_Regression_1
                 ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
                 "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN,   @TempAbsentMN, @Homeless, @Address1, @Address2, @AptSuite, @City, @State, " +
                 "@Zip, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
-                "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM);";
+                "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe);";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -1373,6 +1392,10 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("PlanMakeMNHome", myHouseholdMembers.PlanMakeMNHome);
                     com2.Parameters.AddWithValue("SeekingEmployment", myHouseholdMembers.SeekEmplMN);
                     com2.Parameters.AddWithValue("Hispanic", myHouseholdMembers.Hispanic);
+                    com2.Parameters.AddWithValue("FederalTribe", myHouseholdMembers.FederalTribe);
+                    com2.Parameters.AddWithValue("TribeName", myHouseholdMembers.TribeName);
+                    com2.Parameters.AddWithValue("LiveRes", myHouseholdMembers.LiveRes);
+                    com2.Parameters.AddWithValue("TribeId", myHouseholdMembers.TribeId);
                     com2.Parameters.AddWithValue("Race", myHouseholdMembers.Race);
                     com2.Parameters.AddWithValue("HaveSSN", myHouseholdMembers.HaveSSN);
                     com2.Parameters.AddWithValue("SSN", myHouseholdMembers.SSN);
@@ -1439,6 +1462,10 @@ namespace MNsure_Regression_1
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
             comboBoxHMHispanic.Text = myHouseholdMembers.Hispanic;
+            textBoxTribeName.Text = myHouseholdMembers.TribeName;
+            textBoxTribeId.Text = myHouseholdMembers.TribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.LiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.FederalTribe;
             comboBoxHMRace.Text = myHouseholdMembers.Race;
             comboBoxHMHaveSSN.Text = myHouseholdMembers.HaveSSN;
             textBoxHMSSN.Text = myHouseholdMembers.SSN;
@@ -1499,6 +1526,10 @@ namespace MNsure_Regression_1
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
             comboBoxHMHispanic.Text = myHouseholdMembers.Hispanic;
+            textBoxTribeName.Text = myHouseholdMembers.TribeName;
+            textBoxTribeId.Text = myHouseholdMembers.TribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.LiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.FederalTribe;
             comboBoxHMRace.Text = myHouseholdMembers.Race;
             comboBoxHMHaveSSN.Text = myHouseholdMembers.HaveSSN;
             textBoxHMSSN.Text = myHouseholdMembers.SSN;
@@ -1558,6 +1589,10 @@ namespace MNsure_Regression_1
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
             comboBoxHMHispanic.Text = myHouseholdMembers.Hispanic;
+            textBoxTribeName.Text = myHouseholdMembers.TribeName;
+            textBoxTribeId.Text = myHouseholdMembers.TribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.LiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.FederalTribe;
             comboBoxHMRace.Text = myHouseholdMembers.Race;
             comboBoxHMHaveSSN.Text = myHouseholdMembers.HaveSSN;
             textBoxHMSSN.Text = myHouseholdMembers.SSN;
@@ -3793,6 +3828,11 @@ namespace MNsure_Regression_1
 
             bs.RaiseListChangedEvents = true;
             bs.ResetBindings(false);
+        }
+
+        private void textBoxExecutedBy_TextChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myExecutedBy = textBoxExecutedBy.Text;
         }
 
 
