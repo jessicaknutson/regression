@@ -48,10 +48,10 @@ namespace MNsure_Regression_1
         private void buttonGo_Click(object sender, EventArgs e)
         {
 
-            myHistoryInfo.myRequiredScreenshots = new string[100];
-            myHistoryInfo.myRequiredStep = new int[100];
-            myHistoryInfo.myRequiredStepStatus = new string[100];
-            myHistoryInfo.myRequiredScreenshotFile = new string[100];
+            myHistoryInfo.myRequiredScreenshots = new string[30];
+            myHistoryInfo.myRequiredStep = new int[30];
+            myHistoryInfo.myRequiredStepStatus = new string[30];
+            myHistoryInfo.myRequiredScreenshotFile = new string[30];
             myHistoryInfo.myTestStartTime = DateTime.Now;
             this.WindowState = FormWindowState.Minimized;
 

@@ -289,16 +289,17 @@ namespace MNsure_Regression_1
             try
             {
                 driver.Manage().Window.Maximize();
-
+                //System.Threading.Thread.Sleep(4000);
                 //Wait for Username field
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"))));
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("username")));
 
                 //Enter username
-                IWebElement myselectUsername = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
+                //IWebElement myselectUsername = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
+                IWebElement myselectUsername = driver.FindElement(By.Id("username"));
                 myselectUsername.SendKeys(myAccountCreate.myUsername);
 
                 //Enter password
-                IWebElement myselectPassword = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input"));
+                IWebElement myselectPassword = driver.FindElement(By.Id("password"));
                 myselectPassword.SendKeys(myAccountCreate.myPassword);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);

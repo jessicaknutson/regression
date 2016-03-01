@@ -174,9 +174,7 @@ struct mystructSelectedTest
         public string myPhone;
         public int myAccountSaveFileNum;
         public string myAccountSaveFileName;
-
     }
-
 
     struct mystructHouseholdMembers
     {

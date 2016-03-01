@@ -133,6 +133,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement3);
 
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys(myEnrollment.mySSNNum);
+                //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344685397");
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search by ssn
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -344,7 +345,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoProofIncome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo,
+        public int DoAddProof(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             int timeOut = myHistoryInfo.myCaseWorkerWait;
@@ -352,38 +353,31 @@ namespace MNsure_Regression_1
             try
             {
                 System.Threading.Thread.Sleep(2000);
-                /*new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"))));
-                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"));
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[6]/div[2]"))));
-                IWebElement myParticipantAge = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[6]/div[2]"));
-                String participantAge = myParticipantAge.Text;
+                //Find outstanding verification items
+                var elems = driver.FindElements(By.XPath("//td[@class='last-field list-row-menu']"));
+                IList<IWebElement> list = elems;
+                for (int j = 0; j < list.Count; j++)
+                {
+                    driver.SwitchTo().DefaultContent();
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
+                    var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
+                    driver.SwitchTo().Frame(iFrameElement2);
 
-                driver.SwitchTo().DefaultContent();*/
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
-                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span"))));
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow
+                    driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
 
-                /*new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[4]/a"))));
-                IWebElement myParticipant = driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[4]/a"));
-                String participant = myParticipant.Text;                
+                    System.Threading.Thread.Sleep(2000);
+                    driver.SwitchTo().Window(driver.WindowHandles.Last());
 
-                participant = participant + " (" + participantAge.Substring(0, 2) + ")";*/
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]")));
+                    var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
+                    driver.SwitchTo().Frame(iFrameElement3);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span"))));
-                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow
-                driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
-
-                System.Threading.Thread.Sleep(2000);
-                driver.SwitchTo().Window(driver.WindowHandles.Last());
-
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]")));
-                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement3);
-
-                /*if (participant == null)
-                {*/
                     IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
                     participantArrow.Click();//select participant arrow
                     System.Threading.Thread.Sleep(1000);
@@ -391,124 +385,13 @@ namespace MNsure_Regression_1
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-                /*} else                    
-                {
-                    IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                    participantArrow.SendKeys(participant);                
-                }*/
 
-                System.Threading.Thread.Sleep(2000);
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                    System.Threading.Thread.Sleep(2000);
+                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-
-                returnStatus = "Pass";
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 1;
-            }
-            catch (Exception e)
-            {
-                returnException = Convert.ToString(e);
-                returnStatus = "Fail";
-                myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 2;
-            }
-        }
-
-        public int DoProofCitizen(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
-        {
-            int timeOut = myHistoryInfo.myCaseWorkerWait;
-
-            try
-            {
-                System.Threading.Thread.Sleep(4000);
-                driver.SwitchTo().DefaultContent();
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
-                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);
-
-                System.Threading.Thread.Sleep(4000);
-                // Cause the popup to appear
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span"))));
-                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span")).Click();//select arrow
-                driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
-
-                System.Threading.Thread.Sleep(2000);
-                driver.SwitchTo().Window(driver.WindowHandles.Last());
-
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]")));
-                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);
-
-                IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                participantArrow.Click();
-                System.Threading.Thread.Sleep(1000);
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
-                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-
-                System.Threading.Thread.Sleep(2000);
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-
-                driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-
-                returnStatus = "Pass";
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 1;
-            }
-            catch (Exception e)
-            {
-                returnException = Convert.ToString(e);
-                returnStatus = "Fail";
-                myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 2;
-            }
-        }
-
-        public int DoProofSSN(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
-        {
-            int timeOut = myHistoryInfo.myCaseWorkerWait;
-
-            try
-            {
-                System.Threading.Thread.Sleep(4000);
-                driver.SwitchTo().DefaultContent();
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"))));
-                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);
-
-                System.Threading.Thread.Sleep(4000);
-                // Cause the popup to appear
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span"))));
-                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span")).Click();//select arrow
-                driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
-
-                System.Threading.Thread.Sleep(2000);
-                driver.SwitchTo().Window(driver.WindowHandles.Last());
-
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]")));
-                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);
-
-                IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                participantArrow.Click();
-                System.Threading.Thread.Sleep(1000);
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
-                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-
-                System.Threading.Thread.Sleep(2000);
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-
-                driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
+                    driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
+                    System.Threading.Thread.Sleep(5000);
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;

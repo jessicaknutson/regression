@@ -94,13 +94,37 @@ namespace MNsure_Regression_1
                         myApplication.myEnrollmentPlanType = reader.GetString(50);
                         myApplication.myFosterCare = reader.GetString(51);
                         myApplication.myMailingAddressYN = reader.GetString(52);
-                        myApplication.myTribeName = reader.GetString(53);
-                        myApplication.myLiveRes = reader.GetString(54);
-                        myApplication.myTribeId = reader.GetString(55);
-                        myApplication.myFederalTribe = reader.GetString(56);
-                    }
-
-                    
+                        if (reader.GetString(53) == null)
+                        {
+                        } else 
+                        {
+                            myApplication.myTribeName = reader.GetString(53);
+                        }
+                        if (reader.GetString(54) == null)
+                        {
+                        }
+                        else
+                        {
+                            myApplication.myLiveRes = reader.GetString(54);
+                        }
+                        
+                        if (reader.GetString(55) == null)
+                        {
+                        }
+                        else
+                        {
+                            myApplication.myTribeId = reader.GetString(55);
+                        }
+                        
+                        if (reader.GetString(56) == null)
+                        {
+                        }
+                        else
+                        {
+                            myApplication.myFederalTribe = reader.GetString(56);
+                        }
+                        
+                    }                    
                 }
 
                 using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))

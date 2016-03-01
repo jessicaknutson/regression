@@ -230,7 +230,6 @@ namespace MNsure_Regression_1
                                 Novacode.Picture pic1 = img.CreatePicture();     // Create picture.
                                 pic1.SetPictureShape(BasicShapes.cube); // Set picture shape (if needed)
                                 p.InsertPicture(pic1, 0); // Insert picture into paragraph.
-
                             }
                         }
 
@@ -331,14 +330,9 @@ namespace MNsure_Regression_1
                     {
                         excelWorksheet.Cells[myHistoryInfo.myRequiredStep[i], 6] = myHistoryInfo.myRequiredStepStatus[i];
                     }
-                    else if (myHistoryInfo.myRequiredStepStatus[i + 1] == "Fail")
-                    {
-                        excelWorksheet.Cells[(myHistoryInfo.myRequiredStep[i]), 6] = myHistoryInfo.myRequiredStepStatus[i + 1];
-                        break;
-                    }
                     else
                     {
-                        break;
+                        //do nothing
                     }
                     i = i + 1;
                 }
@@ -346,11 +340,12 @@ namespace MNsure_Regression_1
                 currentSheet = "Screenshots";
                 Microsoft.Office.Interop.Excel.Worksheet excelWorksheet2 = (Microsoft.Office.Interop.Excel.Worksheet)xcelSheets.get_Item(currentSheet);
                 excelRange = excelWorksheet.UsedRange;
-                excelWorksheet2.Cells[4, 1] = "Window";
-                excelWorksheet2.Cells[4, 2] = "Step Status";
-                excelWorksheet2.Cells[4, 3] = "Exception";
+                excelWorksheet2.Cells[1, 1] = "Window";
+                excelWorksheet2.Cells[1, 2] = "Step Status";
+                excelWorksheet2.Cells[1, 3] = "Exception";
 
                 i = 0;
+                int j = 2;
                 int topImagePosition = 250;
                 int leftImagePosition = 0;
 
@@ -360,15 +355,18 @@ namespace MNsure_Regression_1
                     {
                         if (myHistoryInfo.myRequiredStepStatus[i] == "Fail")
                         {
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 1] = myHistoryInfo.myRequiredScreenshots[i - 1];
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 2] = myHistoryInfo.myRequiredStepStatus[i];
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 3] = "Failed on: " + myHistoryInfo.myTestStepWindow;
+                            excelWorksheet2.Cells[j, 1] = myHistoryInfo.myRequiredScreenshots[i];
+                            excelWorksheet2.Cells[j, 2] = myHistoryInfo.myRequiredStepStatus[i];
+                            excelWorksheet2.Cells[j, 3] = "Failed on: " + myHistoryInfo.myTestStepWindow;
+                            j = j + 1;
                         }
                         else
                         {
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 1] = myHistoryInfo.myRequiredScreenshots[i];
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 2] = myHistoryInfo.myRequiredStepStatus[i];
-                            excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 3] = "N/A";
+                            excelWorksheet2.Cells[j, 1] = myHistoryInfo.myRequiredScreenshots[i];
+                            //excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 1] = myHistoryInfo.myRequiredScreenshots[i];
+                            excelWorksheet2.Cells[j, 2] = myHistoryInfo.myRequiredStepStatus[i];
+                            excelWorksheet2.Cells[j, 3] = "N/A";
+                            j = j + 1;
                         }
 
                         excelWorksheet2.Shapes.AddPicture(myHistoryInfo.myRequiredScreenshotFile[i], MsoTriState.msoFalse, MsoTriState.msoCTrue, leftImagePosition, topImagePosition, 900, 600);
@@ -532,13 +530,17 @@ namespace MNsure_Regression_1
                     {
                         if (s == null)
                         {
+                            //do nothing
+                        }
+                        else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
+                        {
                             driver.Manage().Window.Maximize();
-                            //driver.Manage().Window.Size = new System.Drawing.Size(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - 10, System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - 10);
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
                             myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + ".jpg";
                             ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
-                            myHistoryInfo.myRequiredStepStatus[i - 1] = myHistoryInfo.myTestStepStatus;
-                            myHistoryInfo.myRequiredScreenshotFile[i - 1] = myHistoryInfo.myScreenShot;
+
+                            myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
+                            myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                             break;
                         }
                         i = i + 1;
