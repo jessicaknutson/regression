@@ -17,7 +17,7 @@ using System.Net;
 using System.Data.Sql;
 
 using System.Data.SqlClient;
-using System.Data.SqlServerCe;
+using System.Data.SqlServerCe;//
 
 
 namespace MNsure_Regression_1

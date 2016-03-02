@@ -19,7 +19,7 @@ namespace MNsure_Regression_1.Properties {
         
         public static Settings Default {
             get {
-                return defaultInstance;
+                return defaultInstance;//
             }
         }
         

@@ -13,8 +13,6 @@ namespace MNsure_Regression_1
     {
         public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
         {
-            //  SqlCeConnection con;
-
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             con = new SqlCeConnection(conString);
@@ -127,14 +125,14 @@ namespace MNsure_Regression_1
                     }                    
                 }
 
-                using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
+                /*using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
                 {
                     SqlCeDataReader reader2 = com3.ExecuteReader();
                     if (reader2.Read())
                     {
                         myHistoryInfo.myTemplate = reader2.GetString(0);
                     }
-                }
+                }*/
                 con.Close();
                 return 1;
             }

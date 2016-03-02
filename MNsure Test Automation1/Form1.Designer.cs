@@ -35,6 +35,8 @@
             this.dataGridViewTestRunHistory = new System.Windows.Forms.DataGridView();
             this.tabPageRun = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBoxExecutedBy = new System.Windows.Forms.TextBox();
+            this.label118 = new System.Windows.Forms.Label();
             this.checkBoxTimeTravel = new System.Windows.Forms.CheckBox();
             this.dateTimePickerTimeTravel = new System.Windows.Forms.DateTimePicker();
             this.label104 = new System.Windows.Forms.Label();
@@ -81,6 +83,12 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.textBoxHMTribeId = new System.Windows.Forms.TextBox();
+            this.textBoxHMTribeName = new System.Windows.Forms.TextBox();
+            this.label117 = new System.Windows.Forms.Label();
+            this.label116 = new System.Windows.Forms.Label();
+            this.comboBoxHMLiveRes = new System.Windows.Forms.ComboBox();
+            this.label115 = new System.Windows.Forms.Label();
             this.comboBoxHMFederalTribe = new System.Windows.Forms.ComboBox();
             this.label50 = new System.Windows.Forms.Label();
             this.comboBoxRelToNextMem = new System.Windows.Forms.ComboBox();
@@ -165,6 +173,7 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxRace = new System.Windows.Forms.ComboBox();
             this.textBoxTribeId = new System.Windows.Forms.TextBox();
             this.label114 = new System.Windows.Forms.Label();
             this.comboBoxLiveRes = new System.Windows.Forms.ComboBox();
@@ -320,15 +329,10 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label115 = new System.Windows.Forms.Label();
-            this.comboBoxHMLiveRes = new System.Windows.Forms.ComboBox();
-            this.label116 = new System.Windows.Forms.Label();
-            this.label117 = new System.Windows.Forms.Label();
-            this.textBoxHMTribeName = new System.Windows.Forms.TextBox();
-            this.textBoxHMTribeId = new System.Windows.Forms.TextBox();
-            this.comboBoxRace = new System.Windows.Forms.ComboBox();
-            this.label118 = new System.Windows.Forms.Label();
-            this.textBoxExecutedBy = new System.Windows.Forms.TextBox();
+            this.label119 = new System.Windows.Forms.Label();
+            this.comboBoxMilitary = new System.Windows.Forms.ComboBox();
+            this.label120 = new System.Windows.Forms.Label();
+            this.dateTimeMilitary = new System.Windows.Forms.DateTimePicker();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -452,6 +456,23 @@
             this.groupBox8.Size = new System.Drawing.Size(623, 116);
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
+            // 
+            // textBoxExecutedBy
+            // 
+            this.textBoxExecutedBy.Location = new System.Drawing.Point(110, 50);
+            this.textBoxExecutedBy.Name = "textBoxExecutedBy";
+            this.textBoxExecutedBy.Size = new System.Drawing.Size(156, 20);
+            this.textBoxExecutedBy.TabIndex = 18;
+            this.textBoxExecutedBy.TextChanged += new System.EventHandler(this.textBoxExecutedBy_TextChanged);
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Location = new System.Drawing.Point(34, 53);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(70, 13);
+            this.label118.TabIndex = 17;
+            this.label118.Text = "Executed By:";
             // 
             // checkBoxTimeTravel
             // 
@@ -1010,6 +1031,58 @@
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
+            // 
+            // textBoxHMTribeId
+            // 
+            this.textBoxHMTribeId.Location = new System.Drawing.Point(394, 432);
+            this.textBoxHMTribeId.Name = "textBoxHMTribeId";
+            this.textBoxHMTribeId.Size = new System.Drawing.Size(131, 20);
+            this.textBoxHMTribeId.TabIndex = 83;
+            // 
+            // textBoxHMTribeName
+            // 
+            this.textBoxHMTribeName.Location = new System.Drawing.Point(327, 459);
+            this.textBoxHMTribeName.Name = "textBoxHMTribeName";
+            this.textBoxHMTribeName.Size = new System.Drawing.Size(131, 20);
+            this.textBoxHMTribeName.TabIndex = 82;
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(342, 438);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(46, 13);
+            this.label117.TabIndex = 81;
+            this.label117.Text = "Tribe Id:";
+            // 
+            // label116
+            // 
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(258, 463);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(65, 13);
+            this.label116.TabIndex = 80;
+            this.label116.Text = "Tribe Name:";
+            // 
+            // comboBoxHMLiveRes
+            // 
+            this.comboBoxHMLiveRes.FormattingEnabled = true;
+            this.comboBoxHMLiveRes.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.comboBoxHMLiveRes.Location = new System.Drawing.Point(213, 459);
+            this.comboBoxHMLiveRes.Name = "comboBoxHMLiveRes";
+            this.comboBoxHMLiveRes.Size = new System.Drawing.Size(39, 21);
+            this.comboBoxHMLiveRes.TabIndex = 79;
+            // 
+            // label115
+            // 
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(144, 463);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(70, 13);
+            this.label115.TabIndex = 78;
+            this.label115.Text = "Live on Res?";
             // 
             // comboBoxHMFederalTribe
             // 
@@ -1887,6 +1960,10 @@
             // 
             // groupBoxMoreAboutYou
             // 
+            this.groupBoxMoreAboutYou.Controls.Add(this.dateTimeMilitary);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label120);
+            this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxMilitary);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label119);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxRace);
             this.groupBoxMoreAboutYou.Controls.Add(this.textBoxTribeId);
             this.groupBoxMoreAboutYou.Controls.Add(this.label114);
@@ -1915,9 +1992,20 @@
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
             // 
+            // comboBoxRace
+            // 
+            this.comboBoxRace.FormattingEnabled = true;
+            this.comboBoxRace.Items.AddRange(new object[] {
+            "White",
+            "Indian"});
+            this.comboBoxRace.Location = new System.Drawing.Point(203, 21);
+            this.comboBoxRace.Name = "comboBoxRace";
+            this.comboBoxRace.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxRace.TabIndex = 22;
+            // 
             // textBoxTribeId
             // 
-            this.textBoxTribeId.Location = new System.Drawing.Point(197, 88);
+            this.textBoxTribeId.Location = new System.Drawing.Point(197, 70);
             this.textBoxTribeId.Name = "textBoxTribeId";
             this.textBoxTribeId.Size = new System.Drawing.Size(117, 20);
             this.textBoxTribeId.TabIndex = 21;
@@ -1925,7 +2013,7 @@
             // label114
             // 
             this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(148, 91);
+            this.label114.Location = new System.Drawing.Point(148, 73);
             this.label114.Name = "label114";
             this.label114.Size = new System.Drawing.Size(43, 13);
             this.label114.TabIndex = 20;
@@ -1937,7 +2025,7 @@
             this.comboBoxLiveRes.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxLiveRes.Location = new System.Drawing.Point(87, 87);
+            this.comboBoxLiveRes.Location = new System.Drawing.Point(87, 69);
             this.comboBoxLiveRes.Name = "comboBoxLiveRes";
             this.comboBoxLiveRes.Size = new System.Drawing.Size(47, 21);
             this.comboBoxLiveRes.TabIndex = 19;
@@ -1945,7 +2033,7 @@
             // label113
             // 
             this.label113.AutoSize = true;
-            this.label113.Location = new System.Drawing.Point(18, 91);
+            this.label113.Location = new System.Drawing.Point(18, 73);
             this.label113.Name = "label113";
             this.label113.Size = new System.Drawing.Size(70, 13);
             this.label113.TabIndex = 18;
@@ -1953,7 +2041,7 @@
             // 
             // textBoxTribeName
             // 
-            this.textBoxTribeName.Location = new System.Drawing.Point(210, 53);
+            this.textBoxTribeName.Location = new System.Drawing.Point(210, 45);
             this.textBoxTribeName.Name = "textBoxTribeName";
             this.textBoxTribeName.Size = new System.Drawing.Size(117, 20);
             this.textBoxTribeName.TabIndex = 17;
@@ -1961,7 +2049,7 @@
             // label112
             // 
             this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(146, 57);
+            this.label112.Location = new System.Drawing.Point(146, 48);
             this.label112.Name = "label112";
             this.label112.Size = new System.Drawing.Size(62, 13);
             this.label112.TabIndex = 16;
@@ -1973,7 +2061,7 @@
             this.comboBoxFederalTribe.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxFederalTribe.Location = new System.Drawing.Point(88, 50);
+            this.comboBoxFederalTribe.Location = new System.Drawing.Point(88, 45);
             this.comboBoxFederalTribe.Name = "comboBoxFederalTribe";
             this.comboBoxFederalTribe.Size = new System.Drawing.Size(47, 21);
             this.comboBoxFederalTribe.TabIndex = 14;
@@ -1981,7 +2069,7 @@
             // label26
             // 
             this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(15, 53);
+            this.label26.Location = new System.Drawing.Point(15, 48);
             this.label26.Name = "label26";
             this.label26.Size = new System.Drawing.Size(75, 13);
             this.label26.TabIndex = 13;
@@ -2028,7 +2116,7 @@
             this.comboBoxEnrollHispanic.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollHispanic.Location = new System.Drawing.Point(112, 18);
+            this.comboBoxEnrollHispanic.Location = new System.Drawing.Point(112, 21);
             this.comboBoxEnrollHispanic.Name = "comboBoxEnrollHispanic";
             this.comboBoxEnrollHispanic.Size = new System.Drawing.Size(42, 21);
             this.comboBoxEnrollHispanic.TabIndex = 8;
@@ -3463,85 +3551,44 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label115
+            // label119
             // 
-            this.label115.AutoSize = true;
-            this.label115.Location = new System.Drawing.Point(144, 463);
-            this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(70, 13);
-            this.label115.TabIndex = 78;
-            this.label115.Text = "Live on Res?";
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(37, 98);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(45, 13);
+            this.label119.TabIndex = 23;
+            this.label119.Text = "Military?";
             // 
-            // comboBoxHMLiveRes
+            // comboBoxMilitary
             // 
-            this.comboBoxHMLiveRes.FormattingEnabled = true;
-            this.comboBoxHMLiveRes.Items.AddRange(new object[] {
-            "No",
-            "Yes"});
-            this.comboBoxHMLiveRes.Location = new System.Drawing.Point(213, 459);
-            this.comboBoxHMLiveRes.Name = "comboBoxHMLiveRes";
-            this.comboBoxHMLiveRes.Size = new System.Drawing.Size(39, 21);
-            this.comboBoxHMLiveRes.TabIndex = 79;
+            this.comboBoxMilitary.FormattingEnabled = true;
+            this.comboBoxMilitary.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxMilitary.Location = new System.Drawing.Point(87, 95);
+            this.comboBoxMilitary.Name = "comboBoxMilitary";
+            this.comboBoxMilitary.Size = new System.Drawing.Size(47, 21);
+            this.comboBoxMilitary.TabIndex = 24;
             // 
-            // label116
+            // label120
             // 
-            this.label116.AutoSize = true;
-            this.label116.Location = new System.Drawing.Point(258, 463);
-            this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(65, 13);
-            this.label116.TabIndex = 80;
-            this.label116.Text = "Tribe Name:";
+            this.label120.AutoSize = true;
+            this.label120.Location = new System.Drawing.Point(140, 99);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(73, 13);
+            this.label120.TabIndex = 25;
+            this.label120.Text = "Military Ended";
             // 
-            // label117
+            // dateTimeMilitary
             // 
-            this.label117.AutoSize = true;
-            this.label117.Location = new System.Drawing.Point(342, 438);
-            this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(46, 13);
-            this.label117.TabIndex = 81;
-            this.label117.Text = "Tribe Id:";
-            // 
-            // textBoxHMTribeName
-            // 
-            this.textBoxHMTribeName.Location = new System.Drawing.Point(327, 459);
-            this.textBoxHMTribeName.Name = "textBoxHMTribeName";
-            this.textBoxHMTribeName.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMTribeName.TabIndex = 82;
-            // 
-            // textBoxHMTribeId
-            // 
-            this.textBoxHMTribeId.Location = new System.Drawing.Point(394, 432);
-            this.textBoxHMTribeId.Name = "textBoxHMTribeId";
-            this.textBoxHMTribeId.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMTribeId.TabIndex = 83;
-            // 
-            // comboBoxRace
-            // 
-            this.comboBoxRace.FormattingEnabled = true;
-            this.comboBoxRace.Items.AddRange(new object[] {
-            "White",
-            "Indian"});
-            this.comboBoxRace.Location = new System.Drawing.Point(203, 16);
-            this.comboBoxRace.Name = "comboBoxRace";
-            this.comboBoxRace.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxRace.TabIndex = 22;
-            // 
-            // label118
-            // 
-            this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(34, 53);
-            this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(70, 13);
-            this.label118.TabIndex = 17;
-            this.label118.Text = "Executed By:";
-            // 
-            // textBoxExecutedBy
-            // 
-            this.textBoxExecutedBy.Location = new System.Drawing.Point(110, 50);
-            this.textBoxExecutedBy.Name = "textBoxExecutedBy";
-            this.textBoxExecutedBy.Size = new System.Drawing.Size(156, 20);
-            this.textBoxExecutedBy.TabIndex = 18;
-            this.textBoxExecutedBy.TextChanged += new System.EventHandler(this.textBoxExecutedBy_TextChanged);
+            this.dateTimeMilitary.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeMilitary.Location = new System.Drawing.Point(217, 95);
+            this.dateTimeMilitary.MaxDate = new System.DateTime(2115, 12, 31, 0, 0, 0, 0);
+            this.dateTimeMilitary.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dateTimeMilitary.Name = "dateTimeMilitary";
+            this.dateTimeMilitary.Size = new System.Drawing.Size(97, 20);
+            this.dateTimeMilitary.TabIndex = 26;
             // 
             // FormMain
             // 
@@ -3908,6 +3955,10 @@
         private System.Windows.Forms.ComboBox comboBoxRace;
         private System.Windows.Forms.TextBox textBoxExecutedBy;
         private System.Windows.Forms.Label label118;
+        private System.Windows.Forms.ComboBox comboBoxMilitary;
+        private System.Windows.Forms.Label label119;
+        private System.Windows.Forms.Label label120;
+        private System.Windows.Forms.DateTimePicker dateTimeMilitary;
 
     }
 }

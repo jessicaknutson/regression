@@ -68,8 +68,7 @@ namespace MNsure_Regression_1
             mysTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
             mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
             myHistoryInfo.myTestId = mysTestId;
-            myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";
-            myHistoryInfo.myTestStepStatus = "none";
+            myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";            
 
             int iloop = 1;
 
@@ -90,17 +89,31 @@ namespace MNsure_Regression_1
                 FirefoxDriver driver = new FirefoxDriver();
                 driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
 
+                myHistoryInfo.myTestStepStatus = "none";
                 mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
                 mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
                 myHistoryInfo.myTestId = mysTestId;
+                
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
+                {
+                    SqlCeDataReader reader2 = com3.ExecuteReader();
+                    if (reader2.Read())
+                    {
+                        myHistoryInfo.myTemplate = reader2.GetString(0);
+                    }
+                }
+                con.Close();
+
                 result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
                 result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
 
                 try
                 {
                     //Fill structures for Test
-                    InitializeSSN myIntializeSSN = new InitializeSSN();
-                    result = myIntializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
+                    InitializeSSN myInitializeSSN = new InitializeSSN();
+                    result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                     myAccountCreate.mySSN = Convert.ToString(temp1);
                     FillStructures myFillStructures = new FillStructures();
@@ -108,8 +121,8 @@ namespace MNsure_Regression_1
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
                     myLastSSN.myLastSSN = myApplication.mySSNNum;
-                    InitializeSSN myInitializeSSN = new InitializeSSN();
-                    result = myInitializeSSN.DoWriteLines(ref myLastSSN, myReadFileValues);
+                    InitializeSSN myInitializeSSN2 = new InitializeSSN();
+                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
 
                     con = new SqlCeConnection(conString);
                     con.Open();
@@ -445,6 +458,8 @@ namespace MNsure_Regression_1
                             myApplication.myLiveRes = reader.GetString(54);
                             myApplication.myTribeId = reader.GetString(55);
                             myApplication.myFederalTribe = reader.GetString(56);
+                            myApplication.myMilitary = reader.GetString(57);
+                            myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(58)); 
                         }
                         else
                         {
@@ -493,6 +508,7 @@ namespace MNsure_Regression_1
                             myApplication.myHispanic = "No";
                             myApplication.myLiveRes = "No";
                             myApplication.myFederalTribe = "No";
+                            myApplication.myMilitary = "No";
                             myApplication.myRace = "White";
                             myApplication.mySSN = "Yes";
                             myApplication.myCitizen = "Yes";
@@ -554,6 +570,8 @@ namespace MNsure_Regression_1
                 comboBoxRace.Text = myApplication.myRace; 
                 comboBoxLiveRes.Text = myApplication.myLiveRes;
                 comboBoxFederalTribe.Text = myApplication.myFederalTribe;
+                comboBoxMilitary.Text = myApplication.myMilitary;
+                dateTimeMilitary.Text = myApplication.myMilitaryDate;
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
@@ -641,6 +659,8 @@ namespace MNsure_Regression_1
             myApplication.myTribeId = textBoxTribeId.Text;
             myApplication.myLiveRes = comboBoxLiveRes.Text;
             myApplication.myFederalTribe = comboBoxFederalTribe.Text;
+            myApplication.myMilitary = comboBoxMilitary.Text;
+            myApplication.myMilitaryDate = dateTimeMilitary.Text;
             myApplication.mySSN = comboBoxEnrollSSN.Text;
             myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
             myApplication.myCitizen = comboBoxEnrollCitizen.Text;
@@ -684,7 +704,7 @@ namespace MNsure_Regression_1
                 "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
                 "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @Address1, @Address2, @City, @State, " +
                 "@Zip, @Zip4, @AddressSame, @County, @AptSuite, @Hispanic, @Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN," +
-                "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe );";
+                "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -725,6 +745,8 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
                     com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
                     com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
+                    com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
+                    com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);

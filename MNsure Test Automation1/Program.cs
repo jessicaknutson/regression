@@ -130,6 +130,8 @@ struct mystructSelectedTest
         public string myFederalTribe;
         public string myTribeId;
         public string myTribeName;
+        public string myMilitary;
+        public string myMilitaryDate;
         public string myLiveRes;
         public string myRace;
         public string mySSN;
@@ -205,6 +207,8 @@ struct mystructSelectedTest
         public string FederalTribe;
         public string TribeId;
         public string TribeName;
+        public string Military;
+        public string MilitaryDate;
         public string LiveRes;
         public string Race;
         public string HaveSSN; 

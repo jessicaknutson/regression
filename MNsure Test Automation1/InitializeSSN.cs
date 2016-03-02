@@ -15,7 +15,7 @@ namespace MNsure_Regression_1
     {
         public int DoReadLines(ref mystructSSN myLastSSN, ref mystructReadFileValues myReadFileValues)
         {
-            //Read all values from the text file if there.
+            // Read all values from the text file if there.
             try
             {
                 using (StreamReader sr = new StreamReader("C:\\Logs\\SSN.txt"))

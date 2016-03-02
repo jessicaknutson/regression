@@ -10,7 +10,7 @@ using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support;
-using OpenQA.Selenium.Support.UI; // for dropdown
+using OpenQA.Selenium.Support.UI; /// for dropdown
 
 using System.Net;
 using System.Data.Sql;

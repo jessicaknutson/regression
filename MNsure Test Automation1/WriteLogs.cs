@@ -128,6 +128,10 @@ namespace MNsure_Regression_1
                         {
                             myHistoryInfo.myRunStatus = "Fail";
                         }
+                        else if (myRunStatus == null)
+                        {
+                            myHistoryInfo.myRunStatus = "null";
+                        }
                     }
                     com4.ExecuteNonQuery();
                     com4.Dispose();
@@ -528,11 +532,7 @@ namespace MNsure_Regression_1
                 {
                     foreach (string s in myHistoryInfo.myRequiredScreenshots)
                     {
-                        if (s == null)
-                        {
-                            //do nothing
-                        }
-                        else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
+                        if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
@@ -542,6 +542,9 @@ namespace MNsure_Regression_1
                             myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                             myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                             break;
+                        } else if (s == null)
+                        {
+                            //do nothing
                         }
                         i = i + 1;
                     }
