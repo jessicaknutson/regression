@@ -24,7 +24,7 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoPrivacy(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoPrivacy(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -61,7 +61,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIdentityInformation(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoIdentityInformation(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -144,8 +144,14 @@ namespace MNsure_Regression_1
 
                 //Enter DOB
                 IWebElement myselectDOB = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[5]"));
-                myselectDOB.SendKeys(myAccountCreate.myDOB);
-
+                if (myApplication.myDOB != "01/01/2011")
+                {
+                    myselectDOB.SendKeys(myApplication.myDOB);
+                }
+                else
+                {
+                    myselectDOB.SendKeys(myAccountCreate.myDOB);
+                }
                 //Enter Captcha
                 IWebElement myselectCaptcha = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
                 myselectCaptcha.SendKeys("Google");
@@ -170,7 +176,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAccountCreate(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoAccountCreate(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -250,7 +256,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoProofing(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoProofing(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -281,7 +287,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAccountLogin(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoAccountLogin(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -323,7 +329,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoApply(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoApply(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
                ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -354,7 +360,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHomePage(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoHomePage(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
                ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -386,7 +392,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoLoginTimeTravel(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructHistoryInfo myHistoryInfo,
+        public int DoLoginTimeTravel(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
                ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;

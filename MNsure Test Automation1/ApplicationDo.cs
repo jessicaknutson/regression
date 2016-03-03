@@ -905,7 +905,7 @@ namespace MNsure_Regression_1
         }
 
 
-        public int DoAdditionalInformationUnassistedInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+        public int DoAdditionalInfoUnassistedInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
                                     mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -914,6 +914,18 @@ namespace MNsure_Regression_1
             {
                 System.Threading.Thread.Sleep(2000);
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table[1]/tbody/tr/td/fieldset/legend/span"))));
+
+                //This will only appear if age < 19
+                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                TimeSpan span = DateTime.Now - birth;
+                DateTime age = DateTime.MinValue + span;
+               
+                if (age.Year < 19)
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]")));
+                    IWebElement listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
+                    listboxOutsideHome.SendKeys("No");
+                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -998,10 +1010,13 @@ namespace MNsure_Regression_1
                 IWebElement listboxMedicaidLongTerm = driver.FindElement(By.Id("__o3id1a"));
                 listboxMedicaidLongTerm.SendKeys("No");
 
-                //This will only appear if income >24000
                 int temp1;
                 temp1 = Convert.ToInt32(myApplication.myIncomeAmount);
-                if (temp1 < 24000)
+                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                TimeSpan span = DateTime.Now - birth;
+                DateTime age = DateTime.MinValue + span;
+
+                if (temp1 < 24000 || age.Year < 19) //This will only appear if income >24000 or age < 19
                 {
                     IWebElement listboxMedicareInjury = driver.FindElement(By.Id("__o3id1c"));
                     listboxMedicareInjury.SendKeys("No");
@@ -1015,6 +1030,15 @@ namespace MNsure_Regression_1
                     listboxMAStartDate.SendKeys("No");
                 }
 
+                if (age.Year < 19) //This will only appear if age < 19
+                {
+                    IWebElement listboxMedicareInjury = driver.FindElement(By.Id("__o3id20"));
+                    listboxMedicareInjury.SendKeys("No");
+
+                    IWebElement listboxMAStartDate = driver.FindElement(By.Id("__o3id22"));
+                    listboxMAStartDate.SendKeys("No");
+                }
+                
                 IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next"));
                 buttonNext.Click();
 
@@ -1159,6 +1183,9 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxAssister = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
                 listboxAssister.SendKeys("No");
+
+                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[1]/span[1]"));
+                outsideClick.Click();
 
                 IWebElement checkboxIAgreeNoticeRR = driver.FindElement(By.Id("__o3ida"));
                 checkboxIAgreeNoticeRR.Click();

@@ -117,7 +117,7 @@ namespace MNsure_Regression_1
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                     myAccountCreate.mySSN = Convert.ToString(temp1);
                     FillStructures myFillStructures = new FillStructures();
-                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate);
+                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
                     myLastSSN.myLastSSN = myApplication.mySSNNum;
@@ -166,7 +166,6 @@ namespace MNsure_Regression_1
                                     Type reflectTestType = typeof(OpenSiteURL);
                                     MethodInfo reflectMethodToInvoke = reflectTestType.GetMethod(myMethod);
                                     ParameterInfo[] reflectMethodParameters = reflectMethodToInvoke.GetParameters();
-
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResult = reflectMethodToInvoke.Invoke(new OpenSiteURL(), parms);
                                     myHistoryInfo.myTestStepStatus = parms[3].ToString();
@@ -176,24 +175,24 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "AccountCreation":
+                                    object[] parmsac = new object[7];
+                                    parmsac[0] = driver;
+                                    parmsac[1] = myAccountCreate;
+                                    parmsac[2] = myApplication;
+                                    parmsac[3] = myHistoryInfo;
+                                    parmsac[4] = returnStatus;
+                                    parmsac[5] = returnException;
+                                    parmsac[6] = returnScreenshot;
+
                                     AccountCreation newAccount = new AccountCreation();
                                     Type reflectTestTypeac = typeof(AccountCreation);
                                     MethodInfo reflectMethodToInvokeac = reflectTestTypeac.GetMethod(myMethod);
                                     ParameterInfo[] reflectMethodParametersac = reflectMethodToInvokeac.GetParameters();
-
-                                    object[] parmsac = new object[6];
-                                    parmsac[0] = driver;
-                                    parmsac[1] = myAccountCreate;
-                                    parmsac[2] = myHistoryInfo;
-                                    parmsac[3] = returnStatus;
-                                    parmsac[4] = returnException;
-                                    parmsac[5] = returnScreenshot;
-
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResultac = reflectMethodToInvokeac.Invoke(newAccount, parmsac);
-                                    myHistoryInfo.myTestStepStatus = parmsac[3].ToString();
-                                    myHistoryInfo.myStepException = parmsac[4].ToString();
-                                    myHistoryInfo.myScreenShot = parmsac[5].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmsac[4].ToString();
+                                    myHistoryInfo.myStepException = parmsac[5].ToString();
+                                    myHistoryInfo.myScreenShot = parmsac[6].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
@@ -221,7 +220,6 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "Enrollments":
-
                                     object[] parmsen = new object[6];
                                     parmsen[0] = driver;
                                     parmsen[1] = myApplication;
@@ -243,11 +241,6 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "CaseWorker":
-                                    CaseWorker myCaseWorker = new CaseWorker();
-                                    Type reflectTestTypecw = typeof(CaseWorker);
-                                    MethodInfo reflectMethodToInvokecw = reflectTestTypecw.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParameterscw = reflectMethodToInvokecw.GetParameters();
-
                                     object[] parmscw = new object[8];
                                     parmscw[0] = driver2;
                                     parmscw[1] = myAccountCreate;
@@ -258,6 +251,10 @@ namespace MNsure_Regression_1
                                     parmscw[6] = returnScreenshot;
                                     parmscw[7] = returnICNumber;
 
+                                    CaseWorker myCaseWorker = new CaseWorker();
+                                    Type reflectTestTypecw = typeof(CaseWorker);
+                                    MethodInfo reflectMethodToInvokecw = reflectTestTypecw.GetMethod(myMethod);
+                                    ParameterInfo[] reflectMethodParameterscw = reflectMethodToInvokecw.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResultcw = reflectMethodToInvokecw.Invoke(new CaseWorker(), parmscw);
                                     myHistoryInfo.myTestStepStatus = parmscw[4].ToString();
@@ -396,7 +393,7 @@ namespace MNsure_Regression_1
                     SqlCeCommand cmd2 = con.CreateCommand();
                     cmd2.CommandType = CommandType.Text;
 
-                    //REad configured rows if exist, otherwise fill with default values
+                    //Read configured rows if exist, otherwise fill with default values
                     using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myTestId, con))
                     {
                         SqlCeDataReader reader = com2.ExecuteReader();
@@ -408,7 +405,20 @@ namespace MNsure_Regression_1
                             myApplication.mySuffix = reader.GetString(5);
                             myApplication.myGender = reader.GetString(6);
                             myApplication.myMaritalStatus = reader.GetString(7);
-                            myApplication.myDOB = myAccountCreate.myDOB;
+                            if (!reader.IsDBNull(8))
+                            {
+                                string tempDOB;
+                                tempDOB = Convert.ToString(reader.GetDateTime(8));
+                                tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
+                                if (tempDOB != "01/01/2011")
+                                {
+                                    myApplication.myDOB = tempDOB;
+                                }
+                                else
+                                {
+                                    myApplication.myDOB = myAccountCreate.myDOB;
+                                }                                
+                            }                            
                             myApplication.myLiveMN = reader.GetString(9);
                             myApplication.myPlanLiveMN = reader.GetString(10);
                             myApplication.myPrefContact = reader.GetString(11);
@@ -477,8 +487,8 @@ namespace MNsure_Regression_1
                             myApplication.myLastName = myAccountCreate.myLastName;
                             myApplication.mySuffix = "Senior";
                             myApplication.myGender = "Male";
-                            myApplication.myMaritalStatus = "Never Married";
-                            myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);
+                            myApplication.myMaritalStatus = "Never Married";                            
+                            myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);                            
                             myApplication.myLiveMN = "Yes";
                             myApplication.myHomeless = "No";
                             myApplication.myPlanLiveMN = "Yes";
@@ -540,9 +550,9 @@ namespace MNsure_Regression_1
                         com2.Dispose();
                     }
                 }
-                catch
+                catch (Exception f)
                 {
-                    MessageBox.Show("Did not find test data for enroll");
+                    MessageBox.Show("Did not find test data for enroll " + f);
                 }
 
                 textBoxEnrollTest.Text = mySelectedTest.myTestName;
@@ -555,7 +565,14 @@ namespace MNsure_Regression_1
                 comboBoxEnrollCounty.Text = myApplication.myCounty;
                 comboBoxEnrollGender.Text = myApplication.myGender;
                 comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
-                textBoxEnrollDOB.Text = myApplication.myDOB;
+                if (myApplication.myDOB == null)
+                {
+                    textBoxEnrollDOB.Text = myAccountCreate.myDOB;
+                }
+                else
+                {
+                    textBoxEnrollDOB.Text = myApplication.myDOB;
+                }
                 comboBoxLiveMN.Text = myApplication.myLiveMN;
                 comboBoxMailAddrYN.Text = myApplication.myMailingAddressYN;
                 comboBoxPlanLiveMN.Text = myApplication.myPlanLiveMN;
@@ -579,6 +596,20 @@ namespace MNsure_Regression_1
                 comboBoxLiveRes.Text = myApplication.myLiveRes;
                 comboBoxFederalTribe.Text = myApplication.myFederalTribe;
                 comboBoxMilitary.Text = myApplication.myMilitary;
+                dateTimeMilitary.Text = myApplication.myMilitaryDate;
+                if (myApplication.myMilitaryDate != null)
+                {
+                    string tempMilitary;
+                    tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
+                    tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                    dateTimeMilitary.Format = DateTimePickerFormat.Short;
+                    dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
+                }
+                else
+                {
+                    dateTimeMilitary.CustomFormat = " ";
+                    dateTimeMilitary.Format = DateTimePickerFormat.Custom;
+                }
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
@@ -594,7 +625,7 @@ namespace MNsure_Regression_1
                 comboBoxEnrollIncomeReduced.Text = myApplication.myIncomeReduced;
                 comboBoxEnrollIncomeAdjustments.Text = myApplication.myIncomeAdjusted;
                 comboBoxEnrollIncomeExpected.Text = myApplication.myIncomeExpected;
-                textBoxEnrollFosterCare.Text = myApplication.myFosterCare;
+                textBoxEnrollFosterCare.Text = myApplication.myFosterCare;                
 
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
@@ -603,22 +634,7 @@ namespace MNsure_Regression_1
                 groupBoxEnrollIncome.Visible = false;
             }
             radioButtonInformation.Checked = true;
-            buttonSaveConfiguration.BackColor = Color.Yellow;
-
-            dateTimeMilitary.Text = myApplication.myMilitaryDate;
-            if (myApplication.myMilitaryDate != null)
-            {
-                string tempMilitary;
-                tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
-                tempMilitary = DateTime.Parse(tempMilitary).ToString("dd/MM/yyyy");
-                dateTimeMilitary.Format = DateTimePickerFormat.Short;
-                dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
-            }
-            else
-            {
-                dateTimeMilitary.CustomFormat = " ";
-                dateTimeMilitary.Format = DateTimePickerFormat.Custom;
-            }
+            buttonSaveConfiguration.BackColor = Color.Yellow;            
         }
 
         private void buttonSaveConfiguration_Click(object sender, EventArgs e)
@@ -682,11 +698,7 @@ namespace MNsure_Regression_1
             myApplication.myLiveRes = comboBoxLiveRes.Text;
             myApplication.myFederalTribe = comboBoxFederalTribe.Text;
             myApplication.myMilitary = comboBoxMilitary.Text;
-            if (myApplication.myMilitaryDate == null)
-            {
-                //do nothing
-            }
-            else
+            if (myApplication.myMilitaryDate != null)
             {
                 myApplication.myMilitaryDate = dateTimeMilitary.Text;
             }
@@ -742,8 +754,15 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("Suffix", myApplication.mySuffix);
                     com2.Parameters.AddWithValue("Gender", myApplication.myGender);
                     com2.Parameters.AddWithValue("MaritalStatus", myApplication.myMaritalStatus);
-                    myApplication.myDOB = "01/01/2011"; // special situation
-                    com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                    if (myApplication.myDOB != "")
+                    {
+                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);                         
+                    }
+                    else
+                    {
+                        myApplication.myDOB = "01/01/2011"; // special situation
+                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                    }                    
                     com2.Parameters.AddWithValue("LiveMN", myApplication.myLiveMN);
                     com2.Parameters.AddWithValue("PlanLiveMN", myApplication.myPlanLiveMN);
                     com2.Parameters.AddWithValue("PrefContact", myApplication.myPrefContact);
@@ -3890,6 +3909,11 @@ namespace MNsure_Regression_1
         private void textBoxExecutedBy_TextChanged(object sender, EventArgs e)
         {
             myHistoryInfo.myExecutedBy = textBoxExecutedBy.Text;
+        }
+
+        private void groupBoxApplicantInformation_Enter(object sender, EventArgs e)
+        {
+
         }
 
 

@@ -173,6 +173,10 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.dateTimeMilitary = new System.Windows.Forms.DateTimePicker();
+            this.label120 = new System.Windows.Forms.Label();
+            this.comboBoxMilitary = new System.Windows.Forms.ComboBox();
+            this.label119 = new System.Windows.Forms.Label();
             this.comboBoxRace = new System.Windows.Forms.ComboBox();
             this.textBoxTribeId = new System.Windows.Forms.TextBox();
             this.label114 = new System.Windows.Forms.Label();
@@ -194,6 +198,7 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.textBoxEnrollDOB = new System.Windows.Forms.TextBox();
             this.comboBoxMailAddrYN = new System.Windows.Forms.ComboBox();
             this.label108 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -233,7 +238,6 @@
             this.textBoxEnrollAltNum = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxPhoneNum = new System.Windows.Forms.TextBox();
-            this.textBoxEnrollDOB = new System.Windows.Forms.TextBox();
             this.comboBoxEnrollAltPhoneType = new System.Windows.Forms.ComboBox();
             this.label17 = new System.Windows.Forms.Label();
             this.comboBoxPlanLiveMN = new System.Windows.Forms.ComboBox();
@@ -329,10 +333,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label119 = new System.Windows.Forms.Label();
-            this.comboBoxMilitary = new System.Windows.Forms.ComboBox();
-            this.label120 = new System.Windows.Forms.Label();
-            this.dateTimeMilitary = new System.Windows.Forms.DateTimePicker();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -1892,7 +1892,7 @@
             // radioButtonIncome
             // 
             this.radioButtonIncome.AutoSize = true;
-            this.radioButtonIncome.Location = new System.Drawing.Point(556, 10);
+            this.radioButtonIncome.Location = new System.Drawing.Point(556, 14);
             this.radioButtonIncome.Name = "radioButtonIncome";
             this.radioButtonIncome.Size = new System.Drawing.Size(60, 17);
             this.radioButtonIncome.TabIndex = 61;
@@ -1904,7 +1904,7 @@
             // radioButtonEnrollDependants
             // 
             this.radioButtonEnrollDependants.AutoSize = true;
-            this.radioButtonEnrollDependants.Location = new System.Drawing.Point(397, 13);
+            this.radioButtonEnrollDependants.Location = new System.Drawing.Point(397, 14);
             this.radioButtonEnrollDependants.Name = "radioButtonEnrollDependants";
             this.radioButtonEnrollDependants.Size = new System.Drawing.Size(104, 17);
             this.radioButtonEnrollDependants.TabIndex = 60;
@@ -1916,7 +1916,7 @@
             // radioButtonHouseholdOther
             // 
             this.radioButtonHouseholdOther.AutoSize = true;
-            this.radioButtonHouseholdOther.Location = new System.Drawing.Point(269, 10);
+            this.radioButtonHouseholdOther.Location = new System.Drawing.Point(269, 14);
             this.radioButtonHouseholdOther.Name = "radioButtonHouseholdOther";
             this.radioButtonHouseholdOther.Size = new System.Drawing.Size(105, 17);
             this.radioButtonHouseholdOther.TabIndex = 59;
@@ -1928,7 +1928,7 @@
             // radioButtonMore
             // 
             this.radioButtonMore.AutoSize = true;
-            this.radioButtonMore.Location = new System.Drawing.Point(161, 10);
+            this.radioButtonMore.Location = new System.Drawing.Point(161, 14);
             this.radioButtonMore.Name = "radioButtonMore";
             this.radioButtonMore.Size = new System.Drawing.Size(102, 17);
             this.radioButtonMore.TabIndex = 58;
@@ -1991,6 +1991,45 @@
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // dateTimeMilitary
+            // 
+            this.dateTimeMilitary.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeMilitary.Location = new System.Drawing.Point(217, 95);
+            this.dateTimeMilitary.MaxDate = new System.DateTime(2115, 12, 31, 0, 0, 0, 0);
+            this.dateTimeMilitary.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dateTimeMilitary.Name = "dateTimeMilitary";
+            this.dateTimeMilitary.Size = new System.Drawing.Size(97, 20);
+            this.dateTimeMilitary.TabIndex = 26;
+            // 
+            // label120
+            // 
+            this.label120.AutoSize = true;
+            this.label120.Location = new System.Drawing.Point(140, 99);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(73, 13);
+            this.label120.TabIndex = 25;
+            this.label120.Text = "Military Ended";
+            // 
+            // comboBoxMilitary
+            // 
+            this.comboBoxMilitary.FormattingEnabled = true;
+            this.comboBoxMilitary.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxMilitary.Location = new System.Drawing.Point(87, 95);
+            this.comboBoxMilitary.Name = "comboBoxMilitary";
+            this.comboBoxMilitary.Size = new System.Drawing.Size(47, 21);
+            this.comboBoxMilitary.TabIndex = 24;
+            // 
+            // label119
+            // 
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(37, 98);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(45, 13);
+            this.label119.TabIndex = 23;
+            this.label119.Text = "Military?";
             // 
             // comboBoxRace
             // 
@@ -2181,6 +2220,7 @@
             // 
             // groupBoxApplicantInformation
             // 
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollDOB);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailAddrYN);
             this.groupBoxApplicantInformation.Controls.Add(this.label108);
             this.groupBoxApplicantInformation.Controls.Add(this.label5);
@@ -2220,7 +2260,6 @@
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollAltNum);
             this.groupBoxApplicantInformation.Controls.Add(this.label18);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxPhoneNum);
-            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollDOB);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollAltPhoneType);
             this.groupBoxApplicantInformation.Controls.Add(this.label17);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxPlanLiveMN);
@@ -2237,6 +2276,14 @@
             this.groupBoxApplicantInformation.TabIndex = 55;
             this.groupBoxApplicantInformation.TabStop = false;
             this.groupBoxApplicantInformation.Text = "Information About You";
+            this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
+            // 
+            // textBoxEnrollDOB
+            // 
+            this.textBoxEnrollDOB.Location = new System.Drawing.Point(84, 109);
+            this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
+            this.textBoxEnrollDOB.Size = new System.Drawing.Size(91, 20);
+            this.textBoxEnrollDOB.TabIndex = 62;
             // 
             // comboBoxMailAddrYN
             // 
@@ -2610,13 +2657,6 @@
             this.textBoxPhoneNum.Name = "textBoxPhoneNum";
             this.textBoxPhoneNum.Size = new System.Drawing.Size(121, 20);
             this.textBoxPhoneNum.TabIndex = 22;
-            // 
-            // textBoxEnrollDOB
-            // 
-            this.textBoxEnrollDOB.Location = new System.Drawing.Point(84, 111);
-            this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
-            this.textBoxEnrollDOB.Size = new System.Drawing.Size(100, 20);
-            this.textBoxEnrollDOB.TabIndex = 16;
             // 
             // comboBoxEnrollAltPhoneType
             // 
@@ -3551,45 +3591,6 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label119
-            // 
-            this.label119.AutoSize = true;
-            this.label119.Location = new System.Drawing.Point(37, 98);
-            this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(45, 13);
-            this.label119.TabIndex = 23;
-            this.label119.Text = "Military?";
-            // 
-            // comboBoxMilitary
-            // 
-            this.comboBoxMilitary.FormattingEnabled = true;
-            this.comboBoxMilitary.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxMilitary.Location = new System.Drawing.Point(87, 95);
-            this.comboBoxMilitary.Name = "comboBoxMilitary";
-            this.comboBoxMilitary.Size = new System.Drawing.Size(47, 21);
-            this.comboBoxMilitary.TabIndex = 24;
-            // 
-            // label120
-            // 
-            this.label120.AutoSize = true;
-            this.label120.Location = new System.Drawing.Point(140, 99);
-            this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(73, 13);
-            this.label120.TabIndex = 25;
-            this.label120.Text = "Military Ended";
-            // 
-            // dateTimeMilitary
-            // 
-            this.dateTimeMilitary.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeMilitary.Location = new System.Drawing.Point(217, 95);
-            this.dateTimeMilitary.MaxDate = new System.DateTime(2115, 12, 31, 0, 0, 0, 0);
-            this.dateTimeMilitary.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
-            this.dateTimeMilitary.Name = "dateTimeMilitary";
-            this.dateTimeMilitary.Size = new System.Drawing.Size(97, 20);
-            this.dateTimeMilitary.TabIndex = 26;
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3710,7 +3711,6 @@
         private System.Windows.Forms.TextBox textBoxEnrollAltNum;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBoxPhoneNum;
-        private System.Windows.Forms.TextBox textBoxEnrollDOB;
         private System.Windows.Forms.ComboBox comboBoxEnrollAltPhoneType;
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.ComboBox comboBoxPlanLiveMN;
@@ -3959,6 +3959,7 @@
         private System.Windows.Forms.Label label119;
         private System.Windows.Forms.Label label120;
         private System.Windows.Forms.DateTimePicker dateTimeMilitary;
+        private System.Windows.Forms.TextBox textBoxEnrollDOB;
 
     }
 }

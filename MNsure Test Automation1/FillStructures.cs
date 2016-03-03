@@ -35,7 +35,25 @@ namespace MNsure_Regression_1
                         myApplication.mySuffix = reader.GetString(5);
                         myApplication.myGender = reader.GetString(6);
                         myApplication.myMaritalStatus = reader.GetString(7);
-                        myApplication.myDOB = myAccountCreate.myDOB;//auto generated, we now want to control the account info especially date
+                        if (!reader.IsDBNull(8))
+                        {
+                            string tempDOB;
+                            tempDOB = Convert.ToString(reader.GetDateTime(8));
+                            tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
+                            if (tempDOB != "01/01/2011")
+                            {
+                                myApplication.myDOB = tempDOB;
+                            }
+                            else
+                            {
+                                myApplication.myDOB = myAccountCreate.myDOB;
+                            }
+                        }
+                        else
+                        {
+                            myApplication.myDOB = myAccountCreate.myDOB;
+                        }
+
                         myApplication.myLiveMN = reader.GetString(9);
                         myApplication.myPlanLiveMN = reader.GetString(10);
                         myApplication.myPrefContact = reader.GetString(11);
@@ -104,7 +122,7 @@ namespace MNsure_Regression_1
                         }
                         if (reader.GetDateTime(58) != null)
                         {
-                            myApplication.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(58)).ToString("dd/MM/yyyy");
+                            myApplication.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy");
                         }
                     }
                 }
@@ -117,12 +135,49 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int doCreateAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate)
+        public int doCreateAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             con = new SqlCeConnection(conString);
             con.Open();
+
+            try
+            {
+                SqlCeCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+
+                //Read configured rows if exist, otherwise fill with default values
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Application where TestId = " + mySelectedTest.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (!reader.IsDBNull(8))
+                        {
+                            string tempDOB;
+                            tempDOB = Convert.ToString(reader.GetDateTime(8));
+                            tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
+                            if (tempDOB != "01/01/2011")
+                            {
+                                myApplication.myDOB = tempDOB;
+                            }
+                            else
+                            {
+                                myApplication.myDOB = myAccountCreate.myDOB;
+                            }
+                        }
+                        else
+                        {
+                            myApplication.myDOB = myAccountCreate.myDOB;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return 1;
+            }
 
             try
             {
@@ -158,7 +213,14 @@ namespace MNsure_Regression_1
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
                         com3.Parameters.AddWithValue("Phone", myAccountCreate.myPhone);
                         com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);
-                        com3.Parameters.AddWithValue("DOB", myAccountCreate.myDOB);
+                        if (myApplication.myDOB == null)
+                        {
+                            com3.Parameters.AddWithValue("DOB", myAccountCreate.myDOB);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                        }
                         com3.Parameters.AddWithValue("Username", myAccountCreate.myUsername);
 
                         com3.ExecuteNonQuery();

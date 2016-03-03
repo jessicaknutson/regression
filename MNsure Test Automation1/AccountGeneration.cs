@@ -47,7 +47,7 @@ namespace MNsure_Regression_1
                 myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                 myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
                 myAccountCreate.mySuffix = suffix[rand2.Next(1, 7)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);       
                 result = 1;
             }
             else
@@ -57,7 +57,7 @@ namespace MNsure_Regression_1
                 myAccountCreate.myMiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
                 myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
                 myAccountCreate.mySuffix = suffix[rand2.Next(1, 7)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);                   
                 string temp1;
                 temp1 = myAccountCreate.myDOB;
                 result = 1;

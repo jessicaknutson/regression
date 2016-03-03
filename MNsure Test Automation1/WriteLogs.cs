@@ -532,7 +532,26 @@ namespace MNsure_Regression_1
                 {
                     foreach (string s in myHistoryInfo.myRequiredScreenshots)
                     {
-                        if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
+                        if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] == null)
+                        {
+                            driver.Manage().Window.Maximize();
+                            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+                            myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + ".jpg";
+                            ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
+                            //must go to next available required step
+                            foreach (string t in myHistoryInfo.myRequiredStepStatus)
+                            {
+                                if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] != null)
+                                {
+                                    myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
+                                    myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
+                                    break;
+                                }
+                                i = i + 1;
+                            }
+                            break;
+                        }
+                        else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
