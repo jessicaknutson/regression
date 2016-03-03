@@ -586,7 +586,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(14000);//10 norm
+                System.Threading.Thread.Sleep(16000);//10 norm
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"))));
                 IWebElement checkboxIncomeYN = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
@@ -948,6 +948,9 @@ namespace MNsure_Regression_1
                 IWebElement listboxBlind = driver.FindElement(By.Id("__o3id6"));
                 listboxBlind.SendKeys("No");
 
+                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]"));
+                outsideClick.Click();
+
                 IWebElement listboxCondition = driver.FindElement(By.Id("__o3id8"));
                 listboxCondition.SendKeys("No");
 
@@ -955,7 +958,6 @@ namespace MNsure_Regression_1
                 if (myApplication.myRace == "Indian")
                 {
                     listboxNative.SendKeys("Yes");
-                    IWebElement outsideClick = driver.FindElement(By.Id("__o3id8"));
                     outsideClick.Click();
                     IWebElement listboxNativePerson = driver.FindElement(By.Id("__o3idb"));
                     listboxNativePerson.Click();
@@ -1091,6 +1093,9 @@ namespace MNsure_Regression_1
 
                 IWebElement datepickerMilitaryDate = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td/div/div[3]/input[1]"));
                 datepickerMilitaryDate.SendKeys(myApplication.myMilitaryDate);
+
+                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/h3"));
+                outsideClick.Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 

@@ -68,7 +68,7 @@ namespace MNsure_Regression_1
             mysTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
             mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
             myHistoryInfo.myTestId = mysTestId;
-            myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";            
+            myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";
 
             int iloop = 1;
 
@@ -93,7 +93,7 @@ namespace MNsure_Regression_1
                 mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
                 mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
                 myHistoryInfo.myTestId = mysTestId;
-                
+
                 con = new SqlCeConnection(conString);
                 con.Open();
                 using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
@@ -459,7 +459,15 @@ namespace MNsure_Regression_1
                             myApplication.myTribeId = reader.GetString(55);
                             myApplication.myFederalTribe = reader.GetString(56);
                             myApplication.myMilitary = reader.GetString(57);
-                            myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(58)); 
+                            if (!reader.IsDBNull(58))
+                            {
+                                myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(58));
+                            }
+                            else
+                            {
+                                myApplication.myMilitaryDate = null;
+                            }
+
                         }
                         else
                         {
@@ -567,11 +575,10 @@ namespace MNsure_Regression_1
                 comboBoxEnrollHispanic.Text = myApplication.myHispanic;
                 textBoxTribeName.Text = myApplication.myTribeName;
                 textBoxTribeId.Text = myApplication.myTribeId;
-                comboBoxRace.Text = myApplication.myRace; 
+                comboBoxRace.Text = myApplication.myRace;
                 comboBoxLiveRes.Text = myApplication.myLiveRes;
                 comboBoxFederalTribe.Text = myApplication.myFederalTribe;
                 comboBoxMilitary.Text = myApplication.myMilitary;
-                dateTimeMilitary.Text = myApplication.myMilitaryDate;
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
@@ -597,6 +604,21 @@ namespace MNsure_Regression_1
             }
             radioButtonInformation.Checked = true;
             buttonSaveConfiguration.BackColor = Color.Yellow;
+
+            dateTimeMilitary.Text = myApplication.myMilitaryDate;
+            if (myApplication.myMilitaryDate != null)
+            {
+                string tempMilitary;
+                tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
+                tempMilitary = DateTime.Parse(tempMilitary).ToString("dd/MM/yyyy");
+                dateTimeMilitary.Format = DateTimePickerFormat.Short;
+                dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
+            }
+            else
+            {
+                dateTimeMilitary.CustomFormat = " ";
+                dateTimeMilitary.Format = DateTimePickerFormat.Custom;
+            }
         }
 
         private void buttonSaveConfiguration_Click(object sender, EventArgs e)
@@ -660,7 +682,14 @@ namespace MNsure_Regression_1
             myApplication.myLiveRes = comboBoxLiveRes.Text;
             myApplication.myFederalTribe = comboBoxFederalTribe.Text;
             myApplication.myMilitary = comboBoxMilitary.Text;
-            myApplication.myMilitaryDate = dateTimeMilitary.Text;
+            if (myApplication.myMilitaryDate == null)
+            {
+                //do nothing
+            }
+            else
+            {
+                myApplication.myMilitaryDate = dateTimeMilitary.Text;
+            }
             myApplication.mySSN = comboBoxEnrollSSN.Text;
             myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
             myApplication.myCitizen = comboBoxEnrollCitizen.Text;
@@ -700,12 +729,11 @@ namespace MNsure_Regression_1
                 //Basic Enrollment stuff
                 string myInsertString;
                 myInsertString = "Insert into Application values (" + 1 + ", " + mysTestId +
-                            ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
-                "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
-                "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @Address1, @Address2, @City, @State, " +
-                "@Zip, @Zip4, @AddressSame, @County, @AptSuite, @Hispanic, @Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN," +
-                "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
-
+                                    ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
+                                    "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
+                                    "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @Address1, @Address2, @City, @State, " +
+                                    "@Zip, @Zip4, @AddressSame, @County, @AptSuite, @Hispanic, @Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN," +
+                                    "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -746,7 +774,14 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
                     com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
                     com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
-                    com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
+                    if (myApplication.myMilitaryDate != null)
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);                         
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                    }
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);

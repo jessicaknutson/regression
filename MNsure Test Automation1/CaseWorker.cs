@@ -132,8 +132,8 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
-                //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys(myEnrollment.mySSNNum);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344685397");
+                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys(myEnrollment.mySSNNum);
+                //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344685397");
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search by ssn
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);

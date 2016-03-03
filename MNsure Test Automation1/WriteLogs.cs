@@ -321,7 +321,7 @@ namespace MNsure_Regression_1
 
                 excelWorksheet.Cells[4, 2] = myHistoryInfo.myIcnumber;
                 excelWorksheet.Cells[3, 5] = myHistoryInfo.myExecutedBy;
-                excelWorksheet.Cells[3, 6] = mystringExecutionDate;
+                excelWorksheet.Cells[3, 7] = mystringExecutionDate;
                 excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
                     + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
                     + ", SSN: " + myApplication.mySSNNum + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
