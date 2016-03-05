@@ -39,7 +39,6 @@ namespace MNsure_Regression_1
             try
             {
                 driver.Manage().Window.Maximize();
-
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"))));
                 driver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button so you can signout as individual
 
@@ -111,13 +110,22 @@ namespace MNsure_Regression_1
             try
             {
                 System.Threading.Thread.Sleep(15000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("app-sections-container-dc_tablist_HCRCASEAPPWorkspaceSection-sbc_tabLabel")));
+
+                //System.Threading.Thread.Sleep(15000);
                 //check for text at the bottom
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("app-sections-container-dc_tablist_HCRCASEAPPWorkspaceSection-sbc_tabLabel"))));
+                //new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("app-sections-container-dc_tablist_HCRCASEAPPWorkspaceSection-sbc_tabLabel"))));
 
                 driver.FindElement(By.Id("app-sections-container-dc_tablist_HCRCASEAPPWorkspaceSection-sbc_tabLabel")).Click();//hcr cases tab
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div")));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div")).Click(); //shortcuts tab
+
+                driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches
+                driver.FindElement(By.LinkText("Person…")).Click();
 
                 IWebElement personSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[1]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
@@ -125,7 +133,6 @@ namespace MNsure_Regression_1
                 rClick.Perform();
                 driver.FindElement(By.XPath("/html/body/div[3]/table/tbody/tr[2]/td[1]")).Click();//close all tabs
 
-                driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches
                 driver.FindElement(By.LinkText("Person…")).Click();
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]")));
@@ -160,8 +167,14 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(1000);
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a"))));
+                System.Threading.Thread.Sleep(2000);
+                //make this wait longer, sometimes it doesn't show up right away
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(120));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a")));
+
+                //new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a"))));
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a")).Click();
 
                 System.Threading.Thread.Sleep(4000);
@@ -390,7 +403,7 @@ namespace MNsure_Regression_1
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-                    System.Threading.Thread.Sleep(5000);
+                    System.Threading.Thread.Sleep(8000);
                 }
 
                 returnStatus = "Pass";

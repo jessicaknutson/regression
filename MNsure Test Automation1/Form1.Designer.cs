@@ -1895,7 +1895,7 @@
             this.radioButtonIncome.Location = new System.Drawing.Point(556, 14);
             this.radioButtonIncome.Name = "radioButtonIncome";
             this.radioButtonIncome.Size = new System.Drawing.Size(60, 17);
-            this.radioButtonIncome.TabIndex = 61;
+            this.radioButtonIncome.TabIndex = 6;
             this.radioButtonIncome.TabStop = true;
             this.radioButtonIncome.Text = "Income";
             this.radioButtonIncome.UseVisualStyleBackColor = true;
@@ -1907,7 +1907,7 @@
             this.radioButtonEnrollDependants.Location = new System.Drawing.Point(397, 14);
             this.radioButtonEnrollDependants.Name = "radioButtonEnrollDependants";
             this.radioButtonEnrollDependants.Size = new System.Drawing.Size(104, 17);
-            this.radioButtonEnrollDependants.TabIndex = 60;
+            this.radioButtonEnrollDependants.TabIndex = 5;
             this.radioButtonEnrollDependants.TabStop = true;
             this.radioButtonEnrollDependants.Text = "Tax Dependants";
             this.radioButtonEnrollDependants.UseVisualStyleBackColor = true;
@@ -1919,7 +1919,7 @@
             this.radioButtonHouseholdOther.Location = new System.Drawing.Point(269, 14);
             this.radioButtonHouseholdOther.Name = "radioButtonHouseholdOther";
             this.radioButtonHouseholdOther.Size = new System.Drawing.Size(105, 17);
-            this.radioButtonHouseholdOther.TabIndex = 59;
+            this.radioButtonHouseholdOther.TabIndex = 4;
             this.radioButtonHouseholdOther.TabStop = true;
             this.radioButtonHouseholdOther.Text = "Other Household";
             this.radioButtonHouseholdOther.UseVisualStyleBackColor = true;
@@ -1931,7 +1931,7 @@
             this.radioButtonMore.Location = new System.Drawing.Point(161, 14);
             this.radioButtonMore.Name = "radioButtonMore";
             this.radioButtonMore.Size = new System.Drawing.Size(102, 17);
-            this.radioButtonMore.TabIndex = 58;
+            this.radioButtonMore.TabIndex = 3;
             this.radioButtonMore.Text = "More About You";
             this.radioButtonMore.UseVisualStyleBackColor = true;
             this.radioButtonMore.Click += new System.EventHandler(this.radioButtonMore_Click);
@@ -1943,7 +1943,7 @@
             this.radioButtonInformation.Location = new System.Drawing.Point(18, 14);
             this.radioButtonInformation.Name = "radioButtonInformation";
             this.radioButtonInformation.Size = new System.Drawing.Size(130, 17);
-            this.radioButtonInformation.TabIndex = 57;
+            this.radioButtonInformation.TabIndex = 2;
             this.radioButtonInformation.TabStop = true;
             this.radioButtonInformation.Text = "Information About You";
             this.radioButtonInformation.UseVisualStyleBackColor = true;
@@ -2272,7 +2272,7 @@
             this.groupBoxApplicantInformation.Controls.Add(this.label15);
             this.groupBoxApplicantInformation.Location = new System.Drawing.Point(18, 40);
             this.groupBoxApplicantInformation.Name = "groupBoxApplicantInformation";
-            this.groupBoxApplicantInformation.Size = new System.Drawing.Size(563, 560);
+            this.groupBoxApplicantInformation.Size = new System.Drawing.Size(853, 560);
             this.groupBoxApplicantInformation.TabIndex = 55;
             this.groupBoxApplicantInformation.TabStop = false;
             this.groupBoxApplicantInformation.Text = "Information About You";
@@ -2283,7 +2283,7 @@
             this.textBoxEnrollDOB.Location = new System.Drawing.Point(84, 109);
             this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
             this.textBoxEnrollDOB.Size = new System.Drawing.Size(91, 20);
-            this.textBoxEnrollDOB.TabIndex = 62;
+            this.textBoxEnrollDOB.TabIndex = 13;
             // 
             // comboBoxMailAddrYN
             // 
@@ -2294,7 +2294,7 @@
             this.comboBoxMailAddrYN.Location = new System.Drawing.Point(265, 111);
             this.comboBoxMailAddrYN.Name = "comboBoxMailAddrYN";
             this.comboBoxMailAddrYN.Size = new System.Drawing.Size(48, 21);
-            this.comboBoxMailAddrYN.TabIndex = 62;
+            this.comboBoxMailAddrYN.TabIndex = 14;
             // 
             // label108
             // 
@@ -2326,7 +2326,7 @@
             this.textBoxEnrollLastName.Location = new System.Drawing.Point(84, 48);
             this.textBoxEnrollLastName.Name = "textBoxEnrollLastName";
             this.textBoxEnrollLastName.Size = new System.Drawing.Size(117, 20);
-            this.textBoxEnrollLastName.TabIndex = 5;
+            this.textBoxEnrollLastName.TabIndex = 9;
             // 
             // comboBoxEnrollApplyYourself
             // 
@@ -2518,7 +2518,7 @@
             this.comboBoxEnrollSuffix.Location = new System.Drawing.Point(317, 46);
             this.comboBoxEnrollSuffix.Name = "comboBoxEnrollSuffix";
             this.comboBoxEnrollSuffix.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxEnrollSuffix.TabIndex = 9;
+            this.comboBoxEnrollSuffix.TabIndex = 10;
             // 
             // comboBoxEnrollGender
             // 
@@ -2529,7 +2529,7 @@
             this.comboBoxEnrollGender.Location = new System.Drawing.Point(84, 79);
             this.comboBoxEnrollGender.Name = "comboBoxEnrollGender";
             this.comboBoxEnrollGender.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxEnrollGender.TabIndex = 10;
+            this.comboBoxEnrollGender.TabIndex = 11;
             // 
             // comboBoxLiveMN
             // 
@@ -2592,7 +2592,7 @@
             this.comboBoxEnrollMaritalStatus.Location = new System.Drawing.Point(317, 78);
             this.comboBoxEnrollMaritalStatus.Name = "comboBoxEnrollMaritalStatus";
             this.comboBoxEnrollMaritalStatus.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxEnrollMaritalStatus.TabIndex = 11;
+            this.comboBoxEnrollMaritalStatus.TabIndex = 12;
             // 
             // label19
             // 
@@ -2633,7 +2633,7 @@
             this.textBoxEnrollFirstName.Location = new System.Drawing.Point(84, 19);
             this.textBoxEnrollFirstName.Name = "textBoxEnrollFirstName";
             this.textBoxEnrollFirstName.Size = new System.Drawing.Size(117, 20);
-            this.textBoxEnrollFirstName.TabIndex = 1;
+            this.textBoxEnrollFirstName.TabIndex = 7;
             // 
             // textBoxEnrollAltNum
             // 
@@ -2763,7 +2763,7 @@
             this.textBoxEnrollTest.Location = new System.Drawing.Point(121, 10);
             this.textBoxEnrollTest.Name = "textBoxEnrollTest";
             this.textBoxEnrollTest.Size = new System.Drawing.Size(139, 20);
-            this.textBoxEnrollTest.TabIndex = 14;
+            this.textBoxEnrollTest.TabIndex = 1;
             // 
             // buttonSaveConfiguration
             // 

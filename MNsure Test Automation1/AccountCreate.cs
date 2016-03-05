@@ -33,9 +33,11 @@ namespace MNsure_Regression_1
             {
                 driver.Manage().Window.Maximize();
 
-                //Wait for sign in button 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"))));
-
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")));
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement checkBoxAgree = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
@@ -68,10 +70,10 @@ namespace MNsure_Regression_1
 
             try
             {
-                //Wait for First Name button 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"))));
-
-                //Enter First Name
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]")));
                 IWebElement myselectFirstName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"));
                 myselectFirstName.SendKeys(myAccountCreate.myFirstName);
 
@@ -183,10 +185,10 @@ namespace MNsure_Regression_1
 
             try
             {
-                //Wait for User Name field 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"))));
-
-                //Enter User Name
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input")));
                 IWebElement myselectUserName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"));
                 myselectUserName.SendKeys(myAccountCreate.myUsername);
 
@@ -263,8 +265,10 @@ namespace MNsure_Regression_1
 
             try
             {
-                //Wait for Next button 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"))));
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button")));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -295,12 +299,12 @@ namespace MNsure_Regression_1
             try
             {
                 driver.Manage().Window.Maximize();
-                //System.Threading.Thread.Sleep(4000);
-                //Wait for Username field
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("username")));
 
-                //Enter username
-                //IWebElement myselectUsername = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("username")));
                 IWebElement myselectUsername = driver.FindElement(By.Id("username"));
                 myselectUsername.SendKeys(myAccountCreate.myUsername);
 
@@ -336,9 +340,11 @@ namespace MNsure_Regression_1
 
             try
             {
-                //Wait for Link - Individuals and families...
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"))));
-
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a")));
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 //Click Link                                                  
@@ -367,16 +373,17 @@ namespace MNsure_Regression_1
 
             try
             {
-                //Wait for Continue
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/div/div/div/div[3]/a/button"))));
-
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div/div/div[3]/a/button")));
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 //Click continue
                 IWebElement myclickContinue = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[3]/a/button"));
                 myclickContinue.Click();
 
-                //new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"))));
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -401,10 +408,10 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
 
-                System.Threading.Thread.Sleep(1000);
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"))));
-                System.Threading.Thread.Sleep(1000);
-
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")));
                 IWebElement textboxLogin = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
                 textboxLogin.SendKeys(myAccountCreate.myUsername);
 

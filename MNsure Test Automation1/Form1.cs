@@ -82,8 +82,15 @@ namespace MNsure_Regression_1
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
+                //must clear cache first
+                FirefoxProfile profile = new FirefoxProfile();
+                profile.SetPreference("browser.cache.disk.enable", false);
+                profile.SetPreference("browser.cache.memory.enable", false);
+                profile.SetPreference("browser.cache.offline.enable", false);
+                profile.SetPreference("network.http.use-cache", false);
+
                 //create separate driver for case worker
-                FirefoxDriver driver2 = new FirefoxDriver();
+                FirefoxDriver driver2 = new FirefoxDriver(profile);
                 driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
 
                 FirefoxDriver driver = new FirefoxDriver();

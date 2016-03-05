@@ -40,7 +40,8 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; myHistoryInfo.myTestStepStatus = "Fail";
+                returnStatus = "Fail"; 
+                myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
@@ -66,7 +67,8 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; myHistoryInfo.myTestStepStatus = "Fail";
+                returnStatus = "Fail"; 
+                myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
@@ -90,7 +92,8 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; myHistoryInfo.myTestStepStatus = "Fail";
+                returnStatus = "Fail"; 
+                myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
@@ -111,7 +114,8 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; myHistoryInfo.myTestStepStatus = "Fail";
+                returnStatus = "Fail"; 
+                myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
