@@ -394,7 +394,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(8000); 
+                System.Threading.Thread.Sleep(10000); 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1009,6 +1009,7 @@ namespace MNsure_Regression_1
 
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]"));
                 outsideClick.Click();
+                System.Threading.Thread.Sleep(1000);
 
                 listboxBlind.Click();
                 outsideClick.Click();
