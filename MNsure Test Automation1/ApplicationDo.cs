@@ -394,15 +394,15 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000); 
+                System.Threading.Thread.Sleep(8000); 
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span")));
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next_label")));
                 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span"));
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
 
                 returnStatus = "Pass";
@@ -427,13 +427,20 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(4000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]")));
                 IWebElement listboxHouseholdOther = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
                 listboxHouseholdOther.SendKeys(myApplication.myHouseholdOther);
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[1]/span[1]")));
+                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[1]/span[1]"));
+                outsideClick.Click();
+
+                listboxHouseholdOther.Click();
+                outsideClick.Click();
 
                 //need the who question here
                 if (myApplication.myHouseholdOther == "Yes")
@@ -1003,6 +1010,9 @@ namespace MNsure_Regression_1
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]"));
                 outsideClick.Click();
 
+                listboxBlind.Click();
+                outsideClick.Click();
+
                 IWebElement listboxCondition = driver.FindElement(By.Id("__o3id8"));
                 listboxCondition.SendKeys("No");
 
@@ -1242,6 +1252,9 @@ namespace MNsure_Regression_1
                 listboxAssister.SendKeys("No");
 
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[1]/span[1]"));
+                outsideClick.Click();
+
+                listboxAssister.Click();
                 outsideClick.Click();
 
                 IWebElement checkboxIAgreeNoticeRR = driver.FindElement(By.Id("__o3ida"));

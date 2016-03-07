@@ -80,7 +80,7 @@ namespace MNsure_Regression_1
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -322,7 +322,7 @@ namespace MNsure_Regression_1
                 IWebElement buttonEnroll3 = driver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
                 buttonEnroll3.Click();
 
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(16000);
                 driver.SwitchTo().DefaultContent();
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -362,17 +362,31 @@ namespace MNsure_Regression_1
             {
                 System.Threading.Thread.Sleep(3000);
                 driver.SwitchTo().DefaultContent();
-                //check for text at the bottom, this only displays if the age of the applicant is 30-40
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Name("enrollment.individual.primaryTaxpayer"))));
-                IWebElement textboxSignature = driver.FindElement(By.Name("enrollment.individual.primaryTaxpayer"));
-                textboxSignature.SendKeys(myEnrollment.myFirstName + " " + myEnrollment.myLastName);
+                IWebElement taxAmount = driver.FindElement(By.XPath("//div[@class='hcrBenefitValue']"));
+                string tax = taxAmount.Text;
+                tax = tax.Substring(0, 2);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                if (tax == "$0")
+                {
+                    //do nothing
+                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                }
+                else
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                    var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    driver.SwitchTo().Frame(iFrameElement);
 
-                //check for text at the bottom
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[3]/div[3]/span[2]/a"))));
-                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[2]/a"));
-                buttonNext.Click();
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Name("enrollment.individual.primaryTaxpayer"))));
+                    IWebElement textboxSignature = driver.FindElement(By.Name("enrollment.individual.primaryTaxpayer"));
+                    textboxSignature.SendKeys(myEnrollment.myFirstName + " " + myEnrollment.myLastName);
+
+                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[3]/div[3]/span[2]/a"))));
+                    IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[2]/a"));
+                    buttonNext.Click();
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -396,7 +410,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);                
+                System.Threading.Thread.Sleep(6000);                
                 //check for text at the bottom
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Name("enrollment.individual.signature.firstName"))));
                 IWebElement textboxSignatureFirst = driver.FindElement(By.Name("enrollment.individual.signature.firstName"));
@@ -475,8 +489,14 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("back_curam"))));
+                System.Threading.Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                driver.SwitchTo().Frame(iFrameElement);            
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("back_curam")));
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonDone = driver.FindElement(By.Id("back_curam"));

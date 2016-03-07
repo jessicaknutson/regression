@@ -269,7 +269,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(1000);
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//a[contains(@href,'HCRIC_home')]"))));
-                driver.FindElement(By.XPath("//a[contains(@href,'HCRIC_home')]")).Click(); //select ia
+                driver.FindElement(By.XPath("//a[contains(@href,'HCRIC_home')]")).Click(); //select insurance affordability
 
                 System.Threading.Thread.Sleep(7000);
                 driver.SwitchTo().DefaultContent();
@@ -543,6 +543,57 @@ namespace MNsure_Regression_1
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//a[contains(@href,'HCRStateBasicHealthPlanPDHome')]"))));
                 driver.FindElement(By.XPath("//a[contains(@href,'HCRStateBasicHealthPlanPDHome')]")).Click(); //select bhp
+
+                System.Threading.Thread.Sleep(5000);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoQHPHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            int timeOut = myHistoryInfo.myCaseWorkerWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(6000);
+                driver.SwitchTo().DefaultContent();
+                driver.FindElement(By.LinkText("Person…")).Click();
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]")));
+                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]"));
+                driver.SwitchTo().Frame(iFrameElement3);
+
+                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search button
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a"))));
+                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[5]/div/table/tbody/tr[1]/td[2]/div/div/a")).Click(); //select person
+
+                driver.SwitchTo().DefaultContent();
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/Person_homePagePDCPage.do')]")));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Person_homePagePDCPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div/div[3]/a[1]"))));
+                driver.FindElement(By.XPath("/html/body/div[1]/div/div[3]/a[1]")).Click();//select refresh
+                System.Threading.Thread.Sleep(1000);
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//a[contains(@href,'HCRInsuranceAssistance')]"))));
+                driver.FindElement(By.XPath("//a[contains(@href,'HCRInsuranceAssistance')]")).Click(); //select qhp
 
                 System.Threading.Thread.Sleep(5000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
