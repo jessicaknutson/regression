@@ -354,11 +354,20 @@ namespace MNsure_Regression_1
                 listboxCitizen.SendKeys(myApplication.myCitizen);
                 outsideClick.Click();                
 
-                var tempDT = DateTime.Parse(myApplication.myDOB).Year;
-                string tempCutoff = Convert.ToString(DateTime.Now);
-                int intCutoff = DateTime.Parse(tempCutoff).Year;
-                intCutoff = intCutoff - 27;
-                if (tempDT > intCutoff)
+                //This will only appear if age > 18 and < 27
+                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                TimeSpan span;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    span = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth;
+                }
+                else
+                {
+                    span = DateTime.Now - birth;
+                }
+                DateTime age = DateTime.MinValue + span;
+
+                if (age.Year > 18 && age.Year < 27)
                 {
                     IWebElement listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
                     listboxFosterCare.SendKeys(myApplication.myFosterCare);
@@ -438,6 +447,7 @@ namespace MNsure_Regression_1
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[1]/span[1]")));
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[1]/span[1]"));
                 outsideClick.Click();
+                System.Threading.Thread.Sleep(1000);
 
                 listboxHouseholdOther.Click();
                 outsideClick.Click();
@@ -893,6 +903,26 @@ namespace MNsure_Regression_1
                     checkboxMilitary.Click();
                 }
 
+                //This will only appear if age < 20
+                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                TimeSpan span;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    span = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth;
+                }
+                else
+                {
+                    span = DateTime.Now - birth;
+                }
+                DateTime age = DateTime.MinValue + span;
+
+                if (age.Year < 20)
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]")));
+                    IWebElement listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
+                    listboxOutsideHome.SendKeys("No");
+                }
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
@@ -959,18 +989,6 @@ namespace MNsure_Regression_1
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next")));
-
-                //This will only appear if age < 19
-                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
-                TimeSpan span = DateTime.Now - birth;
-                DateTime age = DateTime.MinValue + span;
-               
-                if (age.Year < 19)
-                {
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]")));
-                    IWebElement listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
-                    listboxOutsideHome.SendKeys("No");
-                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -1075,7 +1093,7 @@ namespace MNsure_Regression_1
                 }
                 DateTime age = DateTime.MinValue + span;
 
-                if (temp1 < 24000 || age.Year < 19) //This will only appear if income >24000 or age < 19
+                if (temp1 < 24000 || age.Year < 20) //This will only appear if income >24000 or age < 20
                 {
                     IWebElement listboxMedicareInjury = driver.FindElement(By.Id("__o3id1c"));
                     listboxMedicareInjury.SendKeys("No");
@@ -1089,7 +1107,7 @@ namespace MNsure_Regression_1
                     listboxMAStartDate.SendKeys("No");
                 }
 
-                if (age.Year < 19) //This will only appear if age < 19
+                if (age.Year < 20) //This will only appear if age < 20
                 {
                     IWebElement listboxMedicareInjury = driver.FindElement(By.Id("__o3id20"));
                     listboxMedicareInjury.SendKeys("No");

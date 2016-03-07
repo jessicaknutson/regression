@@ -310,7 +310,6 @@ namespace MNsure_Regression_1
                 app.Visible = true;
                 Microsoft.Office.Interop.Excel.Sheets xcelSheets = excelWorkbook.Worksheets;
                 string currentSheet = myHistoryInfo.myTemplate;
-                //Microsoft.Office.Interop.Excel.Worksheet excelWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)xcelSheets.get_Item(currentSheet);
                 Microsoft.Office.Interop.Excel.Worksheet excelWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)xcelSheets.get_Item(1);
 
                 Range excelRange = excelWorksheet.UsedRange;
@@ -367,7 +366,6 @@ namespace MNsure_Regression_1
                         else
                         {
                             excelWorksheet2.Cells[j, 1] = myHistoryInfo.myRequiredScreenshots[i];
-                            //excelWorksheet2.Cells[myHistoryInfo.myRequiredStep[i], 1] = myHistoryInfo.myRequiredScreenshots[i];
                             excelWorksheet2.Cells[j, 2] = myHistoryInfo.myRequiredStepStatus[i];
                             excelWorksheet2.Cells[j, 3] = "N/A";
                             j = j + 1;
