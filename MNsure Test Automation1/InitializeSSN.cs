@@ -30,27 +30,27 @@ namespace MNsure_Regression_1
                         }
                         if (icount == 2)
                         {
-                            myReadFileValues.myAddress1 = line;
+                            myReadFileValues.myHomeAddress1 = line;
                         }
                         if (icount == 3)
                         {
-                            myReadFileValues.myAddress2 = line;
+                            myReadFileValues.myHomeAddress2 = line;
                         }
                         if (icount == 4)
                         {
-                            myReadFileValues.myCity = line;
+                            myReadFileValues.myHomeCity = line;
                         }
                         if (icount == 5)
                         {
-                            myReadFileValues.myState = line;
+                            myReadFileValues.myHomeState = line;
                         }
                         if (icount == 6)
                         {
-                            myReadFileValues.myZip = line;
+                            myReadFileValues.myHomeZip = line;
                         }
                         if (icount == 7)
                         {
-                            myReadFileValues.myZip4 = line;
+                            myReadFileValues.myHomeZip4 = line;
                         }
                         if (icount == 8)
                         {
@@ -83,9 +83,9 @@ namespace MNsure_Regression_1
             try
             {
 
-                    string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myAddress1, 
-                    myReadFileValues.myAddress2, myReadFileValues.myCity, myReadFileValues.myState, 
-                    myReadFileValues.myZip, myReadFileValues.myZip4, myReadFileValues.myEmail, 
+                string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
+                    myReadFileValues.myHomeAddress2, myReadFileValues.myHomeCity, myReadFileValues.myHomeState, 
+                    myReadFileValues.myHomeZip, myReadFileValues.myHomeZip4, myReadFileValues.myEmail, 
                     myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName};
                     using (StreamWriter sw = new StreamWriter("C:\\Logs\\SSN.txt"))
                     {

@@ -66,12 +66,12 @@ struct mystructSelectedTest
         public string myMiddleName;
         public string myLastName;
         public string mySuffix;
-        public string myAddress1;
+        /*public string myAddress1;
         public string myAddress2;
         public string myCity;
         public string myState;
         public string myZip;
-        public string myZip4;
+        public string myZip4;*/
         public string myEmail;
         public string myPhone;
         public string mySSN;
@@ -99,14 +99,21 @@ struct mystructSelectedTest
         public string myMiddleName;
         public string myLastName;
         public string mySuffix;
-        public string myAddress1;
-        public string myAddress2;
-        public string myAptSuite;
-        public string myCity;
-        public string myState;
-        public string myZip;
-        public string myZip4;
+        public string myHomeAddress1;
+        public string myHomeAddress2;
+        public string myHomeAptSuite;
+        public string myHomeCity;
+        public string myHomeState;
+        public string myHomeZip;
+        public string myHomeZip4;
         public string myCounty;
+        public string myMailAddress1;
+        public string myMailAddress2;
+        public string myMailAptSuite;
+        public string myMailCity;
+        public string myMailState;
+        public string myMailZip;
+        public string myMailZip4;
         public string myAddressSame;
         public string myGender;
         public string myMaritalStatus;
@@ -166,12 +173,12 @@ struct mystructSelectedTest
     struct mystructReadFileValues
     {
         public string mySSN;
-        public string myAddress1;
-        public string myAddress2;
-        public string myCity;
-        public string myState;
-        public string myZip;
-        public string myZip4;
+        public string myHomeAddress1;
+        public string myHomeAddress2;
+        public string myHomeCity;
+        public string myHomeState;
+        public string myHomeZip;
+        public string myHomeZip4;
         public string myEmail;
         public string myPhone;
         public int myAccountSaveFileNum;
@@ -195,12 +202,12 @@ struct mystructSelectedTest
         public string LiveInMN;
         public string TempAbsentMN;
         public string Homeless;
-        public string Address1;
+        /*public string Address1;
         public string Address2;
         public string AptSuite;
         public string City;
         public string State;
-        public string Zip;
+        public string Zip;*/
         public string PlanMakeMNHome;
         public string SeekEmplMN;
         public string Hispanic;
@@ -237,6 +244,7 @@ struct mystructSelectedTest
         public string myTemplateFirstTime;
         public string myTemplateDeletedRow;
         public string myTemplateEditKey;
+        public string myNextAddressId;
     }
 
 

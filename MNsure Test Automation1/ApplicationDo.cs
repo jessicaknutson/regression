@@ -171,25 +171,25 @@ namespace MNsure_Regression_1
                 {
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id11")));
                     IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
-                    listboxAddress1.SendKeys(myApplication.myAddress1);
+                    listboxAddress1.SendKeys(myApplication.myHomeAddress1);
 
                     IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
-                    listboxAddress2.SendKeys(myApplication.myAddress2);
+                    listboxAddress2.SendKeys(myApplication.myHomeAddress2);
 
                     IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
-                    listboxAptSuite.SendKeys(myApplication.myAptSuite);
+                    listboxAptSuite.SendKeys(myApplication.myHomeAptSuite);
 
                     IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
-                    listboxCity.SendKeys(myApplication.myCity);
+                    listboxCity.SendKeys(myApplication.myHomeCity);
 
                     IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
                     listboxCounty.SendKeys(myApplication.myCounty);
 
                     IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
-                    listboxState.SendKeys(myApplication.myState);
+                    listboxState.SendKeys(myApplication.myHomeState);
 
                     IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
-                    listboxZip.SendKeys(myApplication.myZip);
+                    listboxZip.SendKeys(myApplication.myHomeZip);
 
                     IWebElement listboxAddressSame = driver.FindElement(By.Id("__o3id18"));
                     listboxAddressSame.SendKeys(myApplication.myAddressSame);
@@ -208,31 +208,30 @@ namespace MNsure_Regression_1
                 IWebElement listboxPlanLiveMN = driver.FindElement(By.Id("__o3id21"));
                 listboxPlanLiveMN.SendKeys(myApplication.myPlanLiveMN);
 
-                /*
                 if (myApplication.myMailingAddressYN == "Yes")
                 {
                     //We need to split the address info out into separate db 
                     IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
-                    listboxAddress1.SendKeys(myApplication.myAddress1);
+                    listboxAddress1.SendKeys(myApplication.myMailAddress1);
 
                     IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
-                    listboxAddress2.SendKeys(myApplication.myAddress2);
+                    listboxAddress2.SendKeys(myApplication.myMailAddress2);
 
                     IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
-                    listboxAptSuite.SendKeys(myApplication.myAptSuite);
+                    listboxAptSuite.SendKeys(myApplication.myMailAptSuite);
 
                     IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
-                    listboxCity.SendKeys(myApplication.myCity);
+                    listboxCity.SendKeys(myApplication.myMailCity);
 
-                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
-                    listboxCounty.SendKeys(myApplication.myCounty);
+                    //IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
+                    //listboxCounty.SendKeys(myApplication.myCounty);
 
                     IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
-                    listboxState.SendKeys(myApplication.myState);
+                    listboxState.SendKeys(myApplication.myMailState);
 
                     IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
-                    listboxZip.SendKeys(myApplication.myZip);
-                }*/
+                    listboxZip.SendKeys(myApplication.myMailZip);
+                }
 
                 IWebElement listboxPreferedContact = driver.FindElement(By.Id("__o3id23"));
                 listboxPreferedContact.SendKeys(myApplication.myPrefContact);
@@ -1304,7 +1303,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(8000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);

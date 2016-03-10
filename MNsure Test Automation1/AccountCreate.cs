@@ -91,15 +91,15 @@ namespace MNsure_Regression_1
 
                 //Enter Address1
                 IWebElement myselectAddress1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
-                myselectAddress1.SendKeys(myAccountCreate.myAddress1);
+                myselectAddress1.SendKeys(myApplication.myHomeAddress1);
 
                 //Enter Address2
                 IWebElement myselectAddress2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
-                myselectAddress2.SendKeys(myAccountCreate.myAddress2);
+                myselectAddress2.SendKeys(myApplication.myHomeAddress2);
 
                 //Enter City
                 IWebElement myselectCity = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/input"));
-                myselectCity.SendKeys(myAccountCreate.myCity);
+                myselectCity.SendKeys(myApplication.myHomeCity);
 
                 //need another outside click, won't move forward
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
@@ -107,15 +107,15 @@ namespace MNsure_Regression_1
 
                 //Enter State
                 IWebElement myselectState = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/select"));
-                myselectState.SendKeys(myAccountCreate.myState);
+                myselectState.SendKeys(myApplication.myHomeState);
 
                 //Enter Zip
                 IWebElement myselectZip = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[1]"));
-                myselectZip.SendKeys(myAccountCreate.myZip);
+                myselectZip.SendKeys(myApplication.myHomeZip);
 
                 //Enter Zip4
                 IWebElement myselectZip4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[2]"));
-                myselectZip4.SendKeys(myAccountCreate.myZip4);
+                myselectZip4.SendKeys(myApplication.myHomeZip4);
 
                 //Enter Email
                 IWebElement myselectEmail = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[1]"));

@@ -424,8 +424,8 @@ namespace MNsure_Regression_1
                                 else
                                 {
                                     myApplication.myDOB = myAccountCreate.myDOB;
-                                }                                
-                            }                            
+                                }
+                            }
                             myApplication.myLiveMN = reader.GetString(9);
                             myApplication.myPlanLiveMN = reader.GetString(10);
                             myApplication.myPrefContact = reader.GetString(11);
@@ -441,50 +441,55 @@ namespace MNsure_Regression_1
                             myApplication.myAuthRep = reader.GetString(21);
                             myApplication.myApplyYourself = reader.GetString(22);
                             myApplication.myHomeless = reader.GetString(23);
-                            myApplication.myAddress1 = reader.GetString(24);
-                            myApplication.myAddress2 = reader.GetString(25);
-                            myApplication.myCity = reader.GetString(26);
-                            myApplication.myState = reader.GetString(27);
-                            myApplication.myZip = reader.GetString(28);
-                            myApplication.myZip4 = reader.GetString(29);
-                            myApplication.myAddressSame = reader.GetString(30);
-                            myApplication.myCounty = reader.GetString(31);
-                            myApplication.myAptSuite = reader.GetString(32);
-                            myApplication.myHispanic = reader.GetString(33);
-                            myApplication.myRace = reader.GetString(34);
-                            myApplication.mySSN = reader.GetString(35);
-                            myApplication.myCitizen = reader.GetString(36);
-                            //    myEnrollment.mySSNNum = reader.GetString(37);
+                            myApplication.myAddressSame = reader.GetString(24);
+                            myApplication.myHispanic = reader.GetString(25);
+                            myApplication.myRace = reader.GetString(26);
+                            myApplication.mySSN = reader.GetString(27);
+                            myApplication.myCitizen = reader.GetString(28);
                             myApplication.mySSNNum = myAccountCreate.mySSN;
-                            myApplication.myHouseholdOther = reader.GetString(38);
-                            myApplication.myDependants = reader.GetString(39);
-                            myApplication.myIncomeYN = reader.GetString(40);
-                            myApplication.myIncomeType = reader.GetString(41);
-                            myApplication.myIncomeAmount = reader.GetString(42);
-                            myApplication.myIncomeFrequency = reader.GetString(43);
-                            myApplication.myIncomeMore = reader.GetString(44);
-                            myApplication.myIncomeEmployer = reader.GetString(45);
-                            myApplication.myIncomeSeasonal = reader.GetString(46);
-                            myApplication.myIncomeReduced = reader.GetString(47);
-                            myApplication.myIncomeAdjusted = reader.GetString(48);
-                            myApplication.myIncomeExpected = reader.GetString(49);
-                            myApplication.myEnrollmentPlanType = reader.GetString(50);
-                            myApplication.myFosterCare = reader.GetString(51);
-                            myApplication.myMailingAddressYN = reader.GetString(52);
-                            myApplication.myTribeName = reader.GetString(53);
-                            myApplication.myLiveRes = reader.GetString(54);
-                            myApplication.myTribeId = reader.GetString(55);
-                            myApplication.myFederalTribe = reader.GetString(56);
-                            myApplication.myMilitary = reader.GetString(57);
-                            if (!reader.IsDBNull(58))
+                            myApplication.myHouseholdOther = reader.GetString(30);
+                            myApplication.myDependants = reader.GetString(31);
+                            myApplication.myIncomeYN = reader.GetString(32);
+                            myApplication.myIncomeType = reader.GetString(33);
+                            myApplication.myIncomeAmount = reader.GetString(34);
+                            myApplication.myIncomeFrequency = reader.GetString(35);
+                            myApplication.myIncomeMore = reader.GetString(36);
+                            myApplication.myIncomeEmployer = reader.GetString(37);
+                            myApplication.myIncomeSeasonal = reader.GetString(38);
+                            myApplication.myIncomeReduced = reader.GetString(39);
+                            myApplication.myIncomeAdjusted = reader.GetString(40);
+                            myApplication.myIncomeExpected = reader.GetString(41);
+                            myApplication.myEnrollmentPlanType = reader.GetString(42);
+                            myApplication.myFosterCare = reader.GetString(43);
+                            myApplication.myMailingAddressYN = reader.GetString(44);
+                            if (!reader.IsDBNull(45))
                             {
-                                myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(58));
+                                myApplication.myTribeName = reader.GetString(45);
+                            }
+                            if (!reader.IsDBNull(46))
+                            {
+                                myApplication.myLiveRes = reader.GetString(46);
+                            }
+                            if (!reader.IsDBNull(47))
+                            {
+                                myApplication.myTribeId = reader.GetString(47);
+                            }
+                            if (!reader.IsDBNull(48))
+                            {
+                                myApplication.myFederalTribe = reader.GetString(48);
+                            }
+                            if (!reader.IsDBNull(49))
+                            {
+                                myApplication.myMilitary = reader.GetString(49);
+                            }
+                            if (!reader.IsDBNull(50))
+                            {
+                                myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(50));
                             }
                             else
                             {
                                 myApplication.myMilitaryDate = null;
                             }
-
                         }
                         else
                         {
@@ -494,8 +499,8 @@ namespace MNsure_Regression_1
                             myApplication.myLastName = myAccountCreate.myLastName;
                             myApplication.mySuffix = "Senior";
                             myApplication.myGender = "Male";
-                            myApplication.myMaritalStatus = "Never Married";                            
-                            myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);                            
+                            myApplication.myMaritalStatus = "Never Married";
+                            myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);
                             myApplication.myLiveMN = "Yes";
                             myApplication.myHomeless = "No";
                             myApplication.myPlanLiveMN = "Yes";
@@ -513,23 +518,7 @@ namespace MNsure_Regression_1
                             myApplication.myApplyYourself = "Yes";
                             myApplication.myHomeless = "No";
                             myApplication.myMailingAddressYN = "No";
-                            /*
-                            myApplication.myAddress1 = myAccountCreate.myAddress1;
-                            myApplication.myAddress2 = myAccountCreate.myAddress2;
-                            myApplication.myCity = myAccountCreate.myCity;
-                            myApplication.myState = myAccountCreate.myState;
-                            myApplication.myZip = myAccountCreate.myZip;
-                            myApplication.myZip4 = myAccountCreate.myZip4;
-                             */
-                            myApplication.myAddress1 = "12969 First Ave W";
-                            myApplication.myAddress2 = "PO Box 44";
-                            myApplication.myCity = "Minneapolis";
-                            myApplication.myState = "Minnesota";
-                            myApplication.myZip = "55401";
-                            myApplication.myZip4 = "1111";
                             myApplication.myAddressSame = "Yes";
-                            myApplication.myCounty = "Hennepin";
-                            myApplication.myAptSuite = "Suite 64";
                             myApplication.myHispanic = "No";
                             myApplication.myLiveRes = "No";
                             myApplication.myFederalTribe = "No";
@@ -556,6 +545,88 @@ namespace MNsure_Regression_1
                         com2.ExecuteNonQuery();
                         com2.Dispose();
                     }
+
+                    SqlCeCommand cmd3 = con.CreateCommand();
+                    cmd3.CommandType = CommandType.Text;
+
+                    //Read configured rows if exist, otherwise fill with default values
+                    using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
+                    {
+                        SqlCeDataReader reader = com3.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            if (reader.GetString(9) == "Home")
+                            {
+                                myApplication.myHomeAddress1 = reader.GetString(3);
+                                int index = reader.GetOrdinal("Address2");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myHomeAddress2 = reader.GetString(4);
+                                }
+                                myApplication.myHomeCity = reader.GetString(5);
+                                myApplication.myHomeState = reader.GetString(6);
+                                myApplication.myHomeZip = reader.GetString(7);
+                                index = reader.GetOrdinal("Zip4");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myHomeZip4 = reader.GetString(8);
+                                }
+                                if (reader.GetString(10) != null)
+                                {
+                                    myApplication.myCounty = reader.GetString(10);
+                                }
+                                index = reader.GetOrdinal("AptSuite");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myHomeAptSuite = reader.GetString(11);
+                                }
+                            }
+                            else
+                            {
+                                myApplication.myMailAddress1 = reader.GetString(3);
+                                int index = reader.GetOrdinal("Address2");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myMailAddress2 = reader.GetString(4);
+                                }
+                                myApplication.myMailCity = reader.GetString(5);
+                                myApplication.myMailState = reader.GetString(6);
+                                myApplication.myMailZip = reader.GetString(7);
+                                index = reader.GetOrdinal("Zip4");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myMailZip4 = reader.GetString(8);
+                                }
+                                index = reader.GetOrdinal("AptSuite");
+                                if (!reader.IsDBNull(index))
+                                {
+                                    myApplication.myMailAptSuite = reader.GetString(11);
+                                }
+                            }
+                        }
+                        if (myApplication.myHomeAddress1 == null)
+                        {
+                            //Could generate these or store as a table default row
+                            myApplication.myHomeAddress1 = "12969 First Ave W";
+                            myApplication.myHomeAddress2 = "PO Box 44";
+                            myApplication.myHomeCity = "Minneapolis";
+                            myApplication.myHomeState = "Minnesota";
+                            myApplication.myHomeZip = "55401";
+                            myApplication.myHomeZip4 = "1111";
+                            myApplication.myCounty = "Hennepin";
+                            myApplication.myHomeAptSuite = "Suite 64";
+
+                            myApplication.myMailAddress1 = "";
+                            myApplication.myMailAddress2 = "";
+                            myApplication.myMailCity = "";
+                            myApplication.myMailState = "";
+                            myApplication.myMailZip = "";
+                            myApplication.myMailZip4 = "";
+                            myApplication.myMailAptSuite = "";
+                        }
+                        com3.ExecuteNonQuery();
+                        com3.Dispose();
+                    }
                 }
                 catch (Exception f)
                 {
@@ -568,7 +639,6 @@ namespace MNsure_Regression_1
                 textBoxEnrollLastName.Text = myAccountCreate.myLastName;
                 comboBoxEnrollSuffix.Text = myApplication.mySuffix;
                 comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
-
                 comboBoxEnrollCounty.Text = myApplication.myCounty;
                 comboBoxEnrollGender.Text = myApplication.myGender;
                 comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
@@ -580,6 +650,38 @@ namespace MNsure_Regression_1
                 {
                     textBoxEnrollDOB.Text = myApplication.myDOB;
                 }
+                textBoxHomeAddr1.Text = myApplication.myHomeAddress1;
+                if (myApplication.myHomeAddress2 != null)
+                {
+                    textBoxHomeAddr2.Text = myApplication.myHomeAddress2;
+                }
+                textBoxHomeCity.Text = myApplication.myHomeCity;
+                comboBoxHomeState.Text = myApplication.myHomeState;
+                textBoxHomeZip.Text = myApplication.myHomeZip;
+                if (myApplication.myHomeZip4 != null)
+                {
+                    textBoxHomeZip4.Text = myApplication.myHomeZip4;
+                }
+                if (myApplication.myHomeAptSuite != null)
+                {
+                    textBoxHomeAptSuite.Text = myApplication.myHomeAptSuite;
+                }
+                textBoxMailAddr1.Text = myApplication.myMailAddress1;
+                if (myApplication.myMailAddress2 != null)
+                {
+                    textBoxMailAddr2.Text = myApplication.myMailAddress2;
+                }
+                textBoxMailCity.Text = myApplication.myMailCity;
+                comboBoxMailState.Text = myApplication.myMailState;
+                textBoxMailZip.Text = myApplication.myMailZip;
+                if (myApplication.myMailZip4 != null)
+                {
+                    textBoxMailZip4.Text = myApplication.myMailZip4;
+                }
+                if (myApplication.myMailAptSuite != null)
+                {
+                    textBoxMailAptSuite.Text = myApplication.myMailAptSuite;
+                }
                 comboBoxLiveMN.Text = myApplication.myLiveMN;
                 comboBoxMailAddrYN.Text = myApplication.myMailingAddressYN;
                 comboBoxPlanLiveMN.Text = myApplication.myPlanLiveMN;
@@ -588,7 +690,7 @@ namespace MNsure_Regression_1
                 comboBoxPhoneType.Text = myApplication.myPhoneType;
                 textBoxEnrollAltNum.Text = myApplication.myAltNum;
                 comboBoxEnrollAltPhoneType.Text = myApplication.myAltNumType;
-                textBoxEnrollEmail.Text = myApplication.myEmail;
+                textBoxEnrollEmail.Text = myAccountCreate.myEmail;
                 comboBoxEnrollLanguageMost.Text = myApplication.myLanguageMost;
                 comboBoxEnrollLanguageWritten.Text = myApplication.myLanguageWritten;
                 comboBoxEnrollHomeless.Text = myApplication.myHomeless;
@@ -632,7 +734,7 @@ namespace MNsure_Regression_1
                 comboBoxEnrollIncomeReduced.Text = myApplication.myIncomeReduced;
                 comboBoxEnrollIncomeAdjustments.Text = myApplication.myIncomeAdjusted;
                 comboBoxEnrollIncomeExpected.Text = myApplication.myIncomeExpected;
-                textBoxEnrollFosterCare.Text = myApplication.myFosterCare;                
+                textBoxEnrollFosterCare.Text = myApplication.myFosterCare;
 
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
@@ -641,7 +743,7 @@ namespace MNsure_Regression_1
                 groupBoxEnrollIncome.Visible = false;
             }
             radioButtonInformation.Checked = true;
-            buttonSaveConfiguration.BackColor = Color.Yellow;            
+            buttonSaveConfiguration.BackColor = Color.Yellow;
         }
 
         private void buttonSaveConfiguration_Click(object sender, EventArgs e)
@@ -655,30 +757,22 @@ namespace MNsure_Regression_1
             myApplication.myMiddleName = textBoxEnrollMiddleName.Text;
             myApplication.myLastName = textBoxEnrollLastName.Text;
             myApplication.mySuffix = comboBoxEnrollSuffix.Text;
-            //*****
-            //      myEnrollment.myAddress1 = myAccountCreate.myAddress1;
-            //    myEnrollment.myAddress2 = myAccountCreate.myAddress2;
-            //   myEnrollment.myCity = myAccountCreate.myCity;
-            //    myEnrollment.myState = myAccountCreate.myState;
-            //    myEnrollment.myZip = myAccountCreate.Zip;
-            //    myEnrollment.myZip4 = myAccountCreate.Zip4;
-            /*
-            myApplication.myAddress1 = myAccountCreate.myAddress1;
-            myApplication.myAddress2 = myAccountCreate.myAddress2;
-            myApplication.myCity = myAccountCreate.myCity;
-            myApplication.myState = myAccountCreate.myState;
-            myApplication.myZip = myAccountCreate.myZip;
-            myApplication.myZip4 = myAccountCreate.myZip4;
+            myApplication.myHomeAddress1 = textBoxHomeAddr1.Text;
+            myApplication.myHomeAddress2 = textBoxHomeAddr2.Text;
+            myApplication.myHomeAptSuite = textBoxHomeAptSuite.Text;
+            myApplication.myHomeCity = textBoxHomeCity.Text;
+            myApplication.myHomeState = comboBoxHomeState.Text;
+            myApplication.myHomeZip = textBoxHomeZip.Text;
+            myApplication.myHomeZip4 = textBoxHomeZip4.Text;
             myApplication.myCounty = comboBoxEnrollCounty.Text;
-             */
-            myApplication.myAddress1 = "12969 First Ave W";
-            myApplication.myAddress2 = "PO Box 44";
-            myApplication.myCity = "Minneapolis";
-            myApplication.myState = "Minnesota";
-            myApplication.myZip = "55401";
-            myApplication.myZip4 = "1111";
+            myApplication.myMailAddress1 = textBoxMailAddr1.Text;
+            myApplication.myMailAddress2 = textBoxMailAddr2.Text;
+            myApplication.myMailAptSuite = textBoxMailAptSuite.Text;
+            myApplication.myMailCity = textBoxMailCity.Text;
+            myApplication.myMailState = comboBoxMailState.Text;
+            myApplication.myMailZip = textBoxMailZip.Text;
+            myApplication.myMailZip4 = textBoxMailZip4.Text;
             myApplication.myAddressSame = comboBoxEnrollAddressSame.Text;
-
             myApplication.myGender = comboBoxEnrollGender.Text;
             myApplication.myMaritalStatus = comboBoxEnrollMaritalStatus.Text;
             myApplication.myDOB = textBoxEnrollDOB.Text;
@@ -750,9 +844,10 @@ namespace MNsure_Regression_1
                 myInsertString = "Insert into Application values (" + 1 + ", " + mysTestId +
                                     ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
                                     "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
-                                    "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @Address1, @Address2, @City, @State, " +
-                                    "@Zip, @Zip4, @AddressSame, @County, @AptSuite, @Hispanic, @Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN," +
-                                    "@IncomeType, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName, @LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
+                                    "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @AddressSame, @Hispanic," +
+                                    "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
+                                    "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
+                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -763,13 +858,13 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("MaritalStatus", myApplication.myMaritalStatus);
                     if (myApplication.myDOB != "")
                     {
-                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);                         
+                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
                     }
                     else
                     {
                         myApplication.myDOB = "01/01/2011"; // special situation
                         com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
-                    }                    
+                    }
                     com2.Parameters.AddWithValue("LiveMN", myApplication.myLiveMN);
                     com2.Parameters.AddWithValue("PlanLiveMN", myApplication.myPlanLiveMN);
                     com2.Parameters.AddWithValue("PrefContact", myApplication.myPrefContact);
@@ -785,15 +880,16 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("AuthRep", myApplication.myAuthRep);
                     com2.Parameters.AddWithValue("ApplyYourself", myApplication.myApplyYourself);
                     com2.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
-                    com2.Parameters.AddWithValue("Address1", myApplication.myAddress1);
+                    /*com2.Parameters.AddWithValue("Address1", myApplication.myAddress1);//move to addr db
                     com2.Parameters.AddWithValue("Address2", myApplication.myAddress2);
                     com2.Parameters.AddWithValue("City", myApplication.myCity);
                     com2.Parameters.AddWithValue("State", myApplication.myState);
                     com2.Parameters.AddWithValue("Zip", myApplication.myZip);
                     com2.Parameters.AddWithValue("Zip4", myApplication.myZip4);
+                     * */
                     com2.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
-                    com2.Parameters.AddWithValue("County", myApplication.myCounty);
-                    com2.Parameters.AddWithValue("AptSuite", myApplication.myAptSuite);
+                    //com2.Parameters.AddWithValue("County", myApplication.myCounty);//move to addr db
+                    //com2.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
                     com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
                     com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
                     com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
@@ -802,7 +898,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
                     if (myApplication.myMilitaryDate != null)
                     {
-                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);                         
+                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
                     }
                     else
                     {
@@ -831,6 +927,133 @@ namespace MNsure_Regression_1
                     com2.ExecuteNonQuery();
                     com2.Dispose();
                 }
+
+                SqlCeCommand cmd3 = con.CreateCommand();
+                cmd3.CommandType = CommandType.Text;
+                try
+                {
+                    cmd3.CommandText = "Delete from Address where TestId = " + mysTestId + ";";
+                    cmd3.ExecuteNonQuery();
+                }
+                catch
+                {
+                    //fail silently
+                }
+
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myEditKey.myNextAddressId = Convert.ToString(reader.GetInt32(0) + 1);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Did not find Address id");
+                    }
+                    com3.Dispose();
+                }
+
+                SqlCeCommand cmd4 = con.CreateCommand();
+                cmd4.CommandType = CommandType.Text;
+                try
+                {
+                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + ";";
+                    cmd4.ExecuteNonQuery();
+                }
+                catch
+                {
+                    //fail silently
+                }
+
+                //Basic address stuff
+                string myInsertString2;
+                myInsertString2 = "Insert into Address values (" + 1 + ", " + mysTestId +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+                using (SqlCeCommand com4 = new SqlCeCommand(myInsertString2, con))
+                {
+                    com4.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                    com4.Parameters.AddWithValue("Address1", myApplication.myHomeAddress1);
+                    if (myApplication.myHomeAddress2 != "")
+                    {
+                        com4.Parameters.AddWithValue("Address2", myApplication.myHomeAddress2);
+                    }
+                    else
+                    {
+                        com4.Parameters.AddWithValue("Address2", DBNull.Value);
+                    }
+                    com4.Parameters.AddWithValue("City", myApplication.myHomeCity);
+                    com4.Parameters.AddWithValue("State", myApplication.myHomeState);
+                    com4.Parameters.AddWithValue("Zip", myApplication.myHomeZip);
+                    if (myApplication.myHomeZip4 != "")
+                    {
+                        com4.Parameters.AddWithValue("Zip4", myApplication.myHomeZip4);
+                    }
+                    else
+                    {
+                        com4.Parameters.AddWithValue("Zip4", DBNull.Value);
+                    }
+                    com4.Parameters.AddWithValue("County", myApplication.myCounty);
+                    if (myApplication.myHomeAptSuite != "")
+                    {
+                        com4.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
+                    }
+                    else
+                    {
+                        com4.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                    }
+                    com4.Parameters.AddWithValue("Type", "Home");
+
+                    com4.ExecuteNonQuery();
+                    com4.Dispose();
+                }
+
+                if (myApplication.myMailAddress1 != "")
+                {
+                    string myInsertString3;
+                    myInsertString3 = "Insert into Address values (" + 1 + ", " + mysTestId +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+                    using (SqlCeCommand com5 = new SqlCeCommand(myInsertString3, con))
+                    {
+                        myEditKey.myNextAddressId = Convert.ToString(Convert.ToInt32(myEditKey.myNextAddressId) + 1);
+
+                        com5.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                        com5.Parameters.AddWithValue("Address1", myApplication.myMailAddress1);
+                        if (myApplication.myMailAddress2 != "")
+                        {
+                            com5.Parameters.AddWithValue("Address2", myApplication.myMailAddress2);
+                        }
+                        else
+                        {
+                            com5.Parameters.AddWithValue("Address2", DBNull.Value);
+                        }
+                        com5.Parameters.AddWithValue("City", myApplication.myMailCity);
+                        com5.Parameters.AddWithValue("State", myApplication.myMailState);
+                        com5.Parameters.AddWithValue("Zip", myApplication.myMailZip);
+                        if (myApplication.myMailZip4 != "")
+                        {
+                            com5.Parameters.AddWithValue("Zip4", myApplication.myMailZip4);
+                        }
+                        else
+                        {
+                            com5.Parameters.AddWithValue("Zip4", DBNull.Value);
+                        }
+                        com5.Parameters.AddWithValue("County", DBNull.Value);
+                        if (myApplication.myMailAptSuite != "")
+                        {
+                            com5.Parameters.AddWithValue("AptSuite", myApplication.myMailAptSuite);
+                        }
+                        else
+                        {
+                            com5.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                        }
+                        com5.Parameters.AddWithValue("Type", "Mailing");
+
+                        com5.ExecuteNonQuery();
+                        com5.Dispose();
+                    }
+                }
+
             }
             catch (Exception f)
             {
@@ -839,9 +1062,6 @@ namespace MNsure_Regression_1
             dataGridViewSelectedTests.Rows[mySelectedTest.myRowIndex].Cells[1].Style.BackColor = Color.Green;
             buttonSaveConfiguration.BackColor = Color.Green;
         }
-
-
-
 
         private void radioButtonMore_Click(object sender, EventArgs e)
         {
@@ -1336,12 +1556,13 @@ namespace MNsure_Regression_1
                 comboBoxHMLiveMN.Text = myHouseholdMembers.LiveInMN;
                 comboBoxHMTempAbsentMN.Text = myHouseholdMembers.TempAbsentMN;
                 comboBoxHMHomeless.Text = myHouseholdMembers.Homeless;
-                textBoxHMAddress1.Text = myHouseholdMembers.Address1;
+                /*textBoxHMAddress1.Text = myHouseholdMembers.Address1;//move to addr db
                 textBoxHMAddress2.Text = myHouseholdMembers.Address2;
                 textBoxHMAptSuite.Text = myHouseholdMembers.AptSuite;
                 textBoxHMCity.Text = myHouseholdMembers.City;
                 textBoxHMState.Text = myHouseholdMembers.State;
                 textBoxHMZip.Text = myHouseholdMembers.Zip;
+                 * */
                 comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.PlanMakeMNHome;
                 comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
                 comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
@@ -1403,12 +1624,13 @@ namespace MNsure_Regression_1
             myHouseholdMembers.LiveInMN = comboBoxHMLiveMN.Text;
             myHouseholdMembers.TempAbsentMN = comboBoxHMTempAbsentMN.Text;
             myHouseholdMembers.Homeless = comboBoxHMHomeless.Text;
-            myHouseholdMembers.Address1 = textBoxHMAddress1.Text;
+            /*myHouseholdMembers.Address1 = textBoxHMAddress1.Text;//move to addr db
             myHouseholdMembers.Address2 = textBoxHMAddress2.Text;
             myHouseholdMembers.AptSuite = textBoxHMAptSuite.Text;
             myHouseholdMembers.City = textBoxHMCity.Text;
             myHouseholdMembers.State = textBoxHMState.Text;
             myHouseholdMembers.Zip = textBoxHMZip.Text;
+              */
             myHouseholdMembers.PlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
             myHouseholdMembers.SeekEmplMN = comboBoxHMSeekingEmployment.Text;
             myHouseholdMembers.PersonHighlighted = comboBoxHMPersonHighlighted.Text;
@@ -1466,12 +1688,13 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("LiveMN", myHouseholdMembers.LiveInMN);
                     com2.Parameters.AddWithValue("TempAbsentMN", myHouseholdMembers.TempAbsentMN);
                     com2.Parameters.AddWithValue("Homeless", myHouseholdMembers.Homeless);
-                    com2.Parameters.AddWithValue("Address1", myHouseholdMembers.Address1);
+                    /*com2.Parameters.AddWithValue("Address1", myHouseholdMembers.Address1);//move to addr db
                     com2.Parameters.AddWithValue("Address2", myHouseholdMembers.Address2);
                     com2.Parameters.AddWithValue("AptSuite", myHouseholdMembers.AptSuite);
                     com2.Parameters.AddWithValue("City", myHouseholdMembers.City);
                     com2.Parameters.AddWithValue("State", myHouseholdMembers.State);
                     com2.Parameters.AddWithValue("Zip", myHouseholdMembers.Zip);
+                     * */
                     com2.Parameters.AddWithValue("PlanMakeMNHome", myHouseholdMembers.PlanMakeMNHome);
                     com2.Parameters.AddWithValue("SeekingEmployment", myHouseholdMembers.SeekEmplMN);
                     com2.Parameters.AddWithValue("Hispanic", myHouseholdMembers.Hispanic);
@@ -1535,12 +1758,13 @@ namespace MNsure_Regression_1
             comboBoxHMLiveMN.Text = myHouseholdMembers.LiveInMN;
             comboBoxHMTempAbsentMN.Text = myHouseholdMembers.TempAbsentMN;
             comboBoxHMHomeless.Text = myHouseholdMembers.Homeless;
-            textBoxHMAddress1.Text = myHouseholdMembers.Address1;
+            /*textBoxHMAddress1.Text = myHouseholdMembers.Address1;//move to addr db
             textBoxHMAddress2.Text = myHouseholdMembers.Address2;
             textBoxHMAptSuite.Text = myHouseholdMembers.AptSuite;
             textBoxHMCity.Text = myHouseholdMembers.City;
             textBoxHMState.Text = myHouseholdMembers.State;
             textBoxHMZip.Text = myHouseholdMembers.Zip;
+              */
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.PlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
@@ -1599,12 +1823,13 @@ namespace MNsure_Regression_1
             comboBoxHMLiveMN.Text = myHouseholdMembers.LiveInMN;
             comboBoxHMTempAbsentMN.Text = myHouseholdMembers.TempAbsentMN;
             comboBoxHMHomeless.Text = myHouseholdMembers.Homeless;
-            textBoxHMAddress1.Text = myHouseholdMembers.Address1;
+            /*textBoxHMAddress1.Text = myHouseholdMembers.Address1;//move to addr db
             textBoxHMAddress2.Text = myHouseholdMembers.Address2;
             textBoxHMAptSuite.Text = myHouseholdMembers.AptSuite;
             textBoxHMCity.Text = myHouseholdMembers.City;
             textBoxHMState.Text = myHouseholdMembers.State;
             textBoxHMZip.Text = myHouseholdMembers.Zip;
+             */
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.PlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;
@@ -1662,12 +1887,13 @@ namespace MNsure_Regression_1
             comboBoxHMLiveMN.Text = myHouseholdMembers.LiveInMN;
             comboBoxHMTempAbsentMN.Text = myHouseholdMembers.TempAbsentMN;
             comboBoxHMHomeless.Text = myHouseholdMembers.Homeless;
-            textBoxHMAddress1.Text = myHouseholdMembers.Address1;
+            /*textBoxHMAddress1.Text = myHouseholdMembers.Address1;//move to addr db
             textBoxHMAddress2.Text = myHouseholdMembers.Address2;
             textBoxHMAptSuite.Text = myHouseholdMembers.AptSuite;
             textBoxHMCity.Text = myHouseholdMembers.City;
             textBoxHMState.Text = myHouseholdMembers.State;
             textBoxHMZip.Text = myHouseholdMembers.Zip;
+             * */
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.PlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.SeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.PersonHighlighted;

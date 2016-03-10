@@ -50,12 +50,12 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.LiveInMN = reader.GetString(12);
                         myHouseholdMembers.TempAbsentMN = reader.GetString(13);
                         myHouseholdMembers.Homeless = reader.GetString(14);
-                        myHouseholdMembers.Address1 = reader.GetString(15);
+                        /*myHouseholdMembers.Address1 = reader.GetString(15);
                         myHouseholdMembers.Address2 = reader.GetString(16);
                         myHouseholdMembers.AptSuite = reader.GetString(17);
                         myHouseholdMembers.City = reader.GetString(18);
                         myHouseholdMembers.State = reader.GetString(19);
-                        myHouseholdMembers.Zip = reader.GetString(20);
+                        myHouseholdMembers.Zip = reader.GetString(20);*/
                         myHouseholdMembers.PlanMakeMNHome = reader.GetString(21);
                         myHouseholdMembers.SeekEmplMN = reader.GetString(22);
                         myHouseholdMembers.Hispanic = reader.GetString(23);

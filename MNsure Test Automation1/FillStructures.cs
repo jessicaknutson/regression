@@ -61,71 +61,118 @@ namespace MNsure_Regression_1
                         myApplication.myPhoneType = reader.GetString(13);
                         myApplication.myAltNum = reader.GetString(14);
                         myApplication.myAltNumType = reader.GetString(15);
-                        myApplication.myEmail = reader.GetString(16);
+                        myApplication.myEmail = myAccountCreate.myEmail;//auto generated
                         myApplication.myLanguageMost = reader.GetString(17);
                         myApplication.myLanguageWritten = reader.GetString(18);
                         myApplication.myVoterCard = reader.GetString(19);
                         myApplication.myNotices = reader.GetString(20);
                         myApplication.myAuthRep = reader.GetString(21);
                         myApplication.myApplyYourself = reader.GetString(22);
-                        myApplication.myHomeless = reader.GetString(23);
-                        myApplication.myAddress1 = myAccountCreate.myAddress1;//auto generated
-                        myApplication.myAddress2 = myAccountCreate.myAddress2;//auto generated
-                        myApplication.myCity = myAccountCreate.myCity;//auto generated
-                        myApplication.myState = myAccountCreate.myState;//auto generated
-                        myApplication.myZip = myAccountCreate.myZip;//auto generated
-                        myApplication.myZip4 = myAccountCreate.myZip4;//auto generated
-                        myApplication.myAddressSame = reader.GetString(30);
-                        myApplication.myCounty = reader.GetString(31);
-                        myApplication.myAptSuite = reader.GetString(32);
-                        myApplication.myHispanic = reader.GetString(33);
-                        myApplication.myRace = reader.GetString(34);
-                        myApplication.mySSN = reader.GetString(35);
-                        myApplication.myCitizen = reader.GetString(36);
+                        myApplication.myHomeless = reader.GetString(23);                        
+                        myApplication.myAddressSame = reader.GetString(24);                        
+                        myApplication.myHispanic = reader.GetString(25);
+                        myApplication.myRace = reader.GetString(26);
+                        myApplication.mySSN = reader.GetString(27);
+                        myApplication.myCitizen = reader.GetString(28);
                         myApplication.mySSNNum = myAccountCreate.mySSN;//auto generated
-                        myApplication.myHouseholdOther = reader.GetString(38);
-                        myApplication.myDependants = reader.GetString(39);
-                        myApplication.myIncomeYN = reader.GetString(40);
-                        myApplication.myIncomeType = reader.GetString(41);
-                        myApplication.myIncomeAmount = reader.GetString(42);
-                        myApplication.myIncomeFrequency = reader.GetString(43);
-                        myApplication.myIncomeMore = reader.GetString(44);
-                        myApplication.myIncomeEmployer = reader.GetString(45);
-                        myApplication.myIncomeSeasonal = reader.GetString(46);
-                        myApplication.myIncomeReduced = reader.GetString(47);
-                        myApplication.myIncomeAdjusted = reader.GetString(48);
-                        myApplication.myIncomeExpected = reader.GetString(49);
-                        myApplication.myEnrollmentPlanType = reader.GetString(50);
-                        myApplication.myFosterCare = reader.GetString(51);
-                        myApplication.myMailingAddressYN = reader.GetString(52);
-                        if (reader.GetString(53) != null)
+                        myApplication.myHouseholdOther = reader.GetString(30);
+                        myApplication.myDependants = reader.GetString(31);
+                        myApplication.myIncomeYN = reader.GetString(32);
+                        myApplication.myIncomeType = reader.GetString(33);
+                        myApplication.myIncomeAmount = reader.GetString(34);
+                        myApplication.myIncomeFrequency = reader.GetString(35);
+                        myApplication.myIncomeMore = reader.GetString(36);
+                        myApplication.myIncomeEmployer = reader.GetString(37);
+                        myApplication.myIncomeSeasonal = reader.GetString(38);
+                        myApplication.myIncomeReduced = reader.GetString(39);
+                        myApplication.myIncomeAdjusted = reader.GetString(40);
+                        myApplication.myIncomeExpected = reader.GetString(41);
+                        myApplication.myEnrollmentPlanType = reader.GetString(42);
+                        myApplication.myFosterCare = reader.GetString(43);
+                        myApplication.myMailingAddressYN = reader.GetString(44);
+                        if (reader.GetString(45) != null)
                         {
-                            myApplication.myTribeName = reader.GetString(53);
+                            myApplication.myTribeName = reader.GetString(45);
                         }
-                        if (reader.GetString(54) != null)
+                        if (reader.GetString(46) != null)
                         {
-                            myApplication.myLiveRes = reader.GetString(54);
-                        }
-
-                        if (reader.GetString(55) != null)
-                        {
-                            myApplication.myTribeId = reader.GetString(55);
+                            myApplication.myLiveRes = reader.GetString(46);
                         }
 
-                        if (reader.GetString(56) != null)
+                        if (reader.GetString(47) != null)
                         {
-                            myApplication.myFederalTribe = reader.GetString(56);
+                            myApplication.myTribeId = reader.GetString(47);
                         }
-                        if (reader.GetString(57) != null)
+
+                        if (reader.GetString(48) != null)
                         {
-                            myApplication.myMilitary = reader.GetString(57);
+                            myApplication.myFederalTribe = reader.GetString(48);
                         }
-                        if (reader.GetDateTime(58) != null)
+                        if (reader.GetString(49) != null)
                         {
-                            myApplication.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy");
+                            myApplication.myMilitary = reader.GetString(49);
+                        }
+                        if (!reader.IsDBNull(50))
+                        {
+                            myApplication.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
                         }
                     }
                 }
+
+                SqlCeCommand cmd3 = con.CreateCommand();
+                cmd3.CommandType = CommandType.Text;
+
+                //Read configured rows if exist, otherwise fill with default values
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + mySelectedTest.myTestId, con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(9) == "Home")
+                        {
+                            myApplication.myHomeAddress1 = reader.GetString(3);
+                            if (reader.GetString(4) != null)
+                            {
+                                myApplication.myHomeAddress2 = reader.GetString(4);
+                            }
+                            myApplication.myHomeCity = reader.GetString(5);
+                            myApplication.myHomeState = reader.GetString(6);
+                            myApplication.myHomeZip = reader.GetString(7);
+                            if (reader.GetString(8) != null)
+                            {
+                                myApplication.myHomeZip4 = reader.GetString(8);
+                            }
+                            if (reader.GetString(10) != null)
+                            {
+                                myApplication.myCounty = reader.GetString(10);
+                            }
+                            if (reader.GetString(11) != null)
+                            {
+                                myApplication.myHomeAptSuite = reader.GetString(11);
+                            }
+                        }
+                        else
+                        {
+                            myApplication.myMailAddress1 = reader.GetString(3);
+                            if (reader.GetString(4) != null)
+                            {
+                                myApplication.myMailAddress2 = reader.GetString(4);
+                            }
+                            myApplication.myMailCity = reader.GetString(5);
+                            myApplication.myMailState = reader.GetString(6);
+                            myApplication.myMailZip = reader.GetString(7);
+                            if (reader.GetString(8) != null)
+                            {
+                                myApplication.myMailZip4 = reader.GetString(8);
+                            }                            
+                            if (reader.GetString(11) != null)
+                            {
+                                myApplication.myMailAptSuite = reader.GetString(11);
+                            }
+                        }
+                    }
+                }
+
                 con.Close();
                 return 1;
             }
@@ -196,20 +243,16 @@ namespace MNsure_Regression_1
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myInsertString;
+                    //myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
+                    //    ", @FirstName, @MiddleName, @LastName, @Suffix, @Address1 , @Address2 , @City , @State, @Zip, @Zip4, @Email, @Phone, @SSN, @DOB, @Username );";
                     myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
-                        ", @FirstName, @MiddleName, @LastName, @Suffix, @Address1 , @Address2 , @City , @State, @Zip, @Zip4, @Email, @Phone, @SSN, @DOB, @Username );";
+                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username );";
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                     {
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
                         com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
                         com3.Parameters.AddWithValue("LastName", myAccountCreate.myLastName);
                         com3.Parameters.AddWithValue("Suffix", myAccountCreate.mySuffix);
-                        com3.Parameters.AddWithValue("Address1", myAccountCreate.myAddress1);
-                        com3.Parameters.AddWithValue("Address2", myAccountCreate.myAddress2);
-                        com3.Parameters.AddWithValue("City", myAccountCreate.myCity);
-                        com3.Parameters.AddWithValue("State", myAccountCreate.myState);
-                        com3.Parameters.AddWithValue("Zip", myAccountCreate.myZip);
-                        com3.Parameters.AddWithValue("Zip4", myAccountCreate.myZip4);
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
                         com3.Parameters.AddWithValue("Phone", myAccountCreate.myPhone);
                         com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);

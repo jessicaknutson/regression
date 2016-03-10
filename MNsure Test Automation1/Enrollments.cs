@@ -316,7 +316,7 @@ namespace MNsure_Regression_1
                 IWebElement buttonEnroll3 = driver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
                 buttonEnroll3.Click();
 
-                System.Threading.Thread.Sleep(18000);
+                System.Threading.Thread.Sleep(20000);
                 driver.SwitchTo().DefaultContent();
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));

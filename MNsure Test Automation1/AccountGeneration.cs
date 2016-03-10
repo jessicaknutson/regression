@@ -64,12 +64,12 @@ namespace MNsure_Regression_1
             }
             System.Threading.Thread.Sleep(100);
 
-            myAccountCreate.myAddress1 = "12969 First Ave W";
+            /*myAccountCreate.myAddress1 = "12969 First Ave W";
             myAccountCreate.myAddress2 = "PO 44";
             myAccountCreate.myCity = "Minneapolis";
             myAccountCreate.myState = "Minnesota";
             myAccountCreate.myZip = "55440";
-            myAccountCreate.myZip4 = "1111";
+            myAccountCreate.myZip4 = "1111";*/
             myAccountCreate.myEmail = "Test@Gmail.com";
             myAccountCreate.myPhone = "(612)812-9996";
             myAccountCreate.myUsername = "st" + myAccountCreate.myFirstName.Substring(0, 1) +
@@ -172,12 +172,12 @@ namespace MNsure_Regression_1
             myHouseholdMembers.TempAbsentMN = "Yes";
             myHouseholdMembers.Homeless = "Yes";
 
-            myHouseholdMembers.Address1 = "12969 First Ave W";
+            /*myHouseholdMembers.Address1 = "12969 First Ave W";
             myHouseholdMembers.Address2 = "PO 44";
             myHouseholdMembers.AptSuite = "Suite 64";
             myHouseholdMembers.City = "Minneapolis";
             myHouseholdMembers.State = "Minnesota";
-            myHouseholdMembers.Zip = "55440";
+            myHouseholdMembers.Zip = "55440";*/
             //   myHouseholdMembers.Zip4 = "";
             //   myHouseholdMembers.Email = "Test@Gmail.com";
             //   myHouseholdMembers.Phone = "6128129996";
