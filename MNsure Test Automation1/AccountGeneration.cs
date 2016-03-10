@@ -64,12 +64,6 @@ namespace MNsure_Regression_1
             }
             System.Threading.Thread.Sleep(100);
 
-            /*myAccountCreate.myAddress1 = "12969 First Ave W";
-            myAccountCreate.myAddress2 = "PO 44";
-            myAccountCreate.myCity = "Minneapolis";
-            myAccountCreate.myState = "Minnesota";
-            myAccountCreate.myZip = "55440";
-            myAccountCreate.myZip4 = "1111";*/
             myAccountCreate.myEmail = "Test@Gmail.com";
             myAccountCreate.myPhone = "(612)812-9996";
             myAccountCreate.myUsername = "st" + myAccountCreate.myFirstName.Substring(0, 1) +

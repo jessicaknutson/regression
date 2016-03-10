@@ -142,10 +142,7 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myHomeZip4 = reader.GetString(8);
                             }
-                            if (reader.GetString(10) != null)
-                            {
-                                myApplication.myCounty = reader.GetString(10);
-                            }
+                            myApplication.myHomeCounty = reader.GetString(10);
                             if (reader.GetString(11) != null)
                             {
                                 myApplication.myHomeAptSuite = reader.GetString(11);
@@ -164,7 +161,8 @@ namespace MNsure_Regression_1
                             if (reader.GetString(8) != null)
                             {
                                 myApplication.myMailZip4 = reader.GetString(8);
-                            }                            
+                            }
+                            myApplication.myMailCounty = reader.GetString(10);
                             if (reader.GetString(11) != null)
                             {
                                 myApplication.myMailAptSuite = reader.GetString(11);
@@ -243,8 +241,6 @@ namespace MNsure_Regression_1
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myInsertString;
-                    //myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
-                    //    ", @FirstName, @MiddleName, @LastName, @Suffix, @Address1 , @Address2 , @City , @State, @Zip, @Zip4, @Email, @Phone, @SSN, @DOB, @Username );";
                     myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
                        ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username );";
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))

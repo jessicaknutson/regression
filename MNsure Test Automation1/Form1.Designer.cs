@@ -198,6 +198,7 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.buttonDeleteMailAddr = new System.Windows.Forms.Button();
             this.textBoxMailAptSuite = new System.Windows.Forms.TextBox();
             this.label133 = new System.Windows.Forms.Label();
             this.label132 = new System.Windows.Forms.Label();
@@ -236,7 +237,7 @@
             this.comboBoxEnrollAuthRep = new System.Windows.Forms.ComboBox();
             this.comboBoxEnrollHomeless = new System.Windows.Forms.ComboBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.comboBoxEnrollCounty = new System.Windows.Forms.ComboBox();
+            this.comboBoxHomeCounty = new System.Windows.Forms.ComboBox();
             this.comboBoxEnrollNotices = new System.Windows.Forms.ComboBox();
             this.label29 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -360,7 +361,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.buttonDeleteMailAddr = new System.Windows.Forms.Button();
+            this.label134 = new System.Windows.Forms.Label();
+            this.comboBoxMailCounty = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -706,7 +708,7 @@
             this.groupBoxEnrollIncome.Controls.Add(this.label40);
             this.groupBoxEnrollIncome.Controls.Add(this.comboBoxEnrollIncomeType);
             this.groupBoxEnrollIncome.Controls.Add(this.label39);
-            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(918, 214);
+            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(118, 214);
             this.groupBoxEnrollIncome.Name = "groupBoxEnrollIncome";
             this.groupBoxEnrollIncome.Size = new System.Drawing.Size(534, 394);
             this.groupBoxEnrollIncome.TabIndex = 61;
@@ -950,7 +952,7 @@
             // 
             this.groupBoxDependants.Controls.Add(this.comboBoxEnrollDependants);
             this.groupBoxDependants.Controls.Add(this.label38);
-            this.groupBoxDependants.Location = new System.Drawing.Point(914, 520);
+            this.groupBoxDependants.Location = new System.Drawing.Point(314, 520);
             this.groupBoxDependants.Name = "groupBoxDependants";
             this.groupBoxDependants.Size = new System.Drawing.Size(450, 74);
             this.groupBoxDependants.TabIndex = 60;
@@ -1053,7 +1055,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(960, -46);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(660, -46);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(770, 578);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -2012,7 +2014,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(909, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(309, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(450, 498);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -2027,7 +2029,7 @@
             this.dateTimeMilitary.MaxDate = new System.DateTime(2115, 12, 31, 0, 0, 0, 0);
             this.dateTimeMilitary.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
             this.dateTimeMilitary.Name = "dateTimeMilitary";
-            this.dateTimeMilitary.Size = new System.Drawing.Size(97, 20);
+            this.dateTimeMilitary.Size = new System.Drawing.Size(103, 20);
             this.dateTimeMilitary.TabIndex = 26;
             // 
             // label120
@@ -2248,6 +2250,8 @@
             // 
             // groupBoxApplicantInformation
             // 
+            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailCounty);
+            this.groupBoxApplicantInformation.Controls.Add(this.label134);
             this.groupBoxApplicantInformation.Controls.Add(this.buttonDeleteMailAddr);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxMailAptSuite);
             this.groupBoxApplicantInformation.Controls.Add(this.label133);
@@ -2287,7 +2291,7 @@
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollAuthRep);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollHomeless);
             this.groupBoxApplicantInformation.Controls.Add(this.label23);
-            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollCounty);
+            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxHomeCounty);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollNotices);
             this.groupBoxApplicantInformation.Controls.Add(this.label29);
             this.groupBoxApplicantInformation.Controls.Add(this.label22);
@@ -2333,6 +2337,15 @@
             this.groupBoxApplicantInformation.TabStop = false;
             this.groupBoxApplicantInformation.Text = "Information About You";
             this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
+            // 
+            // buttonDeleteMailAddr
+            // 
+            this.buttonDeleteMailAddr.Location = new System.Drawing.Point(671, 495);
+            this.buttonDeleteMailAddr.Name = "buttonDeleteMailAddr";
+            this.buttonDeleteMailAddr.Size = new System.Drawing.Size(125, 23);
+            this.buttonDeleteMailAddr.TabIndex = 47;
+            this.buttonDeleteMailAddr.Text = "Delete Mailing Address";
+            this.buttonDeleteMailAddr.UseVisualStyleBackColor = true;
             // 
             // textBoxMailAptSuite
             // 
@@ -2771,17 +2784,17 @@
             this.label23.TabIndex = 0;
             this.label23.Text = "Do you want us to send you a form to name someone else a representative:";
             // 
-            // comboBoxEnrollCounty
+            // comboBoxHomeCounty
             // 
-            this.comboBoxEnrollCounty.FormattingEnabled = true;
-            this.comboBoxEnrollCounty.Items.AddRange(new object[] {
+            this.comboBoxHomeCounty.FormattingEnabled = true;
+            this.comboBoxHomeCounty.Items.AddRange(new object[] {
             "Hennepin",
             "Ramsey",
             "Anoka"});
-            this.comboBoxEnrollCounty.Location = new System.Drawing.Point(671, 168);
-            this.comboBoxEnrollCounty.Name = "comboBoxEnrollCounty";
-            this.comboBoxEnrollCounty.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxEnrollCounty.TabIndex = 36;
+            this.comboBoxHomeCounty.Location = new System.Drawing.Point(671, 168);
+            this.comboBoxHomeCounty.Name = "comboBoxHomeCounty";
+            this.comboBoxHomeCounty.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxHomeCounty.TabIndex = 36;
             // 
             // comboBoxEnrollNotices
             // 
@@ -3983,14 +3996,26 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // buttonDeleteMailAddr
+            // label134
             // 
-            this.buttonDeleteMailAddr.Location = new System.Drawing.Point(670, 465);
-            this.buttonDeleteMailAddr.Name = "buttonDeleteMailAddr";
-            this.buttonDeleteMailAddr.Size = new System.Drawing.Size(125, 23);
-            this.buttonDeleteMailAddr.TabIndex = 47;
-            this.buttonDeleteMailAddr.Text = "Delete Mailing Address";
-            this.buttonDeleteMailAddr.UseVisualStyleBackColor = true;
+            this.label134.AutoSize = true;
+            this.label134.Location = new System.Drawing.Point(621, 468);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(43, 13);
+            this.label134.TabIndex = 48;
+            this.label134.Text = "County:";
+            // 
+            // comboBoxMailCounty
+            // 
+            this.comboBoxMailCounty.FormattingEnabled = true;
+            this.comboBoxMailCounty.Items.AddRange(new object[] {
+            "Hennepin",
+            "Ramsey",
+            "Anoka"});
+            this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 466);
+            this.comboBoxMailCounty.Name = "comboBoxMailCounty";
+            this.comboBoxMailCounty.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxMailCounty.TabIndex = 49;
             // 
             // FormMain
             // 
@@ -4083,7 +4108,7 @@
         private System.Windows.Forms.ComboBox comboBoxEnrollAuthRep;
         private System.Windows.Forms.ComboBox comboBoxEnrollHomeless;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.ComboBox comboBoxEnrollCounty;
+        private System.Windows.Forms.ComboBox comboBoxHomeCounty;
         private System.Windows.Forms.ComboBox comboBoxEnrollNotices;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label22;
@@ -4389,6 +4414,8 @@
         private System.Windows.Forms.Label label131;
         private System.Windows.Forms.Label label130;
         private System.Windows.Forms.Button buttonDeleteMailAddr;
+        private System.Windows.Forms.ComboBox comboBoxMailCounty;
+        private System.Windows.Forms.Label label134;
 
     }
 }

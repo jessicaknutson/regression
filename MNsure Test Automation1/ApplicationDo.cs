@@ -183,7 +183,7 @@ namespace MNsure_Regression_1
                     listboxCity.SendKeys(myApplication.myHomeCity);
 
                     IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
-                    listboxCounty.SendKeys(myApplication.myCounty);
+                    listboxCounty.SendKeys(myApplication.myHomeCounty);
 
                     IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
                     listboxState.SendKeys(myApplication.myHomeState);
@@ -198,7 +198,7 @@ namespace MNsure_Regression_1
                 {
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id10")));
                     IWebElement listboxCounty = driver.FindElement(By.Id("__o3id10"));
-                    listboxCounty.SendKeys(myApplication.myCounty);
+                    listboxCounty.SendKeys(myApplication.myHomeCounty);
 
                     IWebElement listboxHaveMailingAddress = driver.FindElement(By.Id("__o3id19"));
                     listboxHaveMailingAddress.SendKeys(myApplication.myMailingAddressYN);
@@ -210,26 +210,33 @@ namespace MNsure_Regression_1
 
                 if (myApplication.myMailingAddressYN == "Yes")
                 {
-                    //We need to split the address info out into separate db 
-                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
+                    driver.SwitchTo().DefaultContent();
+                    IWebElement element2 = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iframe")));
+                    var iFrameElement = driver.FindElement(By.TagName("iframe"));
+                    driver.SwitchTo().Frame(iFrameElement);
+
+                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id1a"));
                     listboxAddress1.SendKeys(myApplication.myMailAddress1);
-
-                    IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
-                    listboxAddress2.SendKeys(myApplication.myMailAddress2);
-
-                    IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
-                    listboxAptSuite.SendKeys(myApplication.myMailAptSuite);
-
-                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
+                    if (myApplication.myMailAddress2 != null)
+                    {
+                        IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id1b"));
+                        listboxAddress2.SendKeys(myApplication.myMailAddress2);
+                    }
+                    if (myApplication.myMailAptSuite != null)
+                    {
+                        IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id1c"));
+                        listboxAptSuite.SendKeys(myApplication.myMailAptSuite);
+                    }
+                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id1d"));
                     listboxCity.SendKeys(myApplication.myMailCity);
 
-                    //IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
-                    //listboxCounty.SendKeys(myApplication.myCounty);
+                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id1e"));
+                    listboxCounty.SendKeys(myApplication.myMailCounty);
 
-                    IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
+                    IWebElement listboxState = driver.FindElement(By.Id("__o3id1f"));
                     listboxState.SendKeys(myApplication.myMailState);
 
-                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
+                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id20"));
                     listboxZip.SendKeys(myApplication.myMailZip);
                 }
 

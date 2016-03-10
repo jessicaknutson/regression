@@ -373,6 +373,7 @@ namespace MNsure_Regression_1
 
             try
             {
+                //System.Threading.Thread.Sleep(2000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);

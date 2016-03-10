@@ -571,10 +571,7 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myHomeZip4 = reader.GetString(8);
                                 }
-                                if (reader.GetString(10) != null)
-                                {
-                                    myApplication.myCounty = reader.GetString(10);
-                                }
+                                myApplication.myHomeCounty = reader.GetString(10);                                
                                 index = reader.GetOrdinal("AptSuite");
                                 if (!reader.IsDBNull(index))
                                 {
@@ -597,6 +594,7 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myMailZip4 = reader.GetString(8);
                                 }
+                                myApplication.myMailCounty = reader.GetString(10);
                                 index = reader.GetOrdinal("AptSuite");
                                 if (!reader.IsDBNull(index))
                                 {
@@ -613,7 +611,7 @@ namespace MNsure_Regression_1
                             myApplication.myHomeState = "Minnesota";
                             myApplication.myHomeZip = "55401";
                             myApplication.myHomeZip4 = "1111";
-                            myApplication.myCounty = "Hennepin";
+                            myApplication.myHomeCounty = "Hennepin";
                             myApplication.myHomeAptSuite = "Suite 64";
 
                             myApplication.myMailAddress1 = "";
@@ -622,6 +620,7 @@ namespace MNsure_Regression_1
                             myApplication.myMailState = "";
                             myApplication.myMailZip = "";
                             myApplication.myMailZip4 = "";
+                            myApplication.myMailCounty = "";
                             myApplication.myMailAptSuite = "";
                         }
                         com3.ExecuteNonQuery();
@@ -639,7 +638,7 @@ namespace MNsure_Regression_1
                 textBoxEnrollLastName.Text = myAccountCreate.myLastName;
                 comboBoxEnrollSuffix.Text = myApplication.mySuffix;
                 comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
-                comboBoxEnrollCounty.Text = myApplication.myCounty;
+                comboBoxHomeCounty.Text = myApplication.myHomeCounty;
                 comboBoxEnrollGender.Text = myApplication.myGender;
                 comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
                 if (myApplication.myDOB == null)
@@ -682,6 +681,7 @@ namespace MNsure_Regression_1
                 {
                     textBoxMailAptSuite.Text = myApplication.myMailAptSuite;
                 }
+                comboBoxMailCounty.Text = myApplication.myMailCounty;
                 comboBoxLiveMN.Text = myApplication.myLiveMN;
                 comboBoxMailAddrYN.Text = myApplication.myMailingAddressYN;
                 comboBoxPlanLiveMN.Text = myApplication.myPlanLiveMN;
@@ -764,7 +764,7 @@ namespace MNsure_Regression_1
             myApplication.myHomeState = comboBoxHomeState.Text;
             myApplication.myHomeZip = textBoxHomeZip.Text;
             myApplication.myHomeZip4 = textBoxHomeZip4.Text;
-            myApplication.myCounty = comboBoxEnrollCounty.Text;
+            myApplication.myHomeCounty = comboBoxHomeCounty.Text;
             myApplication.myMailAddress1 = textBoxMailAddr1.Text;
             myApplication.myMailAddress2 = textBoxMailAddr2.Text;
             myApplication.myMailAptSuite = textBoxMailAptSuite.Text;
@@ -772,6 +772,7 @@ namespace MNsure_Regression_1
             myApplication.myMailState = comboBoxMailState.Text;
             myApplication.myMailZip = textBoxMailZip.Text;
             myApplication.myMailZip4 = textBoxMailZip4.Text;
+            myApplication.myMailCounty = comboBoxMailCounty.Text;
             myApplication.myAddressSame = comboBoxEnrollAddressSame.Text;
             myApplication.myGender = comboBoxEnrollGender.Text;
             myApplication.myMaritalStatus = comboBoxEnrollMaritalStatus.Text;
@@ -880,16 +881,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("AuthRep", myApplication.myAuthRep);
                     com2.Parameters.AddWithValue("ApplyYourself", myApplication.myApplyYourself);
                     com2.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
-                    /*com2.Parameters.AddWithValue("Address1", myApplication.myAddress1);//move to addr db
-                    com2.Parameters.AddWithValue("Address2", myApplication.myAddress2);
-                    com2.Parameters.AddWithValue("City", myApplication.myCity);
-                    com2.Parameters.AddWithValue("State", myApplication.myState);
-                    com2.Parameters.AddWithValue("Zip", myApplication.myZip);
-                    com2.Parameters.AddWithValue("Zip4", myApplication.myZip4);
-                     * */
                     com2.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
-                    //com2.Parameters.AddWithValue("County", myApplication.myCounty);//move to addr db
-                    //com2.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
                     com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
                     com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
                     com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
@@ -993,7 +985,7 @@ namespace MNsure_Regression_1
                     {
                         com4.Parameters.AddWithValue("Zip4", DBNull.Value);
                     }
-                    com4.Parameters.AddWithValue("County", myApplication.myCounty);
+                    com4.Parameters.AddWithValue("County", myApplication.myHomeCounty);
                     if (myApplication.myHomeAptSuite != "")
                     {
                         com4.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
@@ -1038,7 +1030,7 @@ namespace MNsure_Regression_1
                         {
                             com5.Parameters.AddWithValue("Zip4", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("County", DBNull.Value);
+                        com5.Parameters.AddWithValue("County", myApplication.myMailCounty);
                         if (myApplication.myMailAptSuite != "")
                         {
                             com5.Parameters.AddWithValue("AptSuite", myApplication.myMailAptSuite);
@@ -1294,14 +1286,8 @@ namespace MNsure_Regression_1
 
         }
 
-
-
-
         private void tabPageEnroll_Enter(object sender, EventArgs e)
         {
-
-
-
         }
 
         private void tabPageRun_Enter(object sender, EventArgs e)
@@ -1414,7 +1400,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
-            textBoxMNSureBuild.Text = "16.1.1";
+            textBoxMNSureBuild.Text = "16.1.1d";
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
@@ -1434,9 +1420,6 @@ namespace MNsure_Regression_1
         {
 
         }
-
-
-
 
         private void FormMain_Load(object sender, EventArgs e)
         {
@@ -1540,9 +1523,6 @@ namespace MNsure_Regression_1
                 int tempI;
                 tempI = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                 myHouseholdMembers.SSN = Convert.ToString(tempI);
-
-
-
 
                 //The structure should be full now, so populate all the boxes.  
                 textBoxHMFirstName.Text = myHouseholdMembers.FirstName;

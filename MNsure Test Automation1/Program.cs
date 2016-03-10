@@ -66,12 +66,6 @@ struct mystructSelectedTest
         public string myMiddleName;
         public string myLastName;
         public string mySuffix;
-        /*public string myAddress1;
-        public string myAddress2;
-        public string myCity;
-        public string myState;
-        public string myZip;
-        public string myZip4;*/
         public string myEmail;
         public string myPhone;
         public string mySSN;
@@ -106,7 +100,7 @@ struct mystructSelectedTest
         public string myHomeState;
         public string myHomeZip;
         public string myHomeZip4;
-        public string myCounty;
+        public string myHomeCounty;
         public string myMailAddress1;
         public string myMailAddress2;
         public string myMailAptSuite;
@@ -114,6 +108,7 @@ struct mystructSelectedTest
         public string myMailState;
         public string myMailZip;
         public string myMailZip4;
+        public string myMailCounty;
         public string myAddressSame;
         public string myGender;
         public string myMaritalStatus;
