@@ -571,7 +571,7 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myHomeZip4 = reader.GetString(8);
                                 }
-                                myApplication.myHomeCounty = reader.GetString(10);                                
+                                myApplication.myHomeCounty = reader.GetString(10);
                                 index = reader.GetOrdinal("AptSuite");
                                 if (!reader.IsDBNull(index))
                                 {
@@ -704,7 +704,18 @@ namespace MNsure_Regression_1
                 comboBoxRace.Text = myApplication.myRace;
                 comboBoxLiveRes.Text = myApplication.myLiveRes;
                 comboBoxFederalTribe.Text = myApplication.myFederalTribe;
-                comboBoxMilitary.Text = myApplication.myMilitary;
+                comboBoxMilitary.Text = myApplication.myMilitary;                
+                if (myApplication.myMilitary == "Yes")
+                {
+                    dateTimeMilitary.Enabled = true;
+                    dateTimeMilitary.Format = DateTimePickerFormat.Short; 
+                }
+                else
+                {
+                    dateTimeMilitary.Enabled = false;
+                    dateTimeMilitary.Format = DateTimePickerFormat.Custom;
+                    dateTimeMilitary.CustomFormat = " ";
+                }
                 dateTimeMilitary.Text = myApplication.myMilitaryDate;
                 if (myApplication.myMilitaryDate != null)
                 {
@@ -714,11 +725,7 @@ namespace MNsure_Regression_1
                     dateTimeMilitary.Format = DateTimePickerFormat.Short;
                     dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
                 }
-                else
-                {
-                    dateTimeMilitary.CustomFormat = " ";
-                    dateTimeMilitary.Format = DateTimePickerFormat.Custom;
-                }
+                
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
@@ -800,7 +807,7 @@ namespace MNsure_Regression_1
             myApplication.myLiveRes = comboBoxLiveRes.Text;
             myApplication.myFederalTribe = comboBoxFederalTribe.Text;
             myApplication.myMilitary = comboBoxMilitary.Text;
-            if (myApplication.myMilitaryDate != null)
+            if (dateTimeMilitary.Text != " ")
             {
                 myApplication.myMilitaryDate = dateTimeMilitary.Text;
             }
@@ -883,19 +890,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
                     com2.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
                     com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
-                    com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
-                    com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
-                    com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
-                    com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
-                    com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
-                    if (myApplication.myMilitaryDate != null)
-                    {
-                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
-                    }
-                    else
-                    {
-                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
-                    }
+                   
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
@@ -915,6 +910,19 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("PlanType", myApplication.myEnrollmentPlanType);
                     com2.Parameters.AddWithValue("Foster", myApplication.myFosterCare);
                     com2.Parameters.AddWithValue("MailAddrYN", myApplication.myMailingAddressYN);
+                    com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
+                    com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
+                    com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
+                    com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
+                    com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
+                    if (myApplication.myMilitaryDate != null)
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                    }
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -4129,7 +4137,69 @@ namespace MNsure_Regression_1
 
         }
 
+        private void comboBoxMailAddrYN_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBoxMailAddrYN.Text == "No")
+            {
+                myApplication.myMailAddress1 = "";
+                myApplication.myMailAddress2 = "";
+                myApplication.myMailCity = "";
+                myApplication.myMailState = null;
+                myApplication.myMailZip = "";
+                myApplication.myMailZip4 = "";
+                myApplication.myMailCounty = null;
+                myApplication.myMailAptSuite = "";
 
+                textBoxMailAddr1.Text = myApplication.myMailAddress1;
+                textBoxMailAddr2.Text = myApplication.myMailAddress2;
+                textBoxMailCity.Text = myApplication.myMailCity;
+                comboBoxMailState.SelectedIndex = -1;
+                textBoxMailZip.Text = myApplication.myMailZip;
+                textBoxMailZip4.Text = myApplication.myMailZip4;
+                textBoxMailAptSuite.Text = myApplication.myMailAptSuite;
+                comboBoxMailCounty.SelectedIndex = -1;
+
+                SqlCeConnection con;
+                string conString = Properties.Settings.Default.Database1ConnectionString;
+                try
+                {
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Address where TestId = " + myHistoryInfo.myTestId + "and Type = 'Mailing'", con))
+                    {
+                        SqlCeDataReader reader = com.ExecuteReader();
+                        string myDeleteString;
+                        myDeleteString = "Delete FROM Address where TestId = " + myHistoryInfo.myTestId + "and Type = 'Mailing'";
+                        using (SqlCeCommand com2 = new SqlCeCommand(myDeleteString, con))
+                        {
+                            com2.ExecuteNonQuery();
+                            com2.Dispose();
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Delete Mailing Address didn't work");
+
+                }
+            }
+        }
+
+        private void comboBoxMilitary_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myMilitaryDate = null;
+            if (comboBoxMilitary.Text == "No")
+            {
+                dateTimeMilitary.Enabled = false;
+                dateTimeMilitary.Format = DateTimePickerFormat.Custom;
+                dateTimeMilitary.CustomFormat = " ";
+            }
+            else
+            {
+            dateTimeMilitary.Enabled = true;
+                dateTimeMilitary.Format = DateTimePickerFormat.Short; 
+            }
+        }
 
     }
 }

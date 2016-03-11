@@ -200,7 +200,6 @@
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
             this.comboBoxMailCounty = new System.Windows.Forms.ComboBox();
             this.label134 = new System.Windows.Forms.Label();
-            this.buttonDeleteMailAddr = new System.Windows.Forms.Button();
             this.textBoxMailAptSuite = new System.Windows.Forms.TextBox();
             this.label133 = new System.Windows.Forms.Label();
             this.label132 = new System.Windows.Forms.Label();
@@ -2014,7 +2013,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(909, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(309, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(450, 498);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -2025,12 +2024,10 @@
             // dateTimeMilitary
             // 
             this.dateTimeMilitary.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimeMilitary.Location = new System.Drawing.Point(287, 149);
-            this.dateTimeMilitary.MaxDate = new System.DateTime(2115, 12, 31, 0, 0, 0, 0);
-            this.dateTimeMilitary.MinDate = new System.DateTime(2015, 1, 1, 0, 0, 0, 0);
+            this.dateTimeMilitary.Location = new System.Drawing.Point(289, 149);
             this.dateTimeMilitary.Name = "dateTimeMilitary";
-            this.dateTimeMilitary.Size = new System.Drawing.Size(103, 20);
-            this.dateTimeMilitary.TabIndex = 26;
+            this.dateTimeMilitary.Size = new System.Drawing.Size(100, 20);
+            this.dateTimeMilitary.TabIndex = 27;
             // 
             // label120
             // 
@@ -2051,6 +2048,7 @@
             this.comboBoxMilitary.Name = "comboBoxMilitary";
             this.comboBoxMilitary.Size = new System.Drawing.Size(47, 21);
             this.comboBoxMilitary.TabIndex = 24;
+            this.comboBoxMilitary.SelectedValueChanged += new System.EventHandler(this.comboBoxMilitary_SelectedValueChanged);
             // 
             // label119
             // 
@@ -2252,7 +2250,6 @@
             // 
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailCounty);
             this.groupBoxApplicantInformation.Controls.Add(this.label134);
-            this.groupBoxApplicantInformation.Controls.Add(this.buttonDeleteMailAddr);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxMailAptSuite);
             this.groupBoxApplicantInformation.Controls.Add(this.label133);
             this.groupBoxApplicantInformation.Controls.Add(this.label132);
@@ -2366,15 +2363,6 @@
             this.label134.Size = new System.Drawing.Size(43, 13);
             this.label134.TabIndex = 48;
             this.label134.Text = "County:";
-            // 
-            // buttonDeleteMailAddr
-            // 
-            this.buttonDeleteMailAddr.Location = new System.Drawing.Point(671, 495);
-            this.buttonDeleteMailAddr.Name = "buttonDeleteMailAddr";
-            this.buttonDeleteMailAddr.Size = new System.Drawing.Size(125, 23);
-            this.buttonDeleteMailAddr.TabIndex = 47;
-            this.buttonDeleteMailAddr.Text = "Delete Mailing Address";
-            this.buttonDeleteMailAddr.UseVisualStyleBackColor = true;
             // 
             // textBoxMailAptSuite
             // 
@@ -2729,6 +2717,7 @@
             this.comboBoxMailAddrYN.Name = "comboBoxMailAddrYN";
             this.comboBoxMailAddrYN.Size = new System.Drawing.Size(48, 21);
             this.comboBoxMailAddrYN.TabIndex = 38;
+            this.comboBoxMailAddrYN.SelectedValueChanged += new System.EventHandler(this.comboBoxMailAddrYN_SelectedValueChanged);
             // 
             // label108
             // 
@@ -4400,7 +4389,6 @@
         private System.Windows.Forms.ComboBox comboBoxMilitary;
         private System.Windows.Forms.Label label119;
         private System.Windows.Forms.Label label120;
-        private System.Windows.Forms.DateTimePicker dateTimeMilitary;
         private System.Windows.Forms.TextBox textBoxEnrollDOB;
         private System.Windows.Forms.Label label123;
         private System.Windows.Forms.Label label122;
@@ -4429,9 +4417,9 @@
         private System.Windows.Forms.TextBox textBoxHomeAptSuite;
         private System.Windows.Forms.Label label131;
         private System.Windows.Forms.Label label130;
-        private System.Windows.Forms.Button buttonDeleteMailAddr;
         private System.Windows.Forms.ComboBox comboBoxMailCounty;
         private System.Windows.Forms.Label label134;
+        private System.Windows.Forms.DateTimePicker dateTimeMilitary;
 
     }
 }
