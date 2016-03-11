@@ -90,25 +90,25 @@ namespace MNsure_Regression_1
                         myApplication.myEnrollmentPlanType = reader.GetString(42);
                         myApplication.myFosterCare = reader.GetString(43);
                         myApplication.myMailingAddressYN = reader.GetString(44);
-                        if (reader.GetString(45) != null)
+                        if (!reader.IsDBNull(45))
                         {
                             myApplication.myTribeName = reader.GetString(45);
                         }
-                        if (reader.GetString(46) != null)
+                        if (!reader.IsDBNull(46))
                         {
                             myApplication.myLiveRes = reader.GetString(46);
                         }
 
-                        if (reader.GetString(47) != null)
+                        if (!reader.IsDBNull(47))
                         {
                             myApplication.myTribeId = reader.GetString(47);
                         }
 
-                        if (reader.GetString(48) != null)
+                        if (!reader.IsDBNull(48))
                         {
                             myApplication.myFederalTribe = reader.GetString(48);
                         }
-                        if (reader.GetString(49) != null)
+                        if (!reader.IsDBNull(49))
                         {
                             myApplication.myMilitary = reader.GetString(49);
                         }
@@ -131,19 +131,19 @@ namespace MNsure_Regression_1
                         if (reader.GetString(9) == "Home")
                         {
                             myApplication.myHomeAddress1 = reader.GetString(3);
-                            if (reader.GetString(4) != null)
+                            if (!reader.IsDBNull(4))
                             {
                                 myApplication.myHomeAddress2 = reader.GetString(4);
                             }
                             myApplication.myHomeCity = reader.GetString(5);
                             myApplication.myHomeState = reader.GetString(6);
                             myApplication.myHomeZip = reader.GetString(7);
-                            if (reader.GetString(8) != null)
+                            if (!reader.IsDBNull(8))
                             {
                                 myApplication.myHomeZip4 = reader.GetString(8);
                             }
                             myApplication.myHomeCounty = reader.GetString(10);
-                            if (reader.GetString(11) != null)
+                            if (!reader.IsDBNull(11))
                             {
                                 myApplication.myHomeAptSuite = reader.GetString(11);
                             }
@@ -151,19 +151,19 @@ namespace MNsure_Regression_1
                         else
                         {
                             myApplication.myMailAddress1 = reader.GetString(3);
-                            if (reader.GetString(4) != null)
+                            if (!reader.IsDBNull(4))
                             {
                                 myApplication.myMailAddress2 = reader.GetString(4);
                             }
                             myApplication.myMailCity = reader.GetString(5);
                             myApplication.myMailState = reader.GetString(6);
                             myApplication.myMailZip = reader.GetString(7);
-                            if (reader.GetString(8) != null)
+                            if (!reader.IsDBNull(8))
                             {
                                 myApplication.myMailZip4 = reader.GetString(8);
                             }
                             myApplication.myMailCounty = reader.GetString(10);
-                            if (reader.GetString(11) != null)
+                            if (!reader.IsDBNull(11))
                             {
                                 myApplication.myMailAptSuite = reader.GetString(11);
                             }

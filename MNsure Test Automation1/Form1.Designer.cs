@@ -198,6 +198,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.comboBoxMailCounty = new System.Windows.Forms.ComboBox();
+            this.label134 = new System.Windows.Forms.Label();
             this.buttonDeleteMailAddr = new System.Windows.Forms.Button();
             this.textBoxMailAptSuite = new System.Windows.Forms.TextBox();
             this.label133 = new System.Windows.Forms.Label();
@@ -361,8 +363,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label134 = new System.Windows.Forms.Label();
-            this.comboBoxMailCounty = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -708,7 +708,7 @@
             this.groupBoxEnrollIncome.Controls.Add(this.label40);
             this.groupBoxEnrollIncome.Controls.Add(this.comboBoxEnrollIncomeType);
             this.groupBoxEnrollIncome.Controls.Add(this.label39);
-            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(118, 214);
+            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(918, 214);
             this.groupBoxEnrollIncome.Name = "groupBoxEnrollIncome";
             this.groupBoxEnrollIncome.Size = new System.Drawing.Size(534, 394);
             this.groupBoxEnrollIncome.TabIndex = 61;
@@ -1055,7 +1055,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(660, -46);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(960, -46);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(770, 578);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -2014,7 +2014,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(309, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(909, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(450, 498);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -2337,6 +2337,35 @@
             this.groupBoxApplicantInformation.TabStop = false;
             this.groupBoxApplicantInformation.Text = "Information About You";
             this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
+            // 
+            // comboBoxMailCounty
+            // 
+            this.comboBoxMailCounty.FormattingEnabled = true;
+            this.comboBoxMailCounty.Items.AddRange(new object[] {
+            "Hennepin",
+            "Ramsey",
+            "Aitkin",
+            "Anoka",
+            "Becker",
+            "Beltrami",
+            "Benton",
+            "Big Stone",
+            "Blue Earth",
+            "Brown",
+            "Out Of State"});
+            this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 466);
+            this.comboBoxMailCounty.Name = "comboBoxMailCounty";
+            this.comboBoxMailCounty.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxMailCounty.TabIndex = 49;
+            // 
+            // label134
+            // 
+            this.label134.AutoSize = true;
+            this.label134.Location = new System.Drawing.Point(621, 468);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(43, 13);
+            this.label134.TabIndex = 48;
+            this.label134.Text = "County:";
             // 
             // buttonDeleteMailAddr
             // 
@@ -2790,7 +2819,15 @@
             this.comboBoxHomeCounty.Items.AddRange(new object[] {
             "Hennepin",
             "Ramsey",
-            "Anoka"});
+            "Aitkin",
+            "Anoka",
+            "Becker",
+            "Beltrami",
+            "Benton",
+            "Big Stone",
+            "Blue Earth",
+            "Brown",
+            "Out Of State"});
             this.comboBoxHomeCounty.Location = new System.Drawing.Point(671, 168);
             this.comboBoxHomeCounty.Name = "comboBoxHomeCounty";
             this.comboBoxHomeCounty.Size = new System.Drawing.Size(80, 21);
@@ -3995,27 +4032,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label134
-            // 
-            this.label134.AutoSize = true;
-            this.label134.Location = new System.Drawing.Point(621, 468);
-            this.label134.Name = "label134";
-            this.label134.Size = new System.Drawing.Size(43, 13);
-            this.label134.TabIndex = 48;
-            this.label134.Text = "County:";
-            // 
-            // comboBoxMailCounty
-            // 
-            this.comboBoxMailCounty.FormattingEnabled = true;
-            this.comboBoxMailCounty.Items.AddRange(new object[] {
-            "Hennepin",
-            "Ramsey",
-            "Anoka"});
-            this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 466);
-            this.comboBoxMailCounty.Name = "comboBoxMailCounty";
-            this.comboBoxMailCounty.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxMailCounty.TabIndex = 49;
             // 
             // FormMain
             // 

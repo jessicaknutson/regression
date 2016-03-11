@@ -663,7 +663,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(8000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -712,7 +712,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(12000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1085,7 +1085,10 @@ namespace MNsure_Regression_1
                     listboxNative.SendKeys("Yes");
                     listboxNative.Click();
 
-                    //outsideClick.Click();
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id8")));
+                    IWebElement outsideClick = driver.FindElement(By.Id("__o3id8"));
+                    outsideClick.Click();
+
                     IWebElement listboxNativePerson = driver.FindElement(By.Id("__o3idb"));
                     listboxNativePerson.Click();
                 }
@@ -1310,7 +1313,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(8000);
+                System.Threading.Thread.Sleep(30000);//this keeps changing, 10 to 30
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
