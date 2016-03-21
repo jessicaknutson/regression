@@ -490,6 +490,12 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myMilitaryDate = null;
                             }
+                            myApplication.myAppliedSSN = reader.GetString(51);
+                            if (!reader.IsDBNull(52))
+                            {
+                                myApplication.myWhyNoSSN = reader.GetString(52);
+                            }
+                            myApplication.myAssistSSN = reader.GetString(53);
                         }
                         else
                         {
@@ -526,6 +532,8 @@ namespace MNsure_Regression_1
                             myApplication.myRace = "White";
                             myApplication.mySSN = "Yes";
                             myApplication.myCitizen = "Yes";
+                            myApplication.myAppliedSSN = "No";
+                            myApplication.myAssistSSN = "No";
                             myApplication.mySSNNum = myAccountCreate.mySSN;
                             myApplication.myHouseholdOther = "No";
                             myApplication.myDependants = "No";
@@ -728,6 +736,9 @@ namespace MNsure_Regression_1
                 
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
                 textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
+                comboBoxAppliedSSN.Text = myApplication.myAppliedSSN;
+                comboBoxWhyNoSSN.Text = myApplication.myWhyNoSSN;
+                comboBoxAssistSSN.Text = myApplication.myAssistSSN;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
                 comboBoxEnrollHouseholdOther.Text = myApplication.myHouseholdOther;
                 comboBoxEnrollDependants.Text = myApplication.myDependants;
@@ -813,6 +824,9 @@ namespace MNsure_Regression_1
             }
             myApplication.mySSN = comboBoxEnrollSSN.Text;
             myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
+            myApplication.myAppliedSSN = comboBoxAppliedSSN.Text;
+            myApplication.myWhyNoSSN = comboBoxWhyNoSSN.Text;
+            myApplication.myAssistSSN = comboBoxAssistSSN.Text;
             myApplication.myCitizen = comboBoxEnrollCitizen.Text;
             myApplication.myHouseholdOther = comboBoxEnrollHouseholdOther.Text;
             myApplication.myDependants = comboBoxEnrollDependants.Text;
@@ -855,7 +869,7 @@ namespace MNsure_Regression_1
                                     "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @AddressSame, @Hispanic," +
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
-                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate );";
+                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -889,12 +903,21 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("ApplyYourself", myApplication.myApplyYourself);
                     com2.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
                     com2.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
-                    com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
-                   
+                    com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);                   
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
-                    com2.Parameters.AddWithValue("SSNNum", myApplication.mySSNNum);
+                    com2.Parameters.AddWithValue("SSNNum", myApplication.mySSNNum);                    
+                    com2.Parameters.AddWithValue("AppliedSSN", myApplication.myAppliedSSN);
+                    if (myApplication.myWhyNoSSN != null)
+                    {
+                        com2.Parameters.AddWithValue("WhyNoSSN", myApplication.myWhyNoSSN);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("WhyNoSSN", DBNull.Value);
+                    }
+                    com2.Parameters.AddWithValue("AssistSSN", myApplication.myAssistSSN);
                     com2.Parameters.AddWithValue("Household", myApplication.myHouseholdOther);
                     com2.Parameters.AddWithValue("Dependants", myApplication.myDependants);
                     com2.Parameters.AddWithValue("IncomeYN", myApplication.myIncomeYN);

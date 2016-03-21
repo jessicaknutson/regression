@@ -359,6 +359,24 @@ namespace MNsure_Regression_1
                     listboxSSNNum.SendKeys(myApplication.mySSNNum);
                     listboxSSNNum.Click();
                 }
+                else
+                {
+                    IWebElement listboxAppliedSSN = driver.FindElement(By.Id("__o3id1e"));
+                    listboxAppliedSSN.SendKeys(myApplication.myAppliedSSN);
+                }
+                outsideClick.Click();
+
+                if (myApplication.myAppliedSSN == "No")
+                {
+                    IWebElement listboxWhyNoSSN = driver.FindElement(By.Id("__o3id1f"));
+                    listboxWhyNoSSN.SendKeys(myApplication.myWhyNoSSN);
+                }
+                outsideClick.Click();
+                if (myApplication.myWhyNoSSN == "Other")
+                {
+                    IWebElement listboxAssistSSN = driver.FindElement(By.Id("__o3id20"));
+                    listboxAssistSSN.SendKeys(myApplication.myAssistSSN);
+                }
                 outsideClick.Click();
 
                 IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id21"));
@@ -414,7 +432,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(15000);//norm 10, could go up to 45
+                System.Threading.Thread.Sleep(5000);//norm 10, was 15, could go up to 45
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -663,7 +681,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(8000);
+                System.Threading.Thread.Sleep(2000);//norm 4, was 8
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -712,7 +730,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(12000);
+                System.Threading.Thread.Sleep(4000);//norm 12
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1313,7 +1331,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(35000);//this keeps changing, 10 to 40
+                System.Threading.Thread.Sleep(5000);//this keeps changing, 10 to 40
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);

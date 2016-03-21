@@ -139,6 +139,9 @@ struct mystructSelectedTest
         public string mySSN;
         public string myCitizen;
         public string mySSNNum;
+        public string myAppliedSSN;
+        public string myWhyNoSSN;
+        public string myAssistSSN;
         public string myHouseholdOther;
         public string myDependants;
         public string myIncomeYN;

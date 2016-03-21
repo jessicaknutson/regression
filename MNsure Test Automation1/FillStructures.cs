@@ -116,6 +116,12 @@ namespace MNsure_Regression_1
                         {
                             myApplication.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
                         }
+                        myApplication.myAppliedSSN = reader.GetString(51);
+                        if (!reader.IsDBNull(52))
+                        {
+                            myApplication.myWhyNoSSN = reader.GetString(52);
+                        }
+                        myApplication.myAssistSSN = reader.GetString(53);
                     }
                 }
 

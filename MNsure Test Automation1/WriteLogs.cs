@@ -287,6 +287,9 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Race: " + myApplication.myRace);
                 doc.InsertParagraph("Application Data, Have an SSN: " + myApplication.mySSN);
                 doc.InsertParagraph("Application Data, SSN Number: " + myApplication.mySSNNum).Bold();
+                doc.InsertParagraph("Application Data, Applied for SSN: " + myApplication.myAppliedSSN);
+                doc.InsertParagraph("Application Data, Why No SSN: " + myApplication.myWhyNoSSN);
+                doc.InsertParagraph("Application Data, Asssistance with SSN: " + myApplication.myAssistSSN);     
                 doc.InsertParagraph("Application Data, Citizen: " + myApplication.myCitizen);
                 //    myEnrollment.mySSNNum = reader.GetString(37);
                 doc.InsertParagraph("Application Data, Household Other: " + myApplication.myHouseholdOther);
@@ -301,8 +304,8 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Reduced Income: " + myApplication.myIncomeReduced);
                 doc.InsertParagraph("Application Data, Income Adjusted: " + myApplication.myIncomeAdjusted);
                 doc.InsertParagraph("Application Data, Income Expected: " + myApplication.myIncomeExpected);
-                doc.InsertParagraph("Application Data, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType).Bold();
-
+                doc.InsertParagraph("Application Data, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType).Bold();                             
+                   
                 // Save to the output directory:
                 doc.Save();
 
