@@ -434,7 +434,8 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(6000);//norm 6, could go up to 45
+                int appwait = (6 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -560,7 +561,8 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);//could go up to 6
+                int appwait = (2 + myHistoryInfo.myAppWait) * 1000;//could go up to 6
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -683,7 +685,8 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(6000);//norm 6
+                int appwait = (6 + myHistoryInfo.myAppWait) * 1000;//norm 6
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -732,7 +735,8 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(8000);//norm 8
+                int appwait = (10 + myHistoryInfo.myAppWait) * 1000;//norm 8
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1333,7 +1337,8 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(4000);//this keeps changing, 4 to 40
+                int appwait = (8 + myHistoryInfo.myAppWait) * 1000;//this keeps changing, 4 to 40
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);

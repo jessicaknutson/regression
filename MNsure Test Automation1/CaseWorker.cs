@@ -301,12 +301,12 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(3000);
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div"))));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div")).Click();
 
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(3000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";

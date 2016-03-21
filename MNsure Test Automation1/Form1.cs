@@ -1435,6 +1435,9 @@ namespace MNsure_Regression_1
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
+            myHistoryInfo.myAppWait = 0;
+            comboBoxAppWait.Text = "0";
+            myHistoryInfo.myAppWait = Convert.ToInt32(comboBoxAppWait.Text);
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -4219,9 +4222,14 @@ namespace MNsure_Regression_1
             }
             else
             {
-            dateTimeMilitary.Enabled = true;
+                dateTimeMilitary.Enabled = true;
                 dateTimeMilitary.Format = DateTimePickerFormat.Short; 
             }
+        }
+
+        private void comboBoxAppWait_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myAppWait = Convert.ToInt32(comboBoxAppWait.Text);
         }
 
     }

@@ -173,6 +173,12 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxWhyNoSSN = new System.Windows.Forms.ComboBox();
+            this.comboBoxAssistSSN = new System.Windows.Forms.ComboBox();
+            this.comboBoxAppliedSSN = new System.Windows.Forms.ComboBox();
+            this.label137 = new System.Windows.Forms.Label();
+            this.label136 = new System.Windows.Forms.Label();
+            this.label135 = new System.Windows.Forms.Label();
             this.dateTimeMilitary = new System.Windows.Forms.DateTimePicker();
             this.label120 = new System.Windows.Forms.Label();
             this.comboBoxMilitary = new System.Windows.Forms.ComboBox();
@@ -362,12 +368,9 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label135 = new System.Windows.Forms.Label();
-            this.label136 = new System.Windows.Forms.Label();
-            this.label137 = new System.Windows.Forms.Label();
-            this.comboBoxAppliedSSN = new System.Windows.Forms.ComboBox();
-            this.comboBoxAssistSSN = new System.Windows.Forms.ComboBox();
-            this.comboBoxWhyNoSSN = new System.Windows.Forms.ComboBox();
+            this.comboBoxAppWait = new System.Windows.Forms.ComboBox();
+            this.label138 = new System.Windows.Forms.Label();
+            this.label139 = new System.Windows.Forms.Label();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -476,6 +479,9 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label139);
+            this.groupBox8.Controls.Add(this.label138);
+            this.groupBox8.Controls.Add(this.comboBoxAppWait);
             this.groupBox8.Controls.Add(this.textBoxExecutedBy);
             this.groupBox8.Controls.Add(this.label118);
             this.groupBox8.Controls.Add(this.checkBoxTimeTravel);
@@ -488,7 +494,7 @@
             this.groupBox8.Controls.Add(this.buttonConfigureApplication);
             this.groupBox8.Location = new System.Drawing.Point(6, 378);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(623, 116);
+            this.groupBox8.Size = new System.Drawing.Size(623, 153);
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
             // 
@@ -2032,6 +2038,65 @@
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // comboBoxWhyNoSSN
+            // 
+            this.comboBoxWhyNoSSN.FormattingEnabled = true;
+            this.comboBoxWhyNoSSN.Items.AddRange(new object[] {
+            "Other"});
+            this.comboBoxWhyNoSSN.Location = new System.Drawing.Point(196, 279);
+            this.comboBoxWhyNoSSN.Name = "comboBoxWhyNoSSN";
+            this.comboBoxWhyNoSSN.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxWhyNoSSN.TabIndex = 12;
+            // 
+            // comboBoxAssistSSN
+            // 
+            this.comboBoxAssistSSN.FormattingEnabled = true;
+            this.comboBoxAssistSSN.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxAssistSSN.Location = new System.Drawing.Point(196, 306);
+            this.comboBoxAssistSSN.Name = "comboBoxAssistSSN";
+            this.comboBoxAssistSSN.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxAssistSSN.TabIndex = 13;
+            // 
+            // comboBoxAppliedSSN
+            // 
+            this.comboBoxAppliedSSN.FormattingEnabled = true;
+            this.comboBoxAppliedSSN.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxAppliedSSN.Location = new System.Drawing.Point(196, 252);
+            this.comboBoxAppliedSSN.Name = "comboBoxAppliedSSN";
+            this.comboBoxAppliedSSN.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxAppliedSSN.TabIndex = 11;
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Location = new System.Drawing.Point(44, 310);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(146, 13);
+            this.label137.TabIndex = 0;
+            this.label137.Text = "Assistance applying for SSN?";
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Location = new System.Drawing.Point(78, 283);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(112, 13);
+            this.label136.TabIndex = 0;
+            this.label136.Text = "Reason why no SSN?";
+            // 
+            // label135
+            // 
+            this.label135.AutoSize = true;
+            this.label135.Location = new System.Drawing.Point(102, 256);
+            this.label135.Name = "label135";
+            this.label135.Size = new System.Drawing.Size(88, 13);
+            this.label135.TabIndex = 0;
+            this.label135.Text = "Applied for SSN?";
             // 
             // dateTimeMilitary
             // 
@@ -4034,64 +4099,46 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label135
+            // comboBoxAppWait
             // 
-            this.label135.AutoSize = true;
-            this.label135.Location = new System.Drawing.Point(102, 256);
-            this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(88, 13);
-            this.label135.TabIndex = 0;
-            this.label135.Text = "Applied for SSN?";
+            this.comboBoxAppWait.FormattingEnabled = true;
+            this.comboBoxAppWait.Items.AddRange(new object[] {
+            "0",
+            "5",
+            "10",
+            "15",
+            "20",
+            "25",
+            "30",
+            "35",
+            "40",
+            "45",
+            "50",
+            "55",
+            "60"});
+            this.comboBoxAppWait.Location = new System.Drawing.Point(175, 123);
+            this.comboBoxAppWait.Name = "comboBoxAppWait";
+            this.comboBoxAppWait.Size = new System.Drawing.Size(34, 21);
+            this.comboBoxAppWait.TabIndex = 19;
+            this.comboBoxAppWait.SelectedValueChanged += new System.EventHandler(this.comboBoxAppWait_SelectedValueChanged);
             // 
-            // label136
+            // label138
             // 
-            this.label136.AutoSize = true;
-            this.label136.Location = new System.Drawing.Point(78, 283);
-            this.label136.Name = "label136";
-            this.label136.Size = new System.Drawing.Size(112, 13);
-            this.label136.TabIndex = 0;
-            this.label136.Text = "Reason why no SSN?";
+            this.label138.AutoSize = true;
+            this.label138.Location = new System.Drawing.Point(34, 126);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(135, 13);
+            this.label138.TabIndex = 20;
+            this.label138.Text = "Add Application Wait Time:";
             // 
-            // label137
+            // label139
             // 
-            this.label137.AutoSize = true;
-            this.label137.Location = new System.Drawing.Point(44, 310);
-            this.label137.Name = "label137";
-            this.label137.Size = new System.Drawing.Size(146, 13);
-            this.label137.TabIndex = 0;
-            this.label137.Text = "Assistance applying for SSN?";
-            // 
-            // comboBoxAppliedSSN
-            // 
-            this.comboBoxAppliedSSN.FormattingEnabled = true;
-            this.comboBoxAppliedSSN.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxAppliedSSN.Location = new System.Drawing.Point(196, 252);
-            this.comboBoxAppliedSSN.Name = "comboBoxAppliedSSN";
-            this.comboBoxAppliedSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAppliedSSN.TabIndex = 11;
-            // 
-            // comboBoxAssistSSN
-            // 
-            this.comboBoxAssistSSN.FormattingEnabled = true;
-            this.comboBoxAssistSSN.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxAssistSSN.Location = new System.Drawing.Point(196, 306);
-            this.comboBoxAssistSSN.Name = "comboBoxAssistSSN";
-            this.comboBoxAssistSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAssistSSN.TabIndex = 13;
-            // 
-            // comboBoxWhyNoSSN
-            // 
-            this.comboBoxWhyNoSSN.FormattingEnabled = true;
-            this.comboBoxWhyNoSSN.Items.AddRange(new object[] {
-            "Other"});
-            this.comboBoxWhyNoSSN.Location = new System.Drawing.Point(196, 279);
-            this.comboBoxWhyNoSSN.Name = "comboBoxWhyNoSSN";
-            this.comboBoxWhyNoSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxWhyNoSSN.TabIndex = 12;
+            this.label139.AutoSize = true;
+            this.label139.Location = new System.Drawing.Point(215, 126);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(49, 13);
+            this.label139.TabIndex = 21;
+            this.label139.Text = "Seconds";
             // 
             // FormMain
             // 
@@ -4497,6 +4544,9 @@
         private System.Windows.Forms.Label label137;
         private System.Windows.Forms.Label label136;
         private System.Windows.Forms.Label label135;
+        private System.Windows.Forms.Label label139;
+        private System.Windows.Forms.Label label138;
+        private System.Windows.Forms.ComboBox comboBoxAppWait;
 
     }
 }

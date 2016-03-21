@@ -41,6 +41,7 @@ struct mystructHistoryInfo
     public string myIcnumber;
     public int myCaseWorkerWait;
     public int myCitizenWait;
+    public int myAppWait;
     public string myInTimeTravel;
     public DateTime myTimeTravelDate;
     public string myExecutedBy;
