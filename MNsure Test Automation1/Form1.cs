@@ -127,7 +127,7 @@ namespace MNsure_Regression_1
                     result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
-                    myApplication.mySSNNum = myLastSSN.myLastSSN;
+                    myLastSSN.myLastSSN = myApplication.mySSNNum;
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
                     result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
 

@@ -110,6 +110,211 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoApplicantDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input")));
+
+                IWebElement textboxFirstName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"));
+                textboxFirstName.SendKeys(myApplication.myFirstName);
+
+                IWebElement textboxMiddleName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[4]/table/tbody/tr/td[1]/div/div/input"));
+                textboxMiddleName.SendKeys(myApplication.myMiddleName);
+
+                IWebElement textboxLastName = driver.FindElement(By.Id("__o3id8"));
+                textboxLastName.SendKeys(myApplication.myLastName);
+
+                IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id9"));
+                textboxSuffix.SendKeys(myApplication.mySuffix);
+
+                IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
+                textboxGender.SendKeys(myApplication.myGender);
+
+                IWebElement textboxMaritalStatus = driver.FindElement(By.Id("__o3idb"));
+                textboxMaritalStatus.SendKeys(myApplication.myMaritalStatus);
+
+                string tempDOB;
+                tempDOB = Convert.ToString(myApplication.myDOB);
+                tempDOB = tempDOB.Substring(0, 10);
+                IWebElement textboxDOB = driver.FindElement(By.Id("__o3idc"));
+                textboxDOB.SendKeys(tempDOB);
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idd")));
+                IWebElement listboxLiveMN = driver.FindElement(By.Id("__o3idd"));
+                listboxLiveMN.SendKeys(myApplication.myLiveMN);
+                listboxLiveMN.Click();
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]")));
+                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]"));
+                outsideClick.Click();
+
+                if (myApplication.myLiveMN == "Yes")
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3ide")));
+                    IWebElement listboxHomeless = driver.FindElement(By.Id("__o3ide"));
+                    listboxHomeless.SendKeys(myApplication.myHomeless);
+                    listboxHomeless.Click();
+
+                    outsideClick.Click();
+                }
+
+                if (myApplication.myHomeless == "No")
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id11")));
+                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
+                    listboxAddress1.SendKeys(myApplication.myHomeAddress1);
+
+                    IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
+                    listboxAddress2.SendKeys(myApplication.myHomeAddress2);
+
+                    IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
+                    listboxAptSuite.SendKeys(myApplication.myHomeAptSuite);
+
+                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
+                    listboxCity.SendKeys(myApplication.myHomeCity);
+
+                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
+                    listboxCounty.SendKeys(myApplication.myHomeCounty);
+
+                    IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
+                    listboxState.SendKeys(myApplication.myHomeState);
+
+                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
+                    listboxZip.SendKeys(myApplication.myHomeZip);
+
+                    IWebElement listboxAddressSame = driver.FindElement(By.Id("__o3id18"));
+                    listboxAddressSame.SendKeys(myApplication.myAddressSame);
+                }
+                else
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id10")));
+                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id10"));
+                    listboxCounty.SendKeys(myApplication.myHomeCounty);
+
+                    IWebElement listboxHaveMailingAddress = driver.FindElement(By.Id("__o3id19"));
+                    listboxHaveMailingAddress.SendKeys(myApplication.myMailingAddressYN);
+                }
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id21")));
+                IWebElement listboxPlanLiveMN = driver.FindElement(By.Id("__o3id21"));
+                listboxPlanLiveMN.SendKeys(myApplication.myPlanLiveMN);
+
+                if (myApplication.myMailingAddressYN == "Yes")
+                {
+                    driver.SwitchTo().DefaultContent();
+                    IWebElement element2 = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iframe")));
+                    var iFrameElement = driver.FindElement(By.TagName("iframe"));
+                    driver.SwitchTo().Frame(iFrameElement);
+
+                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id1a"));
+                    listboxAddress1.SendKeys(myApplication.myMailAddress1);
+                    if (myApplication.myMailAddress2 != null)
+                    {
+                        IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id1b"));
+                        listboxAddress2.SendKeys(myApplication.myMailAddress2);
+                    }
+                    if (myApplication.myMailAptSuite != null)
+                    {
+                        IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id1c"));
+                        listboxAptSuite.SendKeys(myApplication.myMailAptSuite);
+                    }
+                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id1d"));
+                    listboxCity.SendKeys(myApplication.myMailCity);
+
+                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id1e"));
+                    listboxCounty.SendKeys(myApplication.myMailCounty);
+
+                    IWebElement listboxState = driver.FindElement(By.Id("__o3id1f"));
+                    listboxState.SendKeys(myApplication.myMailState);
+
+                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id20"));
+                    listboxZip.SendKeys(myApplication.myMailZip);
+                }
+
+                IWebElement listboxPreferedContact = driver.FindElement(By.Id("__o3id23"));
+                listboxPreferedContact.SendKeys(myApplication.myPrefContact);
+
+                string mysPhone1 = myApplication.myPhoneNum.Substring(0, 3);
+                string mysPhone2 = myApplication.myPhoneNum.Substring(3, 3);
+                string mysPhone3 = myApplication.myPhoneNum.Substring(6, 4);
+                IWebElement textboxPhoneNum = driver.FindElement(By.Id("__o3id24"));
+                textboxPhoneNum.SendKeys(mysPhone1);
+                IWebElement textboxPhoneNum2 = driver.FindElement(By.Id("__o3id25"));
+                textboxPhoneNum2.SendKeys(mysPhone2);
+                IWebElement textboxPhoneNum3 = driver.FindElement(By.Id("__o3id26"));
+                textboxPhoneNum3.SendKeys(mysPhone3);
+
+                IWebElement listboxPhoneType = driver.FindElement(By.Id("__o3id27"));
+                listboxPhoneType.SendKeys(myApplication.myPhoneType);
+
+                string mysAPhone1 = myApplication.myAltNum.Substring(0, 3);
+                string mysAPhone2 = myApplication.myAltNum.Substring(3, 3);
+                string mysAPhone3 = myApplication.myAltNum.Substring(6, 4);
+                IWebElement textboxAPhoneNum = driver.FindElement(By.Id("__o3id28"));
+                textboxAPhoneNum.SendKeys(mysAPhone1);
+                IWebElement textboxAPhoneNum2 = driver.FindElement(By.Id("__o3id29"));
+                textboxAPhoneNum2.SendKeys(mysAPhone2);
+                IWebElement textboxAPhoneNum3 = driver.FindElement(By.Id("__o3id2a"));
+                textboxAPhoneNum3.SendKeys(mysAPhone3);
+
+                IWebElement listboxAPhoneType = driver.FindElement(By.Id("__o3id2b"));
+                listboxAPhoneType.SendKeys(myApplication.myAltNumType);
+
+                IWebElement textboxEmail = driver.FindElement(By.Id("__o3id2c"));
+                textboxEmail.SendKeys(myApplication.myEmail);
+
+                //  These values default to English, so not needed to interact, leaving code in case
+                //  need to change languages.
+                //            IWebElement listboxLangaugeMost = driver.FindElement(By.Id("__o3id2d"));
+                //                var selectlistboxLangaugeMost = new SelectElement(listboxLangaugeMost);
+                //                selectlistboxLangaugeMost.SelectByValue(myApplication.myLanguageMost);
+                //    listboxLangaugeMost.SendKeys(myApplication.myLanguageMost);
+
+                //            IWebElement listboxWrittenLangauge = driver.FindElement(By.Id("__o3id30"));
+                //            var selectlistboxWrittenLangauge = new SelectElement(listboxWrittenLangauge);
+                //            selectlistboxLangaugeMost.SelectByValue(myApplication.myLanguageMost);
+                // listboxWrittenLangauge.SendKeys(myApplication.myLanguageWritten);
+
+                IWebElement listboxVoterCard = driver.FindElement(By.Id("__o3id32"));
+                listboxVoterCard.SendKeys(myApplication.myVoterCard);
+
+                IWebElement listboxNotices = driver.FindElement(By.Id("__o3id33"));
+                listboxNotices.SendKeys(myApplication.myNotices);
+
+                IWebElement listboxAuthRep = driver.FindElement(By.Id("__o3id34"));
+                listboxAuthRep.SendKeys(myApplication.myAuthRep);
+
+                IWebElement listboxApplyYouself = driver.FindElement(By.Id("__o3id35"));
+                listboxApplyYouself.SendKeys(myApplication.myApplyYourself);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
 
         public int DoApplicantDetailsWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
                                     mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
