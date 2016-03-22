@@ -938,7 +938,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
                     com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
                     com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
-                    if (myApplication.myMilitaryDate != "")
+                    if (myApplication.myMilitaryDate != "" && myApplication.myMilitaryDate != null)
                     {
                         com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
                     }
