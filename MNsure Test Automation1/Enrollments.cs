@@ -403,8 +403,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(6000);                
-                //check for text at the bottom
+                System.Threading.Thread.Sleep(8000);                
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Name("enrollment.individual.signature.firstName"))));
                 IWebElement textboxSignatureFirst = driver.FindElement(By.Name("enrollment.individual.signature.firstName"));
                 textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);

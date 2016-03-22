@@ -714,7 +714,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait = (6 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
+                int appwait = (8 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
