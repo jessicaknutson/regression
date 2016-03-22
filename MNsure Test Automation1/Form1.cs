@@ -127,7 +127,7 @@ namespace MNsure_Regression_1
                     result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
-                    myLastSSN.myLastSSN = myApplication.mySSNNum;
+                    myApplication.mySSNNum = myLastSSN.myLastSSN;
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
                     result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
 
@@ -938,7 +938,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
                     com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
                     com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
-                    if (myApplication.myMilitaryDate != null)
+                    if (myApplication.myMilitaryDate != "")
                     {
                         com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
                     }

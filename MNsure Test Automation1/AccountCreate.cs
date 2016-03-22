@@ -333,7 +333,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoApply(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
+        public int DoApplyWithDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
                ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -347,8 +347,41 @@ namespace MNsure_Regression_1
                 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                //Click Link                                                  
+                //Click apply with discount link                                                  
                 IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"));
+                myclickLinkContinue.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoApplyWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
+               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a")));
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                //Click apply without discount link                                                  
+                IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a"));
                 myclickLinkContinue.Click();
 
                 returnStatus = "Pass";
