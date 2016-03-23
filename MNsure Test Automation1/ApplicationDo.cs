@@ -1335,6 +1335,12 @@ namespace MNsure_Regression_1
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next_label")));
 
+                if (myApplication.myESC == "Yes")
+                {
+                    IWebElement listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td/div[2]/div/div[1]/input"));
+                    listboxESC.Click();
+                }
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
@@ -1355,6 +1361,119 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoEmployerSponsoredCoverageMore(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next_label")));
+
+                IWebElement listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
+                listboxESC.SendKeys(myApplication.myESC);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoEmployerDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next_label")));
+
+                IWebElement textBoxName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"));
+                textBoxName.SendKeys("Target");
+
+                IWebElement textBoxId = driver.FindElement(By.Id("__o3id7"));
+                textBoxId.SendKeys("12345");
+
+                IWebElement textBoxFulltime = driver.FindElement(By.Id("__o3id8"));
+                textBoxFulltime.SendKeys("Yes");
+
+                IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id9"));
+                listboxAddress1.SendKeys("1 Main St");
+
+                IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3ida"));
+                listboxAddress2.SendKeys("PO Box 1");
+
+                IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3idb"));
+                listboxAptSuite.SendKeys("Apt 2");
+
+                IWebElement listboxCity = driver.FindElement(By.Id("__o3idc"));
+                listboxCity.SendKeys("Minneapolis");
+
+                IWebElement listboxCounty = driver.FindElement(By.Id("__o3idd"));
+                listboxCounty.SendKeys("Hennepin");
+
+                IWebElement listboxState = driver.FindElement(By.Id("__o3ide"));
+                listboxState.SendKeys("Minnesota");
+
+                IWebElement listboxZip = driver.FindElement(By.Id("__o3idf"));
+                listboxZip.SendKeys("55418");
+
+                IWebElement textboxPhoneNum = driver.FindElement(By.Id("__o3id10"));
+                textboxPhoneNum.SendKeys("612");
+
+                IWebElement textboxPhoneNum2 = driver.FindElement(By.Id("__o3id11"));
+                textboxPhoneNum2.SendKeys("222");
+
+                IWebElement textboxPhoneNum3 = driver.FindElement(By.Id("__o3id12"));
+                textboxPhoneNum3.SendKeys("4444");
+
+                IWebElement textboxEnrolledOn = driver.FindElement(By.Id("__o3id13"));
+                textboxEnrolledOn.SendKeys("01/01/2016");
+
+                IWebElement textboxCoverageEnd = driver.FindElement(By.Id("__o3id14"));
+                textboxCoverageEnd.SendKeys(myApplication.myCoverageEnd);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
 
         public int DoAdditionalInfoUnassistedInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
                                     mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)

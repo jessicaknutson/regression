@@ -503,6 +503,7 @@ namespace MNsure_Regression_1
                             }
                             myApplication.myCoverageEnd = reader.GetString(56);
                             myApplication.myAddIns = reader.GetString(57);
+                            myApplication.myESC = reader.GetString(58);
                         }
                         else
                         {
@@ -559,6 +560,7 @@ namespace MNsure_Regression_1
                             myApplication.myOtherIns = "No";                            
                             myApplication.myCoverageEnd = "No";
                             myApplication.myAddIns = "No";
+                            myApplication.myESC = "No";
                         }
                         com2.ExecuteNonQuery();
                         com2.Dispose();
@@ -767,6 +769,7 @@ namespace MNsure_Regression_1
                 comboBoxKindIns.Text = myApplication.myKindIns;
                 comboBoxCoverageEnd.Text = myApplication.myCoverageEnd;
                 comboBoxAddIns.Text = myApplication.myAddIns;
+                comboBoxESC.Text = myApplication.myESC;
 
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
@@ -859,6 +862,7 @@ namespace MNsure_Regression_1
             myApplication.myKindIns = comboBoxKindIns.Text;
             myApplication.myCoverageEnd = comboBoxCoverageEnd.Text;
             myApplication.myAddIns = comboBoxAddIns.Text;
+            myApplication.myESC = comboBoxESC.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -887,7 +891,8 @@ namespace MNsure_Regression_1
                                     "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @AddressSame, @Hispanic," +
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
-                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns, @KindIns, @CoverageEnd, @AddIns );";
+                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -968,6 +973,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("KindIns", myApplication.myKindIns);
                     com2.Parameters.AddWithValue("CoverageEnd", myApplication.myCoverageEnd);
                     com2.Parameters.AddWithValue("AddIns", myApplication.myAddIns);
+                    com2.Parameters.AddWithValue("ESC", myApplication.myESC); 
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -4277,6 +4283,11 @@ namespace MNsure_Regression_1
         private void comboBoxAddIns_SelectedValueChanged(object sender, EventArgs e)
         {
             myApplication.myAddIns = comboBoxAddIns.Text;
+        }
+
+        private void comboBoxESC_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myESC = comboBoxESC.Text;
         }
 
     }

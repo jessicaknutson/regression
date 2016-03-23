@@ -162,6 +162,7 @@ struct mystructSelectedTest
         public string myKindIns;
         public string myCoverageEnd;
         public string myAddIns;
+        public string myESC;
     }
     struct mystructSSN
     {

@@ -380,6 +380,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.label145 = new System.Windows.Forms.Label();
+            this.comboBoxESC = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -2051,6 +2053,8 @@
             // 
             // groupBoxMoreAboutYou
             // 
+            this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxESC);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label145);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxCoverageEnd);
             this.groupBoxMoreAboutYou.Controls.Add(this.label144);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxKindIns);
@@ -2104,16 +2108,16 @@
             this.comboBoxCoverageEnd.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxCoverageEnd.Location = new System.Drawing.Point(608, 119);
+            this.comboBoxCoverageEnd.Location = new System.Drawing.Point(601, 134);
             this.comboBoxCoverageEnd.Name = "comboBoxCoverageEnd";
             this.comboBoxCoverageEnd.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxCoverageEnd.TabIndex = 18;
+            this.comboBoxCoverageEnd.TabIndex = 19;
             this.comboBoxCoverageEnd.SelectedValueChanged += new System.EventHandler(this.comboBoxCoverageEnd_SelectedValueChanged);
             // 
             // label144
             // 
             this.label144.AutoSize = true;
-            this.label144.Location = new System.Drawing.Point(465, 124);
+            this.label144.Location = new System.Drawing.Point(458, 139);
             this.label144.Name = "label144";
             this.label144.Size = new System.Drawing.Size(137, 13);
             this.label144.TabIndex = 0;
@@ -2125,10 +2129,10 @@
             this.comboBoxKindIns.Items.AddRange(new object[] {
             "Medicare Part A",
             "Medicare Part B"});
-            this.comboBoxKindIns.Location = new System.Drawing.Point(608, 86);
+            this.comboBoxKindIns.Location = new System.Drawing.Point(601, 101);
             this.comboBoxKindIns.Name = "comboBoxKindIns";
             this.comboBoxKindIns.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxKindIns.TabIndex = 17;
+            this.comboBoxKindIns.TabIndex = 18;
             this.comboBoxKindIns.SelectedValueChanged += new System.EventHandler(this.comboBoxKindIns_SelectedValueChanged);
             // 
             // comboBoxAddIns
@@ -2137,10 +2141,10 @@
             this.comboBoxAddIns.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxAddIns.Location = new System.Drawing.Point(608, 155);
+            this.comboBoxAddIns.Location = new System.Drawing.Point(601, 170);
             this.comboBoxAddIns.Name = "comboBoxAddIns";
             this.comboBoxAddIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxAddIns.TabIndex = 19;
+            this.comboBoxAddIns.TabIndex = 20;
             this.comboBoxAddIns.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddIns_SelectedIndexChanged);
             this.comboBoxAddIns.SelectedValueChanged += new System.EventHandler(this.comboBoxAddIns_SelectedValueChanged);
             // 
@@ -2150,16 +2154,16 @@
             this.comboBoxOtherIns.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxOtherIns.Location = new System.Drawing.Point(608, 52);
+            this.comboBoxOtherIns.Location = new System.Drawing.Point(601, 67);
             this.comboBoxOtherIns.Name = "comboBoxOtherIns";
             this.comboBoxOtherIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxOtherIns.TabIndex = 16;
+            this.comboBoxOtherIns.TabIndex = 17;
             this.comboBoxOtherIns.SelectedValueChanged += new System.EventHandler(this.comboBoxOtherIns_SelectedValueChanged);
             // 
             // label143
             // 
             this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(493, 158);
+            this.label143.Location = new System.Drawing.Point(486, 173);
             this.label143.Name = "label143";
             this.label143.Size = new System.Drawing.Size(109, 13);
             this.label143.TabIndex = 0;
@@ -2168,7 +2172,7 @@
             // label142
             // 
             this.label142.AutoSize = true;
-            this.label142.Location = new System.Drawing.Point(540, 89);
+            this.label142.Location = new System.Drawing.Point(533, 104);
             this.label142.Name = "label142";
             this.label142.Size = new System.Drawing.Size(62, 13);
             this.label142.TabIndex = 0;
@@ -2177,7 +2181,7 @@
             // label141
             // 
             this.label141.AutoSize = true;
-            this.label141.Location = new System.Drawing.Point(513, 57);
+            this.label141.Location = new System.Drawing.Point(506, 72);
             this.label141.Name = "label141";
             this.label141.Size = new System.Drawing.Size(89, 13);
             this.label141.TabIndex = 0;
@@ -2186,7 +2190,7 @@
             // label140
             // 
             this.label140.AutoSize = true;
-            this.label140.Location = new System.Drawing.Point(555, 20);
+            this.label140.Location = new System.Drawing.Point(542, 13);
             this.label140.Name = "label140";
             this.label140.Size = new System.Drawing.Size(108, 13);
             this.label140.TabIndex = 0;
@@ -4252,6 +4256,27 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Location = new System.Drawing.Point(443, 38);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(156, 13);
+            this.label145.TabIndex = 0;
+            this.label145.Text = "Employer sponsored coverage?";
+            // 
+            // comboBoxESC
+            // 
+            this.comboBoxESC.FormattingEnabled = true;
+            this.comboBoxESC.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxESC.Location = new System.Drawing.Point(601, 34);
+            this.comboBoxESC.Name = "comboBoxESC";
+            this.comboBoxESC.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxESC.TabIndex = 16;
+            this.comboBoxESC.SelectedValueChanged += new System.EventHandler(this.comboBoxESC_SelectedValueChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -4668,6 +4693,8 @@
         private System.Windows.Forms.Label label140;
         private System.Windows.Forms.ComboBox comboBoxCoverageEnd;
         private System.Windows.Forms.Label label144;
+        private System.Windows.Forms.ComboBox comboBoxESC;
+        private System.Windows.Forms.Label label145;
 
     }
 }
