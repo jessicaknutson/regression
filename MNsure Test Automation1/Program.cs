@@ -158,6 +158,10 @@ struct mystructSelectedTest
         public string myEnrollmentPlanType;
         public string myFosterCare;
         public string myMailingAddressYN;
+        public string myOtherIns;
+        public string myKindIns;
+        public string myCoverageEnd;
+        public string myAddIns;
     }
     struct mystructSSN
     {

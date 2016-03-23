@@ -222,7 +222,7 @@ namespace MNsure_Regression_1
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a"))));
                 driver.FindElement(By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a")).Click();//select pdf link
-                
+
                 /*string pdfpath = @"C:\Mnsure Regression 1\EligibilityNotice_eec97f1453479993212.pdf";
                 ProcessStartInfo psi = new ProcessStartInfo(pdfpath);
                 Process firefoxProcess = Process.Start(psi);

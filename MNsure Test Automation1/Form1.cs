@@ -496,6 +496,13 @@ namespace MNsure_Regression_1
                                 myApplication.myWhyNoSSN = reader.GetString(52);
                             }
                             myApplication.myAssistSSN = reader.GetString(53);
+                            myApplication.myOtherIns = reader.GetString(54);
+                            if (!reader.IsDBNull(55))
+                            {
+                                myApplication.myKindIns = reader.GetString(55);
+                            }
+                            myApplication.myCoverageEnd = reader.GetString(56);
+                            myApplication.myAddIns = reader.GetString(57);
                         }
                         else
                         {
@@ -549,6 +556,9 @@ namespace MNsure_Regression_1
                             myApplication.myIncomeExpected = "Yes";
                             myApplication.myEnrollmentPlanType = "MN Care BHP";
                             myApplication.myFosterCare = "No";
+                            myApplication.myOtherIns = "No";                            
+                            myApplication.myCoverageEnd = "No";
+                            myApplication.myAddIns = "No";
                         }
                         com2.ExecuteNonQuery();
                         com2.Dispose();
@@ -753,6 +763,10 @@ namespace MNsure_Regression_1
                 comboBoxEnrollIncomeAdjustments.Text = myApplication.myIncomeAdjusted;
                 comboBoxEnrollIncomeExpected.Text = myApplication.myIncomeExpected;
                 textBoxEnrollFosterCare.Text = myApplication.myFosterCare;
+                comboBoxOtherIns.Text = myApplication.myOtherIns;
+                comboBoxKindIns.Text = myApplication.myKindIns;
+                comboBoxCoverageEnd.Text = myApplication.myCoverageEnd;
+                comboBoxAddIns.Text = myApplication.myAddIns;
 
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
@@ -841,6 +855,10 @@ namespace MNsure_Regression_1
             myApplication.myIncomeAdjusted = comboBoxEnrollIncomeAdjustments.Text;
             myApplication.myIncomeExpected = comboBoxEnrollIncomeExpected.Text;
             myApplication.myFosterCare = textBoxEnrollFosterCare.Text;
+            myApplication.myOtherIns = comboBoxOtherIns.Text;
+            myApplication.myKindIns = comboBoxKindIns.Text;
+            myApplication.myCoverageEnd = comboBoxCoverageEnd.Text;
+            myApplication.myAddIns = comboBoxAddIns.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -869,7 +887,7 @@ namespace MNsure_Regression_1
                                     "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @AddressSame, @Hispanic," +
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
-                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN );";
+                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns, @KindIns, @CoverageEnd, @AddIns );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -946,6 +964,10 @@ namespace MNsure_Regression_1
                     {
                         com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
                     }
+                    com2.Parameters.AddWithValue("OtherIns", myApplication.myOtherIns);
+                    com2.Parameters.AddWithValue("KindIns", myApplication.myKindIns);
+                    com2.Parameters.AddWithValue("CoverageEnd", myApplication.myCoverageEnd);
+                    com2.Parameters.AddWithValue("AddIns", myApplication.myAddIns);
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -4230,6 +4252,31 @@ namespace MNsure_Regression_1
         private void comboBoxAppWait_SelectedValueChanged(object sender, EventArgs e)
         {
             myHistoryInfo.myAppWait = Convert.ToInt32(comboBoxAppWait.Text);
+        }
+
+        private void comboBoxOtherIns_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myOtherIns = comboBoxOtherIns.Text;            
+        }
+
+        private void comboBoxKindIns_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myKindIns = comboBoxKindIns.Text;
+        }
+
+        private void comboBoxCoverageEnd_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myCoverageEnd = comboBoxCoverageEnd.Text;
+        }
+
+        private void comboBoxAddIns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxAddIns_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myAddIns = comboBoxAddIns.Text;
         }
 
     }

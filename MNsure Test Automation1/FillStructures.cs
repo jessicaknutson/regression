@@ -122,6 +122,13 @@ namespace MNsure_Regression_1
                             myApplication.myWhyNoSSN = reader.GetString(52);
                         }
                         myApplication.myAssistSSN = reader.GetString(53);
+                        myApplication.myOtherIns = reader.GetString(54);
+                        if (!reader.IsDBNull(55))
+                        {
+                            myApplication.myKindIns = reader.GetString(55);
+                        }
+                        myApplication.myCoverageEnd = reader.GetString(56);
+                        myApplication.myAddIns = reader.GetString(57);
                     }
                 }
 

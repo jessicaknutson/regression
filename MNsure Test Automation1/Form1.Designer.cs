@@ -176,6 +176,15 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxCoverageEnd = new System.Windows.Forms.ComboBox();
+            this.label144 = new System.Windows.Forms.Label();
+            this.comboBoxKindIns = new System.Windows.Forms.ComboBox();
+            this.comboBoxAddIns = new System.Windows.Forms.ComboBox();
+            this.comboBoxOtherIns = new System.Windows.Forms.ComboBox();
+            this.label143 = new System.Windows.Forms.Label();
+            this.label142 = new System.Windows.Forms.Label();
+            this.label141 = new System.Windows.Forms.Label();
+            this.label140 = new System.Windows.Forms.Label();
             this.comboBoxWhyNoSSN = new System.Windows.Forms.ComboBox();
             this.comboBoxAssistSSN = new System.Windows.Forms.ComboBox();
             this.comboBoxAppliedSSN = new System.Windows.Forms.ComboBox();
@@ -371,15 +380,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label140 = new System.Windows.Forms.Label();
-            this.label141 = new System.Windows.Forms.Label();
-            this.label142 = new System.Windows.Forms.Label();
-            this.label143 = new System.Windows.Forms.Label();
-            this.comboBoxOtherIns = new System.Windows.Forms.ComboBox();
-            this.comboBoxAddIns = new System.Windows.Forms.ComboBox();
-            this.comboBoxKindIns = new System.Windows.Forms.ComboBox();
-            this.label144 = new System.Windows.Forms.Label();
-            this.comboBoxCoverageEnd = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -2097,6 +2097,100 @@
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // comboBoxCoverageEnd
+            // 
+            this.comboBoxCoverageEnd.FormattingEnabled = true;
+            this.comboBoxCoverageEnd.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxCoverageEnd.Location = new System.Drawing.Point(608, 119);
+            this.comboBoxCoverageEnd.Name = "comboBoxCoverageEnd";
+            this.comboBoxCoverageEnd.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxCoverageEnd.TabIndex = 18;
+            this.comboBoxCoverageEnd.SelectedValueChanged += new System.EventHandler(this.comboBoxCoverageEnd_SelectedValueChanged);
+            // 
+            // label144
+            // 
+            this.label144.AutoSize = true;
+            this.label144.Location = new System.Drawing.Point(465, 124);
+            this.label144.Name = "label144";
+            this.label144.Size = new System.Drawing.Size(137, 13);
+            this.label144.TabIndex = 0;
+            this.label144.Text = "Coverage end in 2 months?";
+            // 
+            // comboBoxKindIns
+            // 
+            this.comboBoxKindIns.FormattingEnabled = true;
+            this.comboBoxKindIns.Items.AddRange(new object[] {
+            "Medicare Part A",
+            "Medicare Part B"});
+            this.comboBoxKindIns.Location = new System.Drawing.Point(608, 86);
+            this.comboBoxKindIns.Name = "comboBoxKindIns";
+            this.comboBoxKindIns.Size = new System.Drawing.Size(124, 21);
+            this.comboBoxKindIns.TabIndex = 17;
+            this.comboBoxKindIns.SelectedValueChanged += new System.EventHandler(this.comboBoxKindIns_SelectedValueChanged);
+            // 
+            // comboBoxAddIns
+            // 
+            this.comboBoxAddIns.FormattingEnabled = true;
+            this.comboBoxAddIns.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxAddIns.Location = new System.Drawing.Point(608, 155);
+            this.comboBoxAddIns.Name = "comboBoxAddIns";
+            this.comboBoxAddIns.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxAddIns.TabIndex = 19;
+            this.comboBoxAddIns.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddIns_SelectedIndexChanged);
+            this.comboBoxAddIns.SelectedValueChanged += new System.EventHandler(this.comboBoxAddIns_SelectedValueChanged);
+            // 
+            // comboBoxOtherIns
+            // 
+            this.comboBoxOtherIns.FormattingEnabled = true;
+            this.comboBoxOtherIns.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxOtherIns.Location = new System.Drawing.Point(608, 52);
+            this.comboBoxOtherIns.Name = "comboBoxOtherIns";
+            this.comboBoxOtherIns.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxOtherIns.TabIndex = 16;
+            this.comboBoxOtherIns.SelectedValueChanged += new System.EventHandler(this.comboBoxOtherIns_SelectedValueChanged);
+            // 
+            // label143
+            // 
+            this.label143.AutoSize = true;
+            this.label143.Location = new System.Drawing.Point(493, 158);
+            this.label143.Name = "label143";
+            this.label143.Size = new System.Drawing.Size(109, 13);
+            this.label143.TabIndex = 0;
+            this.label143.Text = "Additional Insurance?";
+            // 
+            // label142
+            // 
+            this.label142.AutoSize = true;
+            this.label142.Location = new System.Drawing.Point(540, 89);
+            this.label142.Name = "label142";
+            this.label142.Size = new System.Drawing.Size(62, 13);
+            this.label142.TabIndex = 0;
+            this.label142.Text = "What kind?";
+            // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.Location = new System.Drawing.Point(513, 57);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(89, 13);
+            this.label141.TabIndex = 0;
+            this.label141.Text = "Other Insurance?";
+            // 
+            // label140
+            // 
+            this.label140.AutoSize = true;
+            this.label140.Location = new System.Drawing.Point(555, 20);
+            this.label140.Name = "label140";
+            this.label140.Size = new System.Drawing.Size(108, 13);
+            this.label140.TabIndex = 0;
+            this.label140.Text = "Additional Information";
             // 
             // comboBoxWhyNoSSN
             // 
@@ -4157,94 +4251,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label140
-            // 
-            this.label140.AutoSize = true;
-            this.label140.Location = new System.Drawing.Point(555, 20);
-            this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(108, 13);
-            this.label140.TabIndex = 0;
-            this.label140.Text = "Additional Information";
-            // 
-            // label141
-            // 
-            this.label141.AutoSize = true;
-            this.label141.Location = new System.Drawing.Point(513, 57);
-            this.label141.Name = "label141";
-            this.label141.Size = new System.Drawing.Size(89, 13);
-            this.label141.TabIndex = 0;
-            this.label141.Text = "Other Insurance?";
-            // 
-            // label142
-            // 
-            this.label142.AutoSize = true;
-            this.label142.Location = new System.Drawing.Point(540, 89);
-            this.label142.Name = "label142";
-            this.label142.Size = new System.Drawing.Size(62, 13);
-            this.label142.TabIndex = 0;
-            this.label142.Text = "What kind?";
-            // 
-            // label143
-            // 
-            this.label143.AutoSize = true;
-            this.label143.Location = new System.Drawing.Point(493, 158);
-            this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(109, 13);
-            this.label143.TabIndex = 0;
-            this.label143.Text = "Additional Insurance?";
-            // 
-            // comboBoxOtherIns
-            // 
-            this.comboBoxOtherIns.FormattingEnabled = true;
-            this.comboBoxOtherIns.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxOtherIns.Location = new System.Drawing.Point(608, 52);
-            this.comboBoxOtherIns.Name = "comboBoxOtherIns";
-            this.comboBoxOtherIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxOtherIns.TabIndex = 16;
-            // 
-            // comboBoxAddIns
-            // 
-            this.comboBoxAddIns.FormattingEnabled = true;
-            this.comboBoxAddIns.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxAddIns.Location = new System.Drawing.Point(608, 155);
-            this.comboBoxAddIns.Name = "comboBoxAddIns";
-            this.comboBoxAddIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxAddIns.TabIndex = 19;
-            // 
-            // comboBoxKindIns
-            // 
-            this.comboBoxKindIns.FormattingEnabled = true;
-            this.comboBoxKindIns.Items.AddRange(new object[] {
-            "MEDICARE PART A"});
-            this.comboBoxKindIns.Location = new System.Drawing.Point(608, 86);
-            this.comboBoxKindIns.Name = "comboBoxKindIns";
-            this.comboBoxKindIns.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxKindIns.TabIndex = 17;
-            // 
-            // label144
-            // 
-            this.label144.AutoSize = true;
-            this.label144.Location = new System.Drawing.Point(465, 124);
-            this.label144.Name = "label144";
-            this.label144.Size = new System.Drawing.Size(137, 13);
-            this.label144.TabIndex = 0;
-            this.label144.Text = "Coverage end in 2 months?";
-            // 
-            // comboBoxCoverageEnd
-            // 
-            this.comboBoxCoverageEnd.FormattingEnabled = true;
-            this.comboBoxCoverageEnd.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxCoverageEnd.Location = new System.Drawing.Point(608, 119);
-            this.comboBoxCoverageEnd.Name = "comboBoxCoverageEnd";
-            this.comboBoxCoverageEnd.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxCoverageEnd.TabIndex = 18;
             // 
             // FormMain
             // 

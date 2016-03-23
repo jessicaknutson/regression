@@ -714,7 +714,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait = (8 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
+                int appwait = (10 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -1409,6 +1409,54 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoOtherInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
+                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3btn.next")));
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]")));
+                IWebElement listboxKindIns = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"));
+                listboxKindIns.SendKeys(myApplication.myKindIns);
+
+                IWebElement outsideClick = driver.FindElement(By.Id("__o3idb"));
+                outsideClick.Click();
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idb")));
+                IWebElement listboxCoverageEnd = driver.FindElement(By.Id("__o3idb"));
+                listboxCoverageEnd.SendKeys(myApplication.myCoverageEnd);
+
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idd")));
+                IWebElement listboxAddIns = driver.FindElement(By.Id("__o3idd"));
+                listboxAddIns.SendKeys(myApplication.myAddIns);
+                
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoAdditionalInformationForAll(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
                                     mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
@@ -1432,14 +1480,14 @@ namespace MNsure_Regression_1
                 IWebElement listboxCondition = driver.FindElement(By.Id("__o3id8"));
                 listboxCondition.SendKeys("No");
 
+                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id8")));
+                IWebElement outsideClick = driver.FindElement(By.Id("__o3id8"));
+
                 IWebElement listboxNative = driver.FindElement(By.Id("__o3ida"));
                 if (myApplication.myRace == "Indian")
                 {
                     listboxNative.SendKeys("Yes");
-                    listboxNative.Click();
-
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id8")));
-                    IWebElement outsideClick = driver.FindElement(By.Id("__o3id8"));
+                    listboxNative.Click();                    
                     outsideClick.Click();
 
                     IWebElement listboxNativePerson = driver.FindElement(By.Id("__o3idb"));
@@ -1464,7 +1512,14 @@ namespace MNsure_Regression_1
                 listboxLogResidentialTreatment.SendKeys("No");
 
                 IWebElement listboxHaveMedicare = driver.FindElement(By.Id("__o3id12"));
-                listboxHaveMedicare.SendKeys("No");
+                listboxHaveMedicare.SendKeys(myApplication.myOtherIns);
+                outsideClick.Click();
+
+                if (myApplication.myOtherIns == "Yes")
+                {
+                    IWebElement listboxMedicarePerson = driver.FindElement(By.Id("__o3id13"));
+                    listboxMedicarePerson.Click();
+                }
 
                 IWebElement listboxTorture = driver.FindElement(By.Id("__o3id14"));
                 listboxTorture.SendKeys("No");
