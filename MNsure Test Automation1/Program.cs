@@ -163,6 +163,7 @@ struct mystructSelectedTest
         public string myCoverageEnd;
         public string myAddIns;
         public string myESC;
+        public string myRenewalCov;
     }
     struct mystructSSN
     {

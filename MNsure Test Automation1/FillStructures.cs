@@ -130,6 +130,7 @@ namespace MNsure_Regression_1
                         myApplication.myCoverageEnd = reader.GetString(56);
                         myApplication.myAddIns = reader.GetString(57);
                         myApplication.myESC = reader.GetString(58);
+                        myApplication.myRenewalCov = reader.GetString(59);
                     }
                 }
 

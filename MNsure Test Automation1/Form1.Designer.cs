@@ -176,6 +176,8 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxESC = new System.Windows.Forms.ComboBox();
+            this.label145 = new System.Windows.Forms.Label();
             this.comboBoxCoverageEnd = new System.Windows.Forms.ComboBox();
             this.label144 = new System.Windows.Forms.Label();
             this.comboBoxKindIns = new System.Windows.Forms.ComboBox();
@@ -380,8 +382,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label145 = new System.Windows.Forms.Label();
-            this.comboBoxESC = new System.Windows.Forms.ComboBox();
+            this.label146 = new System.Windows.Forms.Label();
+            this.comboBoxRenewalCov = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -2053,6 +2055,8 @@
             // 
             // groupBoxMoreAboutYou
             // 
+            this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxRenewalCov);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label146);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxESC);
             this.groupBoxMoreAboutYou.Controls.Add(this.label145);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxCoverageEnd);
@@ -2101,6 +2105,27 @@
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // comboBoxESC
+            // 
+            this.comboBoxESC.FormattingEnabled = true;
+            this.comboBoxESC.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxESC.Location = new System.Drawing.Point(601, 34);
+            this.comboBoxESC.Name = "comboBoxESC";
+            this.comboBoxESC.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxESC.TabIndex = 16;
+            this.comboBoxESC.SelectedValueChanged += new System.EventHandler(this.comboBoxESC_SelectedValueChanged);
+            // 
+            // label145
+            // 
+            this.label145.AutoSize = true;
+            this.label145.Location = new System.Drawing.Point(443, 38);
+            this.label145.Name = "label145";
+            this.label145.Size = new System.Drawing.Size(156, 13);
+            this.label145.TabIndex = 0;
+            this.label145.Text = "Employer sponsored coverage?";
             // 
             // comboBoxCoverageEnd
             // 
@@ -4256,26 +4281,30 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label145
+            // label146
             // 
-            this.label145.AutoSize = true;
-            this.label145.Location = new System.Drawing.Point(443, 38);
-            this.label145.Name = "label145";
-            this.label145.Size = new System.Drawing.Size(156, 13);
-            this.label145.TabIndex = 0;
-            this.label145.Text = "Employer sponsored coverage?";
+            this.label146.AutoSize = true;
+            this.label146.Location = new System.Drawing.Point(497, 236);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(98, 13);
+            this.label146.TabIndex = 21;
+            this.label146.Text = "Renewal Coverage";
             // 
-            // comboBoxESC
+            // comboBoxRenewalCov
             // 
-            this.comboBoxESC.FormattingEnabled = true;
-            this.comboBoxESC.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxESC.Location = new System.Drawing.Point(601, 34);
-            this.comboBoxESC.Name = "comboBoxESC";
-            this.comboBoxESC.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxESC.TabIndex = 16;
-            this.comboBoxESC.SelectedValueChanged += new System.EventHandler(this.comboBoxESC_SelectedValueChanged);
+            this.comboBoxRenewalCov.FormattingEnabled = true;
+            this.comboBoxRenewalCov.Items.AddRange(new object[] {
+            "5",
+            "4",
+            "3",
+            "2",
+            "1",
+            "0"});
+            this.comboBoxRenewalCov.Location = new System.Drawing.Point(601, 233);
+            this.comboBoxRenewalCov.Name = "comboBoxRenewalCov";
+            this.comboBoxRenewalCov.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxRenewalCov.TabIndex = 22;
+            this.comboBoxRenewalCov.SelectedValueChanged += new System.EventHandler(this.comboBoxRenewalCov_SelectedValueChanged);
             // 
             // FormMain
             // 
@@ -4695,6 +4724,8 @@
         private System.Windows.Forms.Label label144;
         private System.Windows.Forms.ComboBox comboBoxESC;
         private System.Windows.Forms.Label label145;
+        private System.Windows.Forms.ComboBox comboBoxRenewalCov;
+        private System.Windows.Forms.Label label146;
 
     }
 }

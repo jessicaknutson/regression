@@ -1854,6 +1854,12 @@ namespace MNsure_Regression_1
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 
+                if (myApplication.myRenewalCov == "0")
+                {
+                    IWebElement checkboxRenewCov = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[3]/td/div/fieldset/div/div[6]/div/input"));
+                    checkboxRenewCov.Click();
+                }
+
                 IWebElement checkboxIAgreeNoticeRR = driver.FindElement(By.Id("__o3ida"));
                 checkboxIAgreeNoticeRR.Click();
 

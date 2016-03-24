@@ -504,6 +504,7 @@ namespace MNsure_Regression_1
                             myApplication.myCoverageEnd = reader.GetString(56);
                             myApplication.myAddIns = reader.GetString(57);
                             myApplication.myESC = reader.GetString(58);
+                            myApplication.myRenewalCov = reader.GetString(59);
                         }
                         else
                         {
@@ -561,6 +562,7 @@ namespace MNsure_Regression_1
                             myApplication.myCoverageEnd = "No";
                             myApplication.myAddIns = "No";
                             myApplication.myESC = "No";
+                            myApplication.myRenewalCov = "5";
                         }
                         com2.ExecuteNonQuery();
                         com2.Dispose();
@@ -770,6 +772,7 @@ namespace MNsure_Regression_1
                 comboBoxCoverageEnd.Text = myApplication.myCoverageEnd;
                 comboBoxAddIns.Text = myApplication.myAddIns;
                 comboBoxESC.Text = myApplication.myESC;
+                comboBoxRenewalCov.Text = myApplication.myRenewalCov;
 
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
@@ -863,6 +866,7 @@ namespace MNsure_Regression_1
             myApplication.myCoverageEnd = comboBoxCoverageEnd.Text;
             myApplication.myAddIns = comboBoxAddIns.Text;
             myApplication.myESC = comboBoxESC.Text;
+            myApplication.myRenewalCov = comboBoxRenewalCov.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -892,7 +896,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -973,7 +977,8 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("KindIns", myApplication.myKindIns);
                     com2.Parameters.AddWithValue("CoverageEnd", myApplication.myCoverageEnd);
                     com2.Parameters.AddWithValue("AddIns", myApplication.myAddIns);
-                    com2.Parameters.AddWithValue("ESC", myApplication.myESC); 
+                    com2.Parameters.AddWithValue("ESC", myApplication.myESC);
+                    com2.Parameters.AddWithValue("RenewalCov", myApplication.myRenewalCov);
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -4288,6 +4293,11 @@ namespace MNsure_Regression_1
         private void comboBoxESC_SelectedValueChanged(object sender, EventArgs e)
         {
             myApplication.myESC = comboBoxESC.Text;
+        }
+
+        private void comboBoxRenewalCov_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myRenewalCov = comboBoxRenewalCov.Text;
         }
 
     }
