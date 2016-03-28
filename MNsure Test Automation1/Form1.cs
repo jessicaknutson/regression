@@ -739,7 +739,7 @@ namespace MNsure_Regression_1
                     dateTimeMilitary.CustomFormat = " ";
                 }
                 dateTimeMilitary.Text = myApplication.myMilitaryDate;
-                if (myApplication.myMilitaryDate != null)
+                if (myApplication.myMilitaryDate != null && myApplication.myMilitaryDate != " ")
                 {
                     string tempMilitary;
                     tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
@@ -3114,18 +3114,18 @@ namespace MNsure_Regression_1
 
         private void textBoxEnrollAmount_TextChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(textBoxEnrollAmount.Text) < 17000)
+            if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16243)
             {
                 radioButtonApplicationTypeMA.Checked = true;
                 myApplication.myEnrollmentPlanType = "MN Care MA";
 
             }
-            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 24000)
+            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23540)
             {
                 radioButtonApplicationTypeBHP.Checked = true;
                 myApplication.myEnrollmentPlanType = "MN Care BHP";
             }
-            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 50000)
+            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47080)
             {
                 radioButtonApplicationTypeQHP.Checked = true;
                 myApplication.myEnrollmentPlanType = "MN Care QHP";

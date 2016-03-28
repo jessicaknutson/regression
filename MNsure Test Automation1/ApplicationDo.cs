@@ -490,7 +490,7 @@ namespace MNsure_Regression_1
                 }
 
                 //This will only appear if age 18-27
-                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                /*DateTime birth = Convert.ToDateTime(myApplication.myDOB);
                 TimeSpan span;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -506,7 +506,7 @@ namespace MNsure_Regression_1
                 {
                     IWebElement listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
                     listboxFosterCare.SendKeys(myApplication.myFosterCare);
-                }
+                }*/
 
                 IWebElement listboxApplyYouself = driver.FindElement(By.Id("__o3id3e"));
                 listboxApplyYouself.SendKeys(myApplication.myApplyYourself);
@@ -714,7 +714,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait = (10 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
+                int appwait = (12 + myHistoryInfo.myAppWait) * 1000;//norm 6, could go up to 45
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -805,7 +805,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(8000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1014,7 +1014,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait = (6 + myHistoryInfo.myAppWait) * 1000;//norm 6
+                int appwait = (10 + myHistoryInfo.myAppWait) * 1000;//norm 6
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -1669,7 +1669,7 @@ namespace MNsure_Regression_1
                 }
                 DateTime age = DateTime.MinValue + span;
 
-                if (temp1 < 24000 || age.Year - 1 < 20) //This will only appear if income >24000 or age < 20
+                if (temp1 < 23540 || age.Year - 1 < 20) //This will only appear if income >23540 or age < 20
                 {
                     IWebElement listboxMedicareInjury = driver.FindElement(By.Id("__o3id1c"));
                     listboxMedicareInjury.SendKeys("No");

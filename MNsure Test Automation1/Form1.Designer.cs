@@ -176,6 +176,8 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxRenewalCov = new System.Windows.Forms.ComboBox();
+            this.label146 = new System.Windows.Forms.Label();
             this.comboBoxESC = new System.Windows.Forms.ComboBox();
             this.label145 = new System.Windows.Forms.Label();
             this.comboBoxCoverageEnd = new System.Windows.Forms.ComboBox();
@@ -382,8 +384,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label146 = new System.Windows.Forms.Label();
-            this.comboBoxRenewalCov = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -773,7 +773,7 @@
             this.groupBoxEnrollIncome.Controls.Add(this.label40);
             this.groupBoxEnrollIncome.Controls.Add(this.comboBoxEnrollIncomeType);
             this.groupBoxEnrollIncome.Controls.Add(this.label39);
-            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(918, 214);
+            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(318, 214);
             this.groupBoxEnrollIncome.Name = "groupBoxEnrollIncome";
             this.groupBoxEnrollIncome.Size = new System.Drawing.Size(534, 394);
             this.groupBoxEnrollIncome.TabIndex = 61;
@@ -785,10 +785,10 @@
             this.radioButtonApplicationTypeUQHP.AutoSize = true;
             this.radioButtonApplicationTypeUQHP.Location = new System.Drawing.Point(302, 181);
             this.radioButtonApplicationTypeUQHP.Name = "radioButtonApplicationTypeUQHP";
-            this.radioButtonApplicationTypeUQHP.Size = new System.Drawing.Size(107, 17);
+            this.radioButtonApplicationTypeUQHP.Size = new System.Drawing.Size(104, 17);
             this.radioButtonApplicationTypeUQHP.TabIndex = 23;
             this.radioButtonApplicationTypeUQHP.TabStop = true;
-            this.radioButtonApplicationTypeUQHP.Text = "UQHP > $50,000";
+            this.radioButtonApplicationTypeUQHP.Text = "UQHP >$47,080";
             this.radioButtonApplicationTypeUQHP.UseVisualStyleBackColor = true;
             // 
             // radioButtonApplicationTypeQHP
@@ -796,10 +796,10 @@
             this.radioButtonApplicationTypeQHP.AutoSize = true;
             this.radioButtonApplicationTypeQHP.Location = new System.Drawing.Point(302, 160);
             this.radioButtonApplicationTypeQHP.Name = "radioButtonApplicationTypeQHP";
-            this.radioButtonApplicationTypeQHP.Size = new System.Drawing.Size(123, 17);
+            this.radioButtonApplicationTypeQHP.Size = new System.Drawing.Size(159, 17);
             this.radioButtonApplicationTypeQHP.TabIndex = 22;
             this.radioButtonApplicationTypeQHP.TabStop = true;
-            this.radioButtonApplicationTypeQHP.Text = "QHP > 24 < $50,000";
+            this.radioButtonApplicationTypeQHP.Text = "QHP >23,540 and <$47,080";
             this.radioButtonApplicationTypeQHP.UseVisualStyleBackColor = true;
             // 
             // radioButtonApplicationTypeBHP
@@ -807,10 +807,10 @@
             this.radioButtonApplicationTypeBHP.AutoSize = true;
             this.radioButtonApplicationTypeBHP.Location = new System.Drawing.Point(302, 137);
             this.radioButtonApplicationTypeBHP.Name = "radioButtonApplicationTypeBHP";
-            this.radioButtonApplicationTypeBHP.Size = new System.Drawing.Size(114, 17);
+            this.radioButtonApplicationTypeBHP.Size = new System.Drawing.Size(150, 17);
             this.radioButtonApplicationTypeBHP.TabIndex = 21;
             this.radioButtonApplicationTypeBHP.TabStop = true;
-            this.radioButtonApplicationTypeBHP.Text = "BA >17 <  $24,000";
+            this.radioButtonApplicationTypeBHP.Text = "BA >16,243 and <$23,540";
             this.radioButtonApplicationTypeBHP.UseVisualStyleBackColor = true;
             // 
             // radioButtonApplicationTypeMA
@@ -818,10 +818,10 @@
             this.radioButtonApplicationTypeMA.AutoSize = true;
             this.radioButtonApplicationTypeMA.Location = new System.Drawing.Point(302, 114);
             this.radioButtonApplicationTypeMA.Name = "radioButtonApplicationTypeMA";
-            this.radioButtonApplicationTypeMA.Size = new System.Drawing.Size(92, 17);
+            this.radioButtonApplicationTypeMA.Size = new System.Drawing.Size(89, 17);
             this.radioButtonApplicationTypeMA.TabIndex = 20;
             this.radioButtonApplicationTypeMA.TabStop = true;
-            this.radioButtonApplicationTypeMA.Text = "MA < $17,000";
+            this.radioButtonApplicationTypeMA.Text = "MA <$16,243";
             this.radioButtonApplicationTypeMA.UseVisualStyleBackColor = true;
             // 
             // comboBoxEnrollIncomeExpected
@@ -2105,6 +2105,31 @@
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // comboBoxRenewalCov
+            // 
+            this.comboBoxRenewalCov.FormattingEnabled = true;
+            this.comboBoxRenewalCov.Items.AddRange(new object[] {
+            "5",
+            "4",
+            "3",
+            "2",
+            "1",
+            "0"});
+            this.comboBoxRenewalCov.Location = new System.Drawing.Point(601, 233);
+            this.comboBoxRenewalCov.Name = "comboBoxRenewalCov";
+            this.comboBoxRenewalCov.Size = new System.Drawing.Size(42, 21);
+            this.comboBoxRenewalCov.TabIndex = 22;
+            this.comboBoxRenewalCov.SelectedValueChanged += new System.EventHandler(this.comboBoxRenewalCov_SelectedValueChanged);
+            // 
+            // label146
+            // 
+            this.label146.AutoSize = true;
+            this.label146.Location = new System.Drawing.Point(497, 236);
+            this.label146.Name = "label146";
+            this.label146.Size = new System.Drawing.Size(98, 13);
+            this.label146.TabIndex = 21;
+            this.label146.Text = "Renewal Coverage";
             // 
             // comboBoxESC
             // 
@@ -4280,31 +4305,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label146
-            // 
-            this.label146.AutoSize = true;
-            this.label146.Location = new System.Drawing.Point(497, 236);
-            this.label146.Name = "label146";
-            this.label146.Size = new System.Drawing.Size(98, 13);
-            this.label146.TabIndex = 21;
-            this.label146.Text = "Renewal Coverage";
-            // 
-            // comboBoxRenewalCov
-            // 
-            this.comboBoxRenewalCov.FormattingEnabled = true;
-            this.comboBoxRenewalCov.Items.AddRange(new object[] {
-            "5",
-            "4",
-            "3",
-            "2",
-            "1",
-            "0"});
-            this.comboBoxRenewalCov.Location = new System.Drawing.Point(601, 233);
-            this.comboBoxRenewalCov.Name = "comboBoxRenewalCov";
-            this.comboBoxRenewalCov.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxRenewalCov.TabIndex = 22;
-            this.comboBoxRenewalCov.SelectedValueChanged += new System.EventHandler(this.comboBoxRenewalCov_SelectedValueChanged);
             // 
             // FormMain
             // 

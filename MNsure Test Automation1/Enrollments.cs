@@ -47,7 +47,7 @@ namespace MNsure_Regression_1
 
                 int tempI;
                 tempI = Convert.ToInt32(myEnrollment.myIncomeAmount);
-                if (tempI <= 24500)
+                if (tempI <= 23540)
                 {
                     //check for text at the bottom
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div[1]"))));
@@ -414,6 +414,9 @@ namespace MNsure_Regression_1
                 IWebElement textboxSignatureLast = driver.FindElement(By.Name("enrollment.individual.signature.lastName"));
                 textboxSignatureLast.SendKeys(myEnrollment.myLastName);
 
+                //IWebElement textboxSignatureSuffix = driver.FindElement(By.Name("enrollment.individual.signature.suffix"));
+                //textboxSignatureSuffix.SendKeys(myEnrollment.mySuffix);
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonSubmit = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
@@ -452,9 +455,11 @@ namespace MNsure_Regression_1
                 IWebElement textboxSignatureMiddle = driver.FindElement(By.Name("enrollment.individual.signature.middleInitial"));
                 textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
 
-
                 IWebElement textboxSignatureLast = driver.FindElement(By.Name("enrollment.individual.signature.lastName"));
                 textboxSignatureLast.SendKeys(myEnrollment.myLastName);
+
+                //IWebElement textboxSignatureSuffix = driver.FindElement(By.Name("enrollment.individual.signature.suffix"));
+                //textboxSignatureSuffix.SendKeys(myEnrollment.mySuffix);
 
                 IWebElement buttonSubmit = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
                 buttonSubmit.Click();
