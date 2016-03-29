@@ -217,6 +217,7 @@ namespace MNsure_Regression_1
                 var iFrameElement5 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement5);
 
+                System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a"))));
@@ -504,7 +505,7 @@ namespace MNsure_Regression_1
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-                    System.Threading.Thread.Sleep(6000);
+                    System.Threading.Thread.Sleep(7000);
                 }
 
                 returnStatus = "Pass";

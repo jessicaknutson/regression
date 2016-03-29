@@ -26,8 +26,8 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoOpenMNsure(IWebDriver driver, IWebDriver driver2, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoOpenMNsure(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
         {
             try
             {
@@ -48,13 +48,38 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCaseWorkerURLOpen(IWebDriver driver, IWebDriver driver2, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoOpenMNsureRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        {
+            try
+            {
+                driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+
+                relogin = "Yes";
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoCaseWorkerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
         {
             try
             {
                 // the driver is disposed when done with
                 driver.Close();
+                driver3.Close();
 
                 driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
                 // This checks for the Sign In button
@@ -75,8 +100,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCaseWorkerURLOpenTimeTravel(IWebDriver driver, IWebDriver driver2, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoCaseWorkerURLOpenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
         {
             try
             {
@@ -100,8 +125,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoOpenMNsureTimeTravel(IWebDriver driver, IWebDriver driver2, ref mystructHistoryInfo myHistoryInfo,
-           ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoOpenMNsureTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+           ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
         {
             try
             {

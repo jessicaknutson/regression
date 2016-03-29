@@ -440,7 +440,7 @@ namespace MNsure_Regression_1
                        "', Note = '" + myHistoryInfo.myStepNotes +
                        "', Exception = '" + myHistoryInfo.myStepException +
                        "', ScreenshotLocation = '" + myHistoryInfo.myScreenShot + "'" +
-                     " where RunId = " + myHistoryInfo.myRunId + "and TestId = " + myHistoryInfo.myTestId +
+                     " where RunId = " + myHistoryInfo.myRunId + " and TestId = " + myHistoryInfo.myTestId +
                      " and StepId = " + myHistoryInfo.myTestStepId + ";";
 
                 using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))

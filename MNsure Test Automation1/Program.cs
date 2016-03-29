@@ -45,6 +45,7 @@ struct mystructHistoryInfo
     public string myInTimeTravel;
     public DateTime myTimeTravelDate;
     public string myExecutedBy;
+    public string myRelogin;
 }
 
 struct mystructSelectedTest

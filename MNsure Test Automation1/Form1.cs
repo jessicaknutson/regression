@@ -89,6 +89,10 @@ namespace MNsure_Regression_1
                 profile.SetPreference("browser.cache.offline.enable", false);
                 profile.SetPreference("network.http.use-cache", false);
 
+                //create separate driver for logout and relogin to citizen portal
+                FirefoxDriver driver3 = new FirefoxDriver(profile);
+                driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+
                 //create separate driver for case worker
                 FirefoxDriver driver2 = new FirefoxDriver(profile);
                 driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
@@ -157,17 +161,20 @@ namespace MNsure_Regression_1
                             string returnException = "";
                             string returnScreenshot = "";
                             string returnICNumber = "";
+                            string relogin = "";
 
                             switch (myClass)
                             {
                                 case "OpenSiteURL":
-                                    object[] parms = new object[6];
+                                    object[] parms = new object[8];
                                     parms[0] = driver;
                                     parms[1] = driver2;
-                                    parms[2] = myHistoryInfo;
-                                    parms[3] = returnStatus;
-                                    parms[4] = returnException;
-                                    parms[5] = returnScreenshot;
+                                    parms[2] = driver3;
+                                    parms[3] = myHistoryInfo;
+                                    parms[4] = returnStatus;
+                                    parms[5] = returnException;
+                                    parms[6] = returnScreenshot;
+                                    parms[7] = relogin;
 
                                     OpenSiteURL newOpenSiteURL = new OpenSiteURL();
                                     Type reflectTestType = typeof(OpenSiteURL);
@@ -175,21 +182,23 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParameters = reflectMethodToInvoke.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResult = reflectMethodToInvoke.Invoke(new OpenSiteURL(), parms);
-                                    myHistoryInfo.myTestStepStatus = parms[3].ToString();
-                                    myHistoryInfo.myStepException = parms[4].ToString();
-                                    myHistoryInfo.myScreenShot = parms[5].ToString();
+                                    myHistoryInfo.myTestStepStatus = parms[4].ToString();
+                                    myHistoryInfo.myStepException = parms[5].ToString();
+                                    myHistoryInfo.myScreenShot = parms[6].ToString();
+                                    myHistoryInfo.myRelogin = parms[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
                                 case "AccountCreation":
-                                    object[] parmsac = new object[7];
+                                    object[] parmsac = new object[8];
                                     parmsac[0] = driver;
-                                    parmsac[1] = myAccountCreate;
-                                    parmsac[2] = myApplication;
-                                    parmsac[3] = myHistoryInfo;
-                                    parmsac[4] = returnStatus;
-                                    parmsac[5] = returnException;
-                                    parmsac[6] = returnScreenshot;
+                                    parmsac[1] = driver3;
+                                    parmsac[2] = myAccountCreate;
+                                    parmsac[3] = myApplication;
+                                    parmsac[4] = myHistoryInfo;
+                                    parmsac[5] = returnStatus;
+                                    parmsac[6] = returnException;
+                                    parmsac[7] = returnScreenshot;
 
                                     AccountCreation newAccount = new AccountCreation();
                                     Type reflectTestTypeac = typeof(AccountCreation);
@@ -197,9 +206,9 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametersac = reflectMethodToInvokeac.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResultac = reflectMethodToInvokeac.Invoke(newAccount, parmsac);
-                                    myHistoryInfo.myTestStepStatus = parmsac[4].ToString();
-                                    myHistoryInfo.myStepException = parmsac[5].ToString();
-                                    myHistoryInfo.myScreenShot = parmsac[6].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmsac[5].ToString();
+                                    myHistoryInfo.myStepException = parmsac[6].ToString();
+                                    myHistoryInfo.myScreenShot = parmsac[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
@@ -227,13 +236,14 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "Enrollments":
-                                    object[] parmsen = new object[6];
+                                    object[] parmsen = new object[7];
                                     parmsen[0] = driver;
-                                    parmsen[1] = myApplication;
-                                    parmsen[2] = myHistoryInfo;
-                                    parmsen[3] = returnStatus;
-                                    parmsen[4] = returnException;
-                                    parmsen[5] = returnScreenshot;
+                                    parmsen[1] = driver3;
+                                    parmsen[2] = myApplication;
+                                    parmsen[3] = myHistoryInfo;
+                                    parmsen[4] = returnStatus;
+                                    parmsen[5] = returnException;
+                                    parmsen[6] = returnScreenshot;
 
                                     Enrollments myEnrollments = new Enrollments();
                                     Type reflectTestTypeen = typeof(Enrollments);
@@ -241,9 +251,9 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametersen = reflectMethodToInvokeen.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResulten = reflectMethodToInvokeen.Invoke(myEnrollments, parmsen);
-                                    myHistoryInfo.myTestStepStatus = parmsen[3].ToString();
-                                    myHistoryInfo.myStepException = parmsen[4].ToString();
-                                    myHistoryInfo.myScreenShot = parmsen[5].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmsen[4].ToString();
+                                    myHistoryInfo.myStepException = parmsen[5].ToString();
+                                    myHistoryInfo.myScreenShot = parmsen[6].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
