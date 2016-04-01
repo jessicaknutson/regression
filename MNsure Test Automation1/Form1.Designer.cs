@@ -87,6 +87,24 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.comboBoxHMAnnualIncome = new System.Windows.Forms.ComboBox();
+            this.label156 = new System.Windows.Forms.Label();
+            this.comboBoxHMIncomeAdjustments = new System.Windows.Forms.ComboBox();
+            this.label155 = new System.Windows.Forms.Label();
+            this.label154 = new System.Windows.Forms.Label();
+            this.comboBoxHMIncomeReduced = new System.Windows.Forms.ComboBox();
+            this.comboBoxHMMoreIncome = new System.Windows.Forms.ComboBox();
+            this.label151 = new System.Windows.Forms.Label();
+            this.comboBoxHMFrequency = new System.Windows.Forms.ComboBox();
+            this.label152 = new System.Windows.Forms.Label();
+            this.textBoxHMAmount = new System.Windows.Forms.TextBox();
+            this.label153 = new System.Windows.Forms.Label();
+            this.comboBoxHMSeasonal = new System.Windows.Forms.ComboBox();
+            this.textBoxHMEmployerName = new System.Windows.Forms.TextBox();
+            this.label149 = new System.Windows.Forms.Label();
+            this.label150 = new System.Windows.Forms.Label();
+            this.comboBoxHMIncomeType = new System.Windows.Forms.ComboBox();
+            this.label148 = new System.Windows.Forms.Label();
             this.comboBoxHMFileJointly = new System.Windows.Forms.ComboBox();
             this.label78 = new System.Windows.Forms.Label();
             this.comboBoxHH3 = new System.Windows.Forms.ComboBox();
@@ -379,24 +397,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.comboBoxHMIncomeType = new System.Windows.Forms.ComboBox();
-            this.label148 = new System.Windows.Forms.Label();
-            this.comboBoxHMSeasonal = new System.Windows.Forms.ComboBox();
-            this.textBoxHMEmployerName = new System.Windows.Forms.TextBox();
-            this.label149 = new System.Windows.Forms.Label();
-            this.label150 = new System.Windows.Forms.Label();
-            this.comboBoxHMMoreIncome = new System.Windows.Forms.ComboBox();
-            this.label151 = new System.Windows.Forms.Label();
-            this.comboBoxHMFrequency = new System.Windows.Forms.ComboBox();
-            this.label152 = new System.Windows.Forms.Label();
-            this.textBoxHMAmount = new System.Windows.Forms.TextBox();
-            this.label153 = new System.Windows.Forms.Label();
-            this.comboBoxHMIncomeReduced = new System.Windows.Forms.ComboBox();
-            this.label154 = new System.Windows.Forms.Label();
-            this.comboBoxHMIncomeAdjustments = new System.Windows.Forms.ComboBox();
-            this.label155 = new System.Windows.Forms.Label();
-            this.comboBoxHMAnnualIncome = new System.Windows.Forms.ComboBox();
-            this.label156 = new System.Windows.Forms.Label();
+            this.label157 = new System.Windows.Forms.Label();
+            this.comboBoxWithDiscounts = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -1164,12 +1166,182 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHH2);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(900, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(970, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
+            // 
+            // comboBoxHMAnnualIncome
+            // 
+            this.comboBoxHMAnnualIncome.FormattingEnabled = true;
+            this.comboBoxHMAnnualIncome.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxHMAnnualIncome.Location = new System.Drawing.Point(516, 232);
+            this.comboBoxHMAnnualIncome.Name = "comboBoxHMAnnualIncome";
+            this.comboBoxHMAnnualIncome.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMAnnualIncome.TabIndex = 104;
+            // 
+            // label156
+            // 
+            this.label156.AutoSize = true;
+            this.label156.Location = new System.Drawing.Point(429, 235);
+            this.label156.Name = "label156";
+            this.label156.Size = new System.Drawing.Size(83, 13);
+            this.label156.TabIndex = 103;
+            this.label156.Text = "Annual income?";
+            // 
+            // comboBoxHMIncomeAdjustments
+            // 
+            this.comboBoxHMIncomeAdjustments.FormattingEnabled = true;
+            this.comboBoxHMIncomeAdjustments.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxHMIncomeAdjustments.Location = new System.Drawing.Point(373, 232);
+            this.comboBoxHMIncomeAdjustments.Name = "comboBoxHMIncomeAdjustments";
+            this.comboBoxHMIncomeAdjustments.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMIncomeAdjustments.TabIndex = 102;
+            // 
+            // label155
+            // 
+            this.label155.AutoSize = true;
+            this.label155.Location = new System.Drawing.Point(261, 235);
+            this.label155.Name = "label155";
+            this.label155.Size = new System.Drawing.Size(107, 13);
+            this.label155.TabIndex = 101;
+            this.label155.Text = "Income adjustments?";
+            // 
+            // label154
+            // 
+            this.label154.AutoSize = true;
+            this.label154.Location = new System.Drawing.Point(22, 235);
+            this.label154.Name = "label154";
+            this.label154.Size = new System.Drawing.Size(170, 13);
+            this.label154.TabIndex = 100;
+            this.label154.Text = "Hours decrease  in last 6 months? ";
+            // 
+            // comboBoxHMIncomeReduced
+            // 
+            this.comboBoxHMIncomeReduced.FormattingEnabled = true;
+            this.comboBoxHMIncomeReduced.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxHMIncomeReduced.Location = new System.Drawing.Point(197, 232);
+            this.comboBoxHMIncomeReduced.Name = "comboBoxHMIncomeReduced";
+            this.comboBoxHMIncomeReduced.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMIncomeReduced.TabIndex = 99;
+            // 
+            // comboBoxHMMoreIncome
+            // 
+            this.comboBoxHMMoreIncome.FormattingEnabled = true;
+            this.comboBoxHMMoreIncome.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.comboBoxHMMoreIncome.Location = new System.Drawing.Point(450, 209);
+            this.comboBoxHMMoreIncome.Name = "comboBoxHMMoreIncome";
+            this.comboBoxHMMoreIncome.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMMoreIncome.TabIndex = 98;
+            // 
+            // label151
+            // 
+            this.label151.AutoSize = true;
+            this.label151.Location = new System.Drawing.Point(352, 212);
+            this.label151.Name = "label151";
+            this.label151.Size = new System.Drawing.Size(94, 13);
+            this.label151.TabIndex = 97;
+            this.label151.Text = "Any more income?";
+            // 
+            // comboBoxHMFrequency
+            // 
+            this.comboBoxHMFrequency.FormattingEnabled = true;
+            this.comboBoxHMFrequency.Items.AddRange(new object[] {
+            "Yearly"});
+            this.comboBoxHMFrequency.Location = new System.Drawing.Point(265, 209);
+            this.comboBoxHMFrequency.Name = "comboBoxHMFrequency";
+            this.comboBoxHMFrequency.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxHMFrequency.TabIndex = 96;
+            // 
+            // label152
+            // 
+            this.label152.AutoSize = true;
+            this.label152.Location = new System.Drawing.Point(201, 212);
+            this.label152.Name = "label152";
+            this.label152.Size = new System.Drawing.Size(60, 13);
+            this.label152.TabIndex = 95;
+            this.label152.Text = "Frequency:";
+            // 
+            // textBoxHMAmount
+            // 
+            this.textBoxHMAmount.Location = new System.Drawing.Point(92, 209);
+            this.textBoxHMAmount.Name = "textBoxHMAmount";
+            this.textBoxHMAmount.Size = new System.Drawing.Size(100, 20);
+            this.textBoxHMAmount.TabIndex = 94;
+            // 
+            // label153
+            // 
+            this.label153.AutoSize = true;
+            this.label153.Location = new System.Drawing.Point(42, 212);
+            this.label153.Name = "label153";
+            this.label153.Size = new System.Drawing.Size(46, 13);
+            this.label153.TabIndex = 93;
+            this.label153.Text = "Amount:";
+            // 
+            // comboBoxHMSeasonal
+            // 
+            this.comboBoxHMSeasonal.FormattingEnabled = true;
+            this.comboBoxHMSeasonal.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxHMSeasonal.Location = new System.Drawing.Point(706, 185);
+            this.comboBoxHMSeasonal.Name = "comboBoxHMSeasonal";
+            this.comboBoxHMSeasonal.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMSeasonal.TabIndex = 92;
+            // 
+            // textBoxHMEmployerName
+            // 
+            this.textBoxHMEmployerName.Location = new System.Drawing.Point(449, 185);
+            this.textBoxHMEmployerName.Name = "textBoxHMEmployerName";
+            this.textBoxHMEmployerName.Size = new System.Drawing.Size(125, 20);
+            this.textBoxHMEmployerName.TabIndex = 91;
+            // 
+            // label149
+            // 
+            this.label149.AutoSize = true;
+            this.label149.Location = new System.Drawing.Point(580, 188);
+            this.label149.Name = "label149";
+            this.label149.Size = new System.Drawing.Size(121, 13);
+            this.label149.TabIndex = 90;
+            this.label149.Text = "Is seasonally employed?";
+            // 
+            // label150
+            // 
+            this.label150.AutoSize = true;
+            this.label150.Location = new System.Drawing.Point(361, 189);
+            this.label150.Name = "label150";
+            this.label150.Size = new System.Drawing.Size(84, 13);
+            this.label150.TabIndex = 89;
+            this.label150.Text = "Employer Name:";
+            // 
+            // comboBoxHMIncomeType
+            // 
+            this.comboBoxHMIncomeType.FormattingEnabled = true;
+            this.comboBoxHMIncomeType.Items.AddRange(new object[] {
+            "Wages before taxes"});
+            this.comboBoxHMIncomeType.Location = new System.Drawing.Point(227, 186);
+            this.comboBoxHMIncomeType.Name = "comboBoxHMIncomeType";
+            this.comboBoxHMIncomeType.Size = new System.Drawing.Size(125, 21);
+            this.comboBoxHMIncomeType.TabIndex = 88;
+            // 
+            // label148
+            // 
+            this.label148.AutoSize = true;
+            this.label148.Location = new System.Drawing.Point(151, 189);
+            this.label148.Name = "label148";
+            this.label148.Size = new System.Drawing.Size(72, 13);
+            this.label148.TabIndex = 87;
+            this.label148.Text = "Income Type:";
             // 
             // comboBoxHMFileJointly
             // 
@@ -2073,7 +2245,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(109, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(909, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 498);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -2507,6 +2679,8 @@
             // 
             // groupBoxApplicantInformation
             // 
+            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxWithDiscounts);
+            this.groupBoxApplicantInformation.Controls.Add(this.label157);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailCounty);
             this.groupBoxApplicantInformation.Controls.Add(this.label134);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxMailAptSuite);
@@ -4281,175 +4455,26 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // comboBoxHMIncomeType
+            // label157
             // 
-            this.comboBoxHMIncomeType.FormattingEnabled = true;
-            this.comboBoxHMIncomeType.Items.AddRange(new object[] {
-            "Wages before taxes"});
-            this.comboBoxHMIncomeType.Location = new System.Drawing.Point(227, 186);
-            this.comboBoxHMIncomeType.Name = "comboBoxHMIncomeType";
-            this.comboBoxHMIncomeType.Size = new System.Drawing.Size(125, 21);
-            this.comboBoxHMIncomeType.TabIndex = 88;
+            this.label157.AutoSize = true;
+            this.label157.Location = new System.Drawing.Point(364, 524);
+            this.label157.Name = "label157";
+            this.label157.Size = new System.Drawing.Size(109, 13);
+            this.label157.TabIndex = 0;
+            this.label157.Text = "Apply with discounts?";
             // 
-            // label148
+            // comboBoxWithDiscounts
             // 
-            this.label148.AutoSize = true;
-            this.label148.Location = new System.Drawing.Point(151, 189);
-            this.label148.Name = "label148";
-            this.label148.Size = new System.Drawing.Size(72, 13);
-            this.label148.TabIndex = 87;
-            this.label148.Text = "Income Type:";
-            // 
-            // comboBoxHMSeasonal
-            // 
-            this.comboBoxHMSeasonal.FormattingEnabled = true;
-            this.comboBoxHMSeasonal.Items.AddRange(new object[] {
+            this.comboBoxWithDiscounts.FormattingEnabled = true;
+            this.comboBoxWithDiscounts.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxHMSeasonal.Location = new System.Drawing.Point(706, 185);
-            this.comboBoxHMSeasonal.Name = "comboBoxHMSeasonal";
-            this.comboBoxHMSeasonal.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMSeasonal.TabIndex = 92;
-            // 
-            // textBoxHMEmployerName
-            // 
-            this.textBoxHMEmployerName.Location = new System.Drawing.Point(449, 185);
-            this.textBoxHMEmployerName.Name = "textBoxHMEmployerName";
-            this.textBoxHMEmployerName.Size = new System.Drawing.Size(125, 20);
-            this.textBoxHMEmployerName.TabIndex = 91;
-            // 
-            // label149
-            // 
-            this.label149.AutoSize = true;
-            this.label149.Location = new System.Drawing.Point(580, 188);
-            this.label149.Name = "label149";
-            this.label149.Size = new System.Drawing.Size(121, 13);
-            this.label149.TabIndex = 90;
-            this.label149.Text = "Is seasonally employed?";
-            // 
-            // label150
-            // 
-            this.label150.AutoSize = true;
-            this.label150.Location = new System.Drawing.Point(361, 189);
-            this.label150.Name = "label150";
-            this.label150.Size = new System.Drawing.Size(84, 13);
-            this.label150.TabIndex = 89;
-            this.label150.Text = "Employer Name:";
-            // 
-            // comboBoxHMMoreIncome
-            // 
-            this.comboBoxHMMoreIncome.FormattingEnabled = true;
-            this.comboBoxHMMoreIncome.Items.AddRange(new object[] {
-            "No",
-            "Yes"});
-            this.comboBoxHMMoreIncome.Location = new System.Drawing.Point(450, 209);
-            this.comboBoxHMMoreIncome.Name = "comboBoxHMMoreIncome";
-            this.comboBoxHMMoreIncome.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMMoreIncome.TabIndex = 98;
-            // 
-            // label151
-            // 
-            this.label151.AutoSize = true;
-            this.label151.Location = new System.Drawing.Point(352, 212);
-            this.label151.Name = "label151";
-            this.label151.Size = new System.Drawing.Size(94, 13);
-            this.label151.TabIndex = 97;
-            this.label151.Text = "Any more income?";
-            // 
-            // comboBoxHMFrequency
-            // 
-            this.comboBoxHMFrequency.FormattingEnabled = true;
-            this.comboBoxHMFrequency.Items.AddRange(new object[] {
-            "Yearly"});
-            this.comboBoxHMFrequency.Location = new System.Drawing.Point(265, 209);
-            this.comboBoxHMFrequency.Name = "comboBoxHMFrequency";
-            this.comboBoxHMFrequency.Size = new System.Drawing.Size(75, 21);
-            this.comboBoxHMFrequency.TabIndex = 96;
-            // 
-            // label152
-            // 
-            this.label152.AutoSize = true;
-            this.label152.Location = new System.Drawing.Point(201, 212);
-            this.label152.Name = "label152";
-            this.label152.Size = new System.Drawing.Size(60, 13);
-            this.label152.TabIndex = 95;
-            this.label152.Text = "Frequency:";
-            // 
-            // textBoxHMAmount
-            // 
-            this.textBoxHMAmount.Location = new System.Drawing.Point(92, 209);
-            this.textBoxHMAmount.Name = "textBoxHMAmount";
-            this.textBoxHMAmount.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHMAmount.TabIndex = 94;
-            // 
-            // label153
-            // 
-            this.label153.AutoSize = true;
-            this.label153.Location = new System.Drawing.Point(42, 212);
-            this.label153.Name = "label153";
-            this.label153.Size = new System.Drawing.Size(46, 13);
-            this.label153.TabIndex = 93;
-            this.label153.Text = "Amount:";
-            // 
-            // comboBoxHMIncomeReduced
-            // 
-            this.comboBoxHMIncomeReduced.FormattingEnabled = true;
-            this.comboBoxHMIncomeReduced.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxHMIncomeReduced.Location = new System.Drawing.Point(197, 232);
-            this.comboBoxHMIncomeReduced.Name = "comboBoxHMIncomeReduced";
-            this.comboBoxHMIncomeReduced.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMIncomeReduced.TabIndex = 99;
-            // 
-            // label154
-            // 
-            this.label154.AutoSize = true;
-            this.label154.Location = new System.Drawing.Point(22, 235);
-            this.label154.Name = "label154";
-            this.label154.Size = new System.Drawing.Size(170, 13);
-            this.label154.TabIndex = 100;
-            this.label154.Text = "Hours decrease  in last 6 months? ";
-            // 
-            // comboBoxHMIncomeAdjustments
-            // 
-            this.comboBoxHMIncomeAdjustments.FormattingEnabled = true;
-            this.comboBoxHMIncomeAdjustments.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxHMIncomeAdjustments.Location = new System.Drawing.Point(373, 232);
-            this.comboBoxHMIncomeAdjustments.Name = "comboBoxHMIncomeAdjustments";
-            this.comboBoxHMIncomeAdjustments.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMIncomeAdjustments.TabIndex = 102;
-            // 
-            // label155
-            // 
-            this.label155.AutoSize = true;
-            this.label155.Location = new System.Drawing.Point(261, 235);
-            this.label155.Name = "label155";
-            this.label155.Size = new System.Drawing.Size(107, 13);
-            this.label155.TabIndex = 101;
-            this.label155.Text = "Income adjustments?";
-            // 
-            // comboBoxHMAnnualIncome
-            // 
-            this.comboBoxHMAnnualIncome.FormattingEnabled = true;
-            this.comboBoxHMAnnualIncome.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxHMAnnualIncome.Location = new System.Drawing.Point(516, 232);
-            this.comboBoxHMAnnualIncome.Name = "comboBoxHMAnnualIncome";
-            this.comboBoxHMAnnualIncome.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMAnnualIncome.TabIndex = 104;
-            // 
-            // label156
-            // 
-            this.label156.AutoSize = true;
-            this.label156.Location = new System.Drawing.Point(429, 235);
-            this.label156.Name = "label156";
-            this.label156.Size = new System.Drawing.Size(83, 13);
-            this.label156.TabIndex = 103;
-            this.label156.Text = "Annual income?";
+            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 521);
+            this.comboBoxWithDiscounts.Name = "comboBoxWithDiscounts";
+            this.comboBoxWithDiscounts.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxWithDiscounts.TabIndex = 51;
+            this.comboBoxWithDiscounts.SelectedValueChanged += new System.EventHandler(this.comboBoxWithDiscounts_SelectedValueChanged);
             // 
             // FormMain
             // 
@@ -4882,6 +4907,8 @@
         private System.Windows.Forms.Label label155;
         private System.Windows.Forms.ComboBox comboBoxHMAnnualIncome;
         private System.Windows.Forms.Label label156;
+        private System.Windows.Forms.ComboBox comboBoxWithDiscounts;
+        private System.Windows.Forms.Label label157;
 
     }
 }

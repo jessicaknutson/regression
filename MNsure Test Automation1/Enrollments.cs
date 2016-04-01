@@ -511,15 +511,14 @@ namespace MNsure_Regression_1
                 IWebElement textboxSignatureFirst = myDriver.FindElement(By.Name("enrollment.individual.signature.firstName"));
                 textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
 
-                IWebElement textboxSignatureMiddle = myDriver.FindElement(By.Name("enrollment.individual.signature.middleInitial"));
-                textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
+                if (myEnrollment.myWithDiscounts == "Yes")//only valid for the with discounts
+                {
+                    IWebElement textboxSignatureMiddle = myDriver.FindElement(By.Name("enrollment.individual.signature.middleInitial"));
+                    textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
+                }
 
                 IWebElement textboxSignatureLast = myDriver.FindElement(By.Name("enrollment.individual.signature.lastName"));
                 textboxSignatureLast.SendKeys(myEnrollment.myLastName);
-
-                //every now and then it fails here stating that the signature doesn't match, i tried to set the suffix and nothing works, not sure what to do here, you can't get past this
-                //IWebElement textboxSignatureSuffix = myDriver.FindElement(By.Name("enrollment.individual.signature.suffix"));
-                //textboxSignatureLast.SendKeys(myEnrollment.mySuffix);
 
                 IWebElement buttonSubmit = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
                 buttonSubmit.Click();
@@ -592,8 +591,8 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 System.Threading.Thread.Sleep(2000);
-                driver.SwitchTo().DefaultContent();
-
+                myDriver.SwitchTo().DefaultContent();
+ 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.TagName("iFrame")));
                 var iFrameElement4 = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement4);
@@ -601,7 +600,6 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("back_curam"))));
-
                 IWebElement buttonDone = myDriver.FindElement(By.Id("back_curam"));
                 buttonDone.Click();
 

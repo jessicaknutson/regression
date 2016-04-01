@@ -46,7 +46,6 @@ struct mystructHistoryInfo
     public DateTime myTimeTravelDate;
     public string myExecutedBy;
     public string myRelogin;
-    public string mySecondPass;
 }
 
 struct mystructSelectedTest
@@ -166,6 +165,7 @@ struct mystructSelectedTest
         public string myAddIns;
         public string myESC;
         public string myRenewalCov;
+        public string myWithDiscounts;
     }
     struct mystructSSN
     {
