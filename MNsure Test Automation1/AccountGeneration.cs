@@ -105,25 +105,25 @@ namespace MNsure_Regression_1
             if (rand.Next(1, 3) == 1)
             {
                 Random rand2 = new Random();
-                myHouseholdMembers.FirstName = maleNames[rand2.Next(1, maleNames.Count())];
-                myHouseholdMembers.MiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
-                myHouseholdMembers.LastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myHouseholdMembers.Suffix = suffix[rand2.Next(1, suffix.Count())];
-                myHouseholdMembers.DOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
-                myHouseholdMembers.Gender = "Male";
+                myHouseholdMembers.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
+                myHouseholdMembers.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
+                myHouseholdMembers.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
+                myHouseholdMembers.mySuffix = suffix[rand2.Next(1, suffix.Count())];
+                myHouseholdMembers.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myHouseholdMembers.myGender = "Male";
                 result = 1;
             }
             else
             {
                 Random rand2 = new Random();
-                myHouseholdMembers.FirstName = femaleNames[rand2.Next(1, femaleNames.Count())];
-                myHouseholdMembers.MiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
-                myHouseholdMembers.LastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myHouseholdMembers.Suffix = suffix[rand2.Next(1, suffix.Count())];
-                myHouseholdMembers.DOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
-                myHouseholdMembers.Gender = "Female";
+                myHouseholdMembers.myFirstName = femaleNames[rand2.Next(1, femaleNames.Count())];
+                myHouseholdMembers.myMiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
+                myHouseholdMembers.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
+                myHouseholdMembers.mySuffix = suffix[rand2.Next(1, suffix.Count())];
+                myHouseholdMembers.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myHouseholdMembers.myGender = "Female";
                 string temp1;
-                temp1 = myHouseholdMembers.DOB;
+                temp1 = myHouseholdMembers.myDOB;
                 result = 1;
             }
             System.Threading.Thread.Sleep(129);
@@ -158,13 +158,13 @@ namespace MNsure_Regression_1
             }          
              */
 
-            myHouseholdMembers.MaritalStatus = "Married";
-            myHouseholdMembers.LiveWithYou = "Yes";
-            myHouseholdMembers.MNHome = "Yes";
-            myHouseholdMembers.PersonHighlighted = "Yes";
-            myHouseholdMembers.LiveInMN = "Yes";
-            myHouseholdMembers.TempAbsentMN = "Yes";
-            myHouseholdMembers.Homeless = "Yes";
+            myHouseholdMembers.myMaritalStatus = "Married";
+            myHouseholdMembers.myLiveWithYou = "Yes";
+            myHouseholdMembers.myMNHome = "Yes";
+            myHouseholdMembers.myPersonHighlighted = "Yes";
+            myHouseholdMembers.myLiveInMN = "Yes";
+            myHouseholdMembers.myTempAbsentMN = "Yes";
+            myHouseholdMembers.myHomeless = "Yes";
 
             /*myHouseholdMembers.Address1 = "12969 First Ave W";
             myHouseholdMembers.Address2 = "PO 44";
@@ -176,19 +176,19 @@ namespace MNsure_Regression_1
             //   myHouseholdMembers.Email = "Test@Gmail.com";
             //   myHouseholdMembers.Phone = "6128129996";
 
-            myHouseholdMembers.PlanMakeMNHome = "Yes";
-            myHouseholdMembers.SeekEmplMN = "Yes";
-            myHouseholdMembers.Hispanic = "No";
-            myHouseholdMembers.Race = "White";
-            myHouseholdMembers.HaveSSN = "Yes";
-            myHouseholdMembers.SSN = "123456789";
-            myHouseholdMembers.USCitizen = "Yes";
-            myHouseholdMembers.USNational = "Yes";
-            myHouseholdMembers.IsPregnant = "No";
-            myHouseholdMembers.BeenInFosterCare = "No";
-            myHouseholdMembers.Relationship = "Is the Spouse of";
-            myHouseholdMembers.HasIncome = "No";
-            myHouseholdMembers.RelationshiptoNextHM = "Is the Parent of";
+            myHouseholdMembers.myPlanMakeMNHome = "Yes";
+            myHouseholdMembers.mySeekEmplMN = "Yes";
+            myHouseholdMembers.myHispanic = "No";
+            myHouseholdMembers.myRace = "White";
+            myHouseholdMembers.myHaveSSN = "Yes";
+            myHouseholdMembers.mySSN = "123456789";
+            myHouseholdMembers.myUSCitizen = "Yes";
+            myHouseholdMembers.myUSNational = "Yes";
+            myHouseholdMembers.myIsPregnant = "No";
+            myHouseholdMembers.myBeenInFosterCare = "No";
+            myHouseholdMembers.myRelationship = "Is the Spouse of";
+            myHouseholdMembers.myHasIncome = "No";
+            myHouseholdMembers.myRelationshiptoNextHM = "Is the Parent of";
             return result;
         }
 

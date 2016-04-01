@@ -11,7 +11,7 @@ namespace MNsure_Regression_1
 {
     class FillStructures
     {
-        public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
+        public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -23,7 +23,7 @@ namespace MNsure_Regression_1
                 SqlCeCommand cmd2 = con.CreateCommand();
                 cmd2.CommandType = CommandType.Text;
 
-                //Read configured rows if exist, otherwise fill with default values
+                //Read configured rows if exist
                 using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Application where TestId = " + mySelectedTest.myTestId, con))
                 {
                     SqlCeDataReader reader = com2.ExecuteReader();
@@ -134,10 +134,69 @@ namespace MNsure_Regression_1
                     }
                 }
 
+                SqlCeCommand cmd4 = con.CreateCommand();
+                cmd4.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + mySelectedTest.myTestId + " and HouseMembersID = 2", con))
+                {
+                    SqlCeDataReader reader = com2.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myHouseholdMembers.myFirstName = reader.GetString(2);
+                        myHouseholdMembers.myMiddleName = reader.GetString(3);
+                        myHouseholdMembers.myLastName = reader.GetString(4);
+                        myHouseholdMembers.mySuffix = reader.GetString(5);
+                        myHouseholdMembers.myGender = reader.GetString(6);
+                        myHouseholdMembers.myMaritalStatus = reader.GetString(7);
+                        myHouseholdMembers.myDOB = reader.GetString(8);
+                        myHouseholdMembers.myLiveWithYou = reader.GetString(9);
+                        myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
+                        myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
+                        myHouseholdMembers.myLiveInMN = reader.GetString(12);
+                        myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
+                        myHouseholdMembers.myHomeless = reader.GetString(14);
+                        myHouseholdMembers.myHomeAddress1 = reader.GetString(15);//move to addr db
+                        myHouseholdMembers.myHomeAddress2 = reader.GetString(16);
+                        myHouseholdMembers.myHomeAptSuite = reader.GetString(17);
+                        myHouseholdMembers.myHomeCity = reader.GetString(18);
+                        myHouseholdMembers.myHomeState = reader.GetString(19);
+                        myHouseholdMembers.myHomeZip = reader.GetString(20);
+                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(21); 
+                        myHouseholdMembers.mySeekEmplMN = reader.GetString(22);                        
+                        myHouseholdMembers.myHispanic = reader.GetString(23);
+                        myHouseholdMembers.myRace = reader.GetString(24);
+                        myHouseholdMembers.myHaveSSN = reader.GetString(25);
+                        //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
+                        myHouseholdMembers.myUSCitizen = reader.GetString(27);
+                        myHouseholdMembers.myUSNational = reader.GetString(28);
+                        myHouseholdMembers.myIsPregnant = reader.GetString(29);
+                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(30);
+                        myHouseholdMembers.myRelationship = reader.GetString(31);
+                        myHouseholdMembers.myHasIncome = reader.GetString(32);
+                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(33);
+                        myHouseholdMembers.myTribeName = reader.GetString(34);
+                        myHouseholdMembers.myTribeId = reader.GetString(35);
+                        myHouseholdMembers.myLiveRes = reader.GetString(36);
+                        myHouseholdMembers.myFederalTribe = reader.GetString(37);
+                        myHouseholdMembers.myFileJointly = reader.GetString(38);
+                        myHouseholdMembers.myIncomeType = reader.GetString(39);
+                        myHouseholdMembers.myIncomeEmployer = reader.GetString(40);
+                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(41);
+                        myHouseholdMembers.myIncomeAmount = reader.GetString(42);
+                        myHouseholdMembers.myIncomeFrequency = reader.GetString(43);
+                        myHouseholdMembers.myIncomeMore = reader.GetString(44);                        
+                        myHouseholdMembers.myIncomeReduced = reader.GetString(45);
+                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
+                        myHouseholdMembers.myIncomeExpected = reader.GetString(47);
+                        myHouseholdMembers.myPassCount = reader.GetString(48);
+                    }
+                }
+
                 SqlCeCommand cmd3 = con.CreateCommand();
                 cmd3.CommandType = CommandType.Text;
 
-                //Read configured rows if exist, otherwise fill with default values
+                //Read configured rows if exist
                 using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + mySelectedTest.myTestId, con))
                 {
                     SqlCeDataReader reader = com3.ExecuteReader();
@@ -191,8 +250,89 @@ namespace MNsure_Regression_1
             }
             catch (Exception e)
             {
+                MessageBox.Show("Fill all structures didn't work");
                 return 1;
             }
+            
+        }
+
+        public int doFillHMStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            con = new SqlCeConnection(conString);
+            con.Open();
+
+            try
+            {
+                SqlCeCommand cmd = con.CreateCommand();
+                cmd.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + mySelectedTest.myTestId + " and HouseMembersID = 2", con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myHouseholdMembers.myFirstName = reader.GetString(2);
+                        myHouseholdMembers.myMiddleName = reader.GetString(3);
+                        myHouseholdMembers.myLastName = reader.GetString(4);
+                        myHouseholdMembers.mySuffix = reader.GetString(5);
+                        myHouseholdMembers.myGender = reader.GetString(6);
+                        myHouseholdMembers.myMaritalStatus = reader.GetString(7);
+                        myHouseholdMembers.myDOB = reader.GetString(8);
+                        myHouseholdMembers.myLiveWithYou = reader.GetString(9);
+                        myHouseholdMembers.myMNHome = reader.GetString(10);                       
+                        myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
+                        myHouseholdMembers.myLiveInMN = reader.GetString(12);
+                        myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
+                        myHouseholdMembers.myHomeless = reader.GetString(14);
+                        myHouseholdMembers.myHomeAddress1 = reader.GetString(15);//move to addr db
+                        myHouseholdMembers.myHomeAddress2 = reader.GetString(16);
+                        myHouseholdMembers.myHomeAptSuite = reader.GetString(17);
+                        myHouseholdMembers.myHomeCity = reader.GetString(18);
+                        myHouseholdMembers.myHomeState = reader.GetString(19);
+                        myHouseholdMembers.myHomeZip = reader.GetString(20);
+                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(21);
+                        myHouseholdMembers.mySeekEmplMN = reader.GetString(22);
+                        myHouseholdMembers.myHispanic = reader.GetString(23);
+                        myHouseholdMembers.myRace = reader.GetString(24);
+                        myHouseholdMembers.myHaveSSN = reader.GetString(25);
+                        //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
+                        myHouseholdMembers.myUSCitizen = reader.GetString(27);
+                        myHouseholdMembers.myUSNational = reader.GetString(28);
+                        myHouseholdMembers.myIsPregnant = reader.GetString(29);
+                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(30);
+                        myHouseholdMembers.myRelationship = reader.GetString(31);
+                        myHouseholdMembers.myHasIncome = reader.GetString(32);
+                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(33);
+                        myHouseholdMembers.myTribeName = reader.GetString(34);
+                        myHouseholdMembers.myTribeId = reader.GetString(35);
+                        myHouseholdMembers.myLiveRes = reader.GetString(36);
+                        myHouseholdMembers.myFederalTribe = reader.GetString(37);
+                        myHouseholdMembers.myFileJointly = reader.GetString(38);
+                        myHouseholdMembers.myIncomeType = reader.GetString(39);
+                        myHouseholdMembers.myIncomeEmployer = reader.GetString(40);
+                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(41);
+                        myHouseholdMembers.myIncomeAmount = reader.GetString(42);
+                        myHouseholdMembers.myIncomeFrequency = reader.GetString(43);
+                        myHouseholdMembers.myIncomeMore = reader.GetString(44);
+                        myHouseholdMembers.myIncomeReduced = reader.GetString(45);
+                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
+                        myHouseholdMembers.myIncomeExpected = reader.GetString(47);
+                        myHouseholdMembers.myPassCount = reader.GetString(48);
+                    }
+                }
+
+                con.Close();
+                return 1;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Fill household members structure didn't work");
+                return 1;
+            }
+            
         }
 
         public int doCreateAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication)
@@ -236,8 +376,10 @@ namespace MNsure_Regression_1
             }
             catch (Exception e)
             {
+                MessageBox.Show("Read account didn't work");
                 return 1;
             }
+            
 
             try
             {

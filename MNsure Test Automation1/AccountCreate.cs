@@ -489,10 +489,15 @@ namespace MNsure_Regression_1
                 wait3.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait3.PollingInterval = TimeSpan.FromMilliseconds(100);
                 IWebElement element3 = wait3.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
+
+                /*myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div[2]/div/nav/ol/li[2]/span/span/span/span[1]")).Click();//select payments first
+
+                myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div[2]/div/nav/ol/li[1]/span/span/span/span[1]")).Click();//select home
+                */
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement);
 
-                IWebElement myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));
+                IWebElement myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));//sometimes view results doesn't show right away
                 myViewResults.Click();
 
                 System.Threading.Thread.Sleep(2000);

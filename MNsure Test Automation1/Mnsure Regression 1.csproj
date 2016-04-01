@@ -130,7 +130,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="HouseholdMembers.cs" />
+    <Compile Include="HouseholdMembersDo.cs" />
     <Compile Include="InitializeSSN.cs" />
     <Compile Include="OpenSiteURL.cs" />
     <Compile Include="Program.cs" />

@@ -46,6 +46,7 @@ struct mystructHistoryInfo
     public DateTime myTimeTravelDate;
     public string myExecutedBy;
     public string myRelogin;
+    public string mySecondPass;
 }
 
 struct mystructSelectedTest
@@ -195,45 +196,58 @@ struct mystructSelectedTest
     {
         public int HouseMembersID;
         public int TestId;
-        public string FirstName;
-        public string MiddleName;
-        public string LastName;
-        public string Suffix;
-        public string Gender;
-        public string MaritalStatus;
-        public string DOB;
-        public string LiveWithYou;
-        public string MNHome;
-        public string PersonHighlighted;
-        public string LiveInMN;
-        public string TempAbsentMN;
-        public string Homeless;
-        /*public string Address1;
-        public string Address2;
-        public string AptSuite;
-        public string City;
-        public string State;
-        public string Zip;*/
-        public string PlanMakeMNHome;
-        public string SeekEmplMN;
-        public string Hispanic;
-        public string FederalTribe;
-        public string TribeId;
-        public string TribeName;
-        public string Military;
-        public string MilitaryDate;
-        public string LiveRes;
-        public string Race;
-        public string HaveSSN; 
-        public string SSN;
-        public string USCitizen;
-        public string USNational;
-        public string IsPregnant;
-        public string BeenInFosterCare;
-        public string Relationship;
-        public string HasIncome;
-        public string RelationshiptoNextHM;
+        public string myFirstName;
+        public string myMiddleName;
+        public string myLastName;
+        public string mySuffix;
+        public string myHomeAddress1;
+        public string myHomeAddress2;
+        public string myHomeAptSuite;
+        public string myHomeCity;
+        public string myHomeState;
+        public string myHomeZip;
+        public string myHomeZip4;
+        //public string myHomeCounty;
+        public string myGender;
+        public string myMaritalStatus;
+        public string myDOB;
+        public string myFileJointly;
+        public string myLiveWithYou;
+        public string myMNHome;
+        public string myPersonHighlighted;
+        public string myLiveInMN;
+        public string myTempAbsentMN;
+        public string myHomeless;
+        public string myPlanMakeMNHome;
+        public string mySeekEmplMN;
+        public string myHispanic;
+        public string myFederalTribe;
+        public string myTribeId;
+        public string myTribeName;
+        public string myMilitary;
+        public string myMilitaryDate;
+        public string myLiveRes;
+        public string myRace;
+        public string myHaveSSN;
+        public string mySSN;
+        public string myUSCitizen;
+        public string myUSNational;
+        public string myIsPregnant;
+        public string myBeenInFosterCare;
+        public string myRelationship;
+        public string myHasIncome;
+        public string myRelationshiptoNextHM;
         public int NumMembers;
+        public string myIncomeType;
+        public string myIncomeAmount;
+        public string myIncomeFrequency;
+        public string myIncomeMore;
+        public string myIncomeEmployer;
+        public string myIncomeSeasonal;
+        public string myIncomeReduced;
+        public string myIncomeAdjusted;
+        public string myIncomeExpected;
+        public string myPassCount;
     }
 
     struct mystructEditKey
