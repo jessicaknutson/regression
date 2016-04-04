@@ -792,7 +792,7 @@ namespace MNsure_Regression_1
                                 }
                                 myHouseholdMembers.myPassCount = reader.GetString(48);
                             }
-                            if (myHouseholdMembers.myFirstName == null)
+                            /*if (myHouseholdMembers.myFirstName == null)
                             {
                                 //Could generate these or store as a table default row
                                 myHouseholdMembers.myFirstName = "Jane";
@@ -838,7 +838,7 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myIncomeAdjusted = "No";
                                 myHouseholdMembers.myIncomeExpected = "Yes";
                                 myHouseholdMembers.myPassCount = "1";
-                            }
+                            }*/
                             com4.ExecuteNonQuery();
                             com4.Dispose();
                         }

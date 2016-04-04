@@ -170,8 +170,47 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonContinue2 = myDriver.FindElement(By.Id("dijit_form_Button_2"));
-                buttonContinue2.Click();
+                IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
+                buttonContinue.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoSelectPrimary(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
+
+            try
+            {
+                if (myHistoryInfo.myRelogin == "Yes")
+                {
+                    myDriver = driver3;
+                }
+                System.Threading.Thread.Sleep(2000);
+                //check for text at the bottom
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));
+
+                IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                checkboxPrimary.Click();
+
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+
+                IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_4"));
+                buttonContinue.Click();
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;

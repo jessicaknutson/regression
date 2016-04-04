@@ -233,6 +233,8 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.comboBoxWithDiscounts = new System.Windows.Forms.ComboBox();
+            this.label157 = new System.Windows.Forms.Label();
             this.comboBoxMailCounty = new System.Windows.Forms.ComboBox();
             this.label134 = new System.Windows.Forms.Label();
             this.textBoxMailAptSuite = new System.Windows.Forms.TextBox();
@@ -397,8 +399,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label157 = new System.Windows.Forms.Label();
-            this.comboBoxWithDiscounts = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -1166,7 +1166,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHH2);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(900, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(970, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -1584,7 +1584,7 @@
             "Yes"});
             this.comboBoxHMBeenInFosterCare.Location = new System.Drawing.Point(453, 140);
             this.comboBoxHMBeenInFosterCare.Name = "comboBoxHMBeenInFosterCare";
-            this.comboBoxHMBeenInFosterCare.Size = new System.Drawing.Size(70, 21);
+            this.comboBoxHMBeenInFosterCare.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMBeenInFosterCare.TabIndex = 67;
             // 
             // label80
@@ -1604,7 +1604,7 @@
             "Yes"});
             this.comboBoxHMPregnant.Location = new System.Drawing.Point(269, 140);
             this.comboBoxHMPregnant.Name = "comboBoxHMPregnant";
-            this.comboBoxHMPregnant.Size = new System.Drawing.Size(97, 21);
+            this.comboBoxHMPregnant.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMPregnant.TabIndex = 65;
             // 
             // label79
@@ -1655,7 +1655,7 @@
             "Yes"});
             this.comboBoxHMUSCitizen.Location = new System.Drawing.Point(93, 140);
             this.comboBoxHMUSCitizen.Name = "comboBoxHMUSCitizen";
-            this.comboBoxHMUSCitizen.Size = new System.Drawing.Size(97, 21);
+            this.comboBoxHMUSCitizen.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMUSCitizen.TabIndex = 51;
             // 
             // textBoxHMSSN
@@ -1673,7 +1673,7 @@
             "Yes"});
             this.comboBoxHMHaveSSN.Location = new System.Drawing.Point(417, 117);
             this.comboBoxHMHaveSSN.Name = "comboBoxHMHaveSSN";
-            this.comboBoxHMHaveSSN.Size = new System.Drawing.Size(97, 21);
+            this.comboBoxHMHaveSSN.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMHaveSSN.TabIndex = 49;
             // 
             // comboBoxHMRace
@@ -1695,7 +1695,7 @@
             "Yes"});
             this.comboBoxHMHispanic.Location = new System.Drawing.Point(139, 117);
             this.comboBoxHMHispanic.Name = "comboBoxHMHispanic";
-            this.comboBoxHMHispanic.Size = new System.Drawing.Size(38, 21);
+            this.comboBoxHMHispanic.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMHispanic.TabIndex = 47;
             // 
             // comboBoxHMPersonHighlighted
@@ -1723,9 +1723,12 @@
             // comboBoxHMPlanToLiveInMN
             // 
             this.comboBoxHMPlanToLiveInMN.FormattingEnabled = true;
+            this.comboBoxHMPlanToLiveInMN.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
             this.comboBoxHMPlanToLiveInMN.Location = new System.Drawing.Point(385, 93);
             this.comboBoxHMPlanToLiveInMN.Name = "comboBoxHMPlanToLiveInMN";
-            this.comboBoxHMPlanToLiveInMN.Size = new System.Drawing.Size(97, 21);
+            this.comboBoxHMPlanToLiveInMN.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMPlanToLiveInMN.TabIndex = 44;
             // 
             // textBoxHMZip
@@ -1800,7 +1803,7 @@
             "Yes"});
             this.comboBoxHMLiveWithYou.Location = new System.Drawing.Point(171, 93);
             this.comboBoxHMLiveWithYou.Name = "comboBoxHMLiveWithYou";
-            this.comboBoxHMLiveWithYou.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxHMLiveWithYou.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMLiveWithYou.TabIndex = 9;
             // 
             // textBoxHMDOB
@@ -2767,6 +2770,27 @@
             this.groupBoxApplicantInformation.TabStop = false;
             this.groupBoxApplicantInformation.Text = "Information About You";
             this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
+            // 
+            // comboBoxWithDiscounts
+            // 
+            this.comboBoxWithDiscounts.FormattingEnabled = true;
+            this.comboBoxWithDiscounts.Items.AddRange(new object[] {
+            "Yes",
+            "No"});
+            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 521);
+            this.comboBoxWithDiscounts.Name = "comboBoxWithDiscounts";
+            this.comboBoxWithDiscounts.Size = new System.Drawing.Size(48, 21);
+            this.comboBoxWithDiscounts.TabIndex = 51;
+            this.comboBoxWithDiscounts.SelectedValueChanged += new System.EventHandler(this.comboBoxWithDiscounts_SelectedValueChanged);
+            // 
+            // label157
+            // 
+            this.label157.AutoSize = true;
+            this.label157.Location = new System.Drawing.Point(364, 524);
+            this.label157.Name = "label157";
+            this.label157.Size = new System.Drawing.Size(109, 13);
+            this.label157.TabIndex = 0;
+            this.label157.Text = "Apply with discounts?";
             // 
             // comboBoxMailCounty
             // 
@@ -4454,27 +4478,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label157
-            // 
-            this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(364, 524);
-            this.label157.Name = "label157";
-            this.label157.Size = new System.Drawing.Size(109, 13);
-            this.label157.TabIndex = 0;
-            this.label157.Text = "Apply with discounts?";
-            // 
-            // comboBoxWithDiscounts
-            // 
-            this.comboBoxWithDiscounts.FormattingEnabled = true;
-            this.comboBoxWithDiscounts.Items.AddRange(new object[] {
-            "Yes",
-            "No"});
-            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 521);
-            this.comboBoxWithDiscounts.Name = "comboBoxWithDiscounts";
-            this.comboBoxWithDiscounts.Size = new System.Drawing.Size(48, 21);
-            this.comboBoxWithDiscounts.TabIndex = 51;
-            this.comboBoxWithDiscounts.SelectedValueChanged += new System.EventHandler(this.comboBoxWithDiscounts_SelectedValueChanged);
             // 
             // FormMain
             // 
