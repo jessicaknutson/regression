@@ -505,7 +505,7 @@ namespace MNsure_Regression_1
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-                    System.Threading.Thread.Sleep(7000);
+                    System.Threading.Thread.Sleep(8000);
                 }
 
                 returnStatus = "Pass";

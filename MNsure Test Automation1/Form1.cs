@@ -791,6 +791,27 @@ namespace MNsure_Regression_1
                                     myHouseholdMembers.myIncomeExpected = reader.GetString(47);
                                 }
                                 myHouseholdMembers.myPassCount = reader.GetString(48);
+                                if (!reader.IsDBNull(49))
+                                {
+                                    myHouseholdMembers.myMilitary = reader.GetString(49);
+                                }
+                                if (!reader.IsDBNull(50))
+                                {
+                                    myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(50));
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myMilitaryDate = null;
+                                }
+                                myHouseholdMembers.myPrefContact = reader.GetString(51);
+                                myHouseholdMembers.myPhoneNum = reader.GetString(52);
+                                myHouseholdMembers.myPhoneType = reader.GetString(53);
+                                myHouseholdMembers.myAltNum = reader.GetString(54);
+                                myHouseholdMembers.myAltNumType = reader.GetString(55);
+                                myHouseholdMembers.myEmail = reader.GetString(56);
+                                myHouseholdMembers.myVoterCard = reader.GetString(57);
+                                myHouseholdMembers.myNotices = reader.GetString(58);
+                                myHouseholdMembers.myAuthRep = reader.GetString(59);
                             }
                             /*if (myHouseholdMembers.myFirstName == null)
                             {
@@ -1018,6 +1039,36 @@ namespace MNsure_Regression_1
                     comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
                     comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
                     comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
+                    comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
+                    if (myHouseholdMembers.myMilitary == "Yes")
+                    {
+                        dateTimeHMMilitary.Enabled = true;
+                        dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeHMMilitary.Enabled = false;
+                        dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                        dateTimeHMMilitary.CustomFormat = " ";
+                    }
+                    dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
+                    if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
+                    {
+                        string tempMilitary;
+                        tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
+                        tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                        dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                        dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
+                    }
+                    comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
+                    textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
+                    comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
+                    textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
+                    comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
+                    textBoxHMEmail.Text = myHouseholdMembers.myEmail;
+                    comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
+                    comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
+                    comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
                 }
 
                 groupBoxApplicantInformation.Visible = true;
@@ -1414,6 +1465,20 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myIncomeReduced = comboBoxHMIncomeReduced.Text;
                 myHouseholdMembers.myIncomeAdjusted = comboBoxHMIncomeAdjustments.Text;
                 myHouseholdMembers.myIncomeExpected = comboBoxHMAnnualIncome.Text;
+                myHouseholdMembers.myMilitary = comboBoxHMMilitary.Text;
+                if (dateTimeHMMilitary.Text != " ")
+                {
+                    myHouseholdMembers.myMilitaryDate = dateTimeHMMilitary.Text;
+                }
+                myHouseholdMembers.myPrefContact = comboBoxHMPrefContact.Text;
+                myHouseholdMembers.myPhoneNum = textBoxHMPhoneNum.Text;
+                myHouseholdMembers.myPhoneType = comboBoxHMPhoneType.Text;
+                myHouseholdMembers.myAltNum = textBoxHMAltNum.Text;
+                myHouseholdMembers.myAltNumType = comboBoxHMAltType.Text;
+                myHouseholdMembers.myEmail = textBoxHMEmail.Text;
+                myHouseholdMembers.myVoterCard = comboBoxHMVoterCard.Text;
+                myHouseholdMembers.myNotices = comboBoxHMNotices.Text;
+                myHouseholdMembers.myAuthRep = comboBoxHMAuthRep.Text;
 
                 SqlCeConnection con2;
                 string conString2 = Properties.Settings.Default.Database1ConnectionString;
@@ -1435,7 +1500,8 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @Address1, @Address2, @AptSuite, @City, @State, " +
                     "@Zip, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
-                    "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount);";
+                    "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep );";
 
                     using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                     {
@@ -1447,7 +1513,7 @@ namespace MNsure_Regression_1
                         com2.Parameters.AddWithValue("MaritalStatus", myHouseholdMembers.myMaritalStatus);
                         com2.Parameters.AddWithValue("DOB", myHouseholdMembers.myDOB);
                         com2.Parameters.AddWithValue("LiveWithYou", myHouseholdMembers.myLiveWithYou);
-                        com2.Parameters.AddWithValue("MNHome", myHouseholdMembers.myMNHome);
+                        com2.Parameters.AddWithValue("MNHome", myHouseholdMembers.myPlanMakeMNHome); //is mnhome the same as planmakemnhome?
                         com2.Parameters.AddWithValue("PersonHighlighted", myHouseholdMembers.myPersonHighlighted);
                         com2.Parameters.AddWithValue("LiveMN", myHouseholdMembers.myLiveInMN);
                         com2.Parameters.AddWithValue("TempAbsentMN", myHouseholdMembers.myTempAbsentMN);
@@ -1485,7 +1551,25 @@ namespace MNsure_Regression_1
                         com2.Parameters.AddWithValue("Reduced", myHouseholdMembers.myIncomeReduced);
                         com2.Parameters.AddWithValue("Adjusted", myHouseholdMembers.myIncomeAdjusted);
                         com2.Parameters.AddWithValue("Expected", myHouseholdMembers.myIncomeExpected);
-                        com2.Parameters.AddWithValue("PassCount", myHouseholdMembers.myPassCount);
+                        com2.Parameters.AddWithValue("PassCount", "1");
+                        com2.Parameters.AddWithValue("Military", myHouseholdMembers.myMilitary);
+                        if (myHouseholdMembers.myMilitaryDate != "" && myHouseholdMembers.myMilitaryDate != null)
+                        {
+                            com2.Parameters.AddWithValue("MilitaryDate", myHouseholdMembers.myMilitaryDate);
+                        }
+                        else
+                        {
+                            com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                        }
+                        com2.Parameters.AddWithValue("PrefContact", myHouseholdMembers.myPrefContact);
+                        com2.Parameters.AddWithValue("PhoneNum", myHouseholdMembers.myPhoneNum);
+                        com2.Parameters.AddWithValue("PhoneType", myHouseholdMembers.myPhoneType);
+                        com2.Parameters.AddWithValue("AltNum", myHouseholdMembers.myAltNum);
+                        com2.Parameters.AddWithValue("AltType", myHouseholdMembers.myAltNumType);
+                        com2.Parameters.AddWithValue("Email", myHouseholdMembers.myEmail);
+                        com2.Parameters.AddWithValue("VoterCard", myHouseholdMembers.myVoterCard);
+                        com2.Parameters.AddWithValue("Notices", myHouseholdMembers.myNotices);
+                        com2.Parameters.AddWithValue("AuthRep", myHouseholdMembers.myAuthRep);
 
                         com2.ExecuteNonQuery();
                         com2.Dispose();
@@ -1509,7 +1593,7 @@ namespace MNsure_Regression_1
                     buttonNextMember.Enabled = false;
                 }*/
                 int result;
-                myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+                myLastSSN.myLastSSN = myHouseholdMembers.mySSN;//why is this here?
                 InitializeSSN myInitializeSSN = new InitializeSSN();
                 result = myInitializeSSN.DoWriteLines(ref myLastSSN, myReadFileValues);
             }
@@ -3504,26 +3588,55 @@ namespace MNsure_Regression_1
 
         private void textBoxEnrollAmount_TextChanged(object sender, EventArgs e)
         {
-            if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16243)
+            if (myApplication.myHouseholdOther == "No") //1 HH
             {
-                radioButtonApplicationTypeMA.Checked = true;
-                myApplication.myEnrollmentPlanType = "MN Care MA";
-
+                if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16243)
+                {
+                    radioButtonApplicationTypeMA.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23540)
+                {
+                    radioButtonApplicationTypeBHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47080)
+                {
+                    radioButtonApplicationTypeQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    radioButtonApplicationTypeUQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
             }
-            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23540)
+            else  //2 HH
             {
-                radioButtonApplicationTypeBHP.Checked = true;
-                myApplication.myEnrollmentPlanType = "MN Care BHP";
-            }
-            else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47080)
-            {
-                radioButtonApplicationTypeQHP.Checked = true;
-                myApplication.myEnrollmentPlanType = "MN Care QHP";
-            }
-            else
-            {
-                radioButtonApplicationTypeUQHP.Checked = true;
-                myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                if (textBoxHMAmount.Text == "")
+                {
+                    textBoxHMAmount.Text = "0";
+                }
+                if ( (Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 22108)
+                {
+                    radioButtonApplicationTypeMA.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 32040)
+                {
+                    radioButtonApplicationTypeBHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 64080)
+                {
+                    radioButtonApplicationTypeQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    radioButtonApplicationTypeUQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
             }
         }
 
@@ -4693,6 +4806,95 @@ namespace MNsure_Regression_1
         private void comboBoxWithDiscounts_SelectedValueChanged(object sender, EventArgs e)
         {
             myApplication.myWithDiscounts = comboBoxWithDiscounts.Text;
+        }
+
+        private void dateTimeHMMilitary_ValueChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myMilitaryDate = null;
+            if (comboBoxHMMilitary.Text == "No")
+            {
+                dateTimeHMMilitary.Enabled = false;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                dateTimeHMMilitary.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimeHMMilitary.Enabled = true;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void textBoxHMAmount_TextChanged(object sender, EventArgs e)
+        {
+            if (textBoxHMAmount.Text == "")
+            {
+                textBoxHMAmount.Text = "0";
+            }
+            if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 22108)
+            {
+                radioButtonApplicationTypeMA.Checked = true;
+                myApplication.myEnrollmentPlanType = "MN Care MA";
+            }
+            else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 32040)
+            {
+                radioButtonApplicationTypeBHP.Checked = true;
+                myApplication.myEnrollmentPlanType = "MN Care BHP";
+            }
+            else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 64080)
+            {
+                radioButtonApplicationTypeQHP.Checked = true;
+                myApplication.myEnrollmentPlanType = "MN Care QHP";
+            }
+            else
+            {
+                radioButtonApplicationTypeUQHP.Checked = true;
+                myApplication.myEnrollmentPlanType = "MN Care UQHP";
+            }
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxHMIncomeReduced_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myIncomeReduced = comboBoxHMIncomeReduced.Text;
+        }
+
+        private void textBoxHMFirstName_TextChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myFirstName = textBoxHMFirstName.Text;
+        }
+
+        private void textBoxHMMiddleName_TextChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myMiddleName = textBoxHMMiddleName.Text;
+        }
+
+        private void textBoxHMLastName_TextChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myLastName = textBoxHMLastName.Text;
+        }
+
+        private void comboBoxHMSuffix_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.mySuffix = comboBoxHMSuffix.Text;
+        }
+
+        private void comboBoxHMGender_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myGender = comboBoxHMGender.Text;
+        }
+
+        private void comboBoxHMMaritalStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myMaritalStatus = comboBoxHMMaritalStatus.Text;
+        }
+
+        private void textBoxHMDOB_TextChanged(object sender, EventArgs e)
+        {
+            myHouseholdMembers.myDOB = textBoxHMDOB.Text;
         }
 
     }

@@ -248,6 +248,15 @@ struct mystructSelectedTest
         public string myIncomeAdjusted;
         public string myIncomeExpected;
         public string myPassCount;
+        public string myPrefContact;
+        public string myPhoneNum;
+        public string myPhoneType;
+        public string myAltNum;
+        public string myAltNumType;
+        public string myEmail;
+        public string myVoterCard;
+        public string myNotices;
+        public string myAuthRep;
     }
 
     struct mystructEditKey

@@ -80,10 +80,12 @@ namespace MNsure_Regression_1
 
         public int DoWriteLines(ref mystructSSN myLastSSN, mystructReadFileValues myReadFileValues)
         {
-            try
-            {
-
-                string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
+            if (myLastSSN.myLastSSN != "")
+            { 
+                try
+                {
+                               
+                    string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
                     myReadFileValues.myHomeAddress2, myReadFileValues.myHomeCity, myReadFileValues.myHomeState, 
                     myReadFileValues.myHomeZip, myReadFileValues.myHomeZip4, myReadFileValues.myEmail, 
                     myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName};
@@ -96,14 +98,13 @@ namespace MNsure_Regression_1
                     }
                 }
             
-            catch (Exception e)
-            {
-                MessageBox.Show("Error on Save SSN file: " + e);
-                return 2;
+                catch (Exception e)
+                {
+                    MessageBox.Show("Error on Save SSN file: " + e);
+                    return 2;
+                }
             }
-
             return 1;
-
         }
 
     }

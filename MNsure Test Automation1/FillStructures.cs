@@ -191,6 +191,20 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
                         myHouseholdMembers.myIncomeExpected = reader.GetString(47);
                         myHouseholdMembers.myPassCount = reader.GetString(48);
+                        myHouseholdMembers.myMilitary = reader.GetString(49);
+                        if (!reader.IsDBNull(50))
+                        {
+                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
+                        }
+                        myHouseholdMembers.myPrefContact = reader.GetString(51);
+                        myHouseholdMembers.myPhoneNum = reader.GetString(52);
+                        myHouseholdMembers.myPhoneType = reader.GetString(53);
+                        myHouseholdMembers.myAltNum = reader.GetString(54);
+                        myHouseholdMembers.myAltNumType = reader.GetString(55);
+                        myHouseholdMembers.myEmail = reader.GetString(56);
+                        myHouseholdMembers.myVoterCard = reader.GetString(57);
+                        myHouseholdMembers.myNotices = reader.GetString(58);
+                        myHouseholdMembers.myAuthRep = reader.GetString(59);
                     }
                 }
 
@@ -322,6 +336,20 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
                         myHouseholdMembers.myIncomeExpected = reader.GetString(47);
                         myHouseholdMembers.myPassCount = reader.GetString(48);
+                        myHouseholdMembers.myMilitary = reader.GetString(49);
+                        if (!reader.IsDBNull(50))
+                        {
+                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
+                        }
+                        myHouseholdMembers.myPrefContact = reader.GetString(51);
+                        myHouseholdMembers.myPhoneNum = reader.GetString(52);
+                        myHouseholdMembers.myPhoneType = reader.GetString(53);
+                        myHouseholdMembers.myAltNum = reader.GetString(54);
+                        myHouseholdMembers.myAltNumType = reader.GetString(55);
+                        myHouseholdMembers.myEmail = reader.GetString(56);
+                        myHouseholdMembers.myVoterCard = reader.GetString(57);
+                        myHouseholdMembers.myNotices = reader.GetString(58);
+                        myHouseholdMembers.myAuthRep = reader.GetString(59);
                     }
                 }
 
