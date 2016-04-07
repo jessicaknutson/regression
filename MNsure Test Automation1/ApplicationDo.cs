@@ -130,14 +130,18 @@ namespace MNsure_Regression_1
                 textboxFirstName.SendKeys(myApplication.myFirstName);
 
                 IWebElement textboxMiddleName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[4]/table/tbody/tr/td[1]/div/div/input"));
-                textboxMiddleName.SendKeys(myApplication.myMiddleName);
-
+                if (myApplication.myMiddleName != null)
+                {
+                    textboxMiddleName.SendKeys(myApplication.myMiddleName);
+                }
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id8"));
                 textboxLastName.SendKeys(myApplication.myLastName);
 
                 IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id9"));
-                textboxSuffix.SendKeys(myApplication.mySuffix);
-
+                if (myApplication.mySuffix != null)
+                {
+                    textboxSuffix.SendKeys(myApplication.mySuffix);
+                }
                 IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
                 textboxGender.SendKeys(myApplication.myGender);
 
@@ -177,12 +181,16 @@ namespace MNsure_Regression_1
                     IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
                     listboxAddress1.SendKeys(myApplication.myHomeAddress1);
 
-                    IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
-                    listboxAddress2.SendKeys(myApplication.myHomeAddress2);
-
-                    IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
-                    listboxAptSuite.SendKeys(myApplication.myHomeAptSuite);
-
+                    if (myApplication.myHomeAddress2 != null)
+                    {
+                        IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
+                        listboxAddress2.SendKeys(myApplication.myHomeAddress2);
+                    }
+                    if (myApplication.myHomeAptSuite != null)
+                    {
+                        IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
+                        listboxAptSuite.SendKeys(myApplication.myHomeAptSuite);
+                    }
                     IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
                     listboxCity.SendKeys(myApplication.myHomeCity);
 
@@ -812,7 +820,15 @@ namespace MNsure_Regression_1
                 }
                 if (fosterCare == "Yes")
                 {
-                    IWebElement listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
+                    IWebElement listboxFosterCare;
+                    if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
+                    {
+                        listboxFosterCare = driver.FindElement(By.Id("__o3id30"));                    
+                    }
+                    else
+                    {
+                        listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));  
+                    }
                     listboxFosterCare.SendKeys(myApplication.myFosterCare);
                 }
 
@@ -1294,7 +1310,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myApplication.myHouseholdOther == "No" || (myApplication.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
                 {
-                   appwait = (10 + myHistoryInfo.myAppWait) * 1000;//norm 8
+                   appwait = (12 + myHistoryInfo.myAppWait) * 1000;//norm 8
                 }
                 else
                 {
@@ -1398,7 +1414,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(9000);
+                    System.Threading.Thread.Sleep(10000);
                 }
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -2371,7 +2387,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait = (8 + myHistoryInfo.myAppWait) * 1000;//this keeps changing, 4 to 40
+                int appwait = (14 + myHistoryInfo.myAppWait) * 1000;//this keeps changing, 4 to 40
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));

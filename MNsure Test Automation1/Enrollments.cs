@@ -32,7 +32,7 @@ namespace MNsure_Regression_1
         WriteLogs writeLogs = new WriteLogs();
 
         public int DoEnrollMNsureMA(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(timeOut));
@@ -70,7 +70,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoEstimator(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -100,7 +100,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoEnroll(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -117,7 +117,7 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myRelogin == "Yes")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span/span/span/span[3]/span"))));
-                } 
+                }
                 else
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span"))));
@@ -134,7 +134,7 @@ namespace MNsure_Regression_1
                     buttonEnroll = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span"));
                 }
 
-                buttonEnroll.Click();                
+                buttonEnroll.Click();
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -153,7 +153,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSelectHH(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -166,11 +166,25 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(2000);
                 //check for text at the bottom
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_2"))));
-
+                if (myEnrollment.myHouseholdOther == "No" || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_2"))));
+                }
+                else
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_6"))));
+                }
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
+                IWebElement buttonContinue;
+                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
+                }
+                else
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_6"));
+                }
                 buttonContinue.Click();
 
                 returnStatus = "Pass";
@@ -189,7 +203,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSelectPrimary(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -202,15 +216,32 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(2000);
                 //check for text at the bottom
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));
-
-                IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
-                checkboxPrimary.Click();
+                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));                    
+                }
+                else
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_8"))));
+                    IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                    checkboxPrimary.Click();
+                }                
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                
+                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                {                    
+                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
+                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                }
+                else
+                {
+                    IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_8"));
+                    buttonContinue.Click();
 
-                IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_4"));
-                buttonContinue.Click();
+                    myHouseholdMembers.myPassCount = "1";//update count to 1 to move forward
+                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                }                
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -228,7 +259,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoFindProvider(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -271,7 +302,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoPlanType(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -308,7 +339,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoPrivacy(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -347,7 +378,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoPlanDetails(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -389,7 +420,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoPlanSummary(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -438,7 +469,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoTax(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -488,7 +519,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoConfirmQHP(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -531,7 +562,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoConfirmUQHP(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -578,7 +609,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSuccessfulQHP(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -618,7 +649,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSuccessfulUQHP(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -631,7 +662,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(2000);
                 myDriver.SwitchTo().DefaultContent();
- 
+
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.TagName("iFrame")));
                 var iFrameElement4 = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement4);
@@ -658,7 +689,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoViewEnrolledPlans(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -695,7 +726,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSignature(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -732,6 +763,42 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
+        }
+
+        public int DoUpdatePassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand(
+                    "SELECT * FROM HouseMembers where TestID = " + myHistoryInfo.myTestId + " and HouseMembersID = 2;", con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update HouseMembers set PassCount = @Passcount where TestID = " + myHistoryInfo.myTestId + " and HouseMembersID = 2;";
+
+                        using (SqlCeCommand com2 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com2.Parameters.AddWithValue("PassCount", updateValue);
+                            com2.ExecuteNonQuery();
+                            com2.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update pass count didn't work");
+            }
+            return 1;
         }
 
     }

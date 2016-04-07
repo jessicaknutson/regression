@@ -84,24 +84,30 @@ namespace MNsure_Regression_1
 
                 //Enter Middle Name
                 IWebElement myselectMiddleName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[2]"));
-                myselectMiddleName.SendKeys(myAccountCreate.myMiddleName);
-
+                if (myAccountCreate.myMiddleName != null)
+                {
+                    myselectMiddleName.SendKeys(myAccountCreate.myMiddleName);
+                }
                 //Enter Last Name
                 IWebElement myselectLasteName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
                 myselectLasteName.SendKeys(myAccountCreate.myLastName);
 
                 //Enter Suffix
                 IWebElement myselectSuffix = driver.FindElement(By.XPath("//html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/select"));
-                myselectSuffix.SendKeys(myAccountCreate.mySuffix);
-
+                if (myAccountCreate.mySuffix != null)
+                {
+                    myselectSuffix.SendKeys(myAccountCreate.mySuffix);
+                }
                 //Enter Address1
                 IWebElement myselectAddress1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
                 myselectAddress1.SendKeys(myApplication.myHomeAddress1);
 
                 //Enter Address2
                 IWebElement myselectAddress2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
-                myselectAddress2.SendKeys(myApplication.myHomeAddress2);
-
+                if (myApplication.myHomeAddress2 != null)
+                {
+                    myselectAddress2.SendKeys(myApplication.myHomeAddress2);
+                }
                 //Enter City
                 IWebElement myselectCity = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/input"));
                 myselectCity.SendKeys(myApplication.myHomeCity);
@@ -120,8 +126,10 @@ namespace MNsure_Regression_1
 
                 //Enter Zip4
                 IWebElement myselectZip4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[2]"));
-                myselectZip4.SendKeys(myApplication.myHomeZip4);
-
+                if (myApplication.myHomeZip4 != null)
+                {
+                    myselectZip4.SendKeys(myApplication.myHomeZip4);
+                }
                 //Enter Email
                 IWebElement myselectEmail = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[1]"));
                 myselectEmail.SendKeys(myAccountCreate.myEmail);

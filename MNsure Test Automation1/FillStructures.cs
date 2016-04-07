@@ -156,55 +156,49 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
                         myHouseholdMembers.myLiveInMN = reader.GetString(12);
                         myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
-                        myHouseholdMembers.myHomeless = reader.GetString(14);
-                        myHouseholdMembers.myHomeAddress1 = reader.GetString(15);//move to addr db
-                        myHouseholdMembers.myHomeAddress2 = reader.GetString(16);
-                        myHouseholdMembers.myHomeAptSuite = reader.GetString(17);
-                        myHouseholdMembers.myHomeCity = reader.GetString(18);
-                        myHouseholdMembers.myHomeState = reader.GetString(19);
-                        myHouseholdMembers.myHomeZip = reader.GetString(20);
-                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(21); 
-                        myHouseholdMembers.mySeekEmplMN = reader.GetString(22);                        
-                        myHouseholdMembers.myHispanic = reader.GetString(23);
-                        myHouseholdMembers.myRace = reader.GetString(24);
-                        myHouseholdMembers.myHaveSSN = reader.GetString(25);
+                        myHouseholdMembers.myHomeless = reader.GetString(14);                        
+                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15); 
+                        myHouseholdMembers.mySeekEmplMN = reader.GetString(16);                        
+                        myHouseholdMembers.myHispanic = reader.GetString(17);
+                        myHouseholdMembers.myRace = reader.GetString(18);
+                        myHouseholdMembers.myHaveSSN = reader.GetString(19);
                         //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
-                        myHouseholdMembers.myUSCitizen = reader.GetString(27);
-                        myHouseholdMembers.myUSNational = reader.GetString(28);
-                        myHouseholdMembers.myIsPregnant = reader.GetString(29);
-                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(30);
-                        myHouseholdMembers.myRelationship = reader.GetString(31);
-                        myHouseholdMembers.myHasIncome = reader.GetString(32);
-                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(33);
-                        myHouseholdMembers.myTribeName = reader.GetString(34);
-                        myHouseholdMembers.myTribeId = reader.GetString(35);
-                        myHouseholdMembers.myLiveRes = reader.GetString(36);
-                        myHouseholdMembers.myFederalTribe = reader.GetString(37);
-                        myHouseholdMembers.myFileJointly = reader.GetString(38);
-                        myHouseholdMembers.myIncomeType = reader.GetString(39);
-                        myHouseholdMembers.myIncomeEmployer = reader.GetString(40);
-                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(41);
-                        myHouseholdMembers.myIncomeAmount = reader.GetString(42);
-                        myHouseholdMembers.myIncomeFrequency = reader.GetString(43);
-                        myHouseholdMembers.myIncomeMore = reader.GetString(44);                        
-                        myHouseholdMembers.myIncomeReduced = reader.GetString(45);
-                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
-                        myHouseholdMembers.myIncomeExpected = reader.GetString(47);
-                        myHouseholdMembers.myPassCount = reader.GetString(48);
-                        myHouseholdMembers.myMilitary = reader.GetString(49);
-                        if (!reader.IsDBNull(50))
+                        myHouseholdMembers.myUSCitizen = reader.GetString(21);
+                        myHouseholdMembers.myUSNational = reader.GetString(22);
+                        myHouseholdMembers.myIsPregnant = reader.GetString(23);
+                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
+                        myHouseholdMembers.myRelationship = reader.GetString(25);
+                        myHouseholdMembers.myHasIncome = reader.GetString(26);
+                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
+                        myHouseholdMembers.myTribeName = reader.GetString(28);
+                        myHouseholdMembers.myLiveRes = reader.GetString(29); 
+                        myHouseholdMembers.myTribeId = reader.GetString(30);                        
+                        myHouseholdMembers.myFederalTribe = reader.GetString(31);
+                        myHouseholdMembers.myFileJointly = reader.GetString(32);
+                        myHouseholdMembers.myIncomeType = reader.GetString(33);
+                        myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
+                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
+                        myHouseholdMembers.myIncomeAmount = reader.GetString(36);
+                        myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
+                        myHouseholdMembers.myIncomeMore = reader.GetString(38);                        
+                        myHouseholdMembers.myIncomeReduced = reader.GetString(39);
+                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
+                        myHouseholdMembers.myIncomeExpected = reader.GetString(41);
+                        myHouseholdMembers.myPassCount = reader.GetString(42);
+                        myHouseholdMembers.myMilitary = reader.GetString(43);
+                        if (!reader.IsDBNull(44))
                         {
-                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
+                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy");
                         }
-                        myHouseholdMembers.myPrefContact = reader.GetString(51);
-                        myHouseholdMembers.myPhoneNum = reader.GetString(52);
-                        myHouseholdMembers.myPhoneType = reader.GetString(53);
-                        myHouseholdMembers.myAltNum = reader.GetString(54);
-                        myHouseholdMembers.myAltNumType = reader.GetString(55);
-                        myHouseholdMembers.myEmail = reader.GetString(56);
-                        myHouseholdMembers.myVoterCard = reader.GetString(57);
-                        myHouseholdMembers.myNotices = reader.GetString(58);
-                        myHouseholdMembers.myAuthRep = reader.GetString(59);
+                        myHouseholdMembers.myPrefContact = reader.GetString(45);
+                        myHouseholdMembers.myPhoneNum = reader.GetString(46);
+                        myHouseholdMembers.myPhoneType = reader.GetString(47);
+                        myHouseholdMembers.myAltNum = reader.GetString(48);
+                        myHouseholdMembers.myAltNumType = reader.GetString(49);
+                        myHouseholdMembers.myEmail = reader.GetString(50);
+                        myHouseholdMembers.myVoterCard = reader.GetString(51);
+                        myHouseholdMembers.myNotices = reader.GetString(52);
+                        myHouseholdMembers.myAuthRep = reader.GetString(53);
                     }
                 }
 
@@ -236,6 +230,22 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myHomeAptSuite = reader.GetString(11);
                             }
+                        }
+                        else if (reader.GetString(9) == "Household 2")
+                        {
+                            myHouseholdMembers.myHomeAddress1 = reader.GetString(3);
+                            if (!reader.IsDBNull(4))
+                            {
+                                myHouseholdMembers.myHomeAddress2 = reader.GetString(4);
+                            }
+                            myHouseholdMembers.myHomeCity = reader.GetString(5);
+                            myHouseholdMembers.myHomeState = reader.GetString(6);
+                            myHouseholdMembers.myHomeZip = reader.GetString(7);
+                            myHouseholdMembers.myHomeCounty = reader.GetString(10);
+                            if (!reader.IsDBNull(11))
+                            {
+                                myHouseholdMembers.myHomeAptSuite = reader.GetString(11);
+                            }                            
                         }
                         else
                         {
@@ -297,59 +307,53 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myMaritalStatus = reader.GetString(7);
                         myHouseholdMembers.myDOB = reader.GetString(8);
                         myHouseholdMembers.myLiveWithYou = reader.GetString(9);
-                        myHouseholdMembers.myMNHome = reader.GetString(10);                       
+                        myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
                         myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
                         myHouseholdMembers.myLiveInMN = reader.GetString(12);
                         myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
                         myHouseholdMembers.myHomeless = reader.GetString(14);
-                        myHouseholdMembers.myHomeAddress1 = reader.GetString(15);//move to addr db
-                        myHouseholdMembers.myHomeAddress2 = reader.GetString(16);
-                        myHouseholdMembers.myHomeAptSuite = reader.GetString(17);
-                        myHouseholdMembers.myHomeCity = reader.GetString(18);
-                        myHouseholdMembers.myHomeState = reader.GetString(19);
-                        myHouseholdMembers.myHomeZip = reader.GetString(20);
-                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(21);
-                        myHouseholdMembers.mySeekEmplMN = reader.GetString(22);
-                        myHouseholdMembers.myHispanic = reader.GetString(23);
-                        myHouseholdMembers.myRace = reader.GetString(24);
-                        myHouseholdMembers.myHaveSSN = reader.GetString(25);
+                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15);
+                        myHouseholdMembers.mySeekEmplMN = reader.GetString(16);
+                        myHouseholdMembers.myHispanic = reader.GetString(17);
+                        myHouseholdMembers.myRace = reader.GetString(18);
+                        myHouseholdMembers.myHaveSSN = reader.GetString(19);
                         //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
-                        myHouseholdMembers.myUSCitizen = reader.GetString(27);
-                        myHouseholdMembers.myUSNational = reader.GetString(28);
-                        myHouseholdMembers.myIsPregnant = reader.GetString(29);
-                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(30);
-                        myHouseholdMembers.myRelationship = reader.GetString(31);
-                        myHouseholdMembers.myHasIncome = reader.GetString(32);
-                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(33);
-                        myHouseholdMembers.myTribeName = reader.GetString(34);
-                        myHouseholdMembers.myTribeId = reader.GetString(35);
-                        myHouseholdMembers.myLiveRes = reader.GetString(36);
-                        myHouseholdMembers.myFederalTribe = reader.GetString(37);
-                        myHouseholdMembers.myFileJointly = reader.GetString(38);
-                        myHouseholdMembers.myIncomeType = reader.GetString(39);
-                        myHouseholdMembers.myIncomeEmployer = reader.GetString(40);
-                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(41);
-                        myHouseholdMembers.myIncomeAmount = reader.GetString(42);
-                        myHouseholdMembers.myIncomeFrequency = reader.GetString(43);
-                        myHouseholdMembers.myIncomeMore = reader.GetString(44);
-                        myHouseholdMembers.myIncomeReduced = reader.GetString(45);
-                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(46);
-                        myHouseholdMembers.myIncomeExpected = reader.GetString(47);
-                        myHouseholdMembers.myPassCount = reader.GetString(48);
-                        myHouseholdMembers.myMilitary = reader.GetString(49);
-                        if (!reader.IsDBNull(50))
+                        myHouseholdMembers.myUSCitizen = reader.GetString(21);
+                        myHouseholdMembers.myUSNational = reader.GetString(22);
+                        myHouseholdMembers.myIsPregnant = reader.GetString(23);
+                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
+                        myHouseholdMembers.myRelationship = reader.GetString(25);
+                        myHouseholdMembers.myHasIncome = reader.GetString(26);
+                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
+                        myHouseholdMembers.myTribeName = reader.GetString(28);
+                        myHouseholdMembers.myLiveRes = reader.GetString(29);
+                        myHouseholdMembers.myTribeId = reader.GetString(30);
+                        myHouseholdMembers.myFederalTribe = reader.GetString(31);
+                        myHouseholdMembers.myFileJointly = reader.GetString(32);
+                        myHouseholdMembers.myIncomeType = reader.GetString(33);
+                        myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
+                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
+                        myHouseholdMembers.myIncomeAmount = reader.GetString(36);
+                        myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
+                        myHouseholdMembers.myIncomeMore = reader.GetString(38);
+                        myHouseholdMembers.myIncomeReduced = reader.GetString(39);
+                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
+                        myHouseholdMembers.myIncomeExpected = reader.GetString(41);
+                        myHouseholdMembers.myPassCount = reader.GetString(42);
+                        myHouseholdMembers.myMilitary = reader.GetString(43);
+                        if (!reader.IsDBNull(44))
                         {
-                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(50)).ToString("MM/dd/yyyy");
+                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy");
                         }
-                        myHouseholdMembers.myPrefContact = reader.GetString(51);
-                        myHouseholdMembers.myPhoneNum = reader.GetString(52);
-                        myHouseholdMembers.myPhoneType = reader.GetString(53);
-                        myHouseholdMembers.myAltNum = reader.GetString(54);
-                        myHouseholdMembers.myAltNumType = reader.GetString(55);
-                        myHouseholdMembers.myEmail = reader.GetString(56);
-                        myHouseholdMembers.myVoterCard = reader.GetString(57);
-                        myHouseholdMembers.myNotices = reader.GetString(58);
-                        myHouseholdMembers.myAuthRep = reader.GetString(59);
+                        myHouseholdMembers.myPrefContact = reader.GetString(45);
+                        myHouseholdMembers.myPhoneNum = reader.GetString(46);
+                        myHouseholdMembers.myPhoneType = reader.GetString(47);
+                        myHouseholdMembers.myAltNum = reader.GetString(48);
+                        myHouseholdMembers.myAltNumType = reader.GetString(49);
+                        myHouseholdMembers.myEmail = reader.GetString(50);
+                        myHouseholdMembers.myVoterCard = reader.GetString(51);
+                        myHouseholdMembers.myNotices = reader.GetString(52);
+                        myHouseholdMembers.myAuthRep = reader.GetString(53);
                     }
                 }
 
