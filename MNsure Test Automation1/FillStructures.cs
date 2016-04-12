@@ -172,6 +172,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); }
                         if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); }
                         if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); }
+                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); }
                     }
                 }
 
@@ -302,6 +303,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); }
                         if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); }
                         if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); }
+                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); }
                     }
                 }
 
@@ -388,6 +390,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); }
                         if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); }
                         if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); }
+                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); }
                     }
                 }
 
@@ -502,5 +505,122 @@ namespace MNsure_Regression_1
 
             return 1;
         }
+
+        public int doGetHouseholdMember(ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo, String myTestId)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com2 = new SqlCeCommand
+                    ("SELECT * FROM HouseMembers where TestId = " + myTestId + " and HouseMembersID = " +
+                    myHouseholdMembers.HouseMembersID + ";", con))
+                {
+                    SqlCeDataReader reader = com2.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
+                        myHouseholdMembers.TestId = reader.GetInt32(1);
+                        myHouseholdMembers.myFirstName = reader.GetString(2);
+                        myHouseholdMembers.myMiddleName = reader.GetString(3);
+                        myHouseholdMembers.myLastName = reader.GetString(4);
+                        myHouseholdMembers.mySuffix = reader.GetString(5);
+                        myHouseholdMembers.myGender = reader.GetString(6);
+                        myHouseholdMembers.myMaritalStatus = reader.GetString(7);
+                        myHouseholdMembers.myDOB = reader.GetString(8);
+                        myHouseholdMembers.myLiveWithYou = reader.GetString(9);
+                        myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
+                        myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
+                        myHouseholdMembers.myLiveInMN = reader.GetString(12);
+                        myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
+                        myHouseholdMembers.myHomeless = reader.GetString(14);
+                        myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15);
+                        myHouseholdMembers.mySeekEmplMN = reader.GetString(16);
+                        myHouseholdMembers.myHispanic = reader.GetString(17);
+                        myHouseholdMembers.myRace = reader.GetString(18);
+                        myHouseholdMembers.myHaveSSN = reader.GetString(19);
+                        //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
+                        myHouseholdMembers.myUSCitizen = reader.GetString(21);
+                        myHouseholdMembers.myUSNational = reader.GetString(22);
+                        myHouseholdMembers.myIsPregnant = reader.GetString(23);
+                        myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
+                        myHouseholdMembers.myRelationship = reader.GetString(25);
+                        myHouseholdMembers.myHasIncome = reader.GetString(26);
+                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
+                        myHouseholdMembers.myTribeName = reader.GetString(28);
+                        myHouseholdMembers.myLiveRes = reader.GetString(29);
+                        myHouseholdMembers.myTribeId = reader.GetString(30);
+                        myHouseholdMembers.myFederalTribe = reader.GetString(31);
+                        myHouseholdMembers.myFileJointly = reader.GetString(32);
+                        myHouseholdMembers.myIncomeType = reader.GetString(33);
+                        myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
+                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
+                        myHouseholdMembers.myIncomeAmount = reader.GetString(36);
+                        myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
+                        myHouseholdMembers.myIncomeMore = reader.GetString(38);
+                        myHouseholdMembers.myIncomeReduced = reader.GetString(39);
+                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
+                        myHouseholdMembers.myIncomeExpected = reader.GetString(41);
+                        myHouseholdMembers.myPassCount = reader.GetString(42);
+                        myHouseholdMembers.myMilitary = reader.GetString(43);
+                        if (!reader.IsDBNull(44))
+                        {
+                            myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy");
+                        }
+                        myHouseholdMembers.myPrefContact = reader.GetString(45);
+                        myHouseholdMembers.myPhoneNum = reader.GetString(46);
+                        myHouseholdMembers.myPhoneType = reader.GetString(47);
+                        myHouseholdMembers.myAltNum = reader.GetString(48);
+                        myHouseholdMembers.myAltNumType = reader.GetString(49);
+                        myHouseholdMembers.myEmail = reader.GetString(50);
+                        myHouseholdMembers.myVoterCard = reader.GetString(51);
+                        myHouseholdMembers.myNotices = reader.GetString(52);
+                        myHouseholdMembers.myAuthRep = reader.GetString(53);
+                        myHouseholdMembers.myDependants = reader.GetString(54);
+                        myHouseholdMembers.myTaxFiler = reader.GetString(55);
+                    }
+
+                    com2.ExecuteNonQuery();
+                    com2.Dispose();
+                }
+
+                //Read configured rows if exist
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (reader.GetString(9) == "Household 2")
+                        {
+                            myHouseholdMembers.myHomeAddress1 = reader.GetString(3);
+                            if (!reader.IsDBNull(4))
+                            {
+                                myHouseholdMembers.myHomeAddress2 = reader.GetString(4);
+                            }
+                            myHouseholdMembers.myHomeCity = reader.GetString(5);
+                            myHouseholdMembers.myHomeState = reader.GetString(6);
+                            myHouseholdMembers.myHomeZip = reader.GetString(7);
+                            myHouseholdMembers.myHomeCounty = reader.GetString(10);
+                            if (!reader.IsDBNull(11))
+                            {
+                                myHouseholdMembers.myHomeAptSuite = reader.GetString(11);
+                            }
+                        }
+
+                    }
+                }
+
+                return 1;
+            }
+            catch
+            {
+                return 2;
+            }
+        }
+
     }
 }

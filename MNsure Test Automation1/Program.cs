@@ -259,6 +259,7 @@ struct mystructSelectedTest
         public string myNotices;
         public string myAuthRep;
         public string myDependants;
+        public string myTaxFiler;
     }
 
     struct mystructEditKey

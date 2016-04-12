@@ -1125,10 +1125,12 @@ namespace MNsure_Regression_1
 
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                    if (householdCount == 3)
-                    {
+                    FillStructures myFillStructures = new FillStructures();
+                    int result = myFillStructures.doFillNextHMStructures(myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "3");
+                    if (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes")
+                    {                        
                         IWebElement checkboxPerson3 = driver.FindElement(By.Id("__o3id8"));
-                        //checkboxPerson3.Click();// no for child
+                        checkboxPerson3.Click();
                     }
                 }
 
