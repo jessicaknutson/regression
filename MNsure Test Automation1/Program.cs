@@ -166,6 +166,7 @@ struct mystructSelectedTest
         public string myESC;
         public string myRenewalCov;
         public string myWithDiscounts;
+        public string myIsPregnant;
     }
     struct mystructSSN
     {
@@ -257,6 +258,7 @@ struct mystructSelectedTest
         public string myVoterCard;
         public string myNotices;
         public string myAuthRep;
+        public string myDependants;
     }
 
     struct mystructEditKey

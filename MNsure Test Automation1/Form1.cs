@@ -269,6 +269,8 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myStepException = parmshm[6].ToString();
                                     myHistoryInfo.myScreenShot = parmshm[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    //must fill structures again after updating pass count
+                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 case "Enrollments":
@@ -555,6 +557,7 @@ namespace MNsure_Regression_1
                             myApplication.myESC = reader.GetString(58);
                             myApplication.myRenewalCov = reader.GetString(59);
                             myApplication.myWithDiscounts = reader.GetString(60);
+                            myApplication.myIsPregnant = reader.GetString(61);
                         }
                         else
                         {
@@ -614,6 +617,7 @@ namespace MNsure_Regression_1
                             myApplication.myESC = "No";
                             myApplication.myRenewalCov = "5";
                             myApplication.myWithDiscounts = "Yes";
+                            myApplication.myIsPregnant = "No";
                         }
                         com2.ExecuteNonQuery();
                         com2.Dispose();
@@ -818,6 +822,7 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myVoterCard = reader.GetString(51);
                                 myHouseholdMembers.myNotices = reader.GetString(52);
                                 myHouseholdMembers.myAuthRep = reader.GetString(53);
+                                myHouseholdMembers.myDependants = reader.GetString(54);
                             }
 
                             com4.ExecuteNonQuery();
@@ -926,12 +931,12 @@ namespace MNsure_Regression_1
                 }
 
                 comboBoxEnrollSSN.Text = myApplication.mySSN;
-                textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
+                //textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
                 comboBoxAppliedSSN.Text = myApplication.myAppliedSSN;
                 comboBoxWhyNoSSN.Text = myApplication.myWhyNoSSN;
                 comboBoxAssistSSN.Text = myApplication.myAssistSSN;
                 comboBoxEnrollCitizen.Text = myApplication.myCitizen;
-                comboBoxHH2.Text = myApplication.myHouseholdOther;
+                comboBoxEnrollHouseholdOther.Text = myApplication.myHouseholdOther;
                 comboBoxEnrollDependants.Text = myApplication.myDependants;
                 comboBoxEnrollIncomeYN.Text = myApplication.myIncomeYN;
                 comboBoxEnrollIncomeType.Text = myApplication.myIncomeType;
@@ -951,6 +956,7 @@ namespace MNsure_Regression_1
                 comboBoxESC.Text = myApplication.myESC;
                 comboBoxRenewalCov.Text = myApplication.myRenewalCov;
                 comboBoxWithDiscounts.Text = myApplication.myWithDiscounts;
+                comboBoxPregnant.Text = myApplication.myIsPregnant;
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
@@ -965,7 +971,7 @@ namespace MNsure_Regression_1
                     comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
                     comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
                     comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-                    textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;//move to addr db
+                    textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
                     textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
                     textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
                     textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
@@ -982,14 +988,14 @@ namespace MNsure_Regression_1
                     comboBoxFederalTribe.Text = myHouseholdMembers.myFederalTribe;
                     comboBoxHMRace.Text = myHouseholdMembers.myRace;
                     comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
-                    textBoxHMSSN.Text = myHouseholdMembers.mySSN;
+                    //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
                     comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
                     comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
                     comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
                     comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
                     comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
                     comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
-                    comboBoxRelToNextMem.Text = myHouseholdMembers.myRelationshiptoNextHM;
+                    comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
                     comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
                     comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
                     textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
@@ -1030,6 +1036,7 @@ namespace MNsure_Regression_1
                     comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
                     comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
                     comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
+                    comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
                 }
 
                 groupBoxApplicantInformation.Visible = true;
@@ -1101,12 +1108,12 @@ namespace MNsure_Regression_1
                 myApplication.myMilitaryDate = dateTimeMilitary.Text;
             }
             myApplication.mySSN = comboBoxEnrollSSN.Text;
-            myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
+            //myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
             myApplication.myAppliedSSN = comboBoxAppliedSSN.Text;
             myApplication.myWhyNoSSN = comboBoxWhyNoSSN.Text;
             myApplication.myAssistSSN = comboBoxAssistSSN.Text;
             myApplication.myCitizen = comboBoxEnrollCitizen.Text;
-            myApplication.myHouseholdOther = comboBoxHH2.Text;
+            myApplication.myHouseholdOther = comboBoxEnrollHouseholdOther.Text;
             myApplication.myDependants = comboBoxEnrollDependants.Text;
             myApplication.myIncomeYN = comboBoxEnrollIncomeYN.Text;
             myApplication.myIncomeType = comboBoxEnrollIncomeType.Text;
@@ -1126,7 +1133,8 @@ namespace MNsure_Regression_1
             myApplication.myESC = comboBoxESC.Text;
             myApplication.myRenewalCov = comboBoxRenewalCov.Text;
             myApplication.myWithDiscounts = comboBoxWithDiscounts.Text;
-            if (comboBoxHH2.Text == "Yes")//must move hh2 address here
+            myApplication.myIsPregnant = comboBoxPregnant.Text;
+           /* if (comboBoxEnrollHouseholdOther.Text == "Yes")//must move hh2 address here
             {
                 myHouseholdMembers.myHomeAddress1 = textBoxHMAddress1.Text;
                 myHouseholdMembers.myHomeAddress2 = textBoxHMAddress2.Text;
@@ -1135,7 +1143,7 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myHomeState = textBoxHMState.Text;
                 myHouseholdMembers.myHomeZip = textBoxHMZip.Text;
                 myHouseholdMembers.myHomeCounty = comboBoxHMCounty.Text;
-            }
+            }*/
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             con = new SqlCeConnection(conString);
@@ -1164,7 +1172,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -1202,7 +1210,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("Race", myApplication.myRace);
                     com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
                     com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
-                    com2.Parameters.AddWithValue("SSNNum", myApplication.mySSNNum);
+                    com2.Parameters.AddWithValue("SSNNum", DBNull.Value);
                     com2.Parameters.AddWithValue("AppliedSSN", myApplication.myAppliedSSN);
                     if (myApplication.myWhyNoSSN != null)
                     {
@@ -1248,6 +1256,7 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("ESC", myApplication.myESC);
                     com2.Parameters.AddWithValue("RenewalCov", myApplication.myRenewalCov);
                     com2.Parameters.AddWithValue("WithDiscounts", myApplication.myWithDiscounts);
+                    com2.Parameters.AddWithValue("Pregnant", myApplication.myIsPregnant);
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -1378,7 +1387,7 @@ namespace MNsure_Regression_1
                         com5.Dispose();
                     }
                 }
-                if (myHouseholdMembers.myHomeAddress1 != "")
+               /* if (myHouseholdMembers.myHomeAddress1 != "")
                 {
                     string myInsertString4;
                     myInsertString4 = "Insert into Address values (" + 1 + ", " + mysTestId +
@@ -1415,7 +1424,7 @@ namespace MNsure_Regression_1
                         com6.ExecuteNonQuery();
                         com6.Dispose();
                     }
-                }
+                }*/
 
             }
             catch (Exception f)
@@ -1423,7 +1432,7 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Error Exception: " + f);
             }
 
-            if (comboBoxHH2.Text == "Yes")
+            /*if (comboBoxEnrollHouseholdOther.Text == "Yes")
             {
 
                 myHouseholdMembers.HouseMembersID = 2;
@@ -1447,7 +1456,7 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myHomeZip = textBoxHMZip.Text;
                 myHouseholdMembers.myHomeCounty = comboBoxHMCounty.Text;
                  */
-                myHouseholdMembers.myPlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
+                /*myHouseholdMembers.myPlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
                 myHouseholdMembers.mySeekEmplMN = comboBoxHMSeekingEmployment.Text;
                 myHouseholdMembers.myPersonHighlighted = comboBoxHMPersonHighlighted.Text;
                 myHouseholdMembers.myHispanic = comboBoxHMHispanic.Text;
@@ -1464,7 +1473,7 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myBeenInFosterCare = comboBoxHMBeenInFosterCare.Text;
                 myHouseholdMembers.myRelationship = comboBoxHMRelationship.Text;
                 myHouseholdMembers.myHasIncome = comboBoxHasIncome.Text;
-                myHouseholdMembers.myRelationshiptoNextHM = comboBoxRelToNextMem.Text;
+                //myHouseholdMembers.myRelationshiptoNextHM = comboBoxRelToNextMem.Text;
                 myHouseholdMembers.myFileJointly = comboBoxHMFileJointly.Text;
                 myHouseholdMembers.myIncomeType = comboBoxHMIncomeType.Text;
                 myHouseholdMembers.myIncomeEmployer = textBoxHMEmployerName.Text;
@@ -1595,11 +1604,11 @@ namespace MNsure_Regression_1
                 {
                     buttonNextMember.Enabled = false;
                 }*/
-                int result;
+                /*int result;
                 myLastSSN.myLastSSN = myHouseholdMembers.mySSN;//why is this here?
                 InitializeSSN myInitializeSSN = new InitializeSSN();
                 result = myInitializeSSN.DoWriteLines(ref myLastSSN, myReadFileValues);
-            }
+            }*/
 
             dataGridViewSelectedTests.Rows[mySelectedTest.myRowIndex].Cells[1].Style.BackColor = Color.Green;
             buttonSaveConfiguration.BackColor = Color.Green;
@@ -1982,212 +1991,101 @@ namespace MNsure_Regression_1
 
         private void comboBoxEnrollHouseholdOther_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int result;
             int rowindex;
             rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
             mySelectedTest.myRowIndex = rowindex;
             string myTestId;
             myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
-            if (comboBoxHH2.Text == "Yes")
+            if (comboBoxEnrollHouseholdOther.SelectedIndex == 1)
             {
+                buttonAddMember.Enabled = false;
+                buttonSaveMember.Enabled = false;
+                buttonSaveMember.BackColor = Color.Transparent;
+                buttonPreviousMember.Enabled = false;
+                buttonNextMember.Enabled = false;
+                buttonDeleteMember.Enabled = false;
+                return;
+            }
+            else
+            {
+                buttonAddMember.Enabled = true;
+                buttonSaveMember.Enabled = true;
+                textBoxCurrentMember.Text = "2";
                 SqlCeConnection con;
                 string conString = Properties.Settings.Default.Database1ConnectionString;
-                con = new SqlCeConnection(conString);
-                con.Open();
+
                 try
                 {
-                    SqlCeCommand cmd = con.CreateCommand();
-                    cmd.CommandType = CommandType.Text;
-
-                    //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + myTestId + " and HouseMembersID = 2", con))
+                    // Open the connection using the connection string.
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT Count(*) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
                     {
                         SqlCeDataReader reader = com2.ExecuteReader();
                         if (reader.Read())
                         {
-                            myHouseholdMembers.myFirstName = reader.GetString(2);
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myMiddleName = reader.GetString(3);
-                            }
-                            myHouseholdMembers.myLastName = reader.GetString(4);
-                            if (!reader.IsDBNull(5))
-                            {
-                                myHouseholdMembers.mySuffix = reader.GetString(5);
-                            }
-                            myHouseholdMembers.myGender = reader.GetString(6);
-                            myHouseholdMembers.myMaritalStatus = reader.GetString(7);
-                            myHouseholdMembers.myDOB = reader.GetString(8);
-                            myHouseholdMembers.myLiveWithYou = reader.GetString(9);
-                            myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
-                            myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
-                            myHouseholdMembers.myLiveInMN = reader.GetString(12);
-                            myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
-                            myHouseholdMembers.myHomeless = reader.GetString(14);
-                            myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15);
-                            myHouseholdMembers.mySeekEmplMN = reader.GetString(16);
-                            myHouseholdMembers.myHispanic = reader.GetString(17);
-                            myHouseholdMembers.myRace = reader.GetString(18);
-                            myHouseholdMembers.myHaveSSN = reader.GetString(19);
-                            //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
-                            myHouseholdMembers.myUSCitizen = reader.GetString(21);
-                            myHouseholdMembers.myUSNational = reader.GetString(22);
-                            myHouseholdMembers.myIsPregnant = reader.GetString(23);
-                            myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
-                            myHouseholdMembers.myRelationship = reader.GetString(25);
-                            myHouseholdMembers.myHasIncome = reader.GetString(26);
-                            if (!reader.IsDBNull(27))
-                            {
-                                myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
-                            }
-                            if (!reader.IsDBNull(28))
-                            {
-                                myHouseholdMembers.myTribeName = reader.GetString(28);
-                            }
-                            myHouseholdMembers.myLiveRes = reader.GetString(29);
-                            if (!reader.IsDBNull(30))
-                            {
-                                myHouseholdMembers.myTribeId = reader.GetString(30);
-                            }
-                            myHouseholdMembers.myFederalTribe = reader.GetString(31);
-                            myHouseholdMembers.myFileJointly = reader.GetString(32);
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeType = reader.GetString(33);
-                            }
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
-                            }
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
-                            }
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeAmount = reader.GetString(36);
-                            }
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
-                            }
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeMore = reader.GetString(38);
-                            }
-                            myHouseholdMembers.myIncomeReduced = reader.GetString(39);
-                            if (!reader.IsDBNull(3))
-                            {
-                                myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
-                            }
-                            myHouseholdMembers.myIncomeExpected = reader.GetString(41);
-                            myHouseholdMembers.myPassCount = reader.GetString(42);
-                            myHouseholdMembers.myMilitary = reader.GetString(43);
-                            if (!reader.IsDBNull(44))
-                            {
-                                myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy");
-                            }
-                            myHouseholdMembers.myPrefContact = reader.GetString(45);
-                            myHouseholdMembers.myPhoneNum = reader.GetString(46);
-                            myHouseholdMembers.myPhoneType = reader.GetString(47);
-                            myHouseholdMembers.myAltNum = reader.GetString(48);
-                            myHouseholdMembers.myAltNumType = reader.GetString(49);
-                            myHouseholdMembers.myEmail = reader.GetString(50);
-                            myHouseholdMembers.myVoterCard = reader.GetString(51);
-                            myHouseholdMembers.myNotices = reader.GetString(52);
-                            myHouseholdMembers.myAuthRep = reader.GetString(53);
+                            myHouseholdMembers.NumMembers = reader.GetInt32(0);
+                            textBoxCurrentMember.Text = "2";
+                            textBoxTotalMembers.Text = Convert.ToString(myHouseholdMembers.NumMembers + 1);
                         }
                         else
                         {
-                            //Could generate these or store as a table default row
-                            myHouseholdMembers.myFirstName = "Jane";
-                            myHouseholdMembers.myMiddleName = "M";
-                            myHouseholdMembers.myLastName = "Doe";
-                            myHouseholdMembers.myGender = "Female";
-                            myHouseholdMembers.myMaritalStatus = "Married";
-                            myHouseholdMembers.myDOB = "01/01/1988";
-                            myHouseholdMembers.myLiveWithYou = "Yes";
-                            myHouseholdMembers.myMNHome = "Yes";
-                            myHouseholdMembers.myPersonHighlighted = "Yes";
-                            myHouseholdMembers.myLiveInMN = "Yes";
-                            myHouseholdMembers.myTempAbsentMN = "No";
-                            myHouseholdMembers.myHomeless = "No";
-                            myHouseholdMembers.myPlanMakeMNHome = "Yes";
-                            myHouseholdMembers.mySeekEmplMN = "No";
-                            myHouseholdMembers.myHispanic = "No";
-                            myHouseholdMembers.myRace = "White";
-                            myHouseholdMembers.myHaveSSN = "Yes";
-                            myHouseholdMembers.myUSCitizen = "Yes";
-                            myHouseholdMembers.myUSNational = "No";
-                            myHouseholdMembers.myIsPregnant = "No";
-                            myHouseholdMembers.myBeenInFosterCare = "No";
-                            myHouseholdMembers.myRelationship = "Is the Spouse of";
-                            myHouseholdMembers.myHasIncome = "No";
-                            myHouseholdMembers.myLiveRes = "No";
-                            myHouseholdMembers.myFederalTribe = "No";
-                            myHouseholdMembers.myFileJointly = "Yes";
-                            //myHouseholdMembers.myIncomeType = "Wages before taxes";
-                            //myHouseholdMembers.myIncomeEmployer = "Honeywell";
-                            //myHouseholdMembers.myIncomeSeasonal = "No";
-                            //myHouseholdMembers.myIncomeAmount = "2000";
-                            //myHouseholdMembers.myIncomeFrequency = "Yearly";
-                            //myHouseholdMembers.myIncomeMore = "No";
-                            myHouseholdMembers.myIncomeReduced = "No";
-                            //myHouseholdMembers.myIncomeAdjusted = "No";
-                            myHouseholdMembers.myIncomeExpected = "Yes";
-                            myHouseholdMembers.myPassCount = "1";
+                            myHouseholdMembers.HouseMembersID = 0;
+                            textBoxTotalMembers.Text = "2";
                         }
                         com2.ExecuteNonQuery();
                         com2.Dispose();
                     }
-                    SqlCeCommand cmd3 = con.CreateCommand();
-                    cmd3.CommandType = CommandType.Text;
-
-                    //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
+                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT Min(HouseMembersID) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
                     {
-                        SqlCeDataReader reader = com3.ExecuteReader();
-                        while (reader.Read())
+                        SqlCeDataReader reader = com2.ExecuteReader();
+                        if (reader.Read())
                         {
-                            if (reader.GetString(9) == "Household 2")
-                            {
-                                myHouseholdMembers.myHomeAddress1 = reader.GetString(3);
-                                if (!reader.IsDBNull(4))
-                                {
-                                    myHouseholdMembers.myHomeAddress2 = reader.GetString(4);
-                                }
-                                myHouseholdMembers.myHomeCity = reader.GetString(5);
-                                myHouseholdMembers.myHomeState = reader.GetString(6);
-                                myHouseholdMembers.myHomeZip = reader.GetString(7);
-                                myHouseholdMembers.myHomeCounty = reader.GetString(10);
-                                if (!reader.IsDBNull(11))
-                                {
-                                    myHouseholdMembers.myHomeAptSuite = reader.GetString(11);
-                                }
-                            }
+                            myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
+                            textBoxCurrentMember.Text = "2";
                         }
-                        if (myHouseholdMembers.myHomeAddress1 == null)
+                        else
                         {
-                            //Could generate these or store as a table default row
-                            myHouseholdMembers.myHomeAddress1 = "555 Lake Road";
-                            myHouseholdMembers.myHomeCity = "Hopkins";
-                            myHouseholdMembers.myHomeState = "Minnesota";
-                            myHouseholdMembers.myHomeZip = "55343";
-                            myHouseholdMembers.myHomeCounty = "Hennepin";
+                            myHouseholdMembers.HouseMembersID = 0;
                         }
-                        com3.ExecuteNonQuery();
-                        com3.Dispose();
+                        com2.ExecuteNonQuery();
+                        com2.Dispose();
                     }
-
-
-                    con.Close();
-                    //return 1;
                 }
-                catch (Exception f)
+                catch
                 {
-                    MessageBox.Show("Fill all household fields didn't work " + f);
-                    //return 1;
+                    //Fail silently
+                    // MessageBox.Show("Did not get rows from household members table.");
+                    myHouseholdMembers.HouseMembersID = 0;
+                    textBoxTotalMembers.Text = "2";
+                }
+                if (myHouseholdMembers.HouseMembersID == 0)
+                {
+                    AccountGeneration myAccountGeneration = new AccountGeneration();
+                    result = myAccountGeneration.GenerateHouseholdNames(mySelectedTest, ref myHouseholdMembers);
+                    myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
+                    buttonSaveMember.BackColor = Color.Yellow;
+                    textBoxTotalMembers.Text = "2";
+                }
+                else
+                {
+                    HouseholdMembersDo householdMembers = new HouseholdMembersDo();
+                    result = householdMembers.DoGetHouseholdMember(ref myHouseholdMembers, ref myHistoryInfo, myTestId);
+                    buttonSaveMember.BackColor = Color.Transparent;
+
                 }
 
+                //  int result;
+
+                //Will generate new SSN every time, as it must
+                InitializeSSN myInitializeSSN = new InitializeSSN();
+                result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
+                int tempI;
+                tempI = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
+                myHouseholdMembers.mySSN = Convert.ToString(tempI);
+
+                //The structure should be full now, so populate all the boxes.  
                 textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
                 textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
                 textBoxHMLastName.Text = myHouseholdMembers.myLastName;
@@ -2199,7 +2097,7 @@ namespace MNsure_Regression_1
                 comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
                 comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
                 comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-                textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
+                textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;//move to addr db
                 textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
                 textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
                 textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
@@ -2216,14 +2114,14 @@ namespace MNsure_Regression_1
                 comboBoxFederalTribe.Text = myHouseholdMembers.myFederalTribe;
                 comboBoxHMRace.Text = myHouseholdMembers.myRace;
                 comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
-                textBoxHMSSN.Text = myHouseholdMembers.mySSN;
+                //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
                 comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
                 comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
                 comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
                 comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
                 comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
                 comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
-                comboBoxRelToNextMem.Text = myHouseholdMembers.myRelationshiptoNextHM;
+                comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
                 comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
                 comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
                 textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
@@ -2264,16 +2162,36 @@ namespace MNsure_Regression_1
                 comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
                 comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
                 comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
+                comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
+                textBoxCurrentMember.Text = "2";
             }
+
+            textBoxTotalMembers.Text = Convert.ToString(myHouseholdMembers.NumMembers + 1);
+            if (myHouseholdMembers.NumMembers < 2)
+            {
+                buttonNextMember.Enabled = false;
+                buttonPreviousMember.Enabled = false;
+                textBoxTotalMembers.Text = "2";
+            }
+            if (Convert.ToInt32(textBoxTotalMembers.Text) == 2)
+            {
+                //   buttonSaveMember.BackColor = Color.Yellow;
+                //    buttonAddMember.Enabled = false;
+                //    buttonDeleteMember.Enabled = false;
+            }
+            else if (Convert.ToInt32(textBoxTotalMembers.Text) > 2)
+            {
+                buttonNextMember.Enabled = true;
+                buttonPreviousMember.Enabled = true;
+            }
+
+            if (textBoxCurrentMember.Text == "2")
+            {
+                buttonPreviousMember.Enabled = false;
+            }
+            //textBoxTotalMembers = 
         }
 
-        private void buttonSaveMember_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void buttonAddMember_Click(object sender, EventArgs e)
-        {
-        }
         private void tabPageWindows_Enter(object sender, EventArgs e)
         {
             myEditKey.myWindowsFirstTime = "Yes";
@@ -3363,7 +3281,7 @@ namespace MNsure_Regression_1
 
         private void textBoxEnrollAmount_TextChanged(object sender, EventArgs e)
         {
-            if (myApplication.myHouseholdOther == "No") //1 HH
+            /*if (myApplication.myHouseholdOther == "No") //1 HH
             {
                 if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16243)
                 {
@@ -3386,7 +3304,7 @@ namespace MNsure_Regression_1
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
             }
-            else  //2 HH
+            else if(textBoxTotalMembers.Text == "2")
             {
                 if (textBoxHMAmount.Text == "")
                 {
@@ -3413,6 +3331,33 @@ namespace MNsure_Regression_1
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
             }
+            else if (textBoxTotalMembers.Text == "3")
+            {
+                if (textBoxHMAmount.Text == "")
+                {
+                    textBoxHMAmount.Text = "0";
+                }
+                if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 27821)
+                {
+                    radioButtonApplicationTypeMA.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 40320)
+                {
+                    radioButtonApplicationTypeBHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 80640)
+                {
+                    radioButtonApplicationTypeQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    radioButtonApplicationTypeUQHP.Checked = true;
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
+            }*/
         }
 
 
@@ -4601,7 +4546,7 @@ namespace MNsure_Regression_1
 
         private void textBoxHMAmount_TextChanged(object sender, EventArgs e)
         {
-            if (textBoxHMAmount.Text == "" || textBoxHMAmount.Text == null)
+            /*if (textBoxHMAmount.Text == "" || textBoxHMAmount.Text == null)
             {
                 textBoxHMAmount.Text = "0";
             }
@@ -4628,7 +4573,7 @@ namespace MNsure_Regression_1
             {
                 radioButtonApplicationTypeUQHP.Checked = true;
                 myApplication.myEnrollmentPlanType = "MN Care UQHP";
-            }
+            }*/
         }
 
         private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
@@ -4674,6 +4619,560 @@ namespace MNsure_Regression_1
         private void textBoxHMDOB_TextChanged(object sender, EventArgs e)
         {
             myHouseholdMembers.myDOB = textBoxHMDOB.Text;
+        }
+
+        private void buttonPreviousMember_Click(object sender, EventArgs e)
+        {
+            int result;
+            int rowindex;
+            rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
+            mySelectedTest.myRowIndex = rowindex;
+            string myTestId;
+            myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
+            myHouseholdMembers.HouseMembersID = myHouseholdMembers.HouseMembersID - 1;
+            HouseholdMembersDo householdMembers = new HouseholdMembersDo();
+            result = householdMembers.DoGetHouseholdMember(ref myHouseholdMembers, ref  myHistoryInfo, myTestId);
+
+            //The structure should be full now, so populate all the boxes.  
+            textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+            textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+            textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+            comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+            comboBoxHMGender.Text = myHouseholdMembers.myGender;
+            comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
+            textBoxHMDOB.Text = myHouseholdMembers.myDOB;
+            comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
+            comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
+            comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
+            comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
+            textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
+            textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
+            textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
+            textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
+            textBoxHMState.Text = myHouseholdMembers.myHomeState;
+            textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
+            comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;
+            comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
+            comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
+            comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
+            comboBoxHMHispanic.Text = myHouseholdMembers.myHispanic;
+            textBoxTribeName.Text = myHouseholdMembers.myTribeName;
+            textBoxTribeId.Text = myHouseholdMembers.myTribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.myLiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.myFederalTribe;
+            comboBoxHMRace.Text = myHouseholdMembers.myRace;
+            comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
+            //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
+            comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
+            comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
+            comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
+            comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
+            comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
+            comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
+            comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
+            comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
+            comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
+            textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
+            comboBoxHMSeasonal.Text = myHouseholdMembers.myIncomeSeasonal;
+            textBoxHMAmount.Text = myHouseholdMembers.myIncomeAmount;
+            comboBoxHMFrequency.Text = myHouseholdMembers.myIncomeFrequency;
+            comboBoxHMMoreIncome.Text = myHouseholdMembers.myIncomeMore;
+            comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
+            comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
+            comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
+            comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
+            if (myHouseholdMembers.myMilitary == "Yes")
+            {
+                dateTimeHMMilitary.Enabled = true;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+            }
+            else
+            {
+                dateTimeHMMilitary.Enabled = false;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                dateTimeHMMilitary.CustomFormat = " ";
+            }
+            dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
+            if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
+            {
+                string tempMilitary;
+                tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
+                tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
+            }
+            comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
+            textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
+            comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
+            textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
+            comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
+            textBoxHMEmail.Text = myHouseholdMembers.myEmail;
+            comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
+            comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
+            comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
+            comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
+
+            textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
+            if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
+            {
+                buttonNextMember.Enabled = false;
+                buttonPreviousMember.Enabled = true;
+            }
+            else
+            {
+                buttonPreviousMember.Enabled = true;
+                buttonNextMember.Enabled = true;
+            }
+            if (textBoxCurrentMember.Text == "2")
+            {
+                buttonPreviousMember.Enabled = false;
+            }
+            else
+            {
+                buttonNextMember.Enabled = true;
+            }
+        }
+
+        private void buttonNextMember_Click(object sender, EventArgs e)
+        {
+            int result;
+            int rowindex;
+            rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
+            mySelectedTest.myRowIndex = rowindex;
+            string myTestId;
+            myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
+            myHouseholdMembers.HouseMembersID = myHouseholdMembers.HouseMembersID + 1;
+            HouseholdMembersDo householdMembers = new HouseholdMembersDo();
+            result = householdMembers.DoGetHouseholdMember(ref myHouseholdMembers, ref  myHistoryInfo, myTestId);
+
+            //The structure should be full now, so populate all the boxes.  
+            textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+            textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+            textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+            comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+            comboBoxHMGender.Text = myHouseholdMembers.myGender;
+            comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
+            textBoxHMDOB.Text = myHouseholdMembers.myDOB;
+            comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
+            comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
+            comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
+            comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
+            textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
+            textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
+            textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
+            textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
+            textBoxHMState.Text = myHouseholdMembers.myHomeState;
+            textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
+            comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;
+            comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
+            comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
+            comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
+            comboBoxHMHispanic.Text = myHouseholdMembers.myHispanic;
+            textBoxTribeName.Text = myHouseholdMembers.myTribeName;
+            textBoxTribeId.Text = myHouseholdMembers.myTribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.myLiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.myFederalTribe;
+            comboBoxHMRace.Text = myHouseholdMembers.myRace;
+            comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
+            //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
+            comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
+            comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
+            comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
+            comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
+            comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
+            comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
+            comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
+            comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
+            comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
+            textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
+            comboBoxHMSeasonal.Text = myHouseholdMembers.myIncomeSeasonal;
+            textBoxHMAmount.Text = myHouseholdMembers.myIncomeAmount;
+            comboBoxHMFrequency.Text = myHouseholdMembers.myIncomeFrequency;
+            comboBoxHMMoreIncome.Text = myHouseholdMembers.myIncomeMore;
+            comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
+            comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
+            comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
+            comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
+            if (myHouseholdMembers.myMilitary == "Yes")
+            {
+                dateTimeHMMilitary.Enabled = true;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+            }
+            else
+            {
+                dateTimeHMMilitary.Enabled = false;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                dateTimeHMMilitary.CustomFormat = " ";
+            }
+            dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
+            if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
+            {
+                string tempMilitary;
+                tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
+                tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
+            }
+            comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
+            textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
+            comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
+            textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
+            comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
+            textBoxHMEmail.Text = myHouseholdMembers.myEmail;
+            comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
+            comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
+            comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
+            comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
+
+            textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
+            //  if (myHouseholdMembers.HouseMembersID == myHouseholdMembers.NumMembers)
+            if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
+            {
+                buttonNextMember.Enabled = false;
+                buttonDeleteMember.Enabled = true;
+            }
+            if (textBoxCurrentMember.Text == "2")
+            {
+                buttonPreviousMember.Enabled = false;
+            }
+            else
+            {
+                buttonPreviousMember.Enabled = true;
+            }
+        }
+
+        private void buttonAddMember_Click(object sender, EventArgs e)
+        {
+            int result;
+            AccountGeneration accountGeneration = new AccountGeneration();
+            result = accountGeneration.GenerateHouseholdNames(mySelectedTest, ref myHouseholdMembers);
+            myHouseholdMembers.HouseMembersID = myHouseholdMembers.NumMembers + 1;
+            //The structure should be full now, so populate all the boxes.  
+            textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+            textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+            textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+            comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+            comboBoxHMGender.Text = myHouseholdMembers.myGender;
+            textBoxHMDOB.Text = myHouseholdMembers.myDOB;
+            /*comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
+            comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
+            comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
+            comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
+            comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
+            textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
+            textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
+            textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
+            textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
+            textBoxHMState.Text = myHouseholdMembers.myHomeState;
+            textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
+            comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;
+            comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
+            comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
+            comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
+            comboBoxHMHispanic.Text = myHouseholdMembers.myHispanic;
+            textBoxTribeName.Text = myHouseholdMembers.myTribeName;
+            textBoxTribeId.Text = myHouseholdMembers.myTribeId;
+            comboBoxLiveRes.Text = myHouseholdMembers.myLiveRes;
+            comboBoxFederalTribe.Text = myHouseholdMembers.myFederalTribe;
+            comboBoxHMRace.Text = myHouseholdMembers.myRace;
+            comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
+            textBoxHMSSN.Text = myHouseholdMembers.mySSN;
+            comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
+            comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
+            comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
+            comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
+            comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
+            comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
+            //comboBoxRelToNextMem.Text = myHouseholdMembers.myRelationshiptoNextHM;
+            comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
+            comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
+            textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
+            comboBoxHMSeasonal.Text = myHouseholdMembers.myIncomeSeasonal;
+            textBoxHMAmount.Text = myHouseholdMembers.myIncomeAmount;
+            comboBoxHMFrequency.Text = myHouseholdMembers.myIncomeFrequency;
+            comboBoxHMMoreIncome.Text = myHouseholdMembers.myIncomeMore;
+            comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
+            comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
+            comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
+            comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
+            if (myHouseholdMembers.myMilitary == "Yes")
+            {
+                dateTimeHMMilitary.Enabled = true;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+            }
+            else
+            {
+                dateTimeHMMilitary.Enabled = false;
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                dateTimeHMMilitary.CustomFormat = " ";
+            }
+            dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
+            if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
+            {
+                string tempMilitary;
+                tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
+                tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
+            }
+            comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
+            textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
+            comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
+            textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
+            comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
+            textBoxHMEmail.Text = myHouseholdMembers.myEmail;
+            comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
+            comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
+            comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;*/
+
+            textBoxCurrentMember.Text = Convert.ToString(Convert.ToInt32(textBoxCurrentMember.Text) + 1);
+            textBoxTotalMembers.Text = textBoxCurrentMember.Text;
+            buttonSaveMember.BackColor = Color.Yellow;
+            if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
+            {
+                buttonNextMember.Enabled = false;
+            }
+            if (Convert.ToInt32(textBoxCurrentMember.Text) < 3)
+            {
+                buttonPreviousMember.Enabled = false;
+            }
+            else
+            {
+                buttonPreviousMember.Enabled = true;
+            }
+            buttonSaveMember.BackColor = Color.Yellow;
+        }
+
+        private void buttonDeleteMember_Click(object sender, EventArgs e)
+        {
+            int rowindex;
+            rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
+            mySelectedTest.myRowIndex = rowindex;
+            string myTestId;
+            myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
+            
+            myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
+            if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
+            {
+                SqlCeConnection con;
+                string conString = Properties.Settings.Default.Database1ConnectionString;
+
+                try
+                {
+                    // Open the connection using the connection string.
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+
+                    //Delete row, then insert a new on based on the currently selected member.
+                    myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
+                    SqlCeCommand cmd2 = con.CreateCommand();
+                    cmd2.CommandType = CommandType.Text;
+                    cmd2.CommandText = "Delete from HouseMembers where TestID = " + myTestId + " and HouseMembersID = " + myHouseholdMembers.HouseMembersID + ";";
+                    cmd2.ExecuteNonQuery();
+                }
+                catch
+                {
+
+                }
+                myHouseholdMembers.HouseMembersID = myHouseholdMembers.HouseMembersID - 1;
+                textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
+                textBoxTotalMembers.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
+                if (textBoxCurrentMember.Text == "1")
+                {
+                    buttonPreviousMember.Enabled = false;
+                    buttonNextMember.Enabled = false;
+                    buttonDeleteMember.Enabled = false;
+                    buttonSaveMember.Enabled = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please delete the last member first.");
+            }
+        }
+
+        private void buttonSaveMember_Click(object sender, EventArgs e)
+        {
+            int rowindex;
+            rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
+            mySelectedTest.myRowIndex = rowindex;
+            string myTestId;
+            myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
+
+            myHouseholdMembers.myFirstName = textBoxHMFirstName.Text;
+            myHouseholdMembers.myMiddleName = textBoxHMMiddleName.Text;
+            myHouseholdMembers.myLastName = textBoxHMLastName.Text;
+            myHouseholdMembers.mySuffix = comboBoxHMSuffix.Text;
+            myHouseholdMembers.myGender = comboBoxHMGender.Text;
+            myHouseholdMembers.myMaritalStatus = comboBoxHMMaritalStatus.Text;
+            myHouseholdMembers.myDOB = textBoxHMDOB.Text;
+            myHouseholdMembers.myLiveWithYou = comboBoxHMLiveWithYou.Text;
+            myHouseholdMembers.myLiveInMN = comboBoxHMLiveMN.Text;
+            myHouseholdMembers.myTempAbsentMN = comboBoxHMTempAbsentMN.Text;
+            myHouseholdMembers.myHomeless = comboBoxHMHomeless.Text;
+            myHouseholdMembers.myHomeAddress1 = textBoxHMAddress1.Text;
+            myHouseholdMembers.myHomeAddress2 = textBoxHMAddress2.Text;
+            myHouseholdMembers.myHomeAptSuite = textBoxHMAptSuite.Text;
+            myHouseholdMembers.myHomeCity = textBoxHMCity.Text;
+            myHouseholdMembers.myHomeState = textBoxHMState.Text;
+            myHouseholdMembers.myHomeZip = textBoxHMZip.Text;
+            myHouseholdMembers.myHomeCounty = comboBoxHMCounty.Text;             
+            myHouseholdMembers.myPlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
+            myHouseholdMembers.mySeekEmplMN = comboBoxHMSeekingEmployment.Text;
+            myHouseholdMembers.myPersonHighlighted = comboBoxHMPersonHighlighted.Text;
+            myHouseholdMembers.myHispanic = comboBoxHMHispanic.Text;
+            myHouseholdMembers.myTribeName = textBoxTribeName.Text;
+            myHouseholdMembers.myTribeId = textBoxTribeId.Text;
+            myHouseholdMembers.myLiveRes = comboBoxLiveRes.Text;
+            myHouseholdMembers.myFederalTribe = comboBoxFederalTribe.Text;
+            myHouseholdMembers.myRace = comboBoxHMRace.Text;
+            myHouseholdMembers.myHaveSSN = comboBoxHMHaveSSN.Text;
+            //myHouseholdMembers.mySSN = textBoxHMSSN.Text; //auto generated
+            myHouseholdMembers.myUSCitizen = comboBoxHMUSCitizen.Text;
+            myHouseholdMembers.myUSNational = comboBoxHMUSNational.Text;
+            myHouseholdMembers.myIsPregnant = comboBoxHMPregnant.Text;
+            myHouseholdMembers.myBeenInFosterCare = comboBoxHMBeenInFosterCare.Text;
+            myHouseholdMembers.myRelationship = comboBoxHMRelationship.Text;
+            myHouseholdMembers.myHasIncome = comboBoxHasIncome.Text;
+            myHouseholdMembers.myRelationshiptoNextHM = comboBoxHMRelationship2.Text;
+            myHouseholdMembers.myFileJointly = comboBoxHMFileJointly.Text;
+            myHouseholdMembers.myIncomeType = comboBoxHMIncomeType.Text;
+            myHouseholdMembers.myIncomeEmployer = textBoxHMEmployerName.Text;
+            myHouseholdMembers.myIncomeSeasonal = comboBoxHMSeasonal.Text;
+            myHouseholdMembers.myIncomeAmount = textBoxHMAmount.Text;
+            myHouseholdMembers.myIncomeFrequency = comboBoxHMFrequency.Text;
+            myHouseholdMembers.myIncomeMore = comboBoxHMMoreIncome.Text;
+            myHouseholdMembers.myIncomeReduced = comboBoxHMIncomeReduced.Text;
+            myHouseholdMembers.myIncomeAdjusted = comboBoxHMIncomeAdjustments.Text;
+            myHouseholdMembers.myIncomeExpected = comboBoxHMAnnualIncome.Text;
+            myHouseholdMembers.myMilitary = comboBoxHMMilitary.Text;
+            if (dateTimeHMMilitary.Text != " ")
+            {
+                myHouseholdMembers.myMilitaryDate = dateTimeHMMilitary.Text;
+            }
+            myHouseholdMembers.myPrefContact = comboBoxHMPrefContact.Text;
+            myHouseholdMembers.myPhoneNum = textBoxHMPhoneNum.Text;
+            myHouseholdMembers.myPhoneType = comboBoxHMPhoneType.Text;
+            myHouseholdMembers.myAltNum = textBoxHMAltNum.Text;
+            myHouseholdMembers.myAltNumType = comboBoxHMAltType.Text;
+            myHouseholdMembers.myEmail = textBoxHMEmail.Text;
+            myHouseholdMembers.myVoterCard = comboBoxHMVoterCard.Text;
+            myHouseholdMembers.myNotices = comboBoxHMNotices.Text;
+            myHouseholdMembers.myAuthRep = comboBoxHMAuthRep.Text;
+            myHouseholdMembers.myDependants = comboBoxHMDependant.Text;
+
+            myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            string myInsertString;
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+
+                //Delete row, then insert a new on based on the currently selected member.
+                myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
+                SqlCeCommand cmd2 = con.CreateCommand();
+                cmd2.CommandType = CommandType.Text;
+                cmd2.CommandText = "Delete from HouseMembers where TestID = " + myTestId + " and HouseMembersID = " + myHouseholdMembers.HouseMembersID + ";";
+                cmd2.ExecuteNonQuery();
+                myInsertString = "Insert into HouseMembers values (" + myHouseholdMembers.HouseMembersID + ", " + myTestId +
+                    ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
+                    "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
+                    "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
+                    "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant );";
+
+                using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
+                {
+                    com2.Parameters.AddWithValue("FirstName", myHouseholdMembers.myFirstName);
+                    com2.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
+                    com2.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
+                    com2.Parameters.AddWithValue("Suffix", myHouseholdMembers.mySuffix);
+                    com2.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
+                    com2.Parameters.AddWithValue("MaritalStatus", myHouseholdMembers.myMaritalStatus);
+                    com2.Parameters.AddWithValue("DOB", myHouseholdMembers.myDOB);
+                    com2.Parameters.AddWithValue("LiveWithYou", myHouseholdMembers.myLiveWithYou);
+                    com2.Parameters.AddWithValue("MNHome", myHouseholdMembers.myPlanMakeMNHome); //is mnhome the same as planmakemnhome?
+                    com2.Parameters.AddWithValue("PersonHighlighted", myHouseholdMembers.myPersonHighlighted);
+                    com2.Parameters.AddWithValue("LiveMN", myHouseholdMembers.myLiveInMN);
+                    com2.Parameters.AddWithValue("TempAbsentMN", myHouseholdMembers.myTempAbsentMN);
+                    com2.Parameters.AddWithValue("Homeless", myHouseholdMembers.myHomeless);
+                    com2.Parameters.AddWithValue("PlanMakeMNHome", myHouseholdMembers.myPlanMakeMNHome);
+                    com2.Parameters.AddWithValue("SeekingEmployment", myHouseholdMembers.mySeekEmplMN);
+                    com2.Parameters.AddWithValue("Hispanic", myHouseholdMembers.myHispanic);
+                    com2.Parameters.AddWithValue("Race", myHouseholdMembers.myRace);
+                    com2.Parameters.AddWithValue("HaveSSN", myHouseholdMembers.myHaveSSN);
+                    com2.Parameters.AddWithValue("SSN", DBNull.Value);
+                    com2.Parameters.AddWithValue("USCitizen", myHouseholdMembers.myUSCitizen);
+                    com2.Parameters.AddWithValue("USNational", myHouseholdMembers.myUSNational);
+                    com2.Parameters.AddWithValue("Pregnant", myHouseholdMembers.myIsPregnant);
+                    com2.Parameters.AddWithValue("FosterCare", myHouseholdMembers.myBeenInFosterCare);
+                    com2.Parameters.AddWithValue("Relationship", myHouseholdMembers.myRelationship);
+                    com2.Parameters.AddWithValue("HasIncome", myHouseholdMembers.myHasIncome);
+                    com2.Parameters.AddWithValue("RelationshiptoNextHM", myHouseholdMembers.myRelationshiptoNextHM);
+                    com2.Parameters.AddWithValue("TribeName", myHouseholdMembers.myTribeName);
+                    com2.Parameters.AddWithValue("LiveRes", myHouseholdMembers.myLiveRes);
+                    com2.Parameters.AddWithValue("TribeId", myHouseholdMembers.myTribeId);
+                    com2.Parameters.AddWithValue("FederalTribe", myHouseholdMembers.myFederalTribe);
+                    com2.Parameters.AddWithValue("FileJointly", myHouseholdMembers.myFileJointly);
+                    com2.Parameters.AddWithValue("IncomeType", myHouseholdMembers.myIncomeType);
+                    com2.Parameters.AddWithValue("Employer", myHouseholdMembers.myIncomeEmployer);
+                    com2.Parameters.AddWithValue("Seasonal", myHouseholdMembers.myIncomeSeasonal);
+                    com2.Parameters.AddWithValue("IncomeAmount", myHouseholdMembers.myIncomeAmount);
+                    com2.Parameters.AddWithValue("IncomeFrequency", myHouseholdMembers.myIncomeFrequency);
+                    com2.Parameters.AddWithValue("IncomeMore", myHouseholdMembers.myIncomeMore);
+                    com2.Parameters.AddWithValue("Reduced", myHouseholdMembers.myIncomeReduced);
+                    com2.Parameters.AddWithValue("Adjusted", myHouseholdMembers.myIncomeAdjusted);
+                    com2.Parameters.AddWithValue("Expected", myHouseholdMembers.myIncomeExpected);
+                    com2.Parameters.AddWithValue("PassCount", "1");
+                    com2.Parameters.AddWithValue("Military", myHouseholdMembers.myMilitary);
+                    if (myHouseholdMembers.myMilitaryDate != "" && myHouseholdMembers.myMilitaryDate != null)
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", myHouseholdMembers.myMilitaryDate);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                    }
+                    com2.Parameters.AddWithValue("PrefContact", myHouseholdMembers.myPrefContact);
+                    com2.Parameters.AddWithValue("PhoneNum", myHouseholdMembers.myPhoneNum);
+                    com2.Parameters.AddWithValue("PhoneType", myHouseholdMembers.myPhoneType);
+                    com2.Parameters.AddWithValue("AltNum", myHouseholdMembers.myAltNum);
+                    com2.Parameters.AddWithValue("AltType", myHouseholdMembers.myAltNumType);
+                    com2.Parameters.AddWithValue("Email", myHouseholdMembers.myEmail);
+                    com2.Parameters.AddWithValue("VoterCard", myHouseholdMembers.myVoterCard);
+                    com2.Parameters.AddWithValue("Notices", myHouseholdMembers.myNotices);
+                    com2.Parameters.AddWithValue("AuthRep", myHouseholdMembers.myAuthRep);
+                    com2.Parameters.AddWithValue("Dependant", myHouseholdMembers.myDependants);
+
+                    com2.ExecuteNonQuery();
+                    com2.Dispose();
+                }
+            }
+            catch (Exception g)
+            {
+                MessageBox.Show("Failed to Save HM: " + g);
+
+            }
+            myHouseholdMembers.NumMembers = Convert.ToInt32(textBoxTotalMembers.Text);
+            buttonSaveMember.BackColor = Color.Transparent;
+            buttonDeleteMember.Enabled = true;
+            buttonAddMember.Enabled = true;
+            if (textBoxCurrentMember.Text == "2")
+            {
+                buttonPreviousMember.Enabled = false;
+            }
+            if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
+            {
+                buttonNextMember.Enabled = false;
+            }
+            int result;
+            myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+            InitializeSSN myInitializeSSN = new InitializeSSN();
+            result = myInitializeSSN.DoWriteLines(ref myLastSSN, myReadFileValues);
         }
 
     }

@@ -47,7 +47,7 @@ namespace MNsure_Regression_1
 
                 int tempI;
                 tempI = Convert.ToInt32(myEnrollment.myIncomeAmount);
-                if (tempI <= 23540)
+                if (tempI <= 23540)//must check for multi household amounts....
                 {
                     //check for text at the bottom
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[1]/div[2]/div[1]"))));
@@ -164,15 +164,26 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
+                {
+                    System.Threading.Thread.Sleep(6000);
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(2000);
+                }
                 //check for text at the bottom
                 if (myEnrollment.myHouseholdOther == "No" || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_2"))));
                 }
-                else
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_6"))));
+                }
+                else
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_10"))));
                 }
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -181,9 +192,13 @@ namespace MNsure_Regression_1
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
                 }
-                else
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_6"));
+                }
+                else
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_10"));
                 }
                 buttonContinue.Click();
 
@@ -220,27 +235,36 @@ namespace MNsure_Regression_1
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));                    
                 }
-                else
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_8"))));
-                    IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
-                    checkboxPrimary.Click();
-                }                
-
-                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                
-                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
-                {                    
-                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
-                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 else
                 {
-                    IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_8"));
-                    buttonContinue.Click();
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_12"))));
+                    IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                    checkboxPrimary.Click(); 
+                }                
+
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                ApplicationDo myApp = new ApplicationDo();
+                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                {                    
+                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                {
+                    myHouseholdMembers.myPassCount = "3";//update count to 2 to do the income screens another time
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                }
+                else
+                {
+                    IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_12"));
+                    buttonContinue.Click(); //this does not always work so much select these 3 screens 3 times, this is a current known production bug
 
                     myHouseholdMembers.myPassCount = "1";//update count to 1 to move forward
-                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }                
 
                 returnStatus = "Pass";
@@ -763,42 +787,6 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
-        }
-
-        public int DoUpdatePassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
-        {
-            SqlCeConnection con;
-            string conString = Properties.Settings.Default.Database1ConnectionString;
-
-
-            try
-            {
-                con = new SqlCeConnection(conString);
-                con.Open();
-                using (SqlCeCommand com = new SqlCeCommand(
-                    "SELECT * FROM HouseMembers where TestID = " + myHistoryInfo.myTestId + " and HouseMembersID = 2;", con))
-                {
-                    SqlCeDataReader reader = com.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        string myUpdateString;
-                        myUpdateString = "Update HouseMembers set PassCount = @Passcount where TestID = " + myHistoryInfo.myTestId + " and HouseMembersID = 2;";
-
-                        using (SqlCeCommand com2 = new SqlCeCommand(myUpdateString, con))
-                        {
-                            com2.Parameters.AddWithValue("PassCount", updateValue);
-                            com2.ExecuteNonQuery();
-                            com2.Dispose();
-                        }
-                    }
-                }
-                con.Close();
-            }
-            catch
-            {
-                MessageBox.Show("Update pass count didn't work");
-            }
-            return 1;
         }
 
     }
