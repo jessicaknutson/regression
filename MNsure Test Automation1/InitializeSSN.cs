@@ -80,30 +80,41 @@ namespace MNsure_Regression_1
 
         public int DoWriteLines(ref mystructSSN myLastSSN, mystructReadFileValues myReadFileValues)
         {
-            if (myLastSSN.myLastSSN != "")
-            { 
-                try
+            try
                 {
-                               
-                    string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
-                    myReadFileValues.myHomeAddress2, myReadFileValues.myHomeCity, myReadFileValues.myHomeState, 
-                    myReadFileValues.myHomeZip, myReadFileValues.myHomeZip4, myReadFileValues.myEmail, 
-                    myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName};
-                    using (StreamWriter sw = new StreamWriter("C:\\Logs\\SSN.txt"))
+                    if (myLastSSN.myLastSSN != null && myLastSSN.myLastSSN != "")
                     {
-                        foreach (string s in SSNToWrite)
+                        string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
+                        myReadFileValues.myHomeAddress2, myReadFileValues.myHomeCity, myReadFileValues.myHomeState, 
+                        myReadFileValues.myHomeZip, myReadFileValues.myHomeZip4, myReadFileValues.myEmail, 
+                        myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName};
+                        if (SSNToWrite.Length != 0)
                         {
-                            sw.WriteLine(s);
+                            using (StreamWriter sw = new StreamWriter("C:\\Logs\\SSN.txt"))
+                            {
+                                foreach (string s in SSNToWrite)
+                                {
+                                    sw.WriteLine(s);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Trying to write empty SSN file, fix bug");
+                            return 2;
                         }
                     }
-                }
-            
+                    else
+                    {
+                        MessageBox.Show("empty ssn, fix bug");
+                        return 2;
+                    }
+                }            
                 catch (Exception e)
                 {
                     MessageBox.Show("Error on Save SSN file: " + e);
                     return 2;
                 }
-            }
             return 1;
         }
 

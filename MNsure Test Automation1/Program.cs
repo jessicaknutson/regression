@@ -208,7 +208,7 @@ struct mystructSelectedTest
         public string myHomeState;
         public string myHomeZip;
         //public string myHomeZip4;
-        public string myHomeCounty;
+        public string myHomeCounty;        
         public string myGender;
         public string myMaritalStatus;
         public string myDOB;

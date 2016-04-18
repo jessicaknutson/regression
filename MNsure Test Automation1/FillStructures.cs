@@ -71,8 +71,8 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(24)) { myApplication.myAddressSame = reader.GetString(24); }
                         if (!reader.IsDBNull(25)) { myApplication.myHispanic = reader.GetString(25); }
                         if (!reader.IsDBNull(26)) { myApplication.myRace = reader.GetString(26); }
-                        if (!reader.IsDBNull(27)) { myApplication.mySSN = reader.GetString(27); }
-                        if (!reader.IsDBNull(28)) { myApplication.myCitizen = reader.GetString(28); }
+                        if (!reader.IsDBNull(27)) { myApplication.mySSN = reader.GetString(27); }                        
+                        if (!reader.IsDBNull(28)) { myApplication.myCitizen = reader.GetString(28); }  
                         myApplication.mySSNNum = myAccountCreate.mySSN; //auto generated
                         if (!reader.IsDBNull(30)) { myApplication.myHouseholdOther = reader.GetString(30); }
                         if (!reader.IsDBNull(31)) { myApplication.myDependants = reader.GetString(31); }
@@ -205,7 +205,7 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(7)) { myHouseholdMembers.myHomeZip = reader.GetString(7); }
                             if (!reader.IsDBNull(10)) { myHouseholdMembers.myHomeCounty = reader.GetString(10); }
                             if (!reader.IsDBNull(11)) { myHouseholdMembers.myHomeAptSuite = reader.GetString(11); }
-                        }
+                        }                        
                         else
                         {
                             if (!reader.IsDBNull(3)) { myApplication.myMailAddress1 = reader.GetString(3); }
@@ -268,7 +268,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
+                        //if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
                         if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
                         if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
                         if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
@@ -318,7 +318,7 @@ namespace MNsure_Regression_1
 
         }
 
-        public int doFillNextHMStructures(mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo, String myHouseMembersID)
+        public int doFillNextHMStructures(ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo, String myHouseMembersID)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -355,7 +355,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
+                        //if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
                         if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
                         if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
                         if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
@@ -596,21 +596,14 @@ namespace MNsure_Regression_1
                     {
                         if (reader.GetString(9) == "Household 2")
                         {
-                            myHouseholdMembers.myHomeAddress1 = reader.GetString(3);
-                            if (!reader.IsDBNull(4))
-                            {
-                                myHouseholdMembers.myHomeAddress2 = reader.GetString(4);
-                            }
-                            myHouseholdMembers.myHomeCity = reader.GetString(5);
-                            myHouseholdMembers.myHomeState = reader.GetString(6);
-                            myHouseholdMembers.myHomeZip = reader.GetString(7);
-                            myHouseholdMembers.myHomeCounty = reader.GetString(10);
-                            if (!reader.IsDBNull(11))
-                            {
-                                myHouseholdMembers.myHomeAptSuite = reader.GetString(11);
-                            }
-                        }
-
+                            if (!reader.IsDBNull(3)) { myHouseholdMembers.myHomeAddress1 = reader.GetString(3); }
+                            if (!reader.IsDBNull(4)) { myHouseholdMembers.myHomeAddress2 = reader.GetString(4); }
+                            if (!reader.IsDBNull(5)) { myHouseholdMembers.myHomeCity = reader.GetString(5); }
+                            if (!reader.IsDBNull(6)) { myHouseholdMembers.myHomeState = reader.GetString(6); }
+                            if (!reader.IsDBNull(7)) { myHouseholdMembers.myHomeZip = reader.GetString(7); }
+                            if (!reader.IsDBNull(10)) { myHouseholdMembers.myHomeCounty = reader.GetString(10); }
+                            if (!reader.IsDBNull(11)) { myHouseholdMembers.myHomeAptSuite = reader.GetString(11); }
+                        }                      
                     }
                 }
 

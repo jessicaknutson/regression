@@ -124,17 +124,28 @@ namespace MNsure_Regression_1
                 }
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                IWebElement buttonEnroll;
                 if (myHistoryInfo.myRelogin == "Yes")
                 {
-                    buttonEnroll = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span/span/span/span[3]/span"));
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span/span/span/span[3]/span")).Click();
                 }
                 else
                 {
-                    buttonEnroll = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span"));
-                }
-
-                buttonEnroll.Click();
+                    HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                    int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                    if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3)
+                    {
+                        FillStructures myFillStructures = new FillStructures();
+                        int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "3");
+                        if (myHouseholdMembers.myHasIncome == "Yes" && myHouseholdMembers.myDependants == "No")
+                        {
+                            myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[2]/div/span/span/span/span[3]/span")).Click();
+                        }
+                    }
+                    else
+                    {
+                        myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/span")).Click(); 
+                    }
+                }               
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -188,7 +199,7 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 IWebElement buttonContinue;
-                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                if (myEnrollment.myHouseholdOther == "No" || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
                 }
@@ -249,7 +260,7 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 ApplicationDo myApp = new ApplicationDo();
                 if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
-                {                    
+                {                   
                     myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
                     myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }

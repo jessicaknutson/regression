@@ -583,12 +583,12 @@ namespace MNsure_Regression_1
 
                 IWebElement textboxPW = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
                 textboxPW.SendKeys(myAccountCreate.myPassword);
-
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-
+                
                 IWebElement buttonSignIn = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
                 buttonSignIn.Click();
-
+                
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;

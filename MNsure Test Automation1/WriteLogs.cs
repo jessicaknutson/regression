@@ -381,8 +381,21 @@ namespace MNsure_Regression_1
                             j = j + 1;
                         }
 
-                        excelWorksheet2.Shapes.AddPicture(myHistoryInfo.myRequiredScreenshotFile[i], MsoTriState.msoFalse, MsoTriState.msoCTrue, leftImagePosition, topImagePosition, 900, 600);
-                        topImagePosition = topImagePosition + 600;
+                        if (myHistoryInfo.myRequiredScreenshotFile[i].ToString().Contains(", ")) //multiple images for the same screen
+                        {
+                            List<String> allImages; 
+                            allImages = myHistoryInfo.myRequiredScreenshotFile[i].ToString().Split(',').ToList();
+                            foreach (string image in allImages)
+                            {
+                                excelWorksheet2.Shapes.AddPicture(image.Trim(), MsoTriState.msoFalse, MsoTriState.msoCTrue, leftImagePosition, topImagePosition, 900, 600);
+                                topImagePosition = topImagePosition + 600;
+                            }
+                        }
+                        else //only 1 image for a screen
+                        {
+                            excelWorksheet2.Shapes.AddPicture(myHistoryInfo.myRequiredScreenshotFile[i], MsoTriState.msoFalse, MsoTriState.msoCTrue, leftImagePosition, topImagePosition, 900, 600);
+                            topImagePosition = topImagePosition + 600;
+                        }                        
                     }
                     i = i + 1;
                 }
@@ -526,12 +539,49 @@ namespace MNsure_Regression_1
                         if (s == myHistoryInfo.myTestStepWindow)
                         {
                             driver.Manage().Window.Maximize();
-                            //driver.Manage().Window.Size = new System.Drawing.Size(System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Width - 10, System.Windows.Forms.Screen.PrimaryScreen.WorkingArea.Height - 10);
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-                            myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + ".jpg";
+                            SqlCeConnection con;
+                            string conString = Properties.Settings.Default.Database1ConnectionString;
+                            int windowCount = 1;
+                            try
+                            {
+                                // Open the connection using the connection string.
+                                con = new SqlCeConnection(conString);
+                                con.Open();
+                                using (SqlCeCommand com = new SqlCeCommand("SELECT Count(*) FROM TestSteps where TestId = " + "'" + myHistoryInfo.myTestId + "'" + " and Window = " + "'" + myHistoryInfo.myTestStepWindow + "'", con))
+                                {
+                                    SqlCeDataReader reader = com.ExecuteReader();
+                                    if (reader.Read())
+                                    {
+                                        windowCount = reader.GetInt32(0);
+                                    }
+                                    else
+                                    {
+                                        windowCount = 1;
+                                    }
+                                }
+                            }
+                            catch
+                            {
+                                windowCount = 1;
+                            }
+
+                            for (int iLoop = 1; iLoop <= windowCount; iLoop++)
+                            {
+                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + "_" + iLoop + ".jpg";
+                            }
+                            
                             ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
                             myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
-                            myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
+                            //you can hit the same window multiple times so capture all screenshots
+                            if (myHistoryInfo.myRequiredScreenshotFile[i] == null)
+                            {
+                                myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
+                            }
+                            else
+                            {
+                                myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myRequiredScreenshotFile[i] + ", " + myHistoryInfo.myScreenShot;
+                            }
                         }
                         i = i + 1;
                     }

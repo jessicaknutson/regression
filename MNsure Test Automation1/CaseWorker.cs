@@ -82,9 +82,9 @@ namespace MNsure_Regression_1
                 myAccountCreate.myCaseWorkerLoginId = "USRST117";
 
                 driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@12345");//Enter password
-
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-
+                
                 driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();//Click sign in button
 
                 returnStatus = "Pass";
