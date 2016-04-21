@@ -167,6 +167,9 @@ struct mystructSelectedTest
         public string myRenewalCov;
         public string myWithDiscounts;
         public string myIsPregnant;
+        public string myChildren;
+        public string myDueDate;
+        public string myPregnancyEnded;
     }
     struct mystructSSN
     {
@@ -201,14 +204,14 @@ struct mystructSelectedTest
         public string myMiddleName;
         public string myLastName;
         public string mySuffix;
-        public string myHomeAddress1;
-        public string myHomeAddress2;
-        public string myHomeAptSuite;
-        public string myHomeCity;
-        public string myHomeState;
-        public string myHomeZip;
+        public string myMailAddress1;
+        public string myMailAddress2;
+        public string myMailAptSuite;
+        public string myMailCity;
+        public string myMailState;
+        public string myMailZip;
         //public string myHomeZip4;
-        public string myHomeCounty;        
+        public string myMailCounty;        
         public string myGender;
         public string myMaritalStatus;
         public string myDOB;
@@ -260,6 +263,9 @@ struct mystructSelectedTest
         public string myAuthRep;
         public string myDependants;
         public string myTaxFiler;
+        public string myChildren;
+        public string myDueDate;
+        public string myPregnancyEnded;
     }
 
     struct mystructEditKey

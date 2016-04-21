@@ -472,7 +472,7 @@ namespace MNsure_Regression_1
                             {
                                 string tempDOB;
                                 tempDOB = Convert.ToString(reader.GetDateTime(8));
-                                tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
+                                tempDOB = DateTime.Parse(tempDOB).ToString("M/d/yyyy");
                                 if (tempDOB != "01/01/2011")
                                 {
                                     myApplication.myDOB = tempDOB;
@@ -563,6 +563,9 @@ namespace MNsure_Regression_1
                             myApplication.myRenewalCov = reader.GetString(59);
                             myApplication.myWithDiscounts = reader.GetString(60);
                             myApplication.myIsPregnant = reader.GetString(61);
+                            if (!reader.IsDBNull(62)) { myApplication.myChildren = reader.GetString(62); }
+                            if (!reader.IsDBNull(63)) { myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63)); }
+                            if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64)); }
                         }
                         else
                         {
@@ -631,13 +634,13 @@ namespace MNsure_Regression_1
                     //reset address values before continuing
                     if (myApplication.myHouseholdOther == "Yes") 
                     {
-                        myHouseholdMembers.myHomeAddress1 = "";
-                        myHouseholdMembers.myHomeAddress2 = "";
-                        myHouseholdMembers.myHomeAptSuite = "";
-                        myHouseholdMembers.myHomeCity = "";
-                        myHouseholdMembers.myHomeState = "";
-                        myHouseholdMembers.myHomeZip = "";
-                        myHouseholdMembers.myHomeCounty = "";                      
+                        myHouseholdMembers.myMailAddress1 = "";
+                        myHouseholdMembers.myMailAddress2 = "";
+                        myHouseholdMembers.myMailAptSuite = "";
+                        myHouseholdMembers.myMailCity = "";
+                        myHouseholdMembers.myMailState = "";
+                        myHouseholdMembers.myMailZip = "";
+                        myHouseholdMembers.myMailCounty = "";                      
                     }
                     SqlCeCommand cmd3 = con.CreateCommand();
                     cmd3.CommandType = CommandType.Text;
@@ -671,20 +674,20 @@ namespace MNsure_Regression_1
                                     myApplication.myHomeAptSuite = reader.GetString(11);
                                 }
                             }
-                            else if (reader.GetString(9) == "HH2 Home")
+                            else if (reader.GetString(9) == "Household 2")
                             {
-                                myHouseholdMembers.myHomeAddress1 = reader.GetString(3);
+                                myHouseholdMembers.myMailAddress1 = reader.GetString(3);
                                 if (!reader.IsDBNull(4))
                                 {
-                                    myHouseholdMembers.myHomeAddress2 = reader.GetString(4);
+                                    myHouseholdMembers.myMailAddress2 = reader.GetString(4);
                                 }
-                                myHouseholdMembers.myHomeCity = reader.GetString(5);
-                                myHouseholdMembers.myHomeState = reader.GetString(6);
-                                myHouseholdMembers.myHomeZip = reader.GetString(7);
-                                myHouseholdMembers.myHomeCounty = reader.GetString(10);
+                                myHouseholdMembers.myMailCity = reader.GetString(5);
+                                myHouseholdMembers.myMailState = reader.GetString(6);
+                                myHouseholdMembers.myMailZip = reader.GetString(7);
+                                myHouseholdMembers.myMailCounty = reader.GetString(10);
                                 if (!reader.IsDBNull(11))
                                 {
-                                    myHouseholdMembers.myHomeAptSuite = reader.GetString(11);
+                                    myHouseholdMembers.myMailAptSuite = reader.GetString(11);
                                 }
                             }                           
                             else
@@ -826,7 +829,7 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myMilitary = reader.GetString(43);
                                 if (!reader.IsDBNull(44))
                                 {
-                                    myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy");
+                                    myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44)); 
                                 }
                                 myHouseholdMembers.myPrefContact = reader.GetString(45);
                                 myHouseholdMembers.myPhoneNum = reader.GetString(46);
@@ -839,6 +842,9 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myAuthRep = reader.GetString(53);
                                 myHouseholdMembers.myDependants = reader.GetString(54);
                                 myHouseholdMembers.myTaxFiler = reader.GetString(55);
+                                if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
+                                if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); }
+                                if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); }
                             }
                             com4.ExecuteNonQuery();
                             com4.Dispose();
@@ -935,7 +941,7 @@ namespace MNsure_Regression_1
                     dateTimeMilitary.CustomFormat = " ";
                 }
                 dateTimeMilitary.Text = myApplication.myMilitaryDate;
-                if (myApplication.myMilitaryDate != null && myApplication.myMilitaryDate != " ")
+                if (myApplication.myMilitaryDate != null && myApplication.myMilitaryDate != "")
                 {
                     string tempMilitary;
                     tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
@@ -971,6 +977,50 @@ namespace MNsure_Regression_1
                 comboBoxRenewalCov.Text = myApplication.myRenewalCov;
                 comboBoxWithDiscounts.Text = myApplication.myWithDiscounts;
                 comboBoxPregnant.Text = myApplication.myIsPregnant;
+                comboBoxChildren.Text = myApplication.myChildren;
+                if (myApplication.myIsPregnant == "Yes")
+                {
+                    dateTimeDueDate.Enabled = true;
+                    dateTimeDueDate.Format = DateTimePickerFormat.Short;
+                }
+                else
+                {
+                    dateTimeDueDate.Enabled = false;
+                    dateTimeDueDate.Format = DateTimePickerFormat.Custom;
+                    dateTimeDueDate.CustomFormat = " ";                    
+                }
+                if (comboBoxPregnancyDone.Text == "Yes")
+                {
+                    dateTimePregnancyEnded.Enabled = true;
+                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
+                }
+                else
+                {
+                    dateTimePregnancyEnded.Enabled = false;
+                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Custom;
+                    dateTimePregnancyEnded.CustomFormat = " ";
+                }
+                if (myApplication.myDueDate != null && myApplication.myDueDate != " ")
+                {
+                    string tempDueDate;
+                    tempDueDate = Convert.ToString(myApplication.myDueDate);
+                    tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                    dateTimeDueDate.Format = DateTimePickerFormat.Short;
+                    dateTimeDueDate.Value = Convert.ToDateTime(tempDueDate);
+                }                
+                if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != " ")
+                {
+                    string tempPregnancyEnded;
+                    tempPregnancyEnded = Convert.ToString(myApplication.myPregnancyEnded);
+                    tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
+                    dateTimePregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+                    comboBoxPregnancyDone.Text = "Yes";
+                } 
+                else
+                {
+                    comboBoxPregnancyDone.Text = "No";
+                }
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
@@ -985,13 +1035,13 @@ namespace MNsure_Regression_1
                     comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
                     comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
                     comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-                    textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
-                    textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
-                    textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
-                    textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
-                    comboBoxHMState.Text = myHouseholdMembers.myHomeState;
-                    textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
-                    comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;                    
+                    textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
+                    textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
+                    textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
+                    textBoxHMCity.Text = myHouseholdMembers.myMailCity;
+                    comboBoxHMState.Text = myHouseholdMembers.myMailState;
+                    textBoxHMZip.Text = myHouseholdMembers.myMailZip;
+                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;                    
                     comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
                     comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
                     comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -1052,6 +1102,45 @@ namespace MNsure_Regression_1
                     comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
                     comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
                     comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
+                    comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
+                    if (myHouseholdMembers.myIsPregnant == "Yes")
+                    {
+                        dateTimeHMDueDate.Enabled = true;
+                        dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeHMDueDate.Enabled = false;
+                        dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
+                        dateTimeHMDueDate.CustomFormat = " ";
+                    }
+                    if (comboBoxHMPregnancyDone.Text == "Yes")
+                    {
+                        dateTimeHMPregnancyEnded.Enabled = true;
+                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeHMPregnancyEnded.Enabled = false;
+                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
+                        dateTimeHMPregnancyEnded.CustomFormat = " ";
+                    }
+                    if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
+                    {
+                        string tempDueDate;
+                        tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
+                        tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                        dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                        dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
+                    }
+                    if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
+                    {
+                        string tempPregnancyEnded;
+                        tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
+                        tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                        dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+                    } 
 
                     textBoxCurrentMember.Text = "2";
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
@@ -1175,6 +1264,15 @@ namespace MNsure_Regression_1
             myApplication.myRenewalCov = comboBoxRenewalCov.Text;
             myApplication.myWithDiscounts = comboBoxWithDiscounts.Text;
             myApplication.myIsPregnant = comboBoxPregnant.Text;
+            myApplication.myChildren = comboBoxChildren.Text;
+            if (dateTimeDueDate.Text != " ")
+            {
+                myApplication.myDueDate = dateTimeDueDate.Text;
+            }
+            if (dateTimePregnancyEnded.Text != " ")
+            {
+                myApplication.myPregnancyEnded = dateTimePregnancyEnded.Text;
+            }
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -1204,7 +1302,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -1289,6 +1387,23 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("RenewalCov", myApplication.myRenewalCov);
                     com2.Parameters.AddWithValue("WithDiscounts", myApplication.myWithDiscounts);
                     com2.Parameters.AddWithValue("Pregnant", myApplication.myIsPregnant);
+                    com2.Parameters.AddWithValue("Children", myApplication.myChildren);
+                    if (myApplication.myDueDate != "" && myApplication.myDueDate != null)
+                    {
+                        com2.Parameters.AddWithValue("DueDate", myApplication.myDueDate);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("DueDate", DBNull.Value);
+                    }
+                    if (myApplication.myPregnancyEnded != "" && myApplication.myPregnancyEnded != null)
+                    {
+                        com2.Parameters.AddWithValue("PregnancyEnded", myApplication.myPregnancyEnded);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                    }
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -1898,13 +2013,13 @@ namespace MNsure_Regression_1
                     comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
                     comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
                     comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-                    textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
-                    textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
-                    textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
-                    textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
-                    comboBoxHMState.Text = myHouseholdMembers.myHomeState;
-                    textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
-                    comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;                    
+                    textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
+                    textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
+                    textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
+                    textBoxHMCity.Text = myHouseholdMembers.myMailCity;
+                    comboBoxHMState.Text = myHouseholdMembers.myMailState;
+                    textBoxHMZip.Text = myHouseholdMembers.myMailZip;
+                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;                    
                     comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
                     comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
                     comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -1965,6 +2080,23 @@ namespace MNsure_Regression_1
                     comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
                     comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
                     comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
+                    comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
+                    if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
+                    {
+                        string tempDueDate;
+                        tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
+                        tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                        dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                        dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
+                    }
+                    if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
+                    {
+                        string tempPregnancyEnded;
+                        tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
+                        tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                        dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+                    } 
 
                     textBoxCurrentMember.Text = "2";
                 }
@@ -4489,13 +4621,13 @@ namespace MNsure_Regression_1
             comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
             comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
             comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-            textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
-            textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
-            textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
-            textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
-            comboBoxHMState.Text = myHouseholdMembers.myHomeState;
-            textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
-            comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;            
+            textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
+            textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
+            textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
+            textBoxHMCity.Text = myHouseholdMembers.myMailCity;
+            comboBoxHMState.Text = myHouseholdMembers.myMailState;
+            textBoxHMZip.Text = myHouseholdMembers.myMailZip;
+            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;            
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -4556,6 +4688,23 @@ namespace MNsure_Regression_1
             comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
             comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
             comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
+            comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
+            if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
+            {
+                string tempDueDate;
+                tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
+                tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
+            }
+            if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
+            {
+                string tempPregnancyEnded;
+                tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
+                tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+            } 
 
             textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
             if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
@@ -4602,13 +4751,13 @@ namespace MNsure_Regression_1
             comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
             comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
             comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-            textBoxHMAddress1.Text = myHouseholdMembers.myHomeAddress1;
-            textBoxHMAddress2.Text = myHouseholdMembers.myHomeAddress2;
-            textBoxHMAptSuite.Text = myHouseholdMembers.myHomeAptSuite;
-            textBoxHMCity.Text = myHouseholdMembers.myHomeCity;
-            comboBoxHMState.Text = myHouseholdMembers.myHomeState;
-            textBoxHMZip.Text = myHouseholdMembers.myHomeZip;
-            comboBoxHMCounty.Text = myHouseholdMembers.myHomeCounty;           
+            textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
+            textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
+            textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
+            textBoxHMCity.Text = myHouseholdMembers.myMailCity;
+            comboBoxHMState.Text = myHouseholdMembers.myMailState;
+            textBoxHMZip.Text = myHouseholdMembers.myMailZip;
+            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;           
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -4669,6 +4818,23 @@ namespace MNsure_Regression_1
             comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
             comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
             comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
+            comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
+            if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
+            {
+                string tempDueDate;
+                tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
+                tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
+            }
+            if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
+            {
+                string tempPregnancyEnded;
+                tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
+                tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+            } 
 
             textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
             if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
@@ -4851,13 +5017,13 @@ namespace MNsure_Regression_1
             myHouseholdMembers.myLiveInMN = comboBoxHMLiveMN.Text;
             myHouseholdMembers.myTempAbsentMN = comboBoxHMTempAbsentMN.Text;
             myHouseholdMembers.myHomeless = comboBoxHMHomeless.Text;
-            myHouseholdMembers.myHomeAddress1 = textBoxHMAddress1.Text;
-            myHouseholdMembers.myHomeAddress2 = textBoxHMAddress2.Text;
-            myHouseholdMembers.myHomeAptSuite = textBoxHMAptSuite.Text;
-            myHouseholdMembers.myHomeCity = textBoxHMCity.Text;
-            myHouseholdMembers.myHomeState = comboBoxHMState.Text;
-            myHouseholdMembers.myHomeZip = textBoxHMZip.Text;
-            myHouseholdMembers.myHomeCounty = comboBoxHMCounty.Text;            
+            myHouseholdMembers.myMailAddress1 = textBoxHMAddress1.Text;
+            myHouseholdMembers.myMailAddress2 = textBoxHMAddress2.Text;
+            myHouseholdMembers.myMailAptSuite = textBoxHMAptSuite.Text;
+            myHouseholdMembers.myMailCity = textBoxHMCity.Text;
+            myHouseholdMembers.myMailState = comboBoxHMState.Text;
+            myHouseholdMembers.myMailZip = textBoxHMZip.Text;
+            myHouseholdMembers.myMailCounty = comboBoxHMCounty.Text;            
             myHouseholdMembers.myPlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
             myHouseholdMembers.mySeekEmplMN = comboBoxHMSeekingEmployment.Text;
             myHouseholdMembers.myPersonHighlighted = comboBoxHMPersonHighlighted.Text;
@@ -4902,18 +5068,26 @@ namespace MNsure_Regression_1
             myHouseholdMembers.myAuthRep = comboBoxHMAuthRep.Text;
             myHouseholdMembers.myDependants = comboBoxHMDependant.Text;
             myHouseholdMembers.myTaxFiler = comboBoxHMTaxFiler.Text;
+            myHouseholdMembers.myChildren = comboBoxHMChildren.Text;
+            if (dateTimeHMDueDate.Text != " ")
+            {
+                myHouseholdMembers.myDueDate = dateTimeHMDueDate.Text;
+            }
+            if (dateTimeHMPregnancyEnded.Text != " ")
+            {
+                myHouseholdMembers.myPregnancyEnded = dateTimeHMPregnancyEnded.Text;
+            }
 
             myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             string myInsertString;
-
-            try
-            {
-                // Open the connection using the connection string.
+            // Open the connection using the connection string.
                 con = new SqlCeConnection(conString);
                 con.Open();
 
+            try
+            {               
                 //Delete row, then insert a new on based on the currently selected member.
                 myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
                 SqlCeCommand cmd2 = con.CreateCommand();
@@ -4925,7 +5099,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded );";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -4990,16 +5164,112 @@ namespace MNsure_Regression_1
                     com2.Parameters.AddWithValue("AuthRep", myHouseholdMembers.myAuthRep);
                     com2.Parameters.AddWithValue("Dependant", myHouseholdMembers.myDependants);
                     com2.Parameters.AddWithValue("TaxFiler", myHouseholdMembers.myTaxFiler);
+                    com2.Parameters.AddWithValue("Children", myHouseholdMembers.myChildren);
+                    if (myHouseholdMembers.myDueDate != "" && myHouseholdMembers.myDueDate != null)
+                    {
+                        com2.Parameters.AddWithValue("DueDate", myHouseholdMembers.myDueDate);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("DueDate", DBNull.Value);
+                    }
+                    if (myHouseholdMembers.myPregnancyEnded != "" && myHouseholdMembers.myPregnancyEnded != null)
+                    {
+                        com2.Parameters.AddWithValue("PregnancyEnded", myHouseholdMembers.myPregnancyEnded);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                    }
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
                 }
+
+                SqlCeCommand cmd3 = con.CreateCommand();
+                cmd3.CommandType = CommandType.Text;
+                try
+                {
+                    cmd3.CommandText = "Delete from Address where TestId = " + myTestId + " and Type = Household 2;";
+                    cmd3.ExecuteNonQuery();
+                }
+                catch
+                {
+                    //fail silently
+                }
+
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myEditKey.myNextAddressId = Convert.ToString(reader.GetInt32(0) + 1);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Did not find Address id");
+                    }
+                    com3.Dispose();
+                }
+
+                /*SqlCeCommand cmd4 = con.CreateCommand();
+                cmd4.CommandType = CommandType.Text;
+                try
+                {
+                    cmd4.CommandText = "Delete from Address where TestId = " + myTestId + ";";
+                    cmd4.ExecuteNonQuery();
+                }
+                catch
+                {
+                    //fail silently
+                }*/
+
+                //Basic address stuff
+                if (myHouseholdMembers.myMailAddress1 != "")
+                {
+                    string myInsertString3;
+                    myInsertString3 = "Insert into Address values (" + 1 + ", " + myTestId +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+                    using (SqlCeCommand com5 = new SqlCeCommand(myInsertString3, con))
+                    {
+                        myEditKey.myNextAddressId = Convert.ToString(Convert.ToInt32(myEditKey.myNextAddressId) + 1);
+
+                        com5.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                        com5.Parameters.AddWithValue("Address1", myHouseholdMembers.myMailAddress1);
+                        if (myHouseholdMembers.myMailAddress2 != "")
+                        {
+                            com5.Parameters.AddWithValue("Address2", myHouseholdMembers.myMailAddress2);
+                        }
+                        else
+                        {
+                            com5.Parameters.AddWithValue("Address2", DBNull.Value);
+                        }
+                        com5.Parameters.AddWithValue("City", myHouseholdMembers.myMailCity);
+                        com5.Parameters.AddWithValue("State", myHouseholdMembers.myMailState);
+                        com5.Parameters.AddWithValue("Zip", myHouseholdMembers.myMailZip);
+                        com5.Parameters.AddWithValue("Zip4", DBNull.Value);
+                        
+                        com5.Parameters.AddWithValue("County", myHouseholdMembers.myMailCounty);
+                        if (myHouseholdMembers.myMailAptSuite != "")
+                        {
+                            com5.Parameters.AddWithValue("AptSuite", myHouseholdMembers.myMailAptSuite);
+                        }
+                        else
+                        {
+                            com5.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                        }
+                        com5.Parameters.AddWithValue("Type", "Household 2");
+
+                        com5.ExecuteNonQuery();
+                        com5.Dispose();
+                    }
+                } 
             }
             catch (Exception g)
             {
                 MessageBox.Show("Failed to Save HM: " + g);
-
-            }
+            }                         
+  
             myHouseholdMembers.NumMembers = Convert.ToInt32(textBoxTotalMembers.Text);
             buttonSaveMember.BackColor = Color.Transparent;
             buttonDeleteMember.Enabled = true;
@@ -5031,6 +5301,70 @@ namespace MNsure_Regression_1
             {
                 dateTimeHMMilitary.Enabled = true;
                 dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void comboBoxPregnant_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBoxPregnant.Text == "No")
+            {
+                myApplication.myDueDate = null;
+                dateTimeDueDate.Enabled = false;
+                dateTimeDueDate.Format = DateTimePickerFormat.Custom;
+                dateTimeDueDate.CustomFormat = " ";                
+            }
+            else
+            {
+                dateTimeDueDate.Enabled = true;
+                dateTimeDueDate.Format = DateTimePickerFormat.Short;                
+            }
+        }
+
+        private void comboBoxHMPregnant_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBoxHMPregnant.Text == "No")
+            {
+                myHouseholdMembers.myDueDate = null;
+                dateTimeHMDueDate.Enabled = false;
+                dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
+                dateTimeHMDueDate.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimeHMDueDate.Enabled = true;
+                dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void comboBoxPregnancyDone_SelectedValueChanged(object sender, EventArgs e)
+        {            
+            if (comboBoxPregnancyDone.Text == "No")
+            {
+                myApplication.myPregnancyEnded = null;
+                dateTimePregnancyEnded.Enabled = false;
+                dateTimePregnancyEnded.Format = DateTimePickerFormat.Custom;
+                dateTimePregnancyEnded.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimePregnancyEnded.Enabled = true;
+                dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void comboBoxHMPregnancyDone_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (comboBoxHMPregnancyDone.Text == "No")
+            {
+                myHouseholdMembers.myPregnancyEnded = null;
+                dateTimeHMPregnancyEnded.Enabled = false;
+                dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
+                dateTimeHMPregnancyEnded.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimeHMPregnancyEnded.Enabled = true;
+                dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
             }
         }
 

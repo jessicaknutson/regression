@@ -136,10 +136,10 @@ namespace MNsure_Regression_1
                     {
                         FillStructures myFillStructures = new FillStructures();
                         int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "3");
-                        if (myHouseholdMembers.myHasIncome == "Yes" && myHouseholdMembers.myDependants == "No")
-                        {
-                            myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[2]/div/span/span/span/span[3]/span")).Click();
-                        }
+                    }
+                    if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && myHouseholdMembers.myHasIncome == "Yes" && myHouseholdMembers.myDependants == "No" && myHouseholdMembers.myTaxFiler == "Yes")
+                    {
+                        myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div[2]/div[2]/div[2]/div/span/span/span/span[3]/span")).Click();
                     }
                     else
                     {
@@ -188,7 +188,12 @@ namespace MNsure_Regression_1
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_2"))));
                 }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                else if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "2")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));
+                }
+                else if ( ( myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "3")
+                    || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2") ) 
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_6"))));
                 }
@@ -203,7 +208,12 @@ namespace MNsure_Regression_1
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_2"));
                 }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                else if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "2")
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_4"));
+                }
+                else if ((myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "3")
+                    || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")) 
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_6"));
                 }
@@ -211,7 +221,27 @@ namespace MNsure_Regression_1
                 {
                     buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_10"));
                 }
-                buttonContinue.Click();
+                ApplicationDo myApp = new ApplicationDo();
+                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "1")
+                {
+                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screen another time
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "2")
+                {
+                    myHouseholdMembers.myPassCount = "3";//update count to 3 to do the screen another time
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);                    
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "3")
+                {
+                    myHouseholdMembers.myPassCount = "1";//update count to 1 to continue to next screens
+                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    buttonContinue.Click();//this does not always work so much select these 2 screens 3 times, this is a current known production bug
+                }
+                else
+                {
+                    buttonContinue.Click();
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -261,12 +291,12 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {                   
-                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
+                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screens another time
                     myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
-                    myHouseholdMembers.myPassCount = "3";//update count to 2 to do the income screens another time
+                    myHouseholdMembers.myPassCount = "3";//update count to 2 to do the screens another time
                     myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 else
@@ -412,7 +442,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoPlanDetails(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
+        public int DoMedicalPlanDetails(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
@@ -454,6 +484,48 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoDentalPlanDetails(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
+
+            try
+            {
+                if (myHistoryInfo.myRelogin == "Yes")
+                {
+                    myDriver = driver3;
+                }
+                System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]")));
+
+                IWebElement shopDentalButton = myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]"));
+                shopDentalButton.Click();
+
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+
+                //check for text at the bottom
+                IWebElement buttonSelectThisPlan = myDriver.FindElement(By.CssSelector("a.buttonPrimary._enroll"));
+                buttonSelectThisPlan.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoPlanSummary(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {
@@ -473,7 +545,7 @@ namespace MNsure_Regression_1
                 IWebElement buttonEnroll3 = myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
                 buttonEnroll3.Click();
 
-                System.Threading.Thread.Sleep(25000);
+                System.Threading.Thread.Sleep(30000);
                 myDriver.SwitchTo().DefaultContent();
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
@@ -565,7 +637,7 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(8000);
+                System.Threading.Thread.Sleep(10000);
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Name("enrollment.individual.signature.firstName"))));
                 IWebElement textboxSignatureFirst = myDriver.FindElement(By.Name("enrollment.individual.signature.firstName"));
                 textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);

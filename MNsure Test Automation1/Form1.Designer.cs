@@ -84,6 +84,13 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.comboBoxHMPregnancyDone = new System.Windows.Forms.ComboBox();
+            this.comboBoxHMChildren = new System.Windows.Forms.ComboBox();
+            this.dateTimeHMPregnancyEnded = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeHMDueDate = new System.Windows.Forms.DateTimePicker();
+            this.label176 = new System.Windows.Forms.Label();
+            this.label177 = new System.Windows.Forms.Label();
+            this.label178 = new System.Windows.Forms.Label();
             this.comboBoxHMState = new System.Windows.Forms.ComboBox();
             this.label61 = new System.Windows.Forms.Label();
             this.comboBoxHMTaxFiler = new System.Windows.Forms.ComboBox();
@@ -220,6 +227,13 @@
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
             this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
+            this.comboBoxPregnancyDone = new System.Windows.Forms.ComboBox();
+            this.comboBoxChildren = new System.Windows.Forms.ComboBox();
+            this.dateTimePregnancyEnded = new System.Windows.Forms.DateTimePicker();
+            this.dateTimeDueDate = new System.Windows.Forms.DateTimePicker();
+            this.label175 = new System.Windows.Forms.Label();
+            this.label174 = new System.Windows.Forms.Label();
+            this.label173 = new System.Windows.Forms.Label();
             this.comboBoxPregnant = new System.Windows.Forms.ComboBox();
             this.comboBoxRenewalCov = new System.Windows.Forms.ComboBox();
             this.label172 = new System.Windows.Forms.Label();
@@ -1070,6 +1084,13 @@
             // 
             // groupBoxHouseholdOther
             // 
+            this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMPregnancyDone);
+            this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMChildren);
+            this.groupBoxHouseholdOther.Controls.Add(this.dateTimeHMPregnancyEnded);
+            this.groupBoxHouseholdOther.Controls.Add(this.dateTimeHMDueDate);
+            this.groupBoxHouseholdOther.Controls.Add(this.label176);
+            this.groupBoxHouseholdOther.Controls.Add(this.label177);
+            this.groupBoxHouseholdOther.Controls.Add(this.label178);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMState);
             this.groupBoxHouseholdOther.Controls.Add(this.label61);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMTaxFiler);
@@ -1196,6 +1217,80 @@
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
             // 
+            // comboBoxHMPregnancyDone
+            // 
+            this.comboBoxHMPregnancyDone.FormattingEnabled = true;
+            this.comboBoxHMPregnancyDone.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.comboBoxHMPregnancyDone.Location = new System.Drawing.Point(616, 251);
+            this.comboBoxHMPregnancyDone.Name = "comboBoxHMPregnancyDone";
+            this.comboBoxHMPregnancyDone.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMPregnancyDone.TabIndex = 165;
+            this.comboBoxHMPregnancyDone.SelectionChangeCommitted += new System.EventHandler(this.comboBoxHMPregnancyDone_SelectionChangeCommitted);
+            // 
+            // comboBoxHMChildren
+            // 
+            this.comboBoxHMChildren.FormattingEnabled = true;
+            this.comboBoxHMChildren.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxHMChildren.Location = new System.Drawing.Point(271, 251);
+            this.comboBoxHMChildren.Name = "comboBoxHMChildren";
+            this.comboBoxHMChildren.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxHMChildren.TabIndex = 163;
+            // 
+            // dateTimeHMPregnancyEnded
+            // 
+            this.dateTimeHMPregnancyEnded.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeHMPregnancyEnded.Location = new System.Drawing.Point(683, 251);
+            this.dateTimeHMPregnancyEnded.Name = "dateTimeHMPregnancyEnded";
+            this.dateTimeHMPregnancyEnded.Size = new System.Drawing.Size(100, 20);
+            this.dateTimeHMPregnancyEnded.TabIndex = 162;
+            // 
+            // dateTimeHMDueDate
+            // 
+            this.dateTimeHMDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeHMDueDate.Location = new System.Drawing.Point(397, 251);
+            this.dateTimeHMDueDate.Name = "dateTimeHMDueDate";
+            this.dateTimeHMDueDate.Size = new System.Drawing.Size(100, 20);
+            this.dateTimeHMDueDate.TabIndex = 161;
+            // 
+            // label176
+            // 
+            this.label176.AutoSize = true;
+            this.label176.Location = new System.Drawing.Point(336, 254);
+            this.label176.Name = "label176";
+            this.label176.Size = new System.Drawing.Size(57, 13);
+            this.label176.TabIndex = 160;
+            this.label176.Text = "Due date?";
+            // 
+            // label177
+            // 
+            this.label177.AutoSize = true;
+            this.label177.Location = new System.Drawing.Point(513, 254);
+            this.label177.Name = "label177";
+            this.label177.Size = new System.Drawing.Size(97, 13);
+            this.label177.TabIndex = 159;
+            this.label177.Text = "Pregnancy ended?";
+            // 
+            // label178
+            // 
+            this.label178.AutoSize = true;
+            this.label178.Location = new System.Drawing.Point(162, 254);
+            this.label178.Name = "label178";
+            this.label178.Size = new System.Drawing.Size(103, 13);
+            this.label178.TabIndex = 158;
+            this.label178.Text = "How many children?";
+            // 
             // comboBoxHMState
             // 
             this.comboBoxHMState.FormattingEnabled = true;
@@ -1279,7 +1374,7 @@
             this.comboBoxHMTaxFiler.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMTaxFiler.Location = new System.Drawing.Point(817, 308);
+            this.comboBoxHMTaxFiler.Location = new System.Drawing.Point(817, 319);
             this.comboBoxHMTaxFiler.Name = "comboBoxHMTaxFiler";
             this.comboBoxHMTaxFiler.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMTaxFiler.TabIndex = 141;
@@ -1287,7 +1382,7 @@
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(747, 311);
+            this.label73.Location = new System.Drawing.Point(747, 322);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(64, 13);
             this.label73.TabIndex = 140;
@@ -1299,7 +1394,7 @@
             this.comboBoxHMDependant.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMDependant.Location = new System.Drawing.Point(686, 308);
+            this.comboBoxHMDependant.Location = new System.Drawing.Point(686, 319);
             this.comboBoxHMDependant.Name = "comboBoxHMDependant";
             this.comboBoxHMDependant.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMDependant.TabIndex = 139;
@@ -1307,7 +1402,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(583, 311);
+            this.label36.Location = new System.Drawing.Point(583, 322);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(98, 13);
             this.label36.TabIndex = 138;
@@ -1349,7 +1444,7 @@
             "Is Unrelated to",
             "Is Ward of",
             ""});
-            this.comboBoxHMRelationship2.Location = new System.Drawing.Point(322, 308);
+            this.comboBoxHMRelationship2.Location = new System.Drawing.Point(322, 319);
             this.comboBoxHMRelationship2.Name = "comboBoxHMRelationship2";
             this.comboBoxHMRelationship2.Size = new System.Drawing.Size(120, 21);
             this.comboBoxHMRelationship2.TabIndex = 137;
@@ -1357,7 +1452,7 @@
             // label161
             // 
             this.label161.AutoSize = true;
-            this.label161.Location = new System.Drawing.Point(233, 311);
+            this.label161.Location = new System.Drawing.Point(233, 322);
             this.label161.Name = "label161";
             this.label161.Size = new System.Drawing.Size(84, 13);
             this.label161.TabIndex = 136;
@@ -1898,7 +1993,7 @@
             this.comboBoxHMFileJointly.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMFileJointly.Location = new System.Drawing.Point(524, 308);
+            this.comboBoxHMFileJointly.Location = new System.Drawing.Point(524, 319);
             this.comboBoxHMFileJointly.Name = "comboBoxHMFileJointly";
             this.comboBoxHMFileJointly.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMFileJointly.TabIndex = 86;
@@ -1906,7 +2001,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(459, 311);
+            this.label78.Location = new System.Drawing.Point(459, 322);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(61, 13);
             this.label78.TabIndex = 85;
@@ -2040,7 +2135,7 @@
             "Is Unrelated to",
             "Is Ward of",
             ""});
-            this.comboBoxHMRelationship.Location = new System.Drawing.Point(101, 308);
+            this.comboBoxHMRelationship.Location = new System.Drawing.Point(101, 319);
             this.comboBoxHMRelationship.Name = "comboBoxHMRelationship";
             this.comboBoxHMRelationship.Size = new System.Drawing.Size(120, 21);
             this.comboBoxHMRelationship.TabIndex = 69;
@@ -2048,7 +2143,7 @@
             // label81
             // 
             this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(12, 311);
+            this.label81.Location = new System.Drawing.Point(12, 322);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(84, 13);
             this.label81.TabIndex = 68;
@@ -2060,7 +2155,7 @@
             this.comboBoxHMBeenInFosterCare.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMBeenInFosterCare.Location = new System.Drawing.Point(628, 225);
+            this.comboBoxHMBeenInFosterCare.Location = new System.Drawing.Point(428, 225);
             this.comboBoxHMBeenInFosterCare.Name = "comboBoxHMBeenInFosterCare";
             this.comboBoxHMBeenInFosterCare.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMBeenInFosterCare.TabIndex = 67;
@@ -2068,7 +2163,7 @@
             // label80
             // 
             this.label80.AutoSize = true;
-            this.label80.Location = new System.Drawing.Point(543, 228);
+            this.label80.Location = new System.Drawing.Point(343, 228);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(79, 13);
             this.label80.TabIndex = 66;
@@ -2080,15 +2175,16 @@
             this.comboBoxHMPregnant.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMPregnant.Location = new System.Drawing.Point(442, 225);
+            this.comboBoxHMPregnant.Location = new System.Drawing.Point(98, 251);
             this.comboBoxHMPregnant.Name = "comboBoxHMPregnant";
             this.comboBoxHMPregnant.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMPregnant.TabIndex = 65;
+            this.comboBoxHMPregnant.SelectedValueChanged += new System.EventHandler(this.comboBoxHMPregnant_SelectedValueChanged);
             // 
             // label79
             // 
             this.label79.AutoSize = true;
-            this.label79.Location = new System.Drawing.Point(371, 228);
+            this.label79.Location = new System.Drawing.Point(27, 254);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(67, 13);
             this.label79.TabIndex = 64;
@@ -2100,7 +2196,7 @@
             this.comboBoxHMTempAbsentMN.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMTempAbsentMN.Location = new System.Drawing.Point(141, 249);
+            this.comboBoxHMTempAbsentMN.Location = new System.Drawing.Point(141, 276);
             this.comboBoxHMTempAbsentMN.Name = "comboBoxHMTempAbsentMN";
             this.comboBoxHMTempAbsentMN.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMTempAbsentMN.TabIndex = 58;
@@ -2108,7 +2204,7 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(22, 253);
+            this.label77.Location = new System.Drawing.Point(22, 280);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(115, 13);
             this.label77.TabIndex = 57;
@@ -2120,7 +2216,7 @@
             this.comboBoxHMUSNational.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMUSNational.Location = new System.Drawing.Point(667, 249);
+            this.comboBoxHMUSNational.Location = new System.Drawing.Point(667, 276);
             this.comboBoxHMUSNational.Name = "comboBoxHMUSNational";
             this.comboBoxHMUSNational.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMUSNational.TabIndex = 52;
@@ -2186,7 +2282,7 @@
             this.comboBoxHMSeekingEmployment.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMSeekingEmployment.Location = new System.Drawing.Point(515, 249);
+            this.comboBoxHMSeekingEmployment.Location = new System.Drawing.Point(515, 276);
             this.comboBoxHMSeekingEmployment.Name = "comboBoxHMSeekingEmployment";
             this.comboBoxHMSeekingEmployment.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMSeekingEmployment.TabIndex = 45;
@@ -2347,7 +2443,7 @@
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(581, 253);
+            this.label75.Location = new System.Drawing.Point(581, 280);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(81, 13);
             this.label75.TabIndex = 26;
@@ -2401,7 +2497,7 @@
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(201, 253);
+            this.label68.Location = new System.Drawing.Point(201, 280);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(310, 13);
             this.label68.TabIndex = 19;
@@ -2658,6 +2754,13 @@
             // 
             // groupBoxMoreAboutYou
             // 
+            this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxPregnancyDone);
+            this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxChildren);
+            this.groupBoxMoreAboutYou.Controls.Add(this.dateTimePregnancyEnded);
+            this.groupBoxMoreAboutYou.Controls.Add(this.dateTimeDueDate);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label175);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label174);
+            this.groupBoxMoreAboutYou.Controls.Add(this.label173);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxPregnant);
             this.groupBoxMoreAboutYou.Controls.Add(this.comboBoxRenewalCov);
             this.groupBoxMoreAboutYou.Controls.Add(this.label172);
@@ -2701,13 +2804,87 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(901, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
-            this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 498);
+            this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
             this.groupBoxMoreAboutYou.TabStop = false;
             this.groupBoxMoreAboutYou.Text = "More About You";
             this.groupBoxMoreAboutYou.Visible = false;
+            // 
+            // comboBoxPregnancyDone
+            // 
+            this.comboBoxPregnancyDone.FormattingEnabled = true;
+            this.comboBoxPregnancyDone.Items.AddRange(new object[] {
+            "No",
+            "Yes"});
+            this.comboBoxPregnancyDone.Location = new System.Drawing.Point(196, 492);
+            this.comboBoxPregnancyDone.Name = "comboBoxPregnancyDone";
+            this.comboBoxPregnancyDone.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxPregnancyDone.TabIndex = 74;
+            this.comboBoxPregnancyDone.SelectedValueChanged += new System.EventHandler(this.comboBoxPregnancyDone_SelectedValueChanged);
+            // 
+            // comboBoxChildren
+            // 
+            this.comboBoxChildren.FormattingEnabled = true;
+            this.comboBoxChildren.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"});
+            this.comboBoxChildren.Location = new System.Drawing.Point(196, 437);
+            this.comboBoxChildren.Name = "comboBoxChildren";
+            this.comboBoxChildren.Size = new System.Drawing.Size(50, 21);
+            this.comboBoxChildren.TabIndex = 73;
+            // 
+            // dateTimePregnancyEnded
+            // 
+            this.dateTimePregnancyEnded.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePregnancyEnded.Location = new System.Drawing.Point(194, 519);
+            this.dateTimePregnancyEnded.Name = "dateTimePregnancyEnded";
+            this.dateTimePregnancyEnded.Size = new System.Drawing.Size(100, 20);
+            this.dateTimePregnancyEnded.TabIndex = 72;
+            // 
+            // dateTimeDueDate
+            // 
+            this.dateTimeDueDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimeDueDate.Location = new System.Drawing.Point(194, 464);
+            this.dateTimeDueDate.Name = "dateTimeDueDate";
+            this.dateTimeDueDate.Size = new System.Drawing.Size(100, 20);
+            this.dateTimeDueDate.TabIndex = 71;
+            // 
+            // label175
+            // 
+            this.label175.AutoSize = true;
+            this.label175.Location = new System.Drawing.Point(133, 467);
+            this.label175.Name = "label175";
+            this.label175.Size = new System.Drawing.Size(57, 13);
+            this.label175.TabIndex = 70;
+            this.label175.Text = "Due date?";
+            // 
+            // label174
+            // 
+            this.label174.AutoSize = true;
+            this.label174.Location = new System.Drawing.Point(93, 495);
+            this.label174.Name = "label174";
+            this.label174.Size = new System.Drawing.Size(97, 13);
+            this.label174.TabIndex = 69;
+            this.label174.Text = "Pregnancy ended?";
+            // 
+            // label173
+            // 
+            this.label173.AutoSize = true;
+            this.label173.Location = new System.Drawing.Point(87, 440);
+            this.label173.Name = "label173";
+            this.label173.Size = new System.Drawing.Size(103, 13);
+            this.label173.TabIndex = 68;
+            this.label173.Text = "How many children?";
             // 
             // comboBoxPregnant
             // 
@@ -2715,10 +2892,11 @@
             this.comboBoxPregnant.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxPregnant.Location = new System.Drawing.Point(196, 420);
+            this.comboBoxPregnant.Location = new System.Drawing.Point(196, 410);
             this.comboBoxPregnant.Name = "comboBoxPregnant";
             this.comboBoxPregnant.Size = new System.Drawing.Size(50, 21);
             this.comboBoxPregnant.TabIndex = 67;
+            this.comboBoxPregnant.SelectedValueChanged += new System.EventHandler(this.comboBoxPregnant_SelectedValueChanged);
             // 
             // comboBoxRenewalCov
             // 
@@ -2739,7 +2917,7 @@
             // label172
             // 
             this.label172.AutoSize = true;
-            this.label172.Location = new System.Drawing.Point(123, 423);
+            this.label172.Location = new System.Drawing.Point(123, 413);
             this.label172.Name = "label172";
             this.label172.Size = new System.Drawing.Size(67, 13);
             this.label172.TabIndex = 66;
@@ -2874,7 +3052,7 @@
             this.comboBoxWhyNoSSN.FormattingEnabled = true;
             this.comboBoxWhyNoSSN.Items.AddRange(new object[] {
             "Other"});
-            this.comboBoxWhyNoSSN.Location = new System.Drawing.Point(196, 279);
+            this.comboBoxWhyNoSSN.Location = new System.Drawing.Point(196, 254);
             this.comboBoxWhyNoSSN.Name = "comboBoxWhyNoSSN";
             this.comboBoxWhyNoSSN.Size = new System.Drawing.Size(121, 21);
             this.comboBoxWhyNoSSN.TabIndex = 12;
@@ -2885,7 +3063,7 @@
             this.comboBoxAssistSSN.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxAssistSSN.Location = new System.Drawing.Point(196, 306);
+            this.comboBoxAssistSSN.Location = new System.Drawing.Point(196, 281);
             this.comboBoxAssistSSN.Name = "comboBoxAssistSSN";
             this.comboBoxAssistSSN.Size = new System.Drawing.Size(121, 21);
             this.comboBoxAssistSSN.TabIndex = 13;
@@ -2896,7 +3074,7 @@
             this.comboBoxAppliedSSN.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxAppliedSSN.Location = new System.Drawing.Point(196, 252);
+            this.comboBoxAppliedSSN.Location = new System.Drawing.Point(196, 227);
             this.comboBoxAppliedSSN.Name = "comboBoxAppliedSSN";
             this.comboBoxAppliedSSN.Size = new System.Drawing.Size(121, 21);
             this.comboBoxAppliedSSN.TabIndex = 11;
@@ -2904,7 +3082,7 @@
             // label137
             // 
             this.label137.AutoSize = true;
-            this.label137.Location = new System.Drawing.Point(44, 310);
+            this.label137.Location = new System.Drawing.Point(44, 284);
             this.label137.Name = "label137";
             this.label137.Size = new System.Drawing.Size(146, 13);
             this.label137.TabIndex = 0;
@@ -2913,7 +3091,7 @@
             // label136
             // 
             this.label136.AutoSize = true;
-            this.label136.Location = new System.Drawing.Point(78, 283);
+            this.label136.Location = new System.Drawing.Point(78, 257);
             this.label136.Name = "label136";
             this.label136.Size = new System.Drawing.Size(112, 13);
             this.label136.TabIndex = 0;
@@ -2922,7 +3100,7 @@
             // label135
             // 
             this.label135.AutoSize = true;
-            this.label135.Location = new System.Drawing.Point(102, 256);
+            this.label135.Location = new System.Drawing.Point(102, 230);
             this.label135.Name = "label135";
             this.label135.Size = new System.Drawing.Size(88, 13);
             this.label135.TabIndex = 0;
@@ -3054,7 +3232,7 @@
             this.textBoxEnrollFosterCare.AutoCompleteCustomSource.AddRange(new string[] {
             "Yes",
             "No"});
-            this.textBoxEnrollFosterCare.Location = new System.Drawing.Point(196, 387);
+            this.textBoxEnrollFosterCare.Location = new System.Drawing.Point(196, 361);
             this.textBoxEnrollFosterCare.Name = "textBoxEnrollFosterCare";
             this.textBoxEnrollFosterCare.Size = new System.Drawing.Size(100, 20);
             this.textBoxEnrollFosterCare.TabIndex = 15;
@@ -3062,7 +3240,7 @@
             // label49
             // 
             this.label49.AutoSize = true;
-            this.label49.Location = new System.Drawing.Point(126, 390);
+            this.label49.Location = new System.Drawing.Point(126, 364);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(64, 13);
             this.label49.TabIndex = 0;
@@ -3085,7 +3263,7 @@
             this.comboBoxEnrollCitizen.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollCitizen.Location = new System.Drawing.Point(196, 348);
+            this.comboBoxEnrollCitizen.Location = new System.Drawing.Point(196, 334);
             this.comboBoxEnrollCitizen.Name = "comboBoxEnrollCitizen";
             this.comboBoxEnrollCitizen.Size = new System.Drawing.Size(121, 21);
             this.comboBoxEnrollCitizen.TabIndex = 14;
@@ -3093,7 +3271,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(83, 351);
+            this.label35.Location = new System.Drawing.Point(80, 337);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(110, 13);
             this.label35.TabIndex = 0;
@@ -5402,6 +5580,20 @@
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.ComboBox comboBoxHMState;
+        private System.Windows.Forms.Label label175;
+        private System.Windows.Forms.Label label174;
+        private System.Windows.Forms.Label label173;
+        private System.Windows.Forms.ComboBox comboBoxChildren;
+        private System.Windows.Forms.DateTimePicker dateTimePregnancyEnded;
+        private System.Windows.Forms.DateTimePicker dateTimeDueDate;
+        private System.Windows.Forms.ComboBox comboBoxHMChildren;
+        private System.Windows.Forms.DateTimePicker dateTimeHMPregnancyEnded;
+        private System.Windows.Forms.DateTimePicker dateTimeHMDueDate;
+        private System.Windows.Forms.Label label176;
+        private System.Windows.Forms.Label label177;
+        private System.Windows.Forms.Label label178;
+        private System.Windows.Forms.ComboBox comboBoxPregnancyDone;
+        private System.Windows.Forms.ComboBox comboBoxHMPregnancyDone;
 
     }
 }
