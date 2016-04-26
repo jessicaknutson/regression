@@ -179,6 +179,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
                         if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                     }
                 }
 
@@ -313,6 +314,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
                         if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                     }
                 }
 
@@ -403,6 +405,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
                         if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                     }
                 }
 
@@ -593,6 +596,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
                         if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                     }
 
                     com2.ExecuteNonQuery();

@@ -28,6 +28,10 @@ namespace MNsure_Regression_1
                         {
                             myLastSSN.myLastSSN = line;
                         }
+                        if (myLastSSN.myLastSSN == "")
+                        {                        
+                            MessageBox.Show("Problem creating SSN, the first line, SSN number, is missing, fix and restart");
+                        }
                         if (icount == 2)
                         {
                             myReadFileValues.myHomeAddress1 = line;
@@ -71,8 +75,7 @@ namespace MNsure_Regression_1
             }
             catch (Exception e)
             {
-                MessageBox.Show("Problem creating SSN");
-
+                MessageBox.Show("Problem creating SSN, SSN file is missing, fix and restart");
             }
             return 1;
         }

@@ -274,7 +274,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Zip: " + myApplication.myHomeZip);
                 doc.InsertParagraph("Application Data, Zip + 4: " + myApplication.myHomeZip4);
                 doc.InsertParagraph("Application Data, County: " + myApplication.myHomeCounty);
-                doc.InsertParagraph("Application Data, Is your address same: " + myApplication.myAddressSame);                
+                doc.InsertParagraph("Application Data, Is your address same: " + myApplication.myAddressSame);
                 doc.InsertParagraph("Application Data, Mailing Address line 1: " + myApplication.myMailAddress1);
                 doc.InsertParagraph("Application Data, Address line 2: " + myApplication.myMailAddress2);
                 doc.InsertParagraph("Application Data, City: " + myApplication.myMailCity);
@@ -289,7 +289,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, SSN Number: " + myApplication.mySSNNum).Bold();
                 doc.InsertParagraph("Application Data, Applied for SSN: " + myApplication.myAppliedSSN);
                 doc.InsertParagraph("Application Data, Why No SSN: " + myApplication.myWhyNoSSN);
-                doc.InsertParagraph("Application Data, Asssistance with SSN: " + myApplication.myAssistSSN);     
+                doc.InsertParagraph("Application Data, Asssistance with SSN: " + myApplication.myAssistSSN);
                 doc.InsertParagraph("Application Data, Citizen: " + myApplication.myCitizen);
                 //    myEnrollment.mySSNNum = reader.GetString(37);
                 doc.InsertParagraph("Application Data, Household Other: " + myApplication.myHouseholdOther);
@@ -304,8 +304,8 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Reduced Income: " + myApplication.myIncomeReduced);
                 doc.InsertParagraph("Application Data, Income Adjusted: " + myApplication.myIncomeAdjusted);
                 doc.InsertParagraph("Application Data, Income Expected: " + myApplication.myIncomeExpected);
-                doc.InsertParagraph("Application Data, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType).Bold();                             
-                   
+                doc.InsertParagraph("Application Data, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType).Bold();
+
                 // Save to the output directory:
                 doc.Save();
 
@@ -383,7 +383,7 @@ namespace MNsure_Regression_1
 
                         if (myHistoryInfo.myRequiredScreenshotFile[i].ToString().Contains(", ")) //multiple images for the same screen
                         {
-                            List<String> allImages; 
+                            List<String> allImages;
                             allImages = myHistoryInfo.myRequiredScreenshotFile[i].ToString().Split(',').ToList();
                             foreach (string image in allImages)
                             {
@@ -395,7 +395,7 @@ namespace MNsure_Regression_1
                         {
                             excelWorksheet2.Shapes.AddPicture(myHistoryInfo.myRequiredScreenshotFile[i], MsoTriState.msoFalse, MsoTriState.msoCTrue, leftImagePosition, topImagePosition, 900, 600);
                             topImagePosition = topImagePosition + 600;
-                        }                        
+                        }
                     }
                     i = i + 1;
                 }
@@ -540,48 +540,20 @@ namespace MNsure_Regression_1
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-                            SqlCeConnection con;
-                            string conString = Properties.Settings.Default.Database1ConnectionString;
-                            int windowCount = 1;
-                            try
-                            {
-                                // Open the connection using the connection string.
-                                con = new SqlCeConnection(conString);
-                                con.Open();
-                                using (SqlCeCommand com = new SqlCeCommand("SELECT Count(*) FROM TestSteps where TestId = " + "'" + myHistoryInfo.myTestId + "'" + " and Window = " + "'" + myHistoryInfo.myTestStepWindow + "'", con))
-                                {
-                                    SqlCeDataReader reader = com.ExecuteReader();
-                                    if (reader.Read())
-                                    {
-                                        windowCount = reader.GetInt32(0);
-                                    }
-                                    else
-                                    {
-                                        windowCount = 1;
-                                    }
-                                }
-                            }
-                            catch
-                            {
-                                windowCount = 1;
-                            }
-
-                            for (int iLoop = 1; iLoop <= windowCount; iLoop++)
-                            {
-                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + "_" + iLoop + ".jpg";
-                            }
-                            
-                            ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
                             myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                             //you can hit the same window multiple times so capture all screenshots
-                            if (myHistoryInfo.myRequiredScreenshotFile[i] == null)
+                            if (myHistoryInfo.myRequiredScreenshotFile[i] == null || myHistoryInfo.myTestStepWindow == "Plan") //plan is currently production bug so do not capture 3 images for this
                             {
+                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + "_1.jpg";
                                 myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                             }
                             else
                             {
+                                int windowCount = Convert.ToInt32(myHistoryInfo.myRequiredScreenshotFile[i].Substring(myHistoryInfo.myRequiredScreenshotFile[i].Length - 5).Substring(0, 1)) + 1;
+                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + "_" + Convert.ToString(windowCount) + ".jpg";
                                 myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myRequiredScreenshotFile[i] + ", " + myHistoryInfo.myScreenShot;
                             }
+                            ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
                         }
                         i = i + 1;
                     }
@@ -590,11 +562,21 @@ namespace MNsure_Regression_1
                 {
                     foreach (string s in myHistoryInfo.myRequiredScreenshots)
                     {
-                        if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] == null)
+                        if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] != null)
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-                            myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + ".jpg";
+
+                            if (myHistoryInfo.myRequiredScreenshotFile[i] == null)
+                            {
+                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + "_1.jpg";
+                            }
+                            else
+                            {
+                                int windowCount = Convert.ToInt32(myHistoryInfo.myRequiredScreenshotFile[i].Substring(myHistoryInfo.myRequiredScreenshotFile[i].Length - 5).Substring(0, 1)) + 1;
+                                myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepWindow + "_" + windowCount + ".jpg";
+                            }
+
                             ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
                             //must go to next available required step
                             foreach (string t in myHistoryInfo.myRequiredStepStatus)
@@ -605,11 +587,25 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                                     break;
                                 }
+                                /*else if (i == 29)//all required steps are populated, populate failure in first
+                                {
+                                    int j = 1;
+                                    foreach (string v in myHistoryInfo.myRequiredStepStatus)
+                                    {
+                                        if (myHistoryInfo.myRequiredStepStatus[j] != null)
+                                        {
+                                            myHistoryInfo.myRequiredStepStatus[j] = myHistoryInfo.myTestStepStatus;
+                                            myHistoryInfo.myRequiredScreenshotFile[j] = myHistoryInfo.myScreenShot;
+                                            break;
+                                        }
+                                        j = j + 1;
+                                    }
+                                }*/
                                 i = i + 1;
                             }
                             break;
                         }
-                        else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
+                        /*else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] != null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
@@ -619,7 +615,27 @@ namespace MNsure_Regression_1
                             myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                             myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                             break;
-                        } else if (s == null)
+                        }*/
+                        else if (i == 29)//all required steps are populated, populate failure in first
+                        {
+                            driver.Manage().Window.Maximize();
+                            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+                            myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + ".jpg";
+                            ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                            int j = 1;
+                            foreach (string v in myHistoryInfo.myRequiredStepStatus)
+                            {
+                                if (myHistoryInfo.myRequiredStepStatus[j] != null)
+                                {
+                                    myHistoryInfo.myRequiredStepStatus[j] = myHistoryInfo.myTestStepStatus;
+                                    myHistoryInfo.myRequiredScreenshotFile[j] = myHistoryInfo.myScreenShot;
+                                    break;
+                                }
+                                j = j + 1;
+                            }
+                        }
+                        else if (s == null)
                         {
                             //do nothing
                         }
@@ -646,7 +662,16 @@ namespace MNsure_Regression_1
             {
                 myHistoryInfo.myTemplate = "SmokeMA";
             }
-
+            for (int j = 0; j < 30; ++j)//must clear before next test
+            {
+                if (myHistoryInfo.myRequiredScreenshots[j] != null)
+                {
+                    myHistoryInfo.myRequiredScreenshots[j] = null;
+                    myHistoryInfo.myRequiredStep[j] = 0;
+                    myHistoryInfo.myRequiredScreenshotFile[j] = null;
+                    myHistoryInfo.myRequiredStepStatus[j] = null;
+                }
+            }
             //open the workbook   
             string tempFullName = myHistoryInfo.myTemplateFolder + myHistoryInfo.myTemplate;
             Workbook workbook = _excelApp.Workbooks.Open(tempFullName,

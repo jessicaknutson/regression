@@ -578,9 +578,9 @@
             this.label165.AutoSize = true;
             this.label165.Location = new System.Drawing.Point(8, 175);
             this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(180, 13);
+            this.label165.Size = new System.Drawing.Size(244, 13);
             this.label165.TabIndex = 23;
-            this.label165.Text = "(signature, relationships, 3 hh details)";
+            this.label165.Text = "(signature, relationships, 3 hh details, find provider)";
             // 
             // label76
             // 
@@ -1226,7 +1226,7 @@
             this.comboBoxHMPregnancyDone.Location = new System.Drawing.Point(616, 251);
             this.comboBoxHMPregnancyDone.Name = "comboBoxHMPregnancyDone";
             this.comboBoxHMPregnancyDone.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMPregnancyDone.TabIndex = 165;
+            this.comboBoxHMPregnancyDone.TabIndex = 28;
             this.comboBoxHMPregnancyDone.SelectionChangeCommitted += new System.EventHandler(this.comboBoxHMPregnancyDone_SelectionChangeCommitted);
             // 
             // comboBoxHMChildren
@@ -1246,7 +1246,7 @@
             this.comboBoxHMChildren.Location = new System.Drawing.Point(271, 251);
             this.comboBoxHMChildren.Name = "comboBoxHMChildren";
             this.comboBoxHMChildren.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMChildren.TabIndex = 163;
+            this.comboBoxHMChildren.TabIndex = 26;
             // 
             // dateTimeHMPregnancyEnded
             // 
@@ -1254,7 +1254,7 @@
             this.dateTimeHMPregnancyEnded.Location = new System.Drawing.Point(683, 251);
             this.dateTimeHMPregnancyEnded.Name = "dateTimeHMPregnancyEnded";
             this.dateTimeHMPregnancyEnded.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeHMPregnancyEnded.TabIndex = 162;
+            this.dateTimeHMPregnancyEnded.TabIndex = 29;
             // 
             // dateTimeHMDueDate
             // 
@@ -1262,7 +1262,7 @@
             this.dateTimeHMDueDate.Location = new System.Drawing.Point(397, 251);
             this.dateTimeHMDueDate.Name = "dateTimeHMDueDate";
             this.dateTimeHMDueDate.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeHMDueDate.TabIndex = 161;
+            this.dateTimeHMDueDate.TabIndex = 27;
             // 
             // label176
             // 
@@ -1270,7 +1270,7 @@
             this.label176.Location = new System.Drawing.Point(336, 254);
             this.label176.Name = "label176";
             this.label176.Size = new System.Drawing.Size(57, 13);
-            this.label176.TabIndex = 160;
+            this.label176.TabIndex = 0;
             this.label176.Text = "Due date?";
             // 
             // label177
@@ -1279,7 +1279,7 @@
             this.label177.Location = new System.Drawing.Point(513, 254);
             this.label177.Name = "label177";
             this.label177.Size = new System.Drawing.Size(97, 13);
-            this.label177.TabIndex = 159;
+            this.label177.TabIndex = 0;
             this.label177.Text = "Pregnancy ended?";
             // 
             // label178
@@ -1288,7 +1288,7 @@
             this.label178.Location = new System.Drawing.Point(162, 254);
             this.label178.Name = "label178";
             this.label178.Size = new System.Drawing.Size(103, 13);
-            this.label178.TabIndex = 158;
+            this.label178.TabIndex = 0;
             this.label178.Text = "How many children?";
             // 
             // comboBoxHMState
@@ -1357,7 +1357,7 @@
             this.comboBoxHMState.Location = new System.Drawing.Point(280, 577);
             this.comboBoxHMState.Name = "comboBoxHMState";
             this.comboBoxHMState.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMState.TabIndex = 157;
+            this.comboBoxHMState.TabIndex = 61;
             // 
             // label61
             // 
@@ -1365,7 +1365,7 @@
             this.label61.Location = new System.Drawing.Point(144, 557);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(84, 13);
-            this.label61.TabIndex = 156;
+            this.label61.TabIndex = 0;
             this.label61.Text = "Mailing Address:";
             // 
             // comboBoxHMTaxFiler
@@ -1377,7 +1377,7 @@
             this.comboBoxHMTaxFiler.Location = new System.Drawing.Point(817, 319);
             this.comboBoxHMTaxFiler.Name = "comboBoxHMTaxFiler";
             this.comboBoxHMTaxFiler.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMTaxFiler.TabIndex = 141;
+            this.comboBoxHMTaxFiler.TabIndex = 37;
             // 
             // label73
             // 
@@ -1385,7 +1385,7 @@
             this.label73.Location = new System.Drawing.Point(747, 322);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(64, 13);
-            this.label73.TabIndex = 140;
+            this.label73.TabIndex = 0;
             this.label73.Text = "Is Tax Filer?";
             // 
             // comboBoxHMDependant
@@ -1397,7 +1397,7 @@
             this.comboBoxHMDependant.Location = new System.Drawing.Point(686, 319);
             this.comboBoxHMDependant.Name = "comboBoxHMDependant";
             this.comboBoxHMDependant.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMDependant.TabIndex = 139;
+            this.comboBoxHMDependant.TabIndex = 36;
             // 
             // label36
             // 
@@ -1405,7 +1405,7 @@
             this.label36.Location = new System.Drawing.Point(583, 322);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(98, 13);
-            this.label36.TabIndex = 138;
+            this.label36.TabIndex = 0;
             this.label36.Text = "Is Tax Dependent?";
             // 
             // comboBoxHMRelationship2
@@ -1447,7 +1447,7 @@
             this.comboBoxHMRelationship2.Location = new System.Drawing.Point(322, 319);
             this.comboBoxHMRelationship2.Name = "comboBoxHMRelationship2";
             this.comboBoxHMRelationship2.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxHMRelationship2.TabIndex = 137;
+            this.comboBoxHMRelationship2.TabIndex = 34;
             // 
             // label161
             // 
@@ -1455,7 +1455,7 @@
             this.label161.Location = new System.Drawing.Point(233, 322);
             this.label161.Name = "label161";
             this.label161.Size = new System.Drawing.Size(84, 13);
-            this.label161.TabIndex = 136;
+            this.label161.TabIndex = 0;
             this.label161.Text = "#2 Relationship:";
             // 
             // groupBox4
@@ -1483,7 +1483,7 @@
             this.buttonSaveMember.Location = new System.Drawing.Point(77, 96);
             this.buttonSaveMember.Name = "buttonSaveMember";
             this.buttonSaveMember.Size = new System.Drawing.Size(118, 23);
-            this.buttonSaveMember.TabIndex = 60;
+            this.buttonSaveMember.TabIndex = 69;
             this.buttonSaveMember.Text = "Save Member";
             this.buttonSaveMember.UseVisualStyleBackColor = true;
             this.buttonSaveMember.Click += new System.EventHandler(this.buttonSaveMember_Click);
@@ -1494,7 +1494,7 @@
             this.buttonDeleteMember.Location = new System.Drawing.Point(146, 60);
             this.buttonDeleteMember.Name = "buttonDeleteMember";
             this.buttonDeleteMember.Size = new System.Drawing.Size(118, 23);
-            this.buttonDeleteMember.TabIndex = 63;
+            this.buttonDeleteMember.TabIndex = 68;
             this.buttonDeleteMember.Text = "Delete Member";
             this.buttonDeleteMember.UseVisualStyleBackColor = true;
             this.buttonDeleteMember.Click += new System.EventHandler(this.buttonDeleteMember_Click);
@@ -1505,7 +1505,7 @@
             this.buttonAddMember.Location = new System.Drawing.Point(25, 58);
             this.buttonAddMember.Name = "buttonAddMember";
             this.buttonAddMember.Size = new System.Drawing.Size(96, 23);
-            this.buttonAddMember.TabIndex = 59;
+            this.buttonAddMember.TabIndex = 67;
             this.buttonAddMember.Text = "Add Member";
             this.buttonAddMember.UseVisualStyleBackColor = true;
             this.buttonAddMember.Click += new System.EventHandler(this.buttonAddMember_Click);
@@ -1526,7 +1526,7 @@
             this.buttonPreviousMember.Location = new System.Drawing.Point(126, 20);
             this.buttonPreviousMember.Name = "buttonPreviousMember";
             this.buttonPreviousMember.Size = new System.Drawing.Size(28, 23);
-            this.buttonPreviousMember.TabIndex = 55;
+            this.buttonPreviousMember.TabIndex = 64;
             this.buttonPreviousMember.Text = "<<";
             this.buttonPreviousMember.UseVisualStyleBackColor = true;
             this.buttonPreviousMember.Click += new System.EventHandler(this.buttonPreviousMember_Click);
@@ -1538,14 +1538,14 @@
             this.textBoxCurrentMember.Location = new System.Drawing.Point(162, 20);
             this.textBoxCurrentMember.Name = "textBoxCurrentMember";
             this.textBoxCurrentMember.Size = new System.Drawing.Size(26, 23);
-            this.textBoxCurrentMember.TabIndex = 54;
+            this.textBoxCurrentMember.TabIndex = 65;
             // 
             // buttonNextMember
             // 
             this.buttonNextMember.Location = new System.Drawing.Point(196, 20);
             this.buttonNextMember.Name = "buttonNextMember";
             this.buttonNextMember.Size = new System.Drawing.Size(28, 23);
-            this.buttonNextMember.TabIndex = 56;
+            this.buttonNextMember.TabIndex = 66;
             this.buttonNextMember.Text = ">>";
             this.buttonNextMember.UseVisualStyleBackColor = true;
             this.buttonNextMember.Click += new System.EventHandler(this.buttonNextMember_Click);
@@ -1566,7 +1566,7 @@
             this.textBoxTotalMembers.Location = new System.Drawing.Point(259, 20);
             this.textBoxTotalMembers.Name = "textBoxTotalMembers";
             this.textBoxTotalMembers.Size = new System.Drawing.Size(26, 23);
-            this.textBoxTotalMembers.TabIndex = 62;
+            this.textBoxTotalMembers.TabIndex = 0;
             // 
             // comboBoxHMCounty
             // 
@@ -1586,7 +1586,7 @@
             this.comboBoxHMCounty.Location = new System.Drawing.Point(675, 577);
             this.comboBoxHMCounty.Name = "comboBoxHMCounty";
             this.comboBoxHMCounty.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMCounty.TabIndex = 134;
+            this.comboBoxHMCounty.TabIndex = 63;
             // 
             // label164
             // 
@@ -1594,7 +1594,7 @@
             this.label164.Location = new System.Drawing.Point(626, 580);
             this.label164.Name = "label164";
             this.label164.Size = new System.Drawing.Size(43, 13);
-            this.label164.TabIndex = 133;
+            this.label164.TabIndex = 0;
             this.label164.Text = "County:";
             // 
             // comboBoxHMAuthRep
@@ -1606,7 +1606,7 @@
             this.comboBoxHMAuthRep.Location = new System.Drawing.Point(720, 501);
             this.comboBoxHMAuthRep.Name = "comboBoxHMAuthRep";
             this.comboBoxHMAuthRep.Size = new System.Drawing.Size(48, 21);
-            this.comboBoxHMAuthRep.TabIndex = 132;
+            this.comboBoxHMAuthRep.TabIndex = 56;
             // 
             // label160
             // 
@@ -1614,7 +1614,7 @@
             this.label160.Location = new System.Drawing.Point(585, 504);
             this.label160.Name = "label160";
             this.label160.Size = new System.Drawing.Size(133, 13);
-            this.label160.TabIndex = 119;
+            this.label160.TabIndex = 0;
             this.label160.Text = "Name someone else a rep:";
             // 
             // comboBoxHMNotices
@@ -1627,7 +1627,7 @@
             this.comboBoxHMNotices.Location = new System.Drawing.Point(494, 501);
             this.comboBoxHMNotices.Name = "comboBoxHMNotices";
             this.comboBoxHMNotices.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMNotices.TabIndex = 131;
+            this.comboBoxHMNotices.TabIndex = 55;
             this.comboBoxHMNotices.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label162
@@ -1636,7 +1636,7 @@
             this.label162.Location = new System.Drawing.Point(404, 504);
             this.label162.Name = "label162";
             this.label162.Size = new System.Drawing.Size(87, 13);
-            this.label162.TabIndex = 117;
+            this.label162.TabIndex = 0;
             this.label162.Text = "Receive notices:";
             // 
             // comboBoxHMVoterCard
@@ -1648,7 +1648,7 @@
             this.comboBoxHMVoterCard.Location = new System.Drawing.Point(337, 501);
             this.comboBoxHMVoterCard.Name = "comboBoxHMVoterCard";
             this.comboBoxHMVoterCard.Size = new System.Drawing.Size(48, 21);
-            this.comboBoxHMVoterCard.TabIndex = 130;
+            this.comboBoxHMVoterCard.TabIndex = 54;
             // 
             // label163
             // 
@@ -1656,7 +1656,7 @@
             this.label163.Location = new System.Drawing.Point(229, 504);
             this.label163.Name = "label163";
             this.label163.Size = new System.Drawing.Size(104, 13);
-            this.label163.TabIndex = 120;
+            this.label163.TabIndex = 0;
             this.label163.Text = "Send voter reg card:";
             // 
             // textBoxHMEmail
@@ -1664,14 +1664,14 @@
             this.textBoxHMEmail.Location = new System.Drawing.Point(83, 501);
             this.textBoxHMEmail.Name = "textBoxHMEmail";
             this.textBoxHMEmail.Size = new System.Drawing.Size(140, 20);
-            this.textBoxHMEmail.TabIndex = 126;
+            this.textBoxHMEmail.TabIndex = 53;
             // 
             // textBoxHMAltNum
             // 
             this.textBoxHMAltNum.Location = new System.Drawing.Point(694, 478);
             this.textBoxHMAltNum.Name = "textBoxHMAltNum";
             this.textBoxHMAltNum.Size = new System.Drawing.Size(80, 20);
-            this.textBoxHMAltNum.TabIndex = 124;
+            this.textBoxHMAltNum.TabIndex = 51;
             // 
             // label166
             // 
@@ -1679,7 +1679,7 @@
             this.label166.Location = new System.Drawing.Point(43, 504);
             this.label166.Name = "label166";
             this.label166.Size = new System.Drawing.Size(35, 13);
-            this.label166.TabIndex = 113;
+            this.label166.TabIndex = 0;
             this.label166.Text = "Email:";
             // 
             // textBoxHMPhoneNum
@@ -1687,7 +1687,7 @@
             this.textBoxHMPhoneNum.Location = new System.Drawing.Point(344, 478);
             this.textBoxHMPhoneNum.Name = "textBoxHMPhoneNum";
             this.textBoxHMPhoneNum.Size = new System.Drawing.Size(80, 20);
-            this.textBoxHMPhoneNum.TabIndex = 122;
+            this.textBoxHMPhoneNum.TabIndex = 49;
             // 
             // comboBoxHMAltType
             // 
@@ -1702,7 +1702,7 @@
             this.comboBoxHMAltType.Location = new System.Drawing.Point(828, 478);
             this.comboBoxHMAltType.Name = "comboBoxHMAltType";
             this.comboBoxHMAltType.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMAltType.TabIndex = 125;
+            this.comboBoxHMAltType.TabIndex = 52;
             // 
             // label167
             // 
@@ -1710,7 +1710,7 @@
             this.label167.Location = new System.Drawing.Point(789, 481);
             this.label167.Name = "label167";
             this.label167.Size = new System.Drawing.Size(34, 13);
-            this.label167.TabIndex = 112;
+            this.label167.TabIndex = 0;
             this.label167.Text = "Type:";
             // 
             // label168
@@ -1719,7 +1719,7 @@
             this.label168.Location = new System.Drawing.Point(563, 481);
             this.label168.Name = "label168";
             this.label168.Size = new System.Drawing.Size(126, 13);
-            this.label168.TabIndex = 111;
+            this.label168.TabIndex = 0;
             this.label168.Text = "Alternate Phone Number:";
             // 
             // label169
@@ -1728,7 +1728,7 @@
             this.label169.Location = new System.Drawing.Point(17, 481);
             this.label169.Name = "label169";
             this.label169.Size = new System.Drawing.Size(132, 13);
-            this.label169.TabIndex = 110;
+            this.label169.TabIndex = 0;
             this.label169.Text = "Preferred Contact Method:";
             // 
             // comboBoxHMPrefContact
@@ -1741,7 +1741,7 @@
             this.comboBoxHMPrefContact.Location = new System.Drawing.Point(154, 478);
             this.comboBoxHMPrefContact.Name = "comboBoxHMPrefContact";
             this.comboBoxHMPrefContact.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMPrefContact.TabIndex = 121;
+            this.comboBoxHMPrefContact.TabIndex = 48;
             // 
             // comboBoxHMPhoneType
             // 
@@ -1756,7 +1756,7 @@
             this.comboBoxHMPhoneType.Location = new System.Drawing.Point(478, 478);
             this.comboBoxHMPhoneType.Name = "comboBoxHMPhoneType";
             this.comboBoxHMPhoneType.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxHMPhoneType.TabIndex = 123;
+            this.comboBoxHMPhoneType.TabIndex = 50;
             // 
             // label170
             // 
@@ -1764,7 +1764,7 @@
             this.label170.Location = new System.Drawing.Point(258, 481);
             this.label170.Name = "label170";
             this.label170.Size = new System.Drawing.Size(81, 13);
-            this.label170.TabIndex = 114;
+            this.label170.TabIndex = 0;
             this.label170.Text = "Phone Number:";
             // 
             // label171
@@ -1773,7 +1773,7 @@
             this.label171.Location = new System.Drawing.Point(439, 481);
             this.label171.Name = "label171";
             this.label171.Size = new System.Drawing.Size(34, 13);
-            this.label171.TabIndex = 116;
+            this.label171.TabIndex = 0;
             this.label171.Text = "Type:";
             // 
             // dateTimeHMMilitary
@@ -1782,7 +1782,7 @@
             this.dateTimeHMMilitary.Location = new System.Drawing.Point(552, 169);
             this.dateTimeHMMilitary.Name = "dateTimeHMMilitary";
             this.dateTimeHMMilitary.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeHMMilitary.TabIndex = 108;
+            this.dateTimeHMMilitary.TabIndex = 17;
             this.dateTimeHMMilitary.ValueChanged += new System.EventHandler(this.dateTimeHMMilitary_ValueChanged);
             // 
             // label158
@@ -1791,7 +1791,7 @@
             this.label158.Location = new System.Drawing.Point(475, 172);
             this.label158.Name = "label158";
             this.label158.Size = new System.Drawing.Size(73, 13);
-            this.label158.TabIndex = 105;
+            this.label158.TabIndex = 0;
             this.label158.Text = "Military Ended";
             // 
             // comboBoxHMMilitary
@@ -1803,7 +1803,7 @@
             this.comboBoxHMMilitary.Location = new System.Drawing.Point(414, 169);
             this.comboBoxHMMilitary.Name = "comboBoxHMMilitary";
             this.comboBoxHMMilitary.Size = new System.Drawing.Size(47, 21);
-            this.comboBoxHMMilitary.TabIndex = 107;
+            this.comboBoxHMMilitary.TabIndex = 16;
             this.comboBoxHMMilitary.SelectedValueChanged += new System.EventHandler(this.comboBoxHMMilitary_SelectedValueChanged);
             // 
             // label159
@@ -1812,7 +1812,7 @@
             this.label159.Location = new System.Drawing.Point(365, 172);
             this.label159.Name = "label159";
             this.label159.Size = new System.Drawing.Size(45, 13);
-            this.label159.TabIndex = 106;
+            this.label159.TabIndex = 0;
             this.label159.Text = "Military?";
             // 
             // comboBoxHMAnnualIncome
@@ -1824,7 +1824,7 @@
             this.comboBoxHMAnnualIncome.Location = new System.Drawing.Point(518, 405);
             this.comboBoxHMAnnualIncome.Name = "comboBoxHMAnnualIncome";
             this.comboBoxHMAnnualIncome.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMAnnualIncome.TabIndex = 104;
+            this.comboBoxHMAnnualIncome.TabIndex = 47;
             // 
             // label156
             // 
@@ -1832,7 +1832,7 @@
             this.label156.Location = new System.Drawing.Point(431, 408);
             this.label156.Name = "label156";
             this.label156.Size = new System.Drawing.Size(83, 13);
-            this.label156.TabIndex = 103;
+            this.label156.TabIndex = 0;
             this.label156.Text = "Annual income?";
             // 
             // comboBoxHMIncomeAdjustments
@@ -1844,7 +1844,7 @@
             this.comboBoxHMIncomeAdjustments.Location = new System.Drawing.Point(375, 405);
             this.comboBoxHMIncomeAdjustments.Name = "comboBoxHMIncomeAdjustments";
             this.comboBoxHMIncomeAdjustments.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMIncomeAdjustments.TabIndex = 102;
+            this.comboBoxHMIncomeAdjustments.TabIndex = 46;
             // 
             // label155
             // 
@@ -1852,7 +1852,7 @@
             this.label155.Location = new System.Drawing.Point(263, 408);
             this.label155.Name = "label155";
             this.label155.Size = new System.Drawing.Size(107, 13);
-            this.label155.TabIndex = 101;
+            this.label155.TabIndex = 0;
             this.label155.Text = "Income adjustments?";
             // 
             // label154
@@ -1861,7 +1861,7 @@
             this.label154.Location = new System.Drawing.Point(24, 408);
             this.label154.Name = "label154";
             this.label154.Size = new System.Drawing.Size(170, 13);
-            this.label154.TabIndex = 100;
+            this.label154.TabIndex = 0;
             this.label154.Text = "Hours decrease  in last 6 months? ";
             // 
             // comboBoxHMIncomeReduced
@@ -1873,7 +1873,7 @@
             this.comboBoxHMIncomeReduced.Location = new System.Drawing.Point(199, 405);
             this.comboBoxHMIncomeReduced.Name = "comboBoxHMIncomeReduced";
             this.comboBoxHMIncomeReduced.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMIncomeReduced.TabIndex = 99;
+            this.comboBoxHMIncomeReduced.TabIndex = 45;
             this.comboBoxHMIncomeReduced.SelectedValueChanged += new System.EventHandler(this.comboBoxHMIncomeReduced_SelectedValueChanged);
             // 
             // comboBoxHMMoreIncome
@@ -1885,7 +1885,7 @@
             this.comboBoxHMMoreIncome.Location = new System.Drawing.Point(452, 382);
             this.comboBoxHMMoreIncome.Name = "comboBoxHMMoreIncome";
             this.comboBoxHMMoreIncome.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMMoreIncome.TabIndex = 98;
+            this.comboBoxHMMoreIncome.TabIndex = 44;
             // 
             // label151
             // 
@@ -1893,7 +1893,7 @@
             this.label151.Location = new System.Drawing.Point(354, 385);
             this.label151.Name = "label151";
             this.label151.Size = new System.Drawing.Size(94, 13);
-            this.label151.TabIndex = 97;
+            this.label151.TabIndex = 0;
             this.label151.Text = "Any more income?";
             // 
             // comboBoxHMFrequency
@@ -1904,7 +1904,7 @@
             this.comboBoxHMFrequency.Location = new System.Drawing.Point(267, 382);
             this.comboBoxHMFrequency.Name = "comboBoxHMFrequency";
             this.comboBoxHMFrequency.Size = new System.Drawing.Size(75, 21);
-            this.comboBoxHMFrequency.TabIndex = 96;
+            this.comboBoxHMFrequency.TabIndex = 43;
             // 
             // label152
             // 
@@ -1912,7 +1912,7 @@
             this.label152.Location = new System.Drawing.Point(203, 385);
             this.label152.Name = "label152";
             this.label152.Size = new System.Drawing.Size(60, 13);
-            this.label152.TabIndex = 95;
+            this.label152.TabIndex = 0;
             this.label152.Text = "Frequency:";
             // 
             // textBoxHMAmount
@@ -1920,7 +1920,7 @@
             this.textBoxHMAmount.Location = new System.Drawing.Point(94, 382);
             this.textBoxHMAmount.Name = "textBoxHMAmount";
             this.textBoxHMAmount.Size = new System.Drawing.Size(100, 20);
-            this.textBoxHMAmount.TabIndex = 94;
+            this.textBoxHMAmount.TabIndex = 42;
             this.textBoxHMAmount.TextChanged += new System.EventHandler(this.textBoxHMAmount_TextChanged);
             // 
             // label153
@@ -1929,7 +1929,7 @@
             this.label153.Location = new System.Drawing.Point(44, 385);
             this.label153.Name = "label153";
             this.label153.Size = new System.Drawing.Size(46, 13);
-            this.label153.TabIndex = 93;
+            this.label153.TabIndex = 0;
             this.label153.Text = "Amount:";
             // 
             // comboBoxHMSeasonal
@@ -1941,14 +1941,14 @@
             this.comboBoxHMSeasonal.Location = new System.Drawing.Point(708, 359);
             this.comboBoxHMSeasonal.Name = "comboBoxHMSeasonal";
             this.comboBoxHMSeasonal.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMSeasonal.TabIndex = 92;
+            this.comboBoxHMSeasonal.TabIndex = 41;
             // 
             // textBoxHMEmployerName
             // 
             this.textBoxHMEmployerName.Location = new System.Drawing.Point(451, 359);
             this.textBoxHMEmployerName.Name = "textBoxHMEmployerName";
             this.textBoxHMEmployerName.Size = new System.Drawing.Size(125, 20);
-            this.textBoxHMEmployerName.TabIndex = 91;
+            this.textBoxHMEmployerName.TabIndex = 40;
             // 
             // label149
             // 
@@ -1956,7 +1956,7 @@
             this.label149.Location = new System.Drawing.Point(582, 362);
             this.label149.Name = "label149";
             this.label149.Size = new System.Drawing.Size(121, 13);
-            this.label149.TabIndex = 90;
+            this.label149.TabIndex = 0;
             this.label149.Text = "Is seasonally employed?";
             // 
             // label150
@@ -1965,7 +1965,7 @@
             this.label150.Location = new System.Drawing.Point(363, 362);
             this.label150.Name = "label150";
             this.label150.Size = new System.Drawing.Size(84, 13);
-            this.label150.TabIndex = 89;
+            this.label150.TabIndex = 0;
             this.label150.Text = "Employer Name:";
             // 
             // comboBoxHMIncomeType
@@ -1976,7 +1976,7 @@
             this.comboBoxHMIncomeType.Location = new System.Drawing.Point(229, 359);
             this.comboBoxHMIncomeType.Name = "comboBoxHMIncomeType";
             this.comboBoxHMIncomeType.Size = new System.Drawing.Size(125, 21);
-            this.comboBoxHMIncomeType.TabIndex = 88;
+            this.comboBoxHMIncomeType.TabIndex = 39;
             // 
             // label148
             // 
@@ -1984,7 +1984,7 @@
             this.label148.Location = new System.Drawing.Point(153, 362);
             this.label148.Name = "label148";
             this.label148.Size = new System.Drawing.Size(72, 13);
-            this.label148.TabIndex = 87;
+            this.label148.TabIndex = 0;
             this.label148.Text = "Income Type:";
             // 
             // comboBoxHMFileJointly
@@ -1996,7 +1996,7 @@
             this.comboBoxHMFileJointly.Location = new System.Drawing.Point(524, 319);
             this.comboBoxHMFileJointly.Name = "comboBoxHMFileJointly";
             this.comboBoxHMFileJointly.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMFileJointly.TabIndex = 86;
+            this.comboBoxHMFileJointly.TabIndex = 35;
             // 
             // label78
             // 
@@ -2004,7 +2004,7 @@
             this.label78.Location = new System.Drawing.Point(459, 322);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(61, 13);
-            this.label78.TabIndex = 85;
+            this.label78.TabIndex = 0;
             this.label78.Text = "File Jointly?";
             // 
             // textBoxHMTribeId
@@ -2012,14 +2012,14 @@
             this.textBoxHMTribeId.Location = new System.Drawing.Point(559, 194);
             this.textBoxHMTribeId.Name = "textBoxHMTribeId";
             this.textBoxHMTribeId.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMTribeId.TabIndex = 83;
+            this.textBoxHMTribeId.TabIndex = 21;
             // 
             // textBoxHMTribeName
             // 
             this.textBoxHMTribeName.Location = new System.Drawing.Point(365, 194);
             this.textBoxHMTribeName.Name = "textBoxHMTribeName";
             this.textBoxHMTribeName.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMTribeName.TabIndex = 82;
+            this.textBoxHMTribeName.TabIndex = 20;
             // 
             // label117
             // 
@@ -2027,7 +2027,7 @@
             this.label117.Location = new System.Drawing.Point(507, 197);
             this.label117.Name = "label117";
             this.label117.Size = new System.Drawing.Size(46, 13);
-            this.label117.TabIndex = 81;
+            this.label117.TabIndex = 0;
             this.label117.Text = "Tribe Id:";
             // 
             // label116
@@ -2036,7 +2036,7 @@
             this.label116.Location = new System.Drawing.Point(296, 197);
             this.label116.Name = "label116";
             this.label116.Size = new System.Drawing.Size(65, 13);
-            this.label116.TabIndex = 80;
+            this.label116.TabIndex = 0;
             this.label116.Text = "Tribe Name:";
             // 
             // comboBoxHMLiveRes
@@ -2048,7 +2048,7 @@
             this.comboBoxHMLiveRes.Location = new System.Drawing.Point(238, 194);
             this.comboBoxHMLiveRes.Name = "comboBoxHMLiveRes";
             this.comboBoxHMLiveRes.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMLiveRes.TabIndex = 79;
+            this.comboBoxHMLiveRes.TabIndex = 19;
             // 
             // label115
             // 
@@ -2056,7 +2056,7 @@
             this.label115.Location = new System.Drawing.Point(163, 197);
             this.label115.Name = "label115";
             this.label115.Size = new System.Drawing.Size(70, 13);
-            this.label115.TabIndex = 78;
+            this.label115.TabIndex = 0;
             this.label115.Text = "Live on Res?";
             // 
             // comboBoxHMFederalTribe
@@ -2068,7 +2068,7 @@
             this.comboBoxHMFederalTribe.Location = new System.Drawing.Point(98, 194);
             this.comboBoxHMFederalTribe.Name = "comboBoxHMFederalTribe";
             this.comboBoxHMFederalTribe.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMFederalTribe.TabIndex = 77;
+            this.comboBoxHMFederalTribe.TabIndex = 18;
             // 
             // label50
             // 
@@ -2076,7 +2076,7 @@
             this.label50.Location = new System.Drawing.Point(18, 197);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(75, 13);
-            this.label50.TabIndex = 76;
+            this.label50.TabIndex = 0;
             this.label50.Text = "Federal Tribe?";
             // 
             // comboBoxHasIncome
@@ -2088,7 +2088,7 @@
             this.comboBoxHasIncome.Location = new System.Drawing.Point(95, 359);
             this.comboBoxHasIncome.Name = "comboBoxHasIncome";
             this.comboBoxHasIncome.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHasIncome.TabIndex = 72;
+            this.comboBoxHasIncome.TabIndex = 38;
             // 
             // label82
             // 
@@ -2096,7 +2096,7 @@
             this.label82.Location = new System.Drawing.Point(21, 362);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(70, 13);
-            this.label82.TabIndex = 71;
+            this.label82.TabIndex = 0;
             this.label82.Text = "Has Income?";
             // 
             // comboBoxHMRelationship
@@ -2138,7 +2138,7 @@
             this.comboBoxHMRelationship.Location = new System.Drawing.Point(101, 319);
             this.comboBoxHMRelationship.Name = "comboBoxHMRelationship";
             this.comboBoxHMRelationship.Size = new System.Drawing.Size(120, 21);
-            this.comboBoxHMRelationship.TabIndex = 69;
+            this.comboBoxHMRelationship.TabIndex = 33;
             // 
             // label81
             // 
@@ -2146,7 +2146,7 @@
             this.label81.Location = new System.Drawing.Point(12, 322);
             this.label81.Name = "label81";
             this.label81.Size = new System.Drawing.Size(84, 13);
-            this.label81.TabIndex = 68;
+            this.label81.TabIndex = 0;
             this.label81.Text = "1# Relationship:";
             // 
             // comboBoxHMBeenInFosterCare
@@ -2158,7 +2158,7 @@
             this.comboBoxHMBeenInFosterCare.Location = new System.Drawing.Point(428, 225);
             this.comboBoxHMBeenInFosterCare.Name = "comboBoxHMBeenInFosterCare";
             this.comboBoxHMBeenInFosterCare.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMBeenInFosterCare.TabIndex = 67;
+            this.comboBoxHMBeenInFosterCare.TabIndex = 24;
             // 
             // label80
             // 
@@ -2166,7 +2166,7 @@
             this.label80.Location = new System.Drawing.Point(343, 228);
             this.label80.Name = "label80";
             this.label80.Size = new System.Drawing.Size(79, 13);
-            this.label80.TabIndex = 66;
+            this.label80.TabIndex = 0;
             this.label80.Text = "In Foster Care?";
             // 
             // comboBoxHMPregnant
@@ -2178,7 +2178,7 @@
             this.comboBoxHMPregnant.Location = new System.Drawing.Point(98, 251);
             this.comboBoxHMPregnant.Name = "comboBoxHMPregnant";
             this.comboBoxHMPregnant.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMPregnant.TabIndex = 65;
+            this.comboBoxHMPregnant.TabIndex = 25;
             this.comboBoxHMPregnant.SelectedValueChanged += new System.EventHandler(this.comboBoxHMPregnant_SelectedValueChanged);
             // 
             // label79
@@ -2187,7 +2187,7 @@
             this.label79.Location = new System.Drawing.Point(27, 254);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(67, 13);
-            this.label79.TabIndex = 64;
+            this.label79.TabIndex = 0;
             this.label79.Text = "Is Pregnant?";
             // 
             // comboBoxHMTempAbsentMN
@@ -2199,7 +2199,7 @@
             this.comboBoxHMTempAbsentMN.Location = new System.Drawing.Point(141, 276);
             this.comboBoxHMTempAbsentMN.Name = "comboBoxHMTempAbsentMN";
             this.comboBoxHMTempAbsentMN.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMTempAbsentMN.TabIndex = 58;
+            this.comboBoxHMTempAbsentMN.TabIndex = 30;
             // 
             // label77
             // 
@@ -2207,7 +2207,7 @@
             this.label77.Location = new System.Drawing.Point(22, 280);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(115, 13);
-            this.label77.TabIndex = 57;
+            this.label77.TabIndex = 0;
             this.label77.Text = "Temp absent from MN:";
             // 
             // comboBoxHMUSNational
@@ -2219,7 +2219,7 @@
             this.comboBoxHMUSNational.Location = new System.Drawing.Point(667, 276);
             this.comboBoxHMUSNational.Name = "comboBoxHMUSNational";
             this.comboBoxHMUSNational.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMUSNational.TabIndex = 52;
+            this.comboBoxHMUSNational.TabIndex = 32;
             // 
             // comboBoxHMUSCitizen
             // 
@@ -2230,7 +2230,7 @@
             this.comboBoxHMUSCitizen.Location = new System.Drawing.Point(266, 225);
             this.comboBoxHMUSCitizen.Name = "comboBoxHMUSCitizen";
             this.comboBoxHMUSCitizen.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMUSCitizen.TabIndex = 51;
+            this.comboBoxHMUSCitizen.TabIndex = 23;
             // 
             // comboBoxHMHaveSSN
             // 
@@ -2241,7 +2241,7 @@
             this.comboBoxHMHaveSSN.Location = new System.Drawing.Point(98, 225);
             this.comboBoxHMHaveSSN.Name = "comboBoxHMHaveSSN";
             this.comboBoxHMHaveSSN.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMHaveSSN.TabIndex = 49;
+            this.comboBoxHMHaveSSN.TabIndex = 22;
             // 
             // comboBoxHMRace
             // 
@@ -2252,7 +2252,7 @@
             this.comboBoxHMRace.Location = new System.Drawing.Point(236, 169);
             this.comboBoxHMRace.Name = "comboBoxHMRace";
             this.comboBoxHMRace.Size = new System.Drawing.Size(97, 21);
-            this.comboBoxHMRace.TabIndex = 48;
+            this.comboBoxHMRace.TabIndex = 15;
             // 
             // comboBoxHMHispanic
             // 
@@ -2263,7 +2263,7 @@
             this.comboBoxHMHispanic.Location = new System.Drawing.Point(142, 169);
             this.comboBoxHMHispanic.Name = "comboBoxHMHispanic";
             this.comboBoxHMHispanic.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMHispanic.TabIndex = 47;
+            this.comboBoxHMHispanic.TabIndex = 14;
             // 
             // comboBoxHMPersonHighlighted
             // 
@@ -2274,7 +2274,7 @@
             this.comboBoxHMPersonHighlighted.Location = new System.Drawing.Point(431, 126);
             this.comboBoxHMPersonHighlighted.Name = "comboBoxHMPersonHighlighted";
             this.comboBoxHMPersonHighlighted.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMPersonHighlighted.TabIndex = 11;
+            this.comboBoxHMPersonHighlighted.TabIndex = 13;
             // 
             // comboBoxHMSeekingEmployment
             // 
@@ -2285,7 +2285,7 @@
             this.comboBoxHMSeekingEmployment.Location = new System.Drawing.Point(515, 276);
             this.comboBoxHMSeekingEmployment.Name = "comboBoxHMSeekingEmployment";
             this.comboBoxHMSeekingEmployment.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMSeekingEmployment.TabIndex = 45;
+            this.comboBoxHMSeekingEmployment.TabIndex = 31;
             // 
             // comboBoxHMPlanToLiveInMN
             // 
@@ -2296,42 +2296,42 @@
             this.comboBoxHMPlanToLiveInMN.Location = new System.Drawing.Point(340, 102);
             this.comboBoxHMPlanToLiveInMN.Name = "comboBoxHMPlanToLiveInMN";
             this.comboBoxHMPlanToLiveInMN.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMPlanToLiveInMN.TabIndex = 44;
+            this.comboBoxHMPlanToLiveInMN.TabIndex = 10;
             // 
             // textBoxHMZip
             // 
             this.textBoxHMZip.Location = new System.Drawing.Point(469, 577);
             this.textBoxHMZip.Name = "textBoxHMZip";
             this.textBoxHMZip.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMZip.TabIndex = 43;
+            this.textBoxHMZip.TabIndex = 62;
             // 
             // textBoxHMCity
             // 
             this.textBoxHMCity.Location = new System.Drawing.Point(87, 577);
             this.textBoxHMCity.Name = "textBoxHMCity";
             this.textBoxHMCity.Size = new System.Drawing.Size(131, 20);
-            this.textBoxHMCity.TabIndex = 41;
+            this.textBoxHMCity.TabIndex = 60;
             // 
             // textBoxHMAptSuite
             // 
             this.textBoxHMAptSuite.Location = new System.Drawing.Point(670, 554);
             this.textBoxHMAptSuite.Name = "textBoxHMAptSuite";
             this.textBoxHMAptSuite.Size = new System.Drawing.Size(122, 20);
-            this.textBoxHMAptSuite.TabIndex = 40;
+            this.textBoxHMAptSuite.TabIndex = 59;
             // 
             // textBoxHMAddress2
             // 
             this.textBoxHMAddress2.Location = new System.Drawing.Point(456, 554);
             this.textBoxHMAddress2.Name = "textBoxHMAddress2";
             this.textBoxHMAddress2.Size = new System.Drawing.Size(133, 20);
-            this.textBoxHMAddress2.TabIndex = 39;
+            this.textBoxHMAddress2.TabIndex = 58;
             // 
             // textBoxHMAddress1
             // 
             this.textBoxHMAddress1.Location = new System.Drawing.Point(233, 554);
             this.textBoxHMAddress1.Name = "textBoxHMAddress1";
             this.textBoxHMAddress1.Size = new System.Drawing.Size(122, 20);
-            this.textBoxHMAddress1.TabIndex = 38;
+            this.textBoxHMAddress1.TabIndex = 57;
             // 
             // comboBoxHMHomeless
             // 
@@ -2342,7 +2342,7 @@
             this.comboBoxHMHomeless.Location = new System.Drawing.Point(147, 126);
             this.comboBoxHMHomeless.Name = "comboBoxHMHomeless";
             this.comboBoxHMHomeless.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMHomeless.TabIndex = 37;
+            this.comboBoxHMHomeless.TabIndex = 12;
             // 
             // comboBoxHMLiveMN
             // 
@@ -2353,7 +2353,7 @@
             this.comboBoxHMLiveMN.Location = new System.Drawing.Point(561, 102);
             this.comboBoxHMLiveMN.Name = "comboBoxHMLiveMN";
             this.comboBoxHMLiveMN.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxHMLiveMN.TabIndex = 10;
+            this.comboBoxHMLiveMN.TabIndex = 11;
             // 
             // comboBoxHMLiveWithYou
             // 
@@ -2446,7 +2446,7 @@
             this.label75.Location = new System.Drawing.Point(581, 280);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(81, 13);
-            this.label75.TabIndex = 26;
+            this.label75.TabIndex = 0;
             this.label75.Text = "Is US National?";
             // 
             // label74
@@ -2455,7 +2455,7 @@
             this.label74.Location = new System.Drawing.Point(189, 228);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(73, 13);
-            this.label74.TabIndex = 25;
+            this.label74.TabIndex = 0;
             this.label74.Text = "Is US Citizen?";
             // 
             // label72
@@ -2464,7 +2464,7 @@
             this.label72.Location = new System.Drawing.Point(22, 228);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(72, 13);
-            this.label72.TabIndex = 23;
+            this.label72.TabIndex = 0;
             this.label72.Text = "Has an SSN?";
             // 
             // label71
@@ -2473,7 +2473,7 @@
             this.label71.Location = new System.Drawing.Point(196, 172);
             this.label71.Name = "label71";
             this.label71.Size = new System.Drawing.Size(36, 13);
-            this.label71.TabIndex = 22;
+            this.label71.TabIndex = 0;
             this.label71.Text = "Race:";
             // 
             // label70
@@ -2482,7 +2482,7 @@
             this.label70.Location = new System.Drawing.Point(19, 172);
             this.label70.Name = "label70";
             this.label70.Size = new System.Drawing.Size(119, 13);
-            this.label70.TabIndex = 21;
+            this.label70.TabIndex = 0;
             this.label70.Text = "Is this person Hispanic?";
             // 
             // label69
@@ -2500,7 +2500,7 @@
             this.label68.Location = new System.Drawing.Point(201, 280);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(310, 13);
-            this.label68.TabIndex = 19;
+            this.label68.TabIndex = 0;
             this.label68.Text = "Does this person enter MN with the plan of seeking employment:";
             // 
             // label67
@@ -2509,7 +2509,7 @@
             this.label67.Location = new System.Drawing.Point(247, 105);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(89, 13);
-            this.label67.TabIndex = 18;
+            this.label67.TabIndex = 0;
             this.label67.Text = "Make MN home?";
             // 
             // label66
@@ -2518,7 +2518,7 @@
             this.label66.Location = new System.Drawing.Point(611, 557);
             this.label66.Name = "label66";
             this.label66.Size = new System.Drawing.Size(55, 13);
-            this.label66.TabIndex = 17;
+            this.label66.TabIndex = 0;
             this.label66.Text = "Apt/Suite:";
             // 
             // label65
@@ -2527,7 +2527,7 @@
             this.label65.Location = new System.Drawing.Point(440, 580);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(25, 13);
-            this.label65.TabIndex = 16;
+            this.label65.TabIndex = 0;
             this.label65.Text = "Zip:";
             // 
             // label64
@@ -2536,7 +2536,7 @@
             this.label64.Location = new System.Drawing.Point(240, 580);
             this.label64.Name = "label64";
             this.label64.Size = new System.Drawing.Size(35, 13);
-            this.label64.TabIndex = 15;
+            this.label64.TabIndex = 0;
             this.label64.Text = "State:";
             // 
             // label63
@@ -2545,7 +2545,7 @@
             this.label63.Location = new System.Drawing.Point(55, 580);
             this.label63.Name = "label63";
             this.label63.Size = new System.Drawing.Size(27, 13);
-            this.label63.TabIndex = 14;
+            this.label63.TabIndex = 0;
             this.label63.Text = "City:";
             // 
             // label62
@@ -2554,7 +2554,7 @@
             this.label62.Location = new System.Drawing.Point(371, 557);
             this.label62.Name = "label62";
             this.label62.Size = new System.Drawing.Size(80, 13);
-            this.label62.TabIndex = 13;
+            this.label62.TabIndex = 0;
             this.label62.Text = "Address Line 2:";
             // 
             // label60
@@ -2563,7 +2563,7 @@
             this.label60.Location = new System.Drawing.Point(22, 129);
             this.label60.Name = "label60";
             this.label60.Size = new System.Drawing.Size(119, 13);
-            this.label60.TabIndex = 11;
+            this.label60.TabIndex = 0;
             this.label60.Text = "Is this person homeless:";
             // 
             // label59
@@ -2821,7 +2821,7 @@
             this.comboBoxPregnancyDone.Location = new System.Drawing.Point(196, 492);
             this.comboBoxPregnancyDone.Name = "comboBoxPregnancyDone";
             this.comboBoxPregnancyDone.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxPregnancyDone.TabIndex = 74;
+            this.comboBoxPregnancyDone.TabIndex = 18;
             this.comboBoxPregnancyDone.SelectedValueChanged += new System.EventHandler(this.comboBoxPregnancyDone_SelectedValueChanged);
             // 
             // comboBoxChildren
@@ -2841,7 +2841,7 @@
             this.comboBoxChildren.Location = new System.Drawing.Point(196, 437);
             this.comboBoxChildren.Name = "comboBoxChildren";
             this.comboBoxChildren.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxChildren.TabIndex = 73;
+            this.comboBoxChildren.TabIndex = 16;
             // 
             // dateTimePregnancyEnded
             // 
@@ -2849,7 +2849,7 @@
             this.dateTimePregnancyEnded.Location = new System.Drawing.Point(194, 519);
             this.dateTimePregnancyEnded.Name = "dateTimePregnancyEnded";
             this.dateTimePregnancyEnded.Size = new System.Drawing.Size(100, 20);
-            this.dateTimePregnancyEnded.TabIndex = 72;
+            this.dateTimePregnancyEnded.TabIndex = 19;
             // 
             // dateTimeDueDate
             // 
@@ -2857,7 +2857,7 @@
             this.dateTimeDueDate.Location = new System.Drawing.Point(194, 464);
             this.dateTimeDueDate.Name = "dateTimeDueDate";
             this.dateTimeDueDate.Size = new System.Drawing.Size(100, 20);
-            this.dateTimeDueDate.TabIndex = 71;
+            this.dateTimeDueDate.TabIndex = 17;
             // 
             // label175
             // 
@@ -2865,7 +2865,7 @@
             this.label175.Location = new System.Drawing.Point(133, 467);
             this.label175.Name = "label175";
             this.label175.Size = new System.Drawing.Size(57, 13);
-            this.label175.TabIndex = 70;
+            this.label175.TabIndex = 0;
             this.label175.Text = "Due date?";
             // 
             // label174
@@ -2874,7 +2874,7 @@
             this.label174.Location = new System.Drawing.Point(93, 495);
             this.label174.Name = "label174";
             this.label174.Size = new System.Drawing.Size(97, 13);
-            this.label174.TabIndex = 69;
+            this.label174.TabIndex = 0;
             this.label174.Text = "Pregnancy ended?";
             // 
             // label173
@@ -2883,7 +2883,7 @@
             this.label173.Location = new System.Drawing.Point(87, 440);
             this.label173.Name = "label173";
             this.label173.Size = new System.Drawing.Size(103, 13);
-            this.label173.TabIndex = 68;
+            this.label173.TabIndex = 0;
             this.label173.Text = "How many children?";
             // 
             // comboBoxPregnant
@@ -2895,7 +2895,7 @@
             this.comboBoxPregnant.Location = new System.Drawing.Point(196, 410);
             this.comboBoxPregnant.Name = "comboBoxPregnant";
             this.comboBoxPregnant.Size = new System.Drawing.Size(50, 21);
-            this.comboBoxPregnant.TabIndex = 67;
+            this.comboBoxPregnant.TabIndex = 15;
             this.comboBoxPregnant.SelectedValueChanged += new System.EventHandler(this.comboBoxPregnant_SelectedValueChanged);
             // 
             // comboBoxRenewalCov
@@ -2911,7 +2911,7 @@
             this.comboBoxRenewalCov.Location = new System.Drawing.Point(601, 233);
             this.comboBoxRenewalCov.Name = "comboBoxRenewalCov";
             this.comboBoxRenewalCov.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxRenewalCov.TabIndex = 22;
+            this.comboBoxRenewalCov.TabIndex = 25;
             this.comboBoxRenewalCov.SelectedValueChanged += new System.EventHandler(this.comboBoxRenewalCov_SelectedValueChanged);
             // 
             // label172
@@ -2920,7 +2920,7 @@
             this.label172.Location = new System.Drawing.Point(123, 413);
             this.label172.Name = "label172";
             this.label172.Size = new System.Drawing.Size(67, 13);
-            this.label172.TabIndex = 66;
+            this.label172.TabIndex = 0;
             this.label172.Text = "Is Pregnant?";
             // 
             // label146
@@ -2929,7 +2929,7 @@
             this.label146.Location = new System.Drawing.Point(497, 236);
             this.label146.Name = "label146";
             this.label146.Size = new System.Drawing.Size(98, 13);
-            this.label146.TabIndex = 21;
+            this.label146.TabIndex = 0;
             this.label146.Text = "Renewal Coverage";
             // 
             // comboBoxESC
@@ -2941,7 +2941,7 @@
             this.comboBoxESC.Location = new System.Drawing.Point(601, 34);
             this.comboBoxESC.Name = "comboBoxESC";
             this.comboBoxESC.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxESC.TabIndex = 16;
+            this.comboBoxESC.TabIndex = 20;
             this.comboBoxESC.SelectedValueChanged += new System.EventHandler(this.comboBoxESC_SelectedValueChanged);
             // 
             // label145
@@ -2962,7 +2962,7 @@
             this.comboBoxCoverageEnd.Location = new System.Drawing.Point(601, 134);
             this.comboBoxCoverageEnd.Name = "comboBoxCoverageEnd";
             this.comboBoxCoverageEnd.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxCoverageEnd.TabIndex = 19;
+            this.comboBoxCoverageEnd.TabIndex = 23;
             this.comboBoxCoverageEnd.SelectedValueChanged += new System.EventHandler(this.comboBoxCoverageEnd_SelectedValueChanged);
             // 
             // label144
@@ -2983,7 +2983,7 @@
             this.comboBoxKindIns.Location = new System.Drawing.Point(601, 101);
             this.comboBoxKindIns.Name = "comboBoxKindIns";
             this.comboBoxKindIns.Size = new System.Drawing.Size(124, 21);
-            this.comboBoxKindIns.TabIndex = 18;
+            this.comboBoxKindIns.TabIndex = 22;
             this.comboBoxKindIns.SelectedValueChanged += new System.EventHandler(this.comboBoxKindIns_SelectedValueChanged);
             // 
             // comboBoxAddIns
@@ -2995,7 +2995,7 @@
             this.comboBoxAddIns.Location = new System.Drawing.Point(601, 170);
             this.comboBoxAddIns.Name = "comboBoxAddIns";
             this.comboBoxAddIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxAddIns.TabIndex = 20;
+            this.comboBoxAddIns.TabIndex = 24;
             this.comboBoxAddIns.SelectedIndexChanged += new System.EventHandler(this.comboBoxAddIns_SelectedIndexChanged);
             this.comboBoxAddIns.SelectedValueChanged += new System.EventHandler(this.comboBoxAddIns_SelectedValueChanged);
             // 
@@ -3008,7 +3008,7 @@
             this.comboBoxOtherIns.Location = new System.Drawing.Point(601, 67);
             this.comboBoxOtherIns.Name = "comboBoxOtherIns";
             this.comboBoxOtherIns.Size = new System.Drawing.Size(42, 21);
-            this.comboBoxOtherIns.TabIndex = 17;
+            this.comboBoxOtherIns.TabIndex = 21;
             this.comboBoxOtherIns.SelectedValueChanged += new System.EventHandler(this.comboBoxOtherIns_SelectedValueChanged);
             // 
             // label143
@@ -3055,7 +3055,7 @@
             this.comboBoxWhyNoSSN.Location = new System.Drawing.Point(196, 254);
             this.comboBoxWhyNoSSN.Name = "comboBoxWhyNoSSN";
             this.comboBoxWhyNoSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxWhyNoSSN.TabIndex = 12;
+            this.comboBoxWhyNoSSN.TabIndex = 11;
             // 
             // comboBoxAssistSSN
             // 
@@ -3066,7 +3066,7 @@
             this.comboBoxAssistSSN.Location = new System.Drawing.Point(196, 281);
             this.comboBoxAssistSSN.Name = "comboBoxAssistSSN";
             this.comboBoxAssistSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAssistSSN.TabIndex = 13;
+            this.comboBoxAssistSSN.TabIndex = 12;
             // 
             // comboBoxAppliedSSN
             // 
@@ -3077,7 +3077,7 @@
             this.comboBoxAppliedSSN.Location = new System.Drawing.Point(196, 227);
             this.comboBoxAppliedSSN.Name = "comboBoxAppliedSSN";
             this.comboBoxAppliedSSN.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxAppliedSSN.TabIndex = 11;
+            this.comboBoxAppliedSSN.TabIndex = 10;
             // 
             // label137
             // 
@@ -3235,7 +3235,7 @@
             this.textBoxEnrollFosterCare.Location = new System.Drawing.Point(196, 361);
             this.textBoxEnrollFosterCare.Name = "textBoxEnrollFosterCare";
             this.textBoxEnrollFosterCare.Size = new System.Drawing.Size(100, 20);
-            this.textBoxEnrollFosterCare.TabIndex = 15;
+            this.textBoxEnrollFosterCare.TabIndex = 14;
             // 
             // label49
             // 
@@ -3266,7 +3266,7 @@
             this.comboBoxEnrollCitizen.Location = new System.Drawing.Point(196, 334);
             this.comboBoxEnrollCitizen.Name = "comboBoxEnrollCitizen";
             this.comboBoxEnrollCitizen.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxEnrollCitizen.TabIndex = 14;
+            this.comboBoxEnrollCitizen.TabIndex = 13;
             // 
             // label35
             // 

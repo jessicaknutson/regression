@@ -158,6 +158,7 @@ namespace MNsure_Regression_1
                     int myiTestStepId;
                     myiTestStepId = 1;
                     string myWindow;
+
                     using (SqlCeCommand com2 = new SqlCeCommand("SELECT TestStepId, Class, Method, Window FROM TestSteps where TestId = " + mysTestId, con))
                     {
                         myiTestStepId = myiTestStepId + 1;
@@ -337,12 +338,16 @@ namespace MNsure_Regression_1
                         }
                     }
                     result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication);
-                    con.Close();
+                    con.Close();                    
                 }
                 catch (Exception a)
                 {
                     MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                 }
+                
+                driver.Dispose();
+                //driver2.Dispose();
+                driver3.Dispose();
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
@@ -414,15 +419,15 @@ namespace MNsure_Regression_1
         private void dataGridViewSuiteHistory_SelectionChanged(object sender, EventArgs e)
         {
             int rowindex = dataGridViewTestRunHistory.CurrentCell.RowIndex;
-            String mysRunid;
-            mysRunid = dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value.ToString();
+            String mysRunid = dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value.ToString();
+            String mysTestid = dataGridViewTestRunHistory.Rows[rowindex].Cells[1].Value.ToString();
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             con = new SqlCeConnection(conString);
             con.Open();
             SqlCeCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select * from  TestHistory where RunId = " + mysRunid + ";";
+            cmd.CommandText = "Select * from TestHistory where RunId = " + mysRunid + " and TestId = " + mysTestid + ";";
             cmd.ExecuteNonQuery();
             System.Data.DataTable dt = new System.Data.DataTable();
             SqlCeDataAdapter da = new SqlCeDataAdapter(cmd);
@@ -845,6 +850,7 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
                                 if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); }
                                 if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); }
+                                if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                             }
                             com4.ExecuteNonQuery();
                             com4.Dispose();
@@ -1000,7 +1006,7 @@ namespace MNsure_Regression_1
                     dateTimePregnancyEnded.Format = DateTimePickerFormat.Custom;
                     dateTimePregnancyEnded.CustomFormat = " ";
                 }
-                if (myApplication.myDueDate != null && myApplication.myDueDate != " ")
+                if (myApplication.myDueDate != null && myApplication.myDueDate != "")
                 {
                     string tempDueDate;
                     tempDueDate = Convert.ToString(myApplication.myDueDate);
@@ -1008,7 +1014,7 @@ namespace MNsure_Regression_1
                     dateTimeDueDate.Format = DateTimePickerFormat.Short;
                     dateTimeDueDate.Value = Convert.ToDateTime(tempDueDate);
                 }                
-                if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != " ")
+                if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != "")
                 {
                     string tempPregnancyEnded;
                     tempPregnancyEnded = Convert.ToString(myApplication.myPregnancyEnded);
@@ -1888,7 +1894,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
-            textBoxMNSureBuild.Text = "16.2";
+            textBoxMNSureBuild.Text = "16.1.2a";
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
@@ -4725,6 +4731,7 @@ namespace MNsure_Regression_1
             {
                 buttonNextMember.Enabled = true;
             }
+            buttonSaveMember.Enabled = true;
         }
 
         private void buttonNextMember_Click(object sender, EventArgs e)
@@ -4850,6 +4857,7 @@ namespace MNsure_Regression_1
             {
                 buttonPreviousMember.Enabled = true;
             }
+            buttonSaveMember.Enabled = true;
         }
 
         private void buttonAddMember_Click(object sender, EventArgs e)
@@ -5099,7 +5107,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll );";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -5181,6 +5189,7 @@ namespace MNsure_Regression_1
                     {
                         com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
                     }
+                    com2.Parameters.AddWithValue("Reenroll", myHouseholdMembers.myReEnroll);
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();

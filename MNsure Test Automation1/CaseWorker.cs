@@ -127,7 +127,10 @@ namespace MNsure_Regression_1
                 var rClick = action.ContextClick(personSearchTab); //right click
                 rClick.Perform();
                 driver.FindElement(By.XPath("/html/body/div[3]/table/tbody/tr[2]/td[1]")).Click();//close all tabs
-
+                /*action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                */
                 driver.FindElement(By.LinkText("Person…")).Click();
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]")));
@@ -136,7 +139,7 @@ namespace MNsure_Regression_1
 
                 System.Threading.Thread.Sleep(1000);
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys(myEnrollment.mySSNNum);
-                //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344685854");
+                //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344687079");
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search by ssn
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -177,6 +180,7 @@ namespace MNsure_Regression_1
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
+                
                 return 1;
             }
             catch (Exception e)
@@ -267,7 +271,7 @@ namespace MNsure_Regression_1
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("//a[contains(@href,'HCRIC_home')]"))));
                 driver.FindElement(By.XPath("//a[contains(@href,'HCRIC_home')]")).Click(); //select insurance affordability
 
-                System.Threading.Thread.Sleep(7000);
+                System.Threading.Thread.Sleep(9000);
                 driver.SwitchTo().DefaultContent();
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'en_US/HCRIC_homePage.do')]")));
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_homePage.do')]"));
@@ -495,7 +499,7 @@ namespace MNsure_Regression_1
                     driver.SwitchTo().Frame(iFrameElement3);
 
                     IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                    participantArrow.Click();//select participant arrow
+                    participantArrow.Click();//select participant arrow, this needs to be changed to select the correct participant (2hh and 3hh)
                     System.Threading.Thread.Sleep(1000);
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
@@ -506,7 +510,7 @@ namespace MNsure_Regression_1
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-                    System.Threading.Thread.Sleep(8000);
+                    System.Threading.Thread.Sleep(9000);
                 }
 
                 returnStatus = "Pass";

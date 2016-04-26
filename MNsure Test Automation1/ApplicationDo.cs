@@ -65,6 +65,10 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
                 DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
 
+                Enrollments myEnrollment = new Enrollments();
+                myHouseholdMembers.myReEnroll = "No"; //reset reenroll on start in case an error happened during previous run
+                myEnrollment.DoUpdateReEnroll(myHistoryInfo, myHouseholdMembers.myReEnroll);
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -997,11 +1001,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (60 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (36 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (20 + myHistoryInfo.myAppWait) * 1000;//norm 6
+                    appwait = (22 + myHistoryInfo.myAppWait) * 1000;//norm 6
                 }
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
@@ -1406,11 +1410,11 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (65 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (70 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (18 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (25 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
 
@@ -1551,18 +1555,18 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (10 + myHistoryInfo.myAppWait) * 1000; //1 hh
+                        appwait = (18 + myHistoryInfo.myAppWait) * 1000; //1 hh
                     }
                 }
                 else if (myApplication.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")//&& myHouseholdMembers.myHasIncome == "No")
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (40 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (115 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (12 + myHistoryInfo.myAppWait) * 1000;//norm 8
+                        appwait = (24 + myHistoryInfo.myAppWait) * 1000;//norm 8
                     }
                 }
                 else if (myApplication.myHouseholdOther == "Yes" && (myHouseholdMembers.myHasIncome == "Yes" || myApplication.myIncomeYN == "Yes"))
@@ -1698,15 +1702,25 @@ namespace MNsure_Regression_1
                 {
                     if (myApplication.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3")
                     {
-                        appwait = (16 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (45 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                        if (myHistoryInfo.myInTimeTravel == "Yes")
+                        {
+                            appwait = (35 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                    }                    
                     else//hh2
                     {
-                        appwait = (16 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myInTimeTravel == "Yes")
+                        {
+                            appwait = (35 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (18 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -2481,14 +2495,17 @@ namespace MNsure_Regression_1
                 {
                     listboxLongTermCare = driver.FindElement(By.Id("__o3id12"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                else if (householdCount == 3 && age3.Year - 1 < 19)
+                {
+                    listboxLongTermCare = driver.FindElement(By.Id("__o3id1a"));//b10
+                }
+                else /*if (indian == "Yes" || 
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") ||//b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes")//q03
+                    )*/
                 {
                     listboxLongTermCare = driver.FindElement(By.Id("__o3id16"));
-                }
-                else//3 hh
-                {
-                    listboxLongTermCare = driver.FindElement(By.Id("__o3id1a"));
-                }
+                }                
                 listboxLongTermCare.SendKeys("No");
 
                 IWebElement listboxResidentialTreatment;
@@ -2506,14 +2523,18 @@ namespace MNsure_Regression_1
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id15")));
                     listboxResidentialTreatment = driver.FindElement(By.Id("__o3id15"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                else if (householdCount == 3 && age3.Year - 1 < 19)
+                {
+                    listboxResidentialTreatment = driver.FindElement(By.Id("__o3id1e"));
+                }
+                else /*if (indian == "Yes" || 
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
                 {
                     listboxResidentialTreatment = driver.FindElement(By.Id("__o3id1a"));
                 }
-                else//3 hh
-                {
-                    listboxResidentialTreatment = driver.FindElement(By.Id("__o3id1e"));
-                }                                    
+                                                  
                 listboxResidentialTreatment.SendKeys("No");
 
                 IWebElement listboxHaveMedicare;
@@ -2529,14 +2550,18 @@ namespace MNsure_Regression_1
                 {
                     listboxHaveMedicare = driver.FindElement(By.Id("__o3id18"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
-                {
-                    listboxHaveMedicare = driver.FindElement(By.Id("__o3id1e"));
-                }
-                else//3 hh
+                else if (householdCount == 3 && age3.Year - 1 < 19)
                 {
                     listboxHaveMedicare = driver.FindElement(By.Id("__o3id22"));
                 }
+                else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
+                {
+                    listboxHaveMedicare = driver.FindElement(By.Id("__o3id1e"));
+                }
+
                 listboxHaveMedicare.SendKeys(myApplication.myOtherIns);
                 outsideClick.Click();
 
@@ -2559,14 +2584,18 @@ namespace MNsure_Regression_1
                 {
                     listboxTorture = driver.FindElement(By.Id("__o3id1b"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
-                {
-                    listboxTorture = driver.FindElement(By.Id("__o3id22"));
-                }
-                else//3 hh
+                else if (householdCount == 3 && age3.Year - 1 < 19)
                 {
                     listboxTorture = driver.FindElement(By.Id("__o3id26"));
                 }
+                else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
+                {
+                    listboxTorture = driver.FindElement(By.Id("__o3id22"));
+                }
+               
                 listboxTorture.SendKeys("No");
 
                 IWebElement listboxMedicaidEligibility;
@@ -2582,13 +2611,16 @@ namespace MNsure_Regression_1
                 {
                     listboxMedicaidEligibility = driver.FindElement(By.Id("__o3id1e"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
-                {
-                    listboxMedicaidEligibility = driver.FindElement(By.Id("__o3id26"));
-                }
-                else//3 hh
+                else if (householdCount == 3 && age3.Year - 1 < 19)
                 {
                     listboxMedicaidEligibility = driver.FindElement(By.Id("__o3id2a"));
+                }
+                else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
+                {
+                    listboxMedicaidEligibility = driver.FindElement(By.Id("__o3id26"));
                 }
                 listboxMedicaidEligibility.SendKeys("No");
 
@@ -2607,13 +2639,16 @@ namespace MNsure_Regression_1
                 {
                     listboxMedicaidHome = driver.FindElement(By.Id("__o3id21"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                else if (householdCount == 3 && age3.Year - 1 < 19)
+                { 
+                    listboxMedicaidHome = driver.FindElement(By.Id("__o3id2e"));
+                }
+                else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
                 {
                     listboxMedicaidHome = driver.FindElement(By.Id("__o3id2a"));
-                }
-                else//3 hh
-                {
-                    listboxMedicaidHome = driver.FindElement(By.Id("__o3id2e"));
                 }
                 listboxMedicaidHome.SendKeys("No");
 
@@ -2632,13 +2667,16 @@ namespace MNsure_Regression_1
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id24")));
                     listboxMedicaidLongTerm = driver.FindElement(By.Id("__o3id24"));
                 }
-                else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                else if (householdCount == 3 && age3.Year - 1 < 19)
+                { 
+                    listboxMedicaidLongTerm = driver.FindElement(By.Id("__o3id32"));
+                }
+                else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
                 {
                     listboxMedicaidLongTerm = driver.FindElement(By.Id("__o3id2e"));
-                }
-                else//3 hh
-                {
-                    listboxMedicaidLongTerm = driver.FindElement(By.Id("__o3id32"));
                 }
                 listboxMedicaidLongTerm.SendKeys("No");
 
@@ -2702,13 +2740,16 @@ namespace MNsure_Regression_1
                     {
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id27"));
                     }
-                    else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                    else if (householdCount == 3 && age3.Year - 1 < 19)
+                    { 
+                        listboxMedicareInjury = driver.FindElement(By.Id("__o3id36"));
+                    }
+                    else /*if (indian == "Yes" ||
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
                     {
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id32"));
-                    }
-                    else//3 hh
-                    {
-                        listboxMedicareInjury = driver.FindElement(By.Id("__o3id36"));
                     }
                     listboxMedicareInjury.SendKeys("No");
 
@@ -2730,13 +2771,15 @@ namespace MNsure_Regression_1
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id36"));
                     }
-                    else if (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No")
-                    {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id34"));
-                    }
-                    else//3 hh
+                    else if (householdCount == 3 && age3.Year - 1 < 19)
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id3a"));
+                    }
+                    else /*if ( (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") || //b09
+                    (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03
+                    )*/
+                    {
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id34"));
                     }
                     listboxMAStartDate.SendKeys("No");
                 }
@@ -2816,14 +2859,18 @@ namespace MNsure_Regression_1
                     else if (householdCount == 2)//2 hh
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id2a"));
+                    }                     
+                    else if (householdCount == 3 && age3.Year - 1 < 19)
+                    {
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id3a"));
                     }
-                    else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
+                    else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No") )
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id34"));
                     }
-                    else//3 hh
+                    else /*if (householdCount == 3 && myHouseholdMembers.myTaxFiler == "No" && myHouseholdMembers.myDependants == "Yes") //q03*/
                     {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id3a"));
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id32"));
                     }
                     listboxMAStartDate.SendKeys("No");
                 }
@@ -3090,11 +3137,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (65 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (25 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
@@ -3253,7 +3300,6 @@ namespace MNsure_Regression_1
             }
             return 1;
         }
-
 
     }
 }
