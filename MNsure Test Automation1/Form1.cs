@@ -50,6 +50,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myRequiredStep = new int[30];
             myHistoryInfo.myRequiredStepStatus = new string[30];
             myHistoryInfo.myRequiredScreenshotFile = new string[30];
+            myHistoryInfo.myIcnumber = null;
             myHistoryInfo.myTestStartTime = DateTime.Now;
             this.WindowState = FormWindowState.Minimized;
 
@@ -571,6 +572,14 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(62)) { myApplication.myChildren = reader.GetString(62); }
                             if (!reader.IsDBNull(63)) { myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63)); }
                             if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64)); }
+                            if (!reader.IsDBNull(65))
+                            {
+                                myApplication.myRegDate = Convert.ToString(reader.GetDateTime(65));
+                            }
+                            else
+                            {
+                                myApplication.myRegDate = null;
+                            }
                         }
                         else
                         {
@@ -1027,6 +1036,7 @@ namespace MNsure_Regression_1
                 {
                     comboBoxPregnancyDone.Text = "No";
                 }
+                textBoxRegDate.Text = myApplication.myRegDate;
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
@@ -1279,6 +1289,7 @@ namespace MNsure_Regression_1
             {
                 myApplication.myPregnancyEnded = dateTimePregnancyEnded.Text;
             }
+            myApplication.myRegDate = textBoxRegDate.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -1308,7 +1319,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -1409,6 +1420,14 @@ namespace MNsure_Regression_1
                     else
                     {
                         com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                    }
+                    if (myApplication.myRegDate != "" && myApplication.myRegDate != null)
+                    {
+                        com2.Parameters.AddWithValue("RegDate", myApplication.myRegDate);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("RegDate", DBNull.Value);
                     }
 
                     com2.ExecuteNonQuery();
@@ -5189,7 +5208,7 @@ namespace MNsure_Regression_1
                     {
                         com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
                     }
-                    com2.Parameters.AddWithValue("Reenroll", myHouseholdMembers.myReEnroll);
+                    com2.Parameters.AddWithValue("Reenroll", "No");
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();

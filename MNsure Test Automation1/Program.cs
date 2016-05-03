@@ -170,6 +170,7 @@ struct mystructSelectedTest
         public string myChildren;
         public string myDueDate;
         public string myPregnancyEnded;
+        public string myRegDate;
     }
     struct mystructSSN
     {

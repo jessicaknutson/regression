@@ -638,6 +638,61 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoPlanSummaryExit(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
+
+            try
+            {
+                if (myHistoryInfo.myRelogin == "Yes")
+                {
+                    myDriver = driver3;
+                }
+                System.Threading.Thread.Sleep(2000);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"))));
+                IWebElement buttonEnroll = myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
+                buttonEnroll.Click();
+
+                System.Threading.Thread.Sleep(30000);
+                myDriver.SwitchTo().DefaultContent();
+                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
+
+                var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
+                myDriver.SwitchTo().Frame(iFrameElement);
+                System.Threading.Thread.Sleep(1000);
+
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[3]/div[3]/span[5]/a"))));
+                IWebElement buttonExit = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[5]/a"));
+                buttonExit.Click();
+
+                System.Threading.Thread.Sleep(1000);
+
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[8]/div/div[2]/input[2]"))));
+                IWebElement buttonExit2 = myDriver.FindElement(By.XPath("/html/body/div[8]/div/div[2]/input[2]"));
+                buttonExit2.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoTax(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers)
         {

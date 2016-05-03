@@ -444,6 +444,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.textBoxRegDate = new System.Windows.Forms.TextBox();
+            this.label179 = new System.Windows.Forms.Label();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -1210,7 +1212,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -1572,8 +1574,6 @@
             // 
             this.comboBoxHMCounty.FormattingEnabled = true;
             this.comboBoxHMCounty.Items.AddRange(new object[] {
-            "Hennepin",
-            "Ramsey",
             "Aitkin",
             "Anoka",
             "Becker",
@@ -1582,6 +1582,9 @@
             "Big Stone",
             "Blue Earth",
             "Brown",
+            "Hennepin",
+            "Olmsted",
+            "Ramsey",
             "Out Of State"});
             this.comboBoxHMCounty.Location = new System.Drawing.Point(675, 577);
             this.comboBoxHMCounty.Name = "comboBoxHMCounty";
@@ -2804,7 +2807,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -3317,6 +3320,8 @@
             // 
             // groupBoxApplicantInformation
             // 
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxRegDate);
+            this.groupBoxApplicantInformation.Controls.Add(this.label179);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxWithDiscounts);
             this.groupBoxApplicantInformation.Controls.Add(this.label157);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailCounty);
@@ -3431,8 +3436,6 @@
             // 
             this.comboBoxMailCounty.FormattingEnabled = true;
             this.comboBoxMailCounty.Items.AddRange(new object[] {
-            "Hennepin",
-            "Ramsey",
             "Aitkin",
             "Anoka",
             "Becker",
@@ -3441,6 +3444,9 @@
             "Big Stone",
             "Blue Earth",
             "Brown",
+            "Hennepin",
+            "Olmsted",
+            "Ramsey",
             "Out Of State"});
             this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 466);
             this.comboBoxMailCounty.Name = "comboBoxMailCounty";
@@ -3450,7 +3456,7 @@
             // label134
             // 
             this.label134.AutoSize = true;
-            this.label134.Location = new System.Drawing.Point(621, 468);
+            this.label134.Location = new System.Drawing.Point(621, 469);
             this.label134.Name = "label134";
             this.label134.Size = new System.Drawing.Size(43, 13);
             this.label134.TabIndex = 48;
@@ -3898,8 +3904,6 @@
             // 
             this.comboBoxHomeCounty.FormattingEnabled = true;
             this.comboBoxHomeCounty.Items.AddRange(new object[] {
-            "Hennepin",
-            "Ramsey",
             "Aitkin",
             "Anoka",
             "Becker",
@@ -3908,6 +3912,9 @@
             "Big Stone",
             "Blue Earth",
             "Brown",
+            "Hennepin",
+            "Olmsted",
+            "Ramsey",
             "Out Of State"});
             this.comboBoxHomeCounty.Location = new System.Drawing.Point(671, 168);
             this.comboBoxHomeCounty.Name = "comboBoxHomeCounty";
@@ -5114,6 +5121,22 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // textBoxRegDate
+            // 
+            this.textBoxRegDate.Location = new System.Drawing.Point(670, 519);
+            this.textBoxRegDate.Name = "textBoxRegDate";
+            this.textBoxRegDate.Size = new System.Drawing.Size(80, 20);
+            this.textBoxRegDate.TabIndex = 53;
+            // 
+            // label179
+            // 
+            this.label179.AutoSize = true;
+            this.label179.Location = new System.Drawing.Point(572, 522);
+            this.label179.Name = "label179";
+            this.label179.Size = new System.Drawing.Size(92, 13);
+            this.label179.TabIndex = 52;
+            this.label179.Text = "Registration Date:";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5594,6 +5617,8 @@
         private System.Windows.Forms.Label label178;
         private System.Windows.Forms.ComboBox comboBoxPregnancyDone;
         private System.Windows.Forms.ComboBox comboBoxHMPregnancyDone;
+        private System.Windows.Forms.TextBox textBoxRegDate;
+        private System.Windows.Forms.Label label179;
 
     }
 }

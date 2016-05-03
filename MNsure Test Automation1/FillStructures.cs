@@ -72,8 +72,16 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(25)) { myApplication.myHispanic = reader.GetString(25); }
                         if (!reader.IsDBNull(26)) { myApplication.myRace = reader.GetString(26); }
                         if (!reader.IsDBNull(27)) { myApplication.mySSN = reader.GetString(27); }                        
-                        if (!reader.IsDBNull(28)) { myApplication.myCitizen = reader.GetString(28); }  
-                        myApplication.mySSNNum = myAccountCreate.mySSN; //auto generated
+                        if (!reader.IsDBNull(28)) { myApplication.myCitizen = reader.GetString(28); }
+                        if (myApplication.mySSN == "Yes")
+                        {
+                            myApplication.mySSNNum = myAccountCreate.mySSN; //auto generated
+                        }
+                        else
+                        {
+                            myApplication.mySSNNum = null;
+                        }
+                        
                         if (!reader.IsDBNull(30)) { myApplication.myHouseholdOther = reader.GetString(30); }
                         if (!reader.IsDBNull(31)) { myApplication.myDependants = reader.GetString(31); }
                         if (!reader.IsDBNull(32)) { myApplication.myIncomeYN = reader.GetString(32); }
@@ -109,6 +117,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(62)) { myApplication.myChildren = reader.GetString(62); }
                         if (!reader.IsDBNull(63)) { myApplication.myDueDate = Convert.ToDateTime(reader.GetDateTime(63)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(64)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(65)) { myApplication.myRegDate = Convert.ToDateTime(reader.GetDateTime(65)).ToString("MM/dd/yyyy"); }
                     }
                 }
 
@@ -493,7 +502,14 @@ namespace MNsure_Regression_1
                         com3.Parameters.AddWithValue("Suffix", myAccountCreate.mySuffix);
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
                         com3.Parameters.AddWithValue("Phone", myAccountCreate.myPhone);
-                        com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);
+                        if (myApplication.mySSN == "Yes")
+                        {
+                            com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);
+                        } 
+                        else
+                        {
+                            com3.Parameters.AddWithValue("SSN", DBNull.Value);
+                        }
                         if (myApplication.myDOB == null)
                         {
                             com3.Parameters.AddWithValue("DOB", myAccountCreate.myDOB);
