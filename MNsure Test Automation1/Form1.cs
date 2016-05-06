@@ -76,6 +76,7 @@ namespace MNsure_Regression_1
             object reflectResult = null;
             object reflectResultac = null;
             object reflectResultad = null;
+            object reflectResultcwad = null;
             object reflectResulten = null;
             object reflectResultcw = null;
             object reflectResulthm = null;
@@ -255,16 +256,42 @@ namespace MNsure_Regression_1
                                     result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
+                                case "CWApplicationDo":
+                                    object[] parmscwad = new object[8];
+                                    parmscwad[0] = driver2;
+                                    parmscwad[1] = myAccountCreate;
+                                    parmscwad[2] = myApplication;
+                                    parmscwad[3] = myHouseholdMembers;
+                                    parmscwad[4] = myHistoryInfo;
+                                    parmscwad[5] = returnStatus;
+                                    parmscwad[6] = returnException;
+                                    parmscwad[7] = returnScreenshot;
+
+                                    CWApplicationDo myCWApplicationDo = new CWApplicationDo();
+                                    Type reflectTestTypecwad = typeof(CWApplicationDo);
+                                    MethodInfo reflectMethodToInvokecwad = reflectTestTypecwad.GetMethod(myMethod);
+                                    ParameterInfo[] reflectMethodParameterscwad = reflectMethodToInvokecwad.GetParameters();
+                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                    reflectResultcwad = reflectMethodToInvokecwad.Invoke(myCWApplicationDo, parmscwad);
+                                    myHistoryInfo.myTestStepStatus = parmscwad[5].ToString();
+                                    myHistoryInfo.myStepException = parmscwad[6].ToString();
+                                    myHistoryInfo.myScreenShot = parmscwad[7].ToString();
+                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    //must fill structures again after updating pass count
+                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    break;
+
                                 case "HouseholdMembersDo":
-                                    object[] parmshm = new object[8];
+                                    object[] parmshm = new object[9];
                                     parmshm[0] = driver;
-                                    parmshm[1] = myAccountCreate;
-                                    parmshm[2] = myApplication;
-                                    parmshm[3] = myHouseholdMembers;
-                                    parmshm[4] = myHistoryInfo;
-                                    parmshm[5] = returnStatus;
-                                    parmshm[6] = returnException;
-                                    parmshm[7] = returnScreenshot;
+                                    parmshm[1] = driver2;
+                                    parmshm[2] = myAccountCreate;
+                                    parmshm[3] = myApplication;
+                                    parmshm[4] = myHouseholdMembers;
+                                    parmshm[5] = myHistoryInfo;
+                                    parmshm[6] = returnStatus;
+                                    parmshm[7] = returnException;
+                                    parmshm[8] = returnScreenshot;
 
                                     HouseholdMembersDo myHouseholdMembersDo = new HouseholdMembersDo();
                                     Type reflectTestTypehm = typeof(HouseholdMembersDo);
@@ -272,14 +299,14 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametershm = reflectMethodToInvokehm.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResulthm = reflectMethodToInvokehm.Invoke(myHouseholdMembersDo, parmshm);
-                                    myHistoryInfo.myTestStepStatus = parmshm[5].ToString();
-                                    myHistoryInfo.myStepException = parmshm[6].ToString();
-                                    myHistoryInfo.myScreenShot = parmshm[7].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmshm[6].ToString();
+                                    myHistoryInfo.myStepException = parmshm[7].ToString();
+                                    myHistoryInfo.myScreenShot = parmshm[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
                                     result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
-
+                                                                    
                                 case "Enrollments":
                                     object[] parmsen = new object[8];
                                     parmsen[0] = driver;

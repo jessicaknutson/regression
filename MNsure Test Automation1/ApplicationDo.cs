@@ -2826,11 +2826,11 @@ namespace MNsure_Regression_1
                     DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
 
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[30]/table/tbody/tr/td/span[2]"));
+                DoWaitForElement(driver, By.Id("__o3btn.next_label"));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[30]/table/tbody/tr/td/span[2]"));
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
 
                 returnStatus = "Pass";

@@ -755,7 +755,7 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(10000);
+                System.Threading.Thread.Sleep(12000);
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
                 IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
                 textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
