@@ -602,6 +602,7 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(65))
                             {
                                 myApplication.myRegDate = Convert.ToString(reader.GetDateTime(65));
+                                myApplication.myRegDate = DateTime.Parse(myApplication.myRegDate).ToString("M/d/yyyy");
                             }
                             else
                             {
@@ -3320,13 +3321,10 @@ namespace MNsure_Regression_1
                 da.Fill(dt);
                 dataGridViewTestSteps.DataSource = dt;
             }
-
             catch (Exception y)
             {
                 MessageBox.Show("Delete Test step didn't work, ecxeption: " + y);
             }
-
-
         }
 
         private void buttonConfigureEnrollment_Click(object sender, EventArgs e)
@@ -3337,26 +3335,26 @@ namespace MNsure_Regression_1
 
         private void textBoxEnrollAmount_TextChanged(object sender, EventArgs e)
         {
-            /*if (myApplication.myHouseholdOther == "No") //1 HH
+            if (myApplication.myHouseholdOther == "No") //1 HH
             {
-                if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16243)
+                if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16395)
                 {
-                    radioButtonApplicationTypeMA.Checked = true;
+                    //radioButtonApplicationTypeMA.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care MA";
                 }
-                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23540)
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23761)
                 {
-                    radioButtonApplicationTypeBHP.Checked = true;
+                    //radioButtonApplicationTypeBHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care BHP";
                 }
-                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47080)
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47521)
                 {
-                    radioButtonApplicationTypeQHP.Checked = true;
+                    //radioButtonApplicationTypeQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care QHP";
                 }
                 else
                 {
-                    radioButtonApplicationTypeUQHP.Checked = true;
+                    //radioButtonApplicationTypeUQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
             }
@@ -3368,22 +3366,22 @@ namespace MNsure_Regression_1
                 }
                 if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 22108)
                 {
-                    radioButtonApplicationTypeMA.Checked = true;
+                    //radioButtonApplicationTypeMA.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care MA";
                 }
-                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 32040)
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 32041)
                 {
-                    radioButtonApplicationTypeBHP.Checked = true;
+                    //radioButtonApplicationTypeBHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care BHP";
                 }
-                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 64080)
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 64081)
                 {
-                    radioButtonApplicationTypeQHP.Checked = true;
+                    //radioButtonApplicationTypeQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care QHP";
                 }
                 else
                 {
-                    radioButtonApplicationTypeUQHP.Checked = true;
+                    //radioButtonApplicationTypeUQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
             }
@@ -3395,25 +3393,25 @@ namespace MNsure_Regression_1
                 }
                 if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 27821)
                 {
-                    radioButtonApplicationTypeMA.Checked = true;
+                    //radioButtonApplicationTypeMA.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care MA";
                 }
-                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 40320)
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 40321)
                 {
-                    radioButtonApplicationTypeBHP.Checked = true;
+                    //radioButtonApplicationTypeBHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care BHP";
                 }
-                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 80640)
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 80641)
                 {
-                    radioButtonApplicationTypeQHP.Checked = true;
+                    //radioButtonApplicationTypeQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care QHP";
                 }
                 else
                 {
-                    radioButtonApplicationTypeUQHP.Checked = true;
+                    //radioButtonApplicationTypeUQHP.Checked = true;
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
-            }*/
+            }
         }
 
 
