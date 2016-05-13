@@ -268,6 +268,7 @@ struct mystructSelectedTest
         public string myDueDate;
         public string myPregnancyEnded;
         public string myReEnroll;
+        public string mySaveExit;
     }
 
     struct mystructEditKey

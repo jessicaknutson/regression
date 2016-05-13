@@ -135,7 +135,7 @@ namespace MNsure_Regression_1
                 if (myEnrollment.mySSN == "Yes")
                 {
                     driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys(myEnrollment.mySSNNum);
-                    //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344687079");                    
+                    //driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input")).SendKeys("344688097");                    
                 }
                 else
                 {
@@ -377,6 +377,7 @@ namespace MNsure_Regression_1
         {
             try
             {
+                //System.Threading.Thread.Sleep(2000);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[2]/div[2]/div/ul/li[1]/div"));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[2]/div[2]/div/ul/li[1]/div")).Click();//dashboard
@@ -387,17 +388,20 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div[4]/div[2]/div/div/table/tbody/tr[2]/td[1]/a")).Click();//application filer
-
+                
+                System.Threading.Thread.Sleep(5000);
+                driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-
+                
                 driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle
 
+                //System.Threading.Thread.Sleep(2000);
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
-
+                
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle2
 
                 System.Threading.Thread.Sleep(3000);
@@ -513,13 +517,105 @@ namespace MNsure_Regression_1
                 IList<IWebElement> list = elems;
                 for (int j = 0; j < list.Count; j++)
                 {
+                    int householdCount = 1;
+                    if (myEnrollment.myHouseholdOther == "Yes")
+                    {
+                        HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                        householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                    }
                     driver.SwitchTo().DefaultContent();
-                                        
+
+                    var iFrameElement1 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_tabDetailsPage.do')]"));
+                    driver.SwitchTo().Frame(iFrameElement1);
+
+                    IWebElement hh1first;
+                    IWebElement hh1last;
+                    IWebElement hh1ageplus;
+                    if (householdCount == 1)
+                    {
+                        hh1first = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[3]/div/a"));
+                        hh1last = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[4]/div/a"));
+                        hh1ageplus = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div/div[2]/div[6]/div[2]"));
+                    }
+                    else
+                    {
+                        hh1first = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[1]/div/div[2]/div[3]/div/a"));
+                        hh1last = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[1]/div/div[2]/div[4]/div/a"));
+                        hh1ageplus = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[1]/div/div[2]/div[6]/div[2]"));                        
+                    }
+                    string hh1firstname = hh1first.Text;
+                    string hh1lastname = hh1last.Text;
+                    string hh1fullname = hh1firstname + " " + hh1lastname;
+                    string hh1age = hh1ageplus.Text.Substring(0, 2);
+
+                    string hh2firstname = null;
+                    string hh2lastname = null;
+                    string hh2fullname = null;
+                    string hh3firstname = null;
+                    string hh3lastname = null;
+                    string hh3fullname = null;
+                    string hh2age = null;
+                    string hh3age = null;
+                    if (householdCount == 2 || householdCount == 3)
+                    {
+                        IWebElement hh2first = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div[3]/div/a"));
+                        hh2firstname = hh2first.Text;
+                        IWebElement hh2last = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div[4]/div/a"));
+                        hh2lastname = hh2last.Text;
+                        hh2fullname = hh2firstname + " " + hh2lastname;
+                        IWebElement hh2ageplus = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[2]/div/div[2]/div[6]/div[2]"));
+                        if (hh2ageplus.Text.Contains("months"))
+                        {
+                            hh2age = "0";
+                        }
+                        else
+                        {
+                            hh2age = hh2ageplus.Text.Substring(0, 2).Trim();                        
+                        }                        
+                    }
+                    if (householdCount == 3)
+                    {
+                        IWebElement hh3first = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div/div[2]/div[3]/div/a"));
+                        hh3firstname = hh3first.Text;
+                        IWebElement hh3last = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div/div[2]/div[4]/div/a"));
+                        hh3lastname = hh3last.Text;
+                        hh3fullname = hh3firstname + " " + hh3lastname;
+                        IWebElement hh3ageplus = driver.FindElement(By.XPath("/html/body/div[4]/div/div/div[1]/div[2]/div[1]/div/div/div/div[3]/div/div[2]/div[6]/div[2]"));
+                        if (hh3ageplus.Text.Contains("months"))
+                        {
+                            hh3age = "0";
+                        }
+                        else
+                        {
+                            hh3age = hh3ageplus.Text.Substring(0, 2).Trim();
+                        }
+                    }
+
+                    driver.SwitchTo().DefaultContent();
+
                     var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
                     driver.SwitchTo().Frame(iFrameElement2);
 
                     DoWaitForElementRefresh(driver, By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span"), By.XPath("/html/body/div[1]/div/div[2]/a[1]"));
-                    
+
+                    //Find outstanding verification participants
+                    var elems2 = driver.FindElements(By.XPath("//a[contains(@href,'Participant')]"));
+                    string p = elems2[0].Text;
+
+                    string age;
+                    if (householdCount == 3 && elems2[0].Text.Contains(hh3fullname))
+                    {
+                        age = hh3age;
+                    }
+                    else if ((householdCount == 2 || householdCount == 3) && elems2[0].Text.Contains(hh2fullname))
+                    {
+                        age = hh2age;
+                    }
+                    else
+                    {
+                        age = hh1age;
+                    }
+
                     driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow
                     driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
 
@@ -529,19 +625,21 @@ namespace MNsure_Regression_1
                     var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/VerificationApplication_createVerificationItemProvisionPage.do')]"));
                     driver.SwitchTo().Frame(iFrameElement3);
 
-                    IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
-                    participantArrow.Click();//select participant arrow, this needs to be changed to select the correct participant (2hh and 3hh)
+                    IWebElement participant = driver.FindElement(By.Id("__o3id2"));
+                    participant.SendKeys(p + " (" + age + ")");
+                    /*IWebElement participantArrow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/table/tbody/tr[1]/td/div/div/table/tbody/tr/td/div/div[1]"));
+                     * participantArrow.Click();//select participant arrow, this needs to be changed to select the correct participant (2hh and 3hh)
                     System.Threading.Thread.Sleep(1000);
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                    action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                    action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();*/
 
                     System.Threading.Thread.Sleep(2000);
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
-                    System.Threading.Thread.Sleep(4000);
+                    System.Threading.Thread.Sleep(6000);
                 }
 
                 returnStatus = "Pass";
@@ -582,9 +680,17 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    driver.FindElement(By.Id("__o3id1")).SendKeys(myEnrollment.myFirstName);
-                    driver.FindElement(By.Id("__o3id3")).SendKeys(myEnrollment.myLastName);
-                    driver.FindElement(By.Id("__o3id5")).SendKeys(myEnrollment.myDOB);
+                    IWebElement textboxFirst = driver.FindElement(By.Id("__o3id1"));
+                    textboxFirst.Clear();
+                    textboxFirst.SendKeys(myEnrollment.myFirstName);
+
+                    IWebElement textboxLast = driver.FindElement(By.Id("__o3id3"));
+                    textboxLast.Clear();
+                    textboxLast.SendKeys(myEnrollment.myLastName);
+
+                    IWebElement textboxDOB = driver.FindElement(By.Id("__o3id5"));
+                    textboxDOB.Clear();
+                    textboxDOB.SendKeys(myEnrollment.myDOB);
                 }
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search button
 
@@ -684,9 +790,17 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    driver.FindElement(By.Id("__o3id1")).SendKeys(myEnrollment.myFirstName);
-                    driver.FindElement(By.Id("__o3id3")).SendKeys(myEnrollment.myLastName);
-                    driver.FindElement(By.Id("__o3id5")).SendKeys(myEnrollment.myDOB);
+                    IWebElement textboxFirst = driver.FindElement(By.Id("__o3id1"));
+                    textboxFirst.Clear();
+                    textboxFirst.SendKeys(myEnrollment.myFirstName);
+
+                    IWebElement textboxLast = driver.FindElement(By.Id("__o3id3"));
+                    textboxLast.Clear();
+                    textboxLast.SendKeys(myEnrollment.myLastName);
+
+                    IWebElement textboxDOB = driver.FindElement(By.Id("__o3id5"));
+                    textboxDOB.Clear();
+                    textboxDOB.SendKeys(myEnrollment.myDOB);
                 }
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search button
 
@@ -748,9 +862,17 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    driver.FindElement(By.Id("__o3id1")).SendKeys(myEnrollment.myFirstName);
-                    driver.FindElement(By.Id("__o3id3")).SendKeys(myEnrollment.myLastName);
-                    driver.FindElement(By.Id("__o3id5")).SendKeys(myEnrollment.myDOB);
+                    IWebElement textboxFirst = driver.FindElement(By.Id("__o3id1"));
+                    textboxFirst.Clear();
+                    textboxFirst.SendKeys(myEnrollment.myFirstName);
+
+                    IWebElement textboxLast = driver.FindElement(By.Id("__o3id3"));
+                    textboxLast.Clear();
+                    textboxLast.SendKeys(myEnrollment.myLastName);
+
+                    IWebElement textboxDOB = driver.FindElement(By.Id("__o3id5"));
+                    textboxDOB.Clear();
+                    textboxDOB.SendKeys(myEnrollment.myDOB);
                 }
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search button
 
@@ -811,9 +933,17 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    driver.FindElement(By.Id("__o3id1")).SendKeys(myEnrollment.myFirstName);
-                    driver.FindElement(By.Id("__o3id3")).SendKeys(myEnrollment.myLastName);
-                    driver.FindElement(By.Id("__o3id5")).SendKeys(myEnrollment.myDOB);
+                    IWebElement textboxFirst = driver.FindElement(By.Id("__o3id1"));
+                    textboxFirst.Clear();
+                    textboxFirst.SendKeys(myEnrollment.myFirstName);
+
+                    IWebElement textboxLast = driver.FindElement(By.Id("__o3id3"));
+                    textboxLast.Clear();
+                    textboxLast.SendKeys(myEnrollment.myLastName);
+
+                    IWebElement textboxDOB = driver.FindElement(By.Id("__o3id5"));
+                    textboxDOB.Clear();
+                    textboxDOB.SendKeys(myEnrollment.myDOB);
                 }
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search button
 
@@ -855,7 +985,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(10000);
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
@@ -870,6 +1000,7 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //determinations tab
                 }
 
+                System.Threading.Thread.Sleep(4000);
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/DefaultICProduct_resolveDeterminationCurrentPage.do')]"));
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultICProduct_resolveDeterminationCurrentPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -907,6 +1038,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a"));                
                 driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a")).Click(); //coverage link
 
+                System.Threading.Thread.Sleep(5000);
+                driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -939,6 +1072,7 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[2]/div[3]/div/ul/li[2]/div"));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[2]/div[3]/div/ul/li[2]/div")).Click(); //income tab
 
+                System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";

@@ -373,9 +373,9 @@ namespace MNsure_Regression_1
                     MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                 }
                 
-                driver.Dispose();
+                //driver.Dispose();
                 //driver2.Dispose();
-                driver3.Dispose();
+                //driver3.Dispose();
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
@@ -888,6 +888,7 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); }
                                 if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); }
                                 if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
+                                if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); }
                             }
                             com4.ExecuteNonQuery();
                             com4.Dispose();
@@ -1492,7 +1493,7 @@ namespace MNsure_Regression_1
                 cmd4.CommandType = CommandType.Text;
                 try
                 {
-                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + ";";
+                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + " and (Type = Home or Type = Mailing);";
                     cmd4.ExecuteNonQuery();
                 }
                 catch
@@ -1586,7 +1587,7 @@ namespace MNsure_Regression_1
                         com5.ExecuteNonQuery();
                         com5.Dispose();
                     }
-                }               
+                }                
             }
             catch (Exception f)
             {
@@ -5151,7 +5152,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
 
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
@@ -5234,6 +5235,7 @@ namespace MNsure_Regression_1
                         com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
                     }
                     com2.Parameters.AddWithValue("Reenroll", "No");
+                    com2.Parameters.AddWithValue("SaveExit", "No");
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -5265,17 +5267,17 @@ namespace MNsure_Regression_1
                     com3.Dispose();
                 }
 
-                /*SqlCeCommand cmd4 = con.CreateCommand();
+                SqlCeCommand cmd4 = con.CreateCommand();
                 cmd4.CommandType = CommandType.Text;
                 try
                 {
-                    cmd4.CommandText = "Delete from Address where TestId = " + myTestId + ";";
+                    cmd4.CommandText = "Delete from Address where TestId = " + myTestId + " and Type = Household 2;";
                     cmd4.ExecuteNonQuery();
                 }
                 catch
                 {
                     //fail silently
-                }*/
+                }
 
                 //Basic address stuff
                 if (myHouseholdMembers.myMailAddress1 != "")

@@ -286,12 +286,17 @@ namespace MNsure_Regression_1
                 if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_16"))));
-                    IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                    IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
                     checkboxPrimary.Click(); 
                 }                
                 else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {
-                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));                    
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));
+                    if (myHouseholdMembers.myReEnroll == "No" && myHouseholdMembers.mySaveExit == "Yes")
+                    {
+                        IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                        checkboxPrimary.Click(); 
+                    }
                 }
                 else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
@@ -300,7 +305,7 @@ namespace MNsure_Regression_1
                 else
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_12"))));
-                    IWebElement checkboxPrimary = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                    IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
                     checkboxPrimary.Click(); 
                 }                
 
@@ -310,6 +315,11 @@ namespace MNsure_Regression_1
                 {                   
                     myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screens another time
                     myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    if (myHouseholdMembers.myReEnroll == "No" && myHouseholdMembers.mySaveExit == "Yes")
+                    {
+                        IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_4"));
+                        buttonContinue.Click();
+                    }
                 }
                 else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2" && myHouseholdMembers.myReEnroll == "No")
                 {
@@ -322,7 +332,7 @@ namespace MNsure_Regression_1
                     {
                         IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_16"));
                         buttonContinue.Click();
-                    }
+                    }                   
                     else
                     {
                         IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_12"));
@@ -485,8 +495,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(2000);
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[3]/input")));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);                
 
                 /*if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myReEnroll == "Yes")
                 {                                                                  
@@ -498,13 +507,15 @@ namespace MNsure_Regression_1
                 }*/
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-
+                IWebElement element;
                 if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myReEnroll == "Yes")
                 {
+                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[2]/div[3]/div/a[1]")));
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[2]/div[3]/div/a[1]")).Click();
                 }
                 else
                 {
+                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[2]/div[3]/div/a[1]")));
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[2]/div[3]/div/a[1]")).Click();
                 }
 
@@ -677,6 +688,9 @@ namespace MNsure_Regression_1
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[8]/div/div[2]/input[2]"))));
                 IWebElement buttonExit2 = myDriver.FindElement(By.XPath("/html/body/div[8]/div/div[2]/input[2]"));
                 buttonExit2.Click();
+
+                myHouseholdMembers.mySaveExit = "Yes"; //update saveexit to select primary
+                DoUpdateSaveExit(myHistoryInfo, myHouseholdMembers.mySaveExit);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -1066,6 +1080,42 @@ namespace MNsure_Regression_1
             catch
             {
                 MessageBox.Show("Update reenroll didn't work");
+            }
+            return 1;
+        }
+
+        public int DoUpdateSaveExit(mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand(
+                    "SELECT * FROM HouseMembers where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update HouseMembers set SaveExit = @SaveExit where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com2 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com2.Parameters.AddWithValue("SaveExit", updateValue);
+                            com2.ExecuteNonQuery();
+                            com2.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update SaveExit didn't work");
             }
             return 1;
         }

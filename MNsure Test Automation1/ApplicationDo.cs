@@ -68,6 +68,8 @@ namespace MNsure_Regression_1
                 Enrollments myEnrollment = new Enrollments();
                 myHouseholdMembers.myReEnroll = "No"; //reset reenroll on start in case an error happened during previous run
                 myEnrollment.DoUpdateReEnroll(myHistoryInfo, myHouseholdMembers.myReEnroll);
+                myHouseholdMembers.mySaveExit = "No"; //reset saveexit on start in case an error happened during previous run
+                myEnrollment.DoUpdateSaveExit(myHistoryInfo, myHouseholdMembers.mySaveExit);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -804,14 +806,14 @@ namespace MNsure_Regression_1
                 if (isFemale == "Yes")
                 {
                     IWebElement listboxPregnant;
-                    /*if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No") //this is not the correct logic, something else triggers this, foster care maybe
-                    {
-                        listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[23]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
-                    }
-                    else
-                    {*/
+                    //if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "Yes") //this is not the correct logic, something else triggers this, foster care maybe
+                    //{
                         listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[22]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
-                    //}
+                    /*}
+                    else
+                    {
+                        listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[22]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
+                    }*/
                     listboxPregnant.Click();
                     OpenQA.Selenium.Interactions.Actions action2 = new OpenQA.Selenium.Interactions.Actions(driver);
                     if (isPregnant == "No")
@@ -825,6 +827,7 @@ namespace MNsure_Regression_1
                         action2.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                         action2.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     }
+                    System.Threading.Thread.Sleep(1000);
                     //action2.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
                 }
 
@@ -1067,6 +1070,16 @@ namespace MNsure_Regression_1
 
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (20 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;//norm 10
+                }
+                System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"));
                
                 driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input")).Click();//select else arrow
@@ -1287,11 +1300,12 @@ namespace MNsure_Regression_1
 
             try
             {
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[9]/table/tbody/tr/td/span[2]/span/span/span[3]"));
+                System.Threading.Thread.Sleep(2000);
+                DoWaitForElement(driver, By.Id("__o3btn.next_label"));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[9]/table/tbody/tr/td/span[2]/span/span/span[3]"));
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
 
                 returnStatus = "Pass";
@@ -1558,6 +1572,7 @@ namespace MNsure_Regression_1
                     incomeReduced = myHouseholdMembers.myIncomeReduced;
                 }
 
+                System.Threading.Thread.Sleep(8000);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[4]/table/tbody/tr/td/span[2]/span/span/span[3]"));
 
                 if (incomeReduced == "Yes")
@@ -2818,10 +2833,15 @@ namespace MNsure_Regression_1
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
-            try
+            try            
             {
-                if (myApplication.myHouseholdOther != "No")
+                if (myApplication.myHouseholdOther == "No")
                 {
+                    System.Threading.Thread.Sleep(2000);
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(4000);
                     myHouseholdMembers.myPassCount = "1";//switch count back to 1 to reset and be ready for next run
                     DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
@@ -2855,7 +2875,18 @@ namespace MNsure_Regression_1
 
             try
             {
-                DoWaitForElement(driver, By.XPath("__o3btn.next_label"));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (20 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (12 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+
+                DoWaitForElement(driver, By.Id("__o3btn.next_label"));
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
