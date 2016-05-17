@@ -1212,7 +1212,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -3413,7 +3413,7 @@
             // 
             // textBoxRegDate
             // 
-            this.textBoxRegDate.Location = new System.Drawing.Point(670, 519);
+            this.textBoxRegDate.Location = new System.Drawing.Point(670, 504);
             this.textBoxRegDate.Name = "textBoxRegDate";
             this.textBoxRegDate.Size = new System.Drawing.Size(80, 20);
             this.textBoxRegDate.TabIndex = 53;
@@ -3421,7 +3421,7 @@
             // label179
             // 
             this.label179.AutoSize = true;
-            this.label179.Location = new System.Drawing.Point(572, 522);
+            this.label179.Location = new System.Drawing.Point(572, 507);
             this.label179.Name = "label179";
             this.label179.Size = new System.Drawing.Size(92, 13);
             this.label179.TabIndex = 52;
@@ -3433,7 +3433,7 @@
             this.comboBoxWithDiscounts.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 521);
+            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 506);
             this.comboBoxWithDiscounts.Name = "comboBoxWithDiscounts";
             this.comboBoxWithDiscounts.Size = new System.Drawing.Size(48, 21);
             this.comboBoxWithDiscounts.TabIndex = 51;
@@ -3442,7 +3442,7 @@
             // label157
             // 
             this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(364, 524);
+            this.label157.Location = new System.Drawing.Point(364, 509);
             this.label157.Name = "label157";
             this.label157.Size = new System.Drawing.Size(109, 13);
             this.label157.TabIndex = 0;
@@ -3464,7 +3464,7 @@
             "Olmsted",
             "Ramsey",
             "Out Of State"});
-            this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 466);
+            this.comboBoxMailCounty.Location = new System.Drawing.Point(670, 462);
             this.comboBoxMailCounty.Name = "comboBoxMailCounty";
             this.comboBoxMailCounty.Size = new System.Drawing.Size(80, 21);
             this.comboBoxMailCounty.TabIndex = 49;
@@ -3472,7 +3472,7 @@
             // label134
             // 
             this.label134.AutoSize = true;
-            this.label134.Location = new System.Drawing.Point(621, 469);
+            this.label134.Location = new System.Drawing.Point(621, 465);
             this.label134.Name = "label134";
             this.label134.Size = new System.Drawing.Size(43, 13);
             this.label134.TabIndex = 48;
@@ -3538,7 +3538,7 @@
             // 
             // textBoxMailZip4
             // 
-            this.textBoxMailZip4.Location = new System.Drawing.Point(727, 436);
+            this.textBoxMailZip4.Location = new System.Drawing.Point(727, 432);
             this.textBoxMailZip4.Name = "textBoxMailZip4";
             this.textBoxMailZip4.Size = new System.Drawing.Size(50, 20);
             this.textBoxMailZip4.TabIndex = 45;
@@ -3546,7 +3546,7 @@
             // label128
             // 
             this.label128.AutoSize = true;
-            this.label128.Location = new System.Drawing.Point(639, 439);
+            this.label128.Location = new System.Drawing.Point(639, 435);
             this.label128.Name = "label128";
             this.label128.Size = new System.Drawing.Size(25, 13);
             this.label128.TabIndex = 0;
@@ -3588,7 +3588,7 @@
             // 
             // textBoxMailZip
             // 
-            this.textBoxMailZip.Location = new System.Drawing.Point(671, 436);
+            this.textBoxMailZip.Location = new System.Drawing.Point(671, 432);
             this.textBoxMailZip.Name = "textBoxMailZip";
             this.textBoxMailZip.Size = new System.Drawing.Size(50, 20);
             this.textBoxMailZip.TabIndex = 44;
@@ -3871,7 +3871,7 @@
             this.comboBoxEnrollApplyYourself.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollApplyYourself.Location = new System.Drawing.Point(276, 521);
+            this.comboBoxEnrollApplyYourself.Location = new System.Drawing.Point(276, 506);
             this.comboBoxEnrollApplyYourself.Name = "comboBoxEnrollApplyYourself";
             this.comboBoxEnrollApplyYourself.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollApplyYourself.TabIndex = 28;
@@ -3879,7 +3879,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(125, 525);
+            this.label24.Location = new System.Drawing.Point(125, 510);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(145, 13);
             this.label24.TabIndex = 0;
@@ -3891,7 +3891,7 @@
             this.comboBoxEnrollAuthRep.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollAuthRep.Location = new System.Drawing.Point(382, 495);
+            this.comboBoxEnrollAuthRep.Location = new System.Drawing.Point(382, 484);
             this.comboBoxEnrollAuthRep.Name = "comboBoxEnrollAuthRep";
             this.comboBoxEnrollAuthRep.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollAuthRep.TabIndex = 27;
@@ -3910,7 +3910,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(14, 499);
+            this.label23.Location = new System.Drawing.Point(14, 488);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(362, 13);
             this.label23.TabIndex = 0;
@@ -3944,7 +3944,7 @@
             "Email",
             "Mail",
             "Both"});
-            this.comboBoxEnrollNotices.Location = new System.Drawing.Point(276, 465);
+            this.comboBoxEnrollNotices.Location = new System.Drawing.Point(276, 461);
             this.comboBoxEnrollNotices.Name = "comboBoxEnrollNotices";
             this.comboBoxEnrollNotices.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollNotices.TabIndex = 26;
@@ -3961,7 +3961,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(86, 468);
+            this.label22.Location = new System.Drawing.Point(86, 464);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(184, 13);
             this.label22.TabIndex = 0;
@@ -3982,7 +3982,7 @@
             this.comboBoxEnrollVoterCard.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollVoterCard.Location = new System.Drawing.Point(276, 436);
+            this.comboBoxEnrollVoterCard.Location = new System.Drawing.Point(276, 432);
             this.comboBoxEnrollVoterCard.Name = "comboBoxEnrollVoterCard";
             this.comboBoxEnrollVoterCard.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollVoterCard.TabIndex = 25;
@@ -3999,7 +3999,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(14, 441);
+            this.label21.Location = new System.Drawing.Point(14, 437);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(256, 13);
             this.label21.TabIndex = 0;
@@ -5141,7 +5141,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1320, 641);
+            this.ClientSize = new System.Drawing.Size(1320, 640);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FormMain";
             this.Text = "MNsure Regression Automation1";

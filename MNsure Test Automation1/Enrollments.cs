@@ -718,14 +718,9 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
                 IWebElement taxAmount = driver.FindElement(By.XPath("//div[@class='hcrBenefitValue']"));
                 string tax = taxAmount.Text;
-                tax = tax.Substring(0, 2);
+                tax = tax.Substring(1, tax.Length - 11);
 
-                if (tax == "$0")
-                {
-                    //do nothing
-                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                }
-                else
+                if (tax != "0")
                 {
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
                     var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
@@ -769,7 +764,11 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(12000);
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                driver.SwitchTo().Frame(iFrameElement);            
+
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
                 IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
                 textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
@@ -813,7 +812,10 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 System.Threading.Thread.Sleep(2000);
-                //check for text at the bottom
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                driver.SwitchTo().Frame(iFrameElement); 
+
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 

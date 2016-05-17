@@ -1046,7 +1046,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 else
@@ -1057,7 +1057,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (16 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (20 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
 
@@ -1292,7 +1292,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (12 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 else
@@ -2238,13 +2238,17 @@ namespace MNsure_Regression_1
                 {
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                    if (householdCount == 2)
+                    if (householdCount == 3)
                     {
-                        appwait = (65 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (65 + myHistoryInfo.myAppWait) * 1000;//30
+                    }
+                    else if (householdCount == 2)
+                    {
+                        appwait = (45 + myHistoryInfo.myAppWait) * 1000;//20
                     }
                     else
                     {
-                        appwait = (35 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (25 + myHistoryInfo.myAppWait) * 1000;//10
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);

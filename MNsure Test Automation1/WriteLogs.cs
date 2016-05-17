@@ -554,6 +554,9 @@ namespace MNsure_Regression_1
                                 myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myRequiredScreenshotFile[i] + ", " + myHistoryInfo.myScreenShot;
                             }
                             ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
+
+                            //scrolldown if necessary and capture the full screen
+
                         }
                         i = i + 1;
                     }

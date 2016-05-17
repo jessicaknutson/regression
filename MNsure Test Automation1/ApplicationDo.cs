@@ -3060,7 +3060,7 @@ namespace MNsure_Regression_1
 
         public String DoWaitForElement(IWebDriver driver, By selector)
         {
-            int wait = 500000;
+            int wait = 50000;
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             for (int i = 0; i < iterations; i++)

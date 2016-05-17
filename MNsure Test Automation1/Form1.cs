@@ -1594,8 +1594,8 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Error Exception: " + f);
             }            
 
-            dataGridViewSelectedTests.Rows[mySelectedTest.myRowIndex].Cells[1].Style.BackColor = Color.Green;
-            buttonSaveConfiguration.BackColor = Color.Green;
+            dataGridViewSelectedTests.Rows[mySelectedTest.myRowIndex].Cells[1].Style.BackColor = Color.Beige;
+            buttonSaveConfiguration.BackColor = Color.Beige;
         }
 
         private void radioButtonMore_Click(object sender, EventArgs e)
@@ -3909,7 +3909,7 @@ namespace MNsure_Regression_1
 
         private void dateTimePickerTimeTravel_ValueChanged(object sender, EventArgs e)
         {
-            labelTimeTravel.BackColor = Color.Green;
+            labelTimeTravel.BackColor = Color.Beige;
             myHistoryInfo.myTimeTravelDate = dateTimePickerTimeTravel.Value;
         }
 
