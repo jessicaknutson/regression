@@ -102,7 +102,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                System.Threading.Thread.Sleep(15000);
+                System.Threading.Thread.Sleep(10000);
                 ApplicationDo myApp = new ApplicationDo();
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.Id("app-sections-container-dc_tablist_HCRCASEAPPWorkspaceSection-sbc_tabLabel"));
@@ -270,7 +270,8 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div/div/div[2]/div/div/div/span/span/span/span[2]")).Click();//actions
-                driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr[2]/td[2]")).Click();//register person
+                //driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr[2]/td[2]")).Click();//register person
+                driver.FindElement(By.XPath("//td[contains(text(), 'Register Person…')]")).Click();
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -427,7 +428,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);                 
                 driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/span/span/span")).Click();//actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'New Evidence…')]")).Click(); //new evidence button
+                driver.FindElement(By.XPath("//td[contains(text(), 'New Evidence')]")).Click(); //new evidence button
 
                 System.Threading.Thread.Sleep(1000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -436,7 +437,7 @@ namespace MNsure_Regression_1
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);                
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[35]/td[3]/span/span/span")).Click();//esc actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                driver.FindElement(By.XPath("//td[contains(text(), 'Add')]")).Click(); //new evidence button
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -505,7 +506,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
                 driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/span/span/span")).Click();//actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Validate Changes…')]")).Click(); //validate changes button
+                driver.FindElement(By.XPath("//td[contains(text(), 'Validate Changes')]")).Click(); //validate changes button
 
                 System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
@@ -545,7 +546,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
                 driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/span/span/span")).Click();//actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Apply Changes…')]")).Click(); //apply changes button
+                driver.FindElement(By.XPath("//td[contains(text(), 'Apply Changes')]")).Click(); //apply changes button
 
                 System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
@@ -935,12 +936,13 @@ namespace MNsure_Regression_1
         {
             try
             {
+                //System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click(); //actions button
                 
-                driver.FindElement(By.XPath("//td[contains(text(), 'Activate Case…')]")).Click(); //activate case button
+                driver.FindElement(By.XPath("//td[contains(text(), 'Activate Case')]")).Click(); //activate case button
 
                 System.Threading.Thread.Sleep(4000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -1025,7 +1027,7 @@ namespace MNsure_Regression_1
 
                 myApp.DoWaitForElement(driver, By.XPath("//a[contains(@href,'HCRStateBasicHealthPlanPDHome')]"));                
                 driver.FindElement(By.XPath("//a[contains(@href,'HCRStateBasicHealthPlanPDHome')]")).Click(); //select bhp
-
+                
                 System.Threading.Thread.Sleep(5000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 

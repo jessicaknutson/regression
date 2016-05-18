@@ -2515,8 +2515,8 @@ namespace MNsure_Regression_1
                 }
                 listboxMedicaidLongTerm.SendKeys("No");
 
-                int temp1 = 0; //only 1 plan
-                int temp2 = 0; //2 separate plans
+                /*int temp1 = myHousehold.DoHouseholdTotalIncome(myApplication, myHouseholdMembers, myHistoryInfo);
+                int temp2 = myHousehold.DoHouseholdTotalIncomeUnrelatedTo(myApplication, myHouseholdMembers, myHistoryInfo); 
                 if (myApplication.myHouseholdOther == "Yes" && householdCount == 2)
                 {
                     String household2Income = "0";
@@ -2554,12 +2554,14 @@ namespace MNsure_Regression_1
                 else
                 {
                     temp1 = Convert.ToInt32(myApplication.myIncomeAmount);//1 hh
-                }
+                }*/
+                string isMA = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "MA");
+                string isBHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "BHP"); 
 
-                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && (temp1 < 23541 || age.Year - 1 < 20)) //1 hh
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (temp1 < 32041 || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh related
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (temp1 < 40321 || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
+                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
+                   // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
+                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh related
+                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
                     )
                 {
                     IWebElement listboxMedicareInjury;
@@ -2583,7 +2585,7 @@ namespace MNsure_Regression_1
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id36")); 
                         listboxMedicareInjury.SendKeys("No");
                     }
-                    else if (householdCount == 3 && age3.Year - 1 < 12 && temp1 > 28223 && temp1 < 40320) //bhp10, 10 yr only not qhp
+                    else if (householdCount == 3 && age3.Year - 1 < 12 && isBHP == "True") //bhp10, 10 yr only not qhp
                     {
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id3a"));
                         listboxMedicareInjury.SendKeys("No");
@@ -2625,11 +2627,11 @@ namespace MNsure_Regression_1
                     }
                     listboxMAStartDate.SendKeys("No");
                 }
-                               
-                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && temp1 > 23540 && age.Year - 1 > 19) //1 hh
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && temp1 > 32040 && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && temp1 > 40320 && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
+
+                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
+                    //|| (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
+                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
+                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
                     )//not sure what the rule is here??????
                 {
                     IWebElement listboxMAStartDate;
@@ -3081,6 +3083,162 @@ namespace MNsure_Regression_1
             return "false";
         }
 
+        public String DoIsInTypeRange(mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, String type)
+        {
+            HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+            int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+            int temp1 = myHousehold.DoHouseholdTotalIncome(myEnrollment, myHouseholdMembers, myHistoryInfo);
+            int temp2 = myHousehold.DoHouseholdTotalIncomeUnrelatedTo(myEnrollment, myHouseholdMembers, myHistoryInfo);
+
+            if (type == "MA")
+            {
+                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                {
+                    if (temp1 < 16514 || (temp2 != 0 && temp2 < 16514))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
+                {
+                    if (temp1 < 22268 || (temp2 != 0 && temp2 < 22268) )
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else 
+                {
+                    if (temp1 < 28023 || (temp2 != 0 && temp2 < 28023))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }                
+            }
+            else if (type == "BHP")
+            {
+                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                {
+                    if (temp1 < 23760 || (temp2 != 0 && temp2 < 23760))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
+                {
+                    if (temp1 < 32040 || (temp2 != 0 && temp2 < 32040))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else 
+                {
+                    if (temp1 < 40320 || (temp2 != 0 && temp2 < 40320))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                
+            }
+            else if (type == "QHP")
+            {
+                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                {
+                    if (temp1 < 47520 || (temp2 != 0 && temp2 < 47520))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
+                {
+                    if (temp1 < 64080 || (temp2 != 0 && temp2 < 64080))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else 
+                {
+                    if (temp1 < 80640 || (temp2 != 0 && temp2 < 80640))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                
+            }
+            else
+            {
+                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3) 
+                {
+                    if (temp1 > 80639 || (temp2 != 0 && temp2 > 80639))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
+                {
+                    if (temp1 > 64079 || (temp2 != 0 && temp2 > 64079))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                else
+                {
+                    if (temp1 > 47519 || (temp2 != 0 && temp2 > 47519))
+                    {
+                        return "True";
+                    }
+                    else
+                    {
+                        return "False";
+                    }
+                }
+                
+                
+            }
+        }
 
     }
 }
