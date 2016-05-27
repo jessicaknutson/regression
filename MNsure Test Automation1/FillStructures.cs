@@ -118,6 +118,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(63)) { myApplication.myDueDate = Convert.ToDateTime(reader.GetDateTime(63)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(64)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(65)) { myApplication.myRegDate = Convert.ToDateTime(reader.GetDateTime(65)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
                     }
                 }
 

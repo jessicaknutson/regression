@@ -51,6 +51,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myRequiredStepStatus = new string[30];
             myHistoryInfo.myRequiredScreenshotFile = new string[30];
             myHistoryInfo.myIcnumber = null;
+            myApplication.myDay2TestId = null;
             myHistoryInfo.myTestStartTime = DateTime.Now;
             this.WindowState = FormWindowState.Minimized;
 
@@ -373,9 +374,9 @@ namespace MNsure_Regression_1
                     MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                 }
                 
-                //driver.Dispose();
+                driver.Dispose();
                 //driver2.Dispose();
-                //driver3.Dispose();
+                driver3.Dispose();
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
@@ -608,6 +609,7 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myRegDate = null;
                             }
+                            if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
                         }
                         else
                         {
@@ -1066,6 +1068,7 @@ namespace MNsure_Regression_1
                     comboBoxPregnancyDone.Text = "No";
                 }
                 textBoxRegDate.Text = myApplication.myRegDate;
+                textBoxDay2TestId.Text = myApplication.myDay2TestId;
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
@@ -1319,6 +1322,7 @@ namespace MNsure_Regression_1
                 myApplication.myPregnancyEnded = dateTimePregnancyEnded.Text;
             }
             myApplication.myRegDate = textBoxRegDate.Text;
+            myApplication.myDay2TestId = textBoxDay2TestId.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -1348,7 +1352,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId );";
                 using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
                 {
                     com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -1458,6 +1462,14 @@ namespace MNsure_Regression_1
                     {
                         com2.Parameters.AddWithValue("RegDate", DBNull.Value);
                     }
+                    if (myApplication.myDay2TestId != "" && myApplication.myDay2TestId != null)
+                    {
+                        com2.Parameters.AddWithValue("Day2TestId", myApplication.myDay2TestId);
+                    }
+                    else
+                    {
+                        com2.Parameters.AddWithValue("Day2TestId", DBNull.Value);
+                    }                    
 
                     com2.ExecuteNonQuery();
                     com2.Dispose();
@@ -1949,6 +1961,8 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppWait = 0;
             comboBoxAppWait.Text = "0";
             myHistoryInfo.myAppWait = Convert.ToInt32(comboBoxAppWait.Text);
+            myHistoryInfo.myEnvironment = "STST";
+            comboBoxEnvironment.Text = "STST";
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -3887,6 +3901,49 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Copy New Test Steps didn't work, Exception: " + a);
             }
 
+            /*try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                using (SqlCeCommand com2 = new SqlCeCommand("Select * from Application where TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com2.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        myiTestStepId = reader.GetInt32(1);
+                        
+                        myInsertString = "Insert into Application values (" + 1 + ", " + myiTestStepId +
+                                    ", "+ reader.GetInt32(2) + ", "+reader.GetInt32(3) + ", "+reader.GetInt32(4) + ", "+reader.GetInt32(5) + ", "+
+                                    reader.GetInt32(6) + ", "+reader.GetInt32(6) + ", "+reader.GetInt32(8) + ", "+reader.GetInt32(9) + ", "+reader.GetInt32(10) + ", "+
+                                    reader.GetInt32(11) + ", "+reader.GetInt32(12) + ", "+reader.GetInt32(13) + ", "+reader.GetInt32(14) + ", "+reader.GetInt32(15) + ", "+
+                                    reader.GetInt32(16) + ", "+reader.GetInt32(17) + ", "+reader.GetInt32(18) + ", "+reader.GetInt32(19) + ", "+reader.GetInt32(20) + ", "+
+                                    reader.GetInt32(21) + ", "+reader.GetInt32(22) + ", "+reader.GetInt32(23) + ", "+reader.GetInt32(24) + ", "+reader.GetInt32(25) + ", "+
+                                    reader.GetInt32(26) + ", "+reader.GetInt32(27) + ", "+reader.GetInt32(28) + ", ''"+ ", "+reader.GetInt32(30) + ", "+
+                                    reader.GetInt32(31) + ", "+reader.GetInt32(32) + ", "+reader.GetInt32(33) + ", "+reader.GetInt32(34) + ", "+reader.GetInt32(35) + ", "+
+                                    reader.GetInt32(36) + ", "+reader.GetInt32(37) + ", "+reader.GetInt32(38) + ", "+reader.GetInt32(39) + ", "+reader.GetInt32(40) + ", "+
+                                    reader.GetInt32(41) + ", "+reader.GetInt32(42) + ", "+reader.GetInt32(43) + ", "+reader.GetInt32(44) + ", "+reader.GetInt32(45) + ", "+
+                                    reader.GetInt32(46) + ", "+reader.GetInt32(47) + ", "+reader.GetInt32(48) + ", "+reader.GetInt32(49) + ", "+reader.GetInt32(50) + ", "+
+                                    reader.GetInt32(51) + ", "+reader.GetInt32(52) + ", "+reader.GetInt32(53) + ", "+reader.GetInt32(54) + ", "+reader.GetInt32(55) + ", "+
+                                    reader.GetInt32(56) + ", "+reader.GetInt32(57) + ", "+reader.GetInt32(58) + ", "+reader.GetInt32(59) + ", "+reader.GetInt32(60) + ", "+
+                                    reader.GetInt32(61) + ", "+reader.GetInt32(62) + ", "+reader.GetInt32(63) + ", "+reader.GetInt32(64) + ", "+reader.GetInt32(65) + ", "+
+                                    reader.GetInt32(66) + "); ";
+                        
+                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com3.ExecuteNonQuery();
+                            com3.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show("Copy New Application didn't work, Exception: " + a);
+            }*/
+
             string testId;
             testId = textBoxTestTestId.Text;
             con = new SqlCeConnection(conString);
@@ -5421,6 +5478,21 @@ namespace MNsure_Regression_1
                 dateTimeHMPregnancyEnded.Enabled = true;
                 dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
             }
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxAppWait_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxEnvironment_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myEnvironment = comboBoxEnvironment.Text;
         }
 
     }

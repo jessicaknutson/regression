@@ -17,7 +17,7 @@ using System.Net;
 using System.Data.Sql;
 
 using System.Data.SqlClient;
-using System.Data.SqlServerCe;//
+using System.Data.SqlServerCe;
 
 
 namespace MNsure_Regression_1
@@ -31,7 +31,14 @@ namespace MNsure_Regression_1
         {
             try
             {
-                driver.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");                
+                }
+                else
+                {
+                    driver.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -53,7 +60,14 @@ namespace MNsure_Regression_1
         {
             try
             {
-                driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
 
                 relogin = "Yes";
 
@@ -81,7 +95,15 @@ namespace MNsure_Regression_1
                 driver.Close();
                 driver3.Close();
 
-                driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
+                }
+                else
+                {
+                    driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Individual");
+                }
+                
                 // This checks for the Sign In button
                 IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
 
@@ -107,8 +129,16 @@ namespace MNsure_Regression_1
             {
                 // the driver is disposed when done with
                 driver.Close();
+                driver3.Close();
 
-                driver2.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver2.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                }
+                else
+                {
+                    driver2.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/Curam");
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -130,7 +160,14 @@ namespace MNsure_Regression_1
         {
             try
             {
-                driver.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                }
+                else
+                {
+                    driver.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;

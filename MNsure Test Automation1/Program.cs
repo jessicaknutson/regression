@@ -46,6 +46,7 @@ struct mystructHistoryInfo
     public DateTime myTimeTravelDate;
     public string myExecutedBy;
     public string myRelogin;
+    public string myEnvironment;
 }
 
 struct mystructSelectedTest
@@ -171,6 +172,7 @@ struct mystructSelectedTest
         public string myDueDate;
         public string myPregnancyEnded;
         public string myRegDate;
+        public string myDay2TestId;
     }
     struct mystructSSN
     {

@@ -706,7 +706,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(3000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1268,7 +1268,7 @@ namespace MNsure_Regression_1
                     IWebElement checkboxPerson = driver.FindElement(By.Id("__o3id7"));
                     checkboxPerson.Click();
                 }
-                if (dependant == "No" && householdCount != 1)
+                if (myApplication.myHouseholdOther == "Yes" && dependant == "No" && householdCount != 1)
                 {
                     driver.FindElement(By.Id("__o3id8")).SendKeys("No");
                 }
@@ -3092,7 +3092,7 @@ namespace MNsure_Regression_1
 
             if (type == "MA")
             {
-                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                if (myEnrollment.myHouseholdOther == "No" && householdCount == 1)
                 {
                     if (temp1 < 16514 || (temp2 != 0 && temp2 < 16514))
                     {
@@ -3128,7 +3128,7 @@ namespace MNsure_Regression_1
             }
             else if (type == "BHP")
             {
-                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                if (myEnrollment.myHouseholdOther == "No" && householdCount == 1)
                 {
                     if (temp1 < 23760 || (temp2 != 0 && temp2 < 23760))
                     {
@@ -3165,7 +3165,7 @@ namespace MNsure_Regression_1
             }
             else if (type == "QHP")
             {
-                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 1)
+                if (myEnrollment.myHouseholdOther == "No" && householdCount == 1)
                 {
                     if (temp1 < 47520 || (temp2 != 0 && temp2 < 47520))
                     {
