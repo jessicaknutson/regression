@@ -508,7 +508,7 @@ namespace MNsure_Regression_1
             IWebElement firstPart = driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[4]"));
             string firstParticipant = firstPart.Text;
             
-            if (firstParticipant == name)
+            if (firstParticipant != name)
             {
                 return "/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a";
             }
@@ -808,6 +808,35 @@ namespace MNsure_Regression_1
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
                 
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoClosePDCTab(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                IWebElement fourthTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                var rClick = action.ContextClick(fourthTab); //right click
+                rClick.Perform();
+                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;

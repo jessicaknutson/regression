@@ -17,7 +17,7 @@ using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Net;
 using System.Data.Sql;
-using OpenQA.Selenium.Support.UI; 
+using OpenQA.Selenium.Support.UI;
 using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 using System.Reflection;
@@ -109,9 +109,9 @@ namespace MNsure_Regression_1
 
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com3 = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
+                using (SqlCeCommand com = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
                 {
-                    SqlCeDataReader reader2 = com3.ExecuteReader();
+                    SqlCeDataReader reader2 = com.ExecuteReader();
                     if (reader2.Read())
                     {
                         myHistoryInfo.myTemplate = reader2.GetString(0);
@@ -307,7 +307,7 @@ namespace MNsure_Regression_1
                                     //must fill structures again after updating pass count
                                     result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
-                                                                    
+
                                 case "Enrollments":
                                     object[] parmsen = new object[8];
                                     parmsen[0] = driver;
@@ -367,13 +367,13 @@ namespace MNsure_Regression_1
                         }
                     }
                     result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication);
-                    con.Close();                    
+                    con.Close();
                 }
                 catch (Exception a)
                 {
                     MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                 }
-                
+
                 driver.Dispose();
                 //driver2.Dispose();
                 driver3.Dispose();
@@ -491,9 +491,9 @@ namespace MNsure_Regression_1
                     cmd2.CommandType = CommandType.Text;
 
                     //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myTestId, con))
+                    using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myTestId, con))
                     {
-                        SqlCeDataReader reader = com2.ExecuteReader();
+                        SqlCeDataReader reader = com3.ExecuteReader();
                         if (reader.Read())
                         {
                             myApplication.myFirstName = myAccountCreate.myFirstName;
@@ -672,11 +672,11 @@ namespace MNsure_Regression_1
                             myApplication.myWithDiscounts = "Yes";
                             myApplication.myIsPregnant = "No";
                         }
-                        com2.ExecuteNonQuery();
-                        com2.Dispose();
+                        com3.ExecuteNonQuery();
+                        com3.Dispose();
                     }
                     //reset address values before continuing
-                    if (myApplication.myHouseholdOther == "Yes") 
+                    if (myApplication.myHouseholdOther == "Yes")
                     {
                         myHouseholdMembers.myMailAddress1 = "";
                         myHouseholdMembers.myMailAddress2 = "";
@@ -684,15 +684,15 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myMailCity = "";
                         myHouseholdMembers.myMailState = "";
                         myHouseholdMembers.myMailZip = "";
-                        myHouseholdMembers.myMailCounty = "";                      
+                        myHouseholdMembers.myMailCounty = "";
                     }
                     SqlCeCommand cmd3 = con.CreateCommand();
                     cmd3.CommandType = CommandType.Text;
 
                     //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
+                    using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
                     {
-                        SqlCeDataReader reader = com3.ExecuteReader();
+                        SqlCeDataReader reader = com4.ExecuteReader();
                         while (reader.Read())
                         {
                             if (reader.GetString(9) == "Home")
@@ -733,7 +733,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myMailAptSuite = reader.GetString(11);
                                 }
-                            }                           
+                            }
                             else
                             {
                                 myApplication.myMailAddress1 = reader.GetString(3);
@@ -756,7 +756,7 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myMailAptSuite = reader.GetString(11);
                                 }
-                            }                           
+                            }
                         }
                         if (myApplication.myHomeAddress1 == null)
                         {
@@ -778,8 +778,8 @@ namespace MNsure_Regression_1
                             myApplication.myMailCounty = "";
                             myApplication.myMailAptSuite = "";
                         }
-                        com3.ExecuteNonQuery();
-                        com3.Dispose();
+                        com4.ExecuteNonQuery();
+                        com4.Dispose();
                     }
 
                     if (myApplication.myHouseholdOther == "Yes")
@@ -788,9 +788,9 @@ namespace MNsure_Regression_1
                         cmd4.CommandType = CommandType.Text;
 
                         //Read configured rows if exist, otherwise fill with default values
-                        using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + myTestId + " and HouseMembersID = 2", con))
+                        using (SqlCeCommand com5 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + myTestId + " and HouseMembersID = 2", con))
                         {
-                            SqlCeDataReader reader = com4.ExecuteReader();
+                            SqlCeDataReader reader = com5.ExecuteReader();
                             while (reader.Read())
                             {
                                 myHouseholdMembers.myFirstName = reader.GetString(2);
@@ -831,12 +831,12 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(28))
                                 {
                                     myHouseholdMembers.myTribeName = reader.GetString(28);
-                                }                                
+                                }
                                 myHouseholdMembers.myLiveRes = reader.GetString(29);
                                 if (!reader.IsDBNull(30))
                                 {
                                     myHouseholdMembers.myTribeId = reader.GetString(30);
-                                }                                
+                                }
                                 myHouseholdMembers.myFederalTribe = reader.GetString(31);
                                 myHouseholdMembers.myFileJointly = reader.GetString(32);
                                 if (!reader.IsDBNull(3))
@@ -873,7 +873,7 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myMilitary = reader.GetString(43);
                                 if (!reader.IsDBNull(44))
                                 {
-                                    myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44)); 
+                                    myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44));
                                 }
                                 myHouseholdMembers.myPrefContact = reader.GetString(45);
                                 myHouseholdMembers.myPhoneNum = reader.GetString(46);
@@ -892,8 +892,8 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
                                 if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); }
                             }
-                            com4.ExecuteNonQuery();
-                            com4.Dispose();
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
                         }
                     }
                 }
@@ -1033,7 +1033,7 @@ namespace MNsure_Regression_1
                 {
                     dateTimeDueDate.Enabled = false;
                     dateTimeDueDate.Format = DateTimePickerFormat.Custom;
-                    dateTimeDueDate.CustomFormat = " ";                    
+                    dateTimeDueDate.CustomFormat = " ";
                 }
                 if (comboBoxPregnancyDone.Text == "Yes")
                 {
@@ -1053,7 +1053,7 @@ namespace MNsure_Regression_1
                     tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
                     dateTimeDueDate.Format = DateTimePickerFormat.Short;
                     dateTimeDueDate.Value = Convert.ToDateTime(tempDueDate);
-                }                
+                }
                 if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != "")
                 {
                     string tempPregnancyEnded;
@@ -1062,7 +1062,7 @@ namespace MNsure_Regression_1
                     dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
                     dateTimePregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
                     comboBoxPregnancyDone.Text = "Yes";
-                } 
+                }
                 else
                 {
                     comboBoxPregnancyDone.Text = "No";
@@ -1089,7 +1089,7 @@ namespace MNsure_Regression_1
                     textBoxHMCity.Text = myHouseholdMembers.myMailCity;
                     comboBoxHMState.Text = myHouseholdMembers.myMailState;
                     textBoxHMZip.Text = myHouseholdMembers.myMailZip;
-                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;                    
+                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
                     comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
                     comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
                     comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -1188,12 +1188,84 @@ namespace MNsure_Regression_1
                         tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
                         dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
                         dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-                    } 
+                    }
 
                     textBoxCurrentMember.Text = "2";
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     textBoxTotalMembers.Text = Convert.ToString(householdCount);
+                }
+                else
+                {
+                    textBoxHMFirstName.Text = "";
+                    textBoxHMMiddleName.Text = "";
+                    textBoxHMLastName.Text = "";
+                    comboBoxHMSuffix.Text = "";
+                    comboBoxHMGender.Text = "";
+                    comboBoxHMMaritalStatus.Text = "";
+                    textBoxHMDOB.Text = "";
+                    comboBoxHMLiveWithYou.Text = "";
+                    comboBoxHMLiveMN.Text = "";
+                    comboBoxHMTempAbsentMN.Text = "";
+                    comboBoxHMHomeless.Text = "";
+                    textBoxHMAddress1.Text = "";
+                    textBoxHMAddress2.Text = "";
+                    textBoxHMAptSuite.Text = "";
+                    textBoxHMCity.Text = "";
+                    comboBoxHMState.Text = "";
+                    textBoxHMZip.Text = "";
+                    comboBoxHMCounty.Text = "";
+                    comboBoxHMPlanToLiveInMN.Text = "";
+                    comboBoxHMSeekingEmployment.Text = "";
+                    comboBoxHMPersonHighlighted.Text = "";
+                    comboBoxHMHispanic.Text = "";
+                    textBoxHMTribeName.Text = "";
+                    textBoxHMTribeId.Text = "";
+                    comboBoxHMLiveRes.Text = "";
+                    comboBoxHMFederalTribe.Text = "";
+                    comboBoxHMRace.Text = "";
+                    comboBoxHMHaveSSN.Text = "";
+                    comboBoxHMUSCitizen.Text = "";
+                    comboBoxHMUSNational.Text = "";
+                    comboBoxHMPregnant.Text = "";
+                    comboBoxHMBeenInFosterCare.Text = "";
+                    comboBoxHMRelationship.Text = "";
+                    comboBoxHasIncome.Text = "";
+                    comboBoxHMRelationship2.Text = "";
+                    comboBoxHMFileJointly.Text = "";
+                    comboBoxHMIncomeType.Text = "";
+                    textBoxHMEmployerName.Text = "";
+                    comboBoxHMSeasonal.Text = "";
+                    textBoxHMAmount.Text = "";
+                    comboBoxHMFrequency.Text = "";
+                    comboBoxHMMoreIncome.Text = "";
+                    comboBoxHMIncomeReduced.Text = "";
+                    comboBoxHMIncomeAdjustments.Text = "";
+                    comboBoxHMAnnualIncome.Text = "";
+                    comboBoxHMMilitary.Text = "";
+                    dateTimeHMMilitary.Enabled = false;
+                    dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                    dateTimeHMMilitary.CustomFormat = " ";
+                    comboBoxHMPrefContact.Text = "";
+                    textBoxHMPhoneNum.Text = "";
+                    comboBoxHMPhoneType.Text = "";
+                    textBoxHMAltNum.Text = "";
+                    comboBoxHMAltType.Text = "";
+                    textBoxHMEmail.Text = "";
+                    comboBoxHMVoterCard.Text = "";
+                    comboBoxHMNotices.Text = "";
+                    comboBoxHMAuthRep.Text = "";
+                    comboBoxHMDependant.Text = "";
+                    comboBoxHMTaxFiler.Text = "";
+                    comboBoxHMChildren.Text = "";
+                    dateTimeHMDueDate.Enabled = false;
+                    dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
+                    dateTimeHMDueDate.CustomFormat = " ";
+                    dateTimeHMPregnancyEnded.Enabled = false;
+                    dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
+                    dateTimeHMPregnancyEnded.CustomFormat = " ";
+                    textBoxCurrentMember.Text = "1";
+                    textBoxTotalMembers.Text = "1";
                 }
 
                 groupBoxApplicantInformation.Visible = true;
@@ -1353,126 +1425,126 @@ namespace MNsure_Regression_1
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
                                     "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId );";
-                using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
+                using (SqlCeCommand com6 = new SqlCeCommand(myInsertString, con))
                 {
-                    com2.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
-                    com2.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
-                    com2.Parameters.AddWithValue("LastName", myApplication.myLastName);
-                    com2.Parameters.AddWithValue("Suffix", myApplication.mySuffix);
-                    com2.Parameters.AddWithValue("Gender", myApplication.myGender);
-                    com2.Parameters.AddWithValue("MaritalStatus", myApplication.myMaritalStatus);
+                    com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
+                    com6.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
+                    com6.Parameters.AddWithValue("LastName", myApplication.myLastName);
+                    com6.Parameters.AddWithValue("Suffix", myApplication.mySuffix);
+                    com6.Parameters.AddWithValue("Gender", myApplication.myGender);
+                    com6.Parameters.AddWithValue("MaritalStatus", myApplication.myMaritalStatus);
                     if (myApplication.myDOB != "")
                     {
-                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                        com6.Parameters.AddWithValue("DOB", myApplication.myDOB);
                     }
                     else
                     {
                         myApplication.myDOB = "01/01/2011"; // special situation
-                        com2.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                        com6.Parameters.AddWithValue("DOB", myApplication.myDOB);
                     }
-                    com2.Parameters.AddWithValue("LiveMN", myApplication.myLiveMN);
-                    com2.Parameters.AddWithValue("PlanLiveMN", myApplication.myPlanLiveMN);
-                    com2.Parameters.AddWithValue("PrefContact", myApplication.myPrefContact);
-                    com2.Parameters.AddWithValue("PhoneNum", myApplication.myPhoneNum);
-                    com2.Parameters.AddWithValue("PhoneType", myApplication.myPhoneType);
-                    com2.Parameters.AddWithValue("AltNum", myApplication.myAltNum);
-                    com2.Parameters.AddWithValue("AltType", myApplication.myAltNumType);
-                    com2.Parameters.AddWithValue("Email", myApplication.myEmail);
-                    com2.Parameters.AddWithValue("LanguageMost", myApplication.myLanguageMost);
-                    com2.Parameters.AddWithValue("WrittenLanguage", myApplication.myLanguageWritten);
-                    com2.Parameters.AddWithValue("VoterCard", myApplication.myVoterCard);
-                    com2.Parameters.AddWithValue("Notices", myApplication.myNotices);
-                    com2.Parameters.AddWithValue("AuthRep", myApplication.myAuthRep);
-                    com2.Parameters.AddWithValue("ApplyYourself", myApplication.myApplyYourself);
-                    com2.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
-                    com2.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
-                    com2.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
-                    com2.Parameters.AddWithValue("Race", myApplication.myRace);
-                    com2.Parameters.AddWithValue("SSN", myApplication.mySSN);
-                    com2.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
-                    com2.Parameters.AddWithValue("SSNNum", DBNull.Value);
-                    com2.Parameters.AddWithValue("AppliedSSN", myApplication.myAppliedSSN);
+                    com6.Parameters.AddWithValue("LiveMN", myApplication.myLiveMN);
+                    com6.Parameters.AddWithValue("PlanLiveMN", myApplication.myPlanLiveMN);
+                    com6.Parameters.AddWithValue("PrefContact", myApplication.myPrefContact);
+                    com6.Parameters.AddWithValue("PhoneNum", myApplication.myPhoneNum);
+                    com6.Parameters.AddWithValue("PhoneType", myApplication.myPhoneType);
+                    com6.Parameters.AddWithValue("AltNum", myApplication.myAltNum);
+                    com6.Parameters.AddWithValue("AltType", myApplication.myAltNumType);
+                    com6.Parameters.AddWithValue("Email", myApplication.myEmail);
+                    com6.Parameters.AddWithValue("LanguageMost", myApplication.myLanguageMost);
+                    com6.Parameters.AddWithValue("WrittenLanguage", myApplication.myLanguageWritten);
+                    com6.Parameters.AddWithValue("VoterCard", myApplication.myVoterCard);
+                    com6.Parameters.AddWithValue("Notices", myApplication.myNotices);
+                    com6.Parameters.AddWithValue("AuthRep", myApplication.myAuthRep);
+                    com6.Parameters.AddWithValue("ApplyYourself", myApplication.myApplyYourself);
+                    com6.Parameters.AddWithValue("Homeless", myApplication.myHomeless);
+                    com6.Parameters.AddWithValue("AddressSame", myApplication.myAddressSame);
+                    com6.Parameters.AddWithValue("Hispanic", myApplication.myHispanic);
+                    com6.Parameters.AddWithValue("Race", myApplication.myRace);
+                    com6.Parameters.AddWithValue("SSN", myApplication.mySSN);
+                    com6.Parameters.AddWithValue("Citizen", myApplication.myCitizen);
+                    com6.Parameters.AddWithValue("SSNNum", DBNull.Value);
+                    com6.Parameters.AddWithValue("AppliedSSN", myApplication.myAppliedSSN);
                     if (myApplication.myWhyNoSSN != null)
                     {
-                        com2.Parameters.AddWithValue("WhyNoSSN", myApplication.myWhyNoSSN);
+                        com6.Parameters.AddWithValue("WhyNoSSN", myApplication.myWhyNoSSN);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("WhyNoSSN", DBNull.Value);
+                        com6.Parameters.AddWithValue("WhyNoSSN", DBNull.Value);
                     }
-                    com2.Parameters.AddWithValue("AssistSSN", myApplication.myAssistSSN);
-                    com2.Parameters.AddWithValue("Household", myApplication.myHouseholdOther);
-                    com2.Parameters.AddWithValue("Dependants", myApplication.myDependants);
-                    com2.Parameters.AddWithValue("IncomeYN", myApplication.myIncomeYN);
-                    com2.Parameters.AddWithValue("IncomeType", myApplication.myIncomeType);
-                    com2.Parameters.AddWithValue("IncomeAmount", myApplication.myIncomeAmount);
-                    com2.Parameters.AddWithValue("IncomeFrequency", myApplication.myIncomeFrequency);
-                    com2.Parameters.AddWithValue("IncomeMore", myApplication.myIncomeMore);
-                    com2.Parameters.AddWithValue("Employer", myApplication.myIncomeEmployer);
-                    com2.Parameters.AddWithValue("Seasonal", myApplication.myIncomeSeasonal);
-                    com2.Parameters.AddWithValue("Reduced", myApplication.myIncomeReduced);
-                    com2.Parameters.AddWithValue("Adjusted", myApplication.myIncomeAdjusted);
-                    com2.Parameters.AddWithValue("Expected", myApplication.myIncomeExpected);
-                    com2.Parameters.AddWithValue("PlanType", myApplication.myEnrollmentPlanType);
-                    com2.Parameters.AddWithValue("Foster", myApplication.myFosterCare);
-                    com2.Parameters.AddWithValue("MailAddrYN", myApplication.myMailingAddressYN);
-                    com2.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
-                    com2.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
-                    com2.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
-                    com2.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
-                    com2.Parameters.AddWithValue("Military", myApplication.myMilitary);
+                    com6.Parameters.AddWithValue("AssistSSN", myApplication.myAssistSSN);
+                    com6.Parameters.AddWithValue("Household", myApplication.myHouseholdOther);
+                    com6.Parameters.AddWithValue("Dependants", myApplication.myDependants);
+                    com6.Parameters.AddWithValue("IncomeYN", myApplication.myIncomeYN);
+                    com6.Parameters.AddWithValue("IncomeType", myApplication.myIncomeType);
+                    com6.Parameters.AddWithValue("IncomeAmount", myApplication.myIncomeAmount);
+                    com6.Parameters.AddWithValue("IncomeFrequency", myApplication.myIncomeFrequency);
+                    com6.Parameters.AddWithValue("IncomeMore", myApplication.myIncomeMore);
+                    com6.Parameters.AddWithValue("Employer", myApplication.myIncomeEmployer);
+                    com6.Parameters.AddWithValue("Seasonal", myApplication.myIncomeSeasonal);
+                    com6.Parameters.AddWithValue("Reduced", myApplication.myIncomeReduced);
+                    com6.Parameters.AddWithValue("Adjusted", myApplication.myIncomeAdjusted);
+                    com6.Parameters.AddWithValue("Expected", myApplication.myIncomeExpected);
+                    com6.Parameters.AddWithValue("PlanType", myApplication.myEnrollmentPlanType);
+                    com6.Parameters.AddWithValue("Foster", myApplication.myFosterCare);
+                    com6.Parameters.AddWithValue("MailAddrYN", myApplication.myMailingAddressYN);
+                    com6.Parameters.AddWithValue("TribeName", myApplication.myTribeName);
+                    com6.Parameters.AddWithValue("LiveRes", myApplication.myLiveRes);
+                    com6.Parameters.AddWithValue("TribeId", myApplication.myTribeId);
+                    com6.Parameters.AddWithValue("FederalTribe", myApplication.myFederalTribe);
+                    com6.Parameters.AddWithValue("Military", myApplication.myMilitary);
                     if (myApplication.myMilitaryDate != "" && myApplication.myMilitaryDate != null)
                     {
-                        com2.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
+                        com6.Parameters.AddWithValue("MilitaryDate", myApplication.myMilitaryDate);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                        com6.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
                     }
-                    com2.Parameters.AddWithValue("OtherIns", myApplication.myOtherIns);
-                    com2.Parameters.AddWithValue("KindIns", myApplication.myKindIns);
-                    com2.Parameters.AddWithValue("CoverageEnd", myApplication.myCoverageEnd);
-                    com2.Parameters.AddWithValue("AddIns", myApplication.myAddIns);
-                    com2.Parameters.AddWithValue("ESC", myApplication.myESC);
-                    com2.Parameters.AddWithValue("RenewalCov", myApplication.myRenewalCov);
-                    com2.Parameters.AddWithValue("WithDiscounts", myApplication.myWithDiscounts);
-                    com2.Parameters.AddWithValue("Pregnant", myApplication.myIsPregnant);
-                    com2.Parameters.AddWithValue("Children", myApplication.myChildren);
+                    com6.Parameters.AddWithValue("OtherIns", myApplication.myOtherIns);
+                    com6.Parameters.AddWithValue("KindIns", myApplication.myKindIns);
+                    com6.Parameters.AddWithValue("CoverageEnd", myApplication.myCoverageEnd);
+                    com6.Parameters.AddWithValue("AddIns", myApplication.myAddIns);
+                    com6.Parameters.AddWithValue("ESC", myApplication.myESC);
+                    com6.Parameters.AddWithValue("RenewalCov", myApplication.myRenewalCov);
+                    com6.Parameters.AddWithValue("WithDiscounts", myApplication.myWithDiscounts);
+                    com6.Parameters.AddWithValue("Pregnant", myApplication.myIsPregnant);
+                    com6.Parameters.AddWithValue("Children", myApplication.myChildren);
                     if (myApplication.myDueDate != "" && myApplication.myDueDate != null)
                     {
-                        com2.Parameters.AddWithValue("DueDate", myApplication.myDueDate);
+                        com6.Parameters.AddWithValue("DueDate", myApplication.myDueDate);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("DueDate", DBNull.Value);
+                        com6.Parameters.AddWithValue("DueDate", DBNull.Value);
                     }
                     if (myApplication.myPregnancyEnded != "" && myApplication.myPregnancyEnded != null)
                     {
-                        com2.Parameters.AddWithValue("PregnancyEnded", myApplication.myPregnancyEnded);
+                        com6.Parameters.AddWithValue("PregnancyEnded", myApplication.myPregnancyEnded);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                        com6.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
                     }
                     if (myApplication.myRegDate != "" && myApplication.myRegDate != null)
                     {
-                        com2.Parameters.AddWithValue("RegDate", myApplication.myRegDate);
+                        com6.Parameters.AddWithValue("RegDate", myApplication.myRegDate);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("RegDate", DBNull.Value);
+                        com6.Parameters.AddWithValue("RegDate", DBNull.Value);
                     }
                     if (myApplication.myDay2TestId != "" && myApplication.myDay2TestId != null)
                     {
-                        com2.Parameters.AddWithValue("Day2TestId", myApplication.myDay2TestId);
+                        com6.Parameters.AddWithValue("Day2TestId", myApplication.myDay2TestId);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("Day2TestId", DBNull.Value);
-                    }                    
+                        com6.Parameters.AddWithValue("Day2TestId", DBNull.Value);
+                    }
 
-                    com2.ExecuteNonQuery();
-                    com2.Dispose();
+                    com6.ExecuteNonQuery();
+                    com6.Dispose();
                 }
 
                 SqlCeCommand cmd3 = con.CreateCommand();
@@ -1487,9 +1559,9 @@ namespace MNsure_Regression_1
                     //fail silently
                 }
 
-                using (SqlCeCommand com3 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                using (SqlCeCommand com7 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
                 {
-                    SqlCeDataReader reader = com3.ExecuteReader();
+                    SqlCeDataReader reader = com7.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myNextAddressId = Convert.ToString(reader.GetInt32(0) + 1);
@@ -1498,7 +1570,7 @@ namespace MNsure_Regression_1
                     {
                         MessageBox.Show("Did not find Address id");
                     }
-                    com3.Dispose();
+                    com7.Dispose();
                 }
 
                 SqlCeCommand cmd4 = con.CreateCommand();
@@ -1517,42 +1589,42 @@ namespace MNsure_Regression_1
                 string myInsertString2;
                 myInsertString2 = "Insert into Address values (" + 1 + ", " + mysTestId +
                                     ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
-                using (SqlCeCommand com4 = new SqlCeCommand(myInsertString2, con))
+                using (SqlCeCommand com8 = new SqlCeCommand(myInsertString2, con))
                 {
-                    com4.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
-                    com4.Parameters.AddWithValue("Address1", myApplication.myHomeAddress1);
+                    com8.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                    com8.Parameters.AddWithValue("Address1", myApplication.myHomeAddress1);
                     if (myApplication.myHomeAddress2 != "")
                     {
-                        com4.Parameters.AddWithValue("Address2", myApplication.myHomeAddress2);
+                        com8.Parameters.AddWithValue("Address2", myApplication.myHomeAddress2);
                     }
                     else
                     {
-                        com4.Parameters.AddWithValue("Address2", DBNull.Value);
+                        com8.Parameters.AddWithValue("Address2", DBNull.Value);
                     }
-                    com4.Parameters.AddWithValue("City", myApplication.myHomeCity);
-                    com4.Parameters.AddWithValue("State", myApplication.myHomeState);
-                    com4.Parameters.AddWithValue("Zip", myApplication.myHomeZip);
+                    com8.Parameters.AddWithValue("City", myApplication.myHomeCity);
+                    com8.Parameters.AddWithValue("State", myApplication.myHomeState);
+                    com8.Parameters.AddWithValue("Zip", myApplication.myHomeZip);
                     if (myApplication.myHomeZip4 != "")
                     {
-                        com4.Parameters.AddWithValue("Zip4", myApplication.myHomeZip4);
+                        com8.Parameters.AddWithValue("Zip4", myApplication.myHomeZip4);
                     }
                     else
                     {
-                        com4.Parameters.AddWithValue("Zip4", DBNull.Value);
+                        com8.Parameters.AddWithValue("Zip4", DBNull.Value);
                     }
-                    com4.Parameters.AddWithValue("County", myApplication.myHomeCounty);
+                    com8.Parameters.AddWithValue("County", myApplication.myHomeCounty);
                     if (myApplication.myHomeAptSuite != "")
                     {
-                        com4.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
+                        com8.Parameters.AddWithValue("AptSuite", myApplication.myHomeAptSuite);
                     }
                     else
                     {
-                        com4.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                        com8.Parameters.AddWithValue("AptSuite", DBNull.Value);
                     }
-                    com4.Parameters.AddWithValue("Type", "Home");
+                    com8.Parameters.AddWithValue("Type", "Home");
 
-                    com4.ExecuteNonQuery();
-                    com4.Dispose();
+                    com8.ExecuteNonQuery();
+                    com8.Dispose();
                 }
 
                 if (myApplication.myMailAddress1 != "")
@@ -1560,51 +1632,51 @@ namespace MNsure_Regression_1
                     string myInsertString3;
                     myInsertString3 = "Insert into Address values (" + 1 + ", " + mysTestId +
                                     ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
-                    using (SqlCeCommand com5 = new SqlCeCommand(myInsertString3, con))
+                    using (SqlCeCommand com9 = new SqlCeCommand(myInsertString3, con))
                     {
                         myEditKey.myNextAddressId = Convert.ToString(Convert.ToInt32(myEditKey.myNextAddressId) + 1);
 
-                        com5.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
-                        com5.Parameters.AddWithValue("Address1", myApplication.myMailAddress1);
+                        com9.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                        com9.Parameters.AddWithValue("Address1", myApplication.myMailAddress1);
                         if (myApplication.myMailAddress2 != "")
                         {
-                            com5.Parameters.AddWithValue("Address2", myApplication.myMailAddress2);
+                            com9.Parameters.AddWithValue("Address2", myApplication.myMailAddress2);
                         }
                         else
                         {
-                            com5.Parameters.AddWithValue("Address2", DBNull.Value);
+                            com9.Parameters.AddWithValue("Address2", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("City", myApplication.myMailCity);
-                        com5.Parameters.AddWithValue("State", myApplication.myMailState);
-                        com5.Parameters.AddWithValue("Zip", myApplication.myMailZip);
+                        com9.Parameters.AddWithValue("City", myApplication.myMailCity);
+                        com9.Parameters.AddWithValue("State", myApplication.myMailState);
+                        com9.Parameters.AddWithValue("Zip", myApplication.myMailZip);
                         if (myApplication.myMailZip4 != "")
                         {
-                            com5.Parameters.AddWithValue("Zip4", myApplication.myMailZip4);
+                            com9.Parameters.AddWithValue("Zip4", myApplication.myMailZip4);
                         }
                         else
                         {
-                            com5.Parameters.AddWithValue("Zip4", DBNull.Value);
+                            com9.Parameters.AddWithValue("Zip4", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("County", myApplication.myMailCounty);
+                        com9.Parameters.AddWithValue("County", myApplication.myMailCounty);
                         if (myApplication.myMailAptSuite != "")
                         {
-                            com5.Parameters.AddWithValue("AptSuite", myApplication.myMailAptSuite);
+                            com9.Parameters.AddWithValue("AptSuite", myApplication.myMailAptSuite);
                         }
                         else
                         {
-                            com5.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                            com9.Parameters.AddWithValue("AptSuite", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("Type", "Mailing");
+                        com9.Parameters.AddWithValue("Type", "Mailing");
 
-                        com5.ExecuteNonQuery();
-                        com5.Dispose();
+                        com9.ExecuteNonQuery();
+                        com9.Dispose();
                     }
-                }                
+                }
             }
             catch (Exception f)
             {
                 MessageBox.Show("Error Exception: " + f);
-            }            
+            }
 
             dataGridViewSelectedTests.Rows[mySelectedTest.myRowIndex].Cells[1].Style.BackColor = Color.Beige;
             buttonSaveConfiguration.BackColor = Color.Beige;
@@ -1674,10 +1746,10 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand(
+                using (SqlCeCommand com10 = new SqlCeCommand(
                     "SELECT * FROM Test where TestId = " + mysTestId + " and IsSelected = 'Yes';", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com10.ExecuteReader();
                     if (reader.Read())
                     {
                         MessageBox.Show("Test Already exists in Regression");
@@ -1687,10 +1759,10 @@ namespace MNsure_Regression_1
                         string myUpdateString;
                         myUpdateString = "Update Test set IsSelected = 'Yes' where TestId = " + mysTestId + ";";
 
-                        using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                        using (SqlCeCommand com11 = new SqlCeCommand(myUpdateString, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com11.ExecuteNonQuery();
+                            com11.Dispose();
                         }
                     }
                 }
@@ -1759,10 +1831,10 @@ namespace MNsure_Regression_1
                 con.Open();
                 string myUpdateString;
                 myUpdateString = "Update Test set IsSelected = 'No' where TestId = " + mysTestId + ";";
-                using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                using (SqlCeCommand com12 = new SqlCeCommand(myUpdateString, con))
                 {
-                    com3.ExecuteNonQuery();
-                    com3.Dispose();
+                    com12.ExecuteNonQuery();
+                    com12.Dispose();
                 }
                 con.Close();
             }
@@ -2017,9 +2089,9 @@ namespace MNsure_Regression_1
                     // Open the connection using the connection string.
                     con = new SqlCeConnection(conString);
                     con.Open();
-                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT Count(*) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
+                    using (SqlCeCommand com13 = new SqlCeCommand("SELECT Count(*) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
                     {
-                        SqlCeDataReader reader = com2.ExecuteReader();
+                        SqlCeDataReader reader = com13.ExecuteReader();
                         if (reader.Read())
                         {
                             myHouseholdMembers.NumMembers = reader.GetInt32(0);
@@ -2031,12 +2103,12 @@ namespace MNsure_Regression_1
                             myHouseholdMembers.HouseMembersID = 0;
                             textBoxTotalMembers.Text = "2";
                         }
-                        com2.ExecuteNonQuery();
-                        com2.Dispose();
+                        com13.ExecuteNonQuery();
+                        com13.Dispose();
                     }
-                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT Min(HouseMembersID) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
+                    using (SqlCeCommand com14 = new SqlCeCommand("SELECT Min(HouseMembersID) FROM HouseMembers where TestId = " + "'" + myTestId + "'", con))
                     {
-                        SqlCeDataReader reader = com2.ExecuteReader();
+                        SqlCeDataReader reader = com14.ExecuteReader();
                         if (reader.Read())
                         {
                             myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
@@ -2046,8 +2118,8 @@ namespace MNsure_Regression_1
                         {
                             myHouseholdMembers.HouseMembersID = 0;
                         }
-                        com2.ExecuteNonQuery();
-                        com2.Dispose();
+                        com14.ExecuteNonQuery();
+                        com14.Dispose();
                     }
                 }
                 catch
@@ -2067,7 +2139,7 @@ namespace MNsure_Regression_1
                     result = householdMembers.doGetHouseholdMember(ref myHouseholdMembers, ref myHistoryInfo, myTestId);
                     buttonSaveMember.BackColor = Color.Transparent;
                 }
-                                
+
                 if (myHouseholdMembers.HouseMembersID > 0)
                 {
                     textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
@@ -2087,7 +2159,7 @@ namespace MNsure_Regression_1
                     textBoxHMCity.Text = myHouseholdMembers.myMailCity;
                     comboBoxHMState.Text = myHouseholdMembers.myMailState;
                     textBoxHMZip.Text = myHouseholdMembers.myMailZip;
-                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;                    
+                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
                     comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
                     comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
                     comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -2164,7 +2236,7 @@ namespace MNsure_Regression_1
                         tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
                         dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
                         dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-                    } 
+                    }
 
                     textBoxCurrentMember.Text = "2";
                 }
@@ -2345,9 +2417,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * from Windows where WindowId =  " + myEditKey.myWindowsEditKey, con))
+                using (SqlCeCommand com15 = new SqlCeCommand("SELECT * from Windows where WindowId =  " + myEditKey.myWindowsEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com15.ExecuteReader();
                     if (reader.Read())
                     {
                         textBoxWindowId.Text = Convert.ToString(reader.GetInt32(0));
@@ -2406,9 +2478,9 @@ namespace MNsure_Regression_1
 
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Windows where WindowId = " + myEditKey.myWindowsEditKey, con))
+                using (SqlCeCommand com16 = new SqlCeCommand("SELECT * FROM Windows where WindowId = " + myEditKey.myWindowsEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com16.ExecuteReader();
                     if (reader.Read())
                     {
                         string myUpdateString;
@@ -2419,17 +2491,17 @@ namespace MNsure_Regression_1
                             ", FunctionalYet = @FunctionalYet" +
                             ", Notes = @Notes" +
                             " where WindowId = " + myEditKey.myWindowsEditKey + ";";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                        using (SqlCeCommand com17 = new SqlCeCommand(myUpdateString, con))
                         {
-                            com3.Parameters.AddWithValue("FunctionalArea", myFunctionalArea);
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("ScreenId", myScreenId);
-                            com3.Parameters.AddWithValue("Action", myAction);
-                            com3.Parameters.AddWithValue("ModifiedScreenId", myModifiedScreenId);
-                            com3.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
-                            com3.Parameters.AddWithValue("Notes", myNotes);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com17.Parameters.AddWithValue("FunctionalArea", myFunctionalArea);
+                            com17.Parameters.AddWithValue("Name", myName);
+                            com17.Parameters.AddWithValue("ScreenId", myScreenId);
+                            com17.Parameters.AddWithValue("Action", myAction);
+                            com17.Parameters.AddWithValue("ModifiedScreenId", myModifiedScreenId);
+                            com17.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
+                            com17.Parameters.AddWithValue("Notes", myNotes);
+                            com17.ExecuteNonQuery();
+                            com17.Dispose();
                         }
                     }
                     else
@@ -2439,17 +2511,17 @@ namespace MNsure_Regression_1
                         myInsertString = "Insert into Windows Values (" + myEditKey.myWindowsEditKey +
                             ",  @FunctionalArea,  @Name,  @ScreenId,  @Action" +
                             ",  @ModifiedScreenId,  @FunctionalYet,  @Notes  );";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        using (SqlCeCommand com18 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.Parameters.AddWithValue("FunctionalArea", myFunctionalArea);
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("ScreenId", myScreenId);
-                            com3.Parameters.AddWithValue("Action", myAction);
-                            com3.Parameters.AddWithValue("ModifiedScreenId", myModifiedScreenId);
-                            com3.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
-                            com3.Parameters.AddWithValue("Notes", myNotes);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com18.Parameters.AddWithValue("FunctionalArea", myFunctionalArea);
+                            com18.Parameters.AddWithValue("Name", myName);
+                            com18.Parameters.AddWithValue("ScreenId", myScreenId);
+                            com18.Parameters.AddWithValue("Action", myAction);
+                            com18.Parameters.AddWithValue("ModifiedScreenId", myModifiedScreenId);
+                            com18.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
+                            com18.Parameters.AddWithValue("Notes", myNotes);
+                            com18.ExecuteNonQuery();
+                            com18.Dispose();
                         }
                     }
                 }
@@ -2489,9 +2561,9 @@ namespace MNsure_Regression_1
 
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(WindowId) FROM Windows", con))
+                using (SqlCeCommand com19 = new SqlCeCommand("SELECT max(WindowId) FROM Windows", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com19.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myWindowsEditKey = Convert.ToString(reader.GetInt32(0) + 1);
@@ -2532,9 +2604,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Methods where WindowId = " + myEditKey.myWindowsEditKey, con))
+                using (SqlCeCommand com20 = new SqlCeCommand("SELECT * FROM Methods where WindowId = " + myEditKey.myWindowsEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com20.ExecuteReader();
                     if (reader.Read())
                     {
                         MessageBox.Show("This Window is part of a Method and cannot be deleted.");
@@ -2546,10 +2618,10 @@ namespace MNsure_Regression_1
                         {
                             string myDeleteString;
                             myDeleteString = "Delete FROM Windows where WindowId = " + myEditKey.myWindowsEditKey;
-                            using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString, con))
+                            using (SqlCeCommand com21 = new SqlCeCommand(myDeleteString, con))
                             {
-                                com3.ExecuteNonQuery();
-                                com3.Dispose();
+                                com21.ExecuteNonQuery();
+                                com21.Dispose();
                                 myEditKey.myWindowsFirstTime = "No";
                                 myEditKey.myWindowsDeletedRow = "Yes";
                             }
@@ -2620,9 +2692,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * from Methods where MethodId =  " + myEditKey.myMethodEditKey, con))
+                using (SqlCeCommand com22 = new SqlCeCommand("SELECT * from Methods where MethodId =  " + myEditKey.myMethodEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com22.ExecuteReader();
                     if (reader.Read())
                     {
                         textBoxMethodMethodId.Text = Convert.ToString(reader.GetInt32(0));
@@ -2705,9 +2777,9 @@ namespace MNsure_Regression_1
 
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(MethodId) FROM Methods", con))
+                using (SqlCeCommand com23 = new SqlCeCommand("SELECT max(MethodId) FROM Methods", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com23.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myMethodEditKey = Convert.ToString(reader.GetInt32(0) + 1);
@@ -2758,9 +2830,9 @@ namespace MNsure_Regression_1
 
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Methods where MethodId = " + myMethodId, con))
+                using (SqlCeCommand com24 = new SqlCeCommand("SELECT * FROM Methods where MethodId = " + myMethodId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com24.ExecuteReader();
                     if (reader.Read())
                     {
 
@@ -2769,16 +2841,16 @@ namespace MNsure_Regression_1
                             ", SpecialAction = @Action" +
                             ", FunctionalYet = @FunctionalYet" +
                             " where MethodId = " + myEditKey.myMethodEditKey + ";";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                        using (SqlCeCommand com25 = new SqlCeCommand(myUpdateString, con))
                         {
-                            com3.Parameters.AddWithValue("MethodId", myMethodId);
-                            com3.Parameters.AddWithValue("WindowId", myWindowId);
-                            com3.Parameters.AddWithValue("ClassName", myClassName);
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("Action", mySpecialAction);
-                            com3.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com25.Parameters.AddWithValue("MethodId", myMethodId);
+                            com25.Parameters.AddWithValue("WindowId", myWindowId);
+                            com25.Parameters.AddWithValue("ClassName", myClassName);
+                            com25.Parameters.AddWithValue("Name", myName);
+                            com25.Parameters.AddWithValue("Action", mySpecialAction);
+                            com25.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
+                            com25.ExecuteNonQuery();
+                            com25.Dispose();
                         }
                     }
                     else
@@ -2788,14 +2860,14 @@ namespace MNsure_Regression_1
                         myInsertString = "Insert into Methods Values (" + myMethodId + ", " + myWindowId +
                             ",   @Name, @ClassName,   @Action" +
                             ",    @FunctionalYet );";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        using (SqlCeCommand com26 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.Parameters.AddWithValue("ClassName", myClassName);
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("Action", mySpecialAction);
-                            com3.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com26.Parameters.AddWithValue("ClassName", myClassName);
+                            com26.Parameters.AddWithValue("Name", myName);
+                            com26.Parameters.AddWithValue("Action", mySpecialAction);
+                            com26.Parameters.AddWithValue("FunctionalYet", myFunctionalYet);
+                            com26.ExecuteNonQuery();
+                            com26.Dispose();
                         }
                     }
                 }
@@ -2855,9 +2927,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM TestSteps where Method = '" + myMethodName + "';", con))
+                using (SqlCeCommand com27 = new SqlCeCommand("SELECT * FROM TestSteps where Method = '" + myMethodName + "';", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com27.ExecuteReader();
                     if (reader.Read())
                     {
                         MessageBox.Show("This Method is part of an Test and cannot be deleted.");
@@ -2869,10 +2941,10 @@ namespace MNsure_Regression_1
                         {
                             string myDeleteString;
                             myDeleteString = "Delete  FROM Methods where MethodId = " + mysMethodId;
-                            using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString, con))
+                            using (SqlCeCommand com28 = new SqlCeCommand(myDeleteString, con))
                             {
-                                com3.ExecuteNonQuery();
-                                com3.Dispose();
+                                com28.ExecuteNonQuery();
+                                com28.Dispose();
                                 myEditKey.myMethodFirstTime = "No";
                                 myEditKey.myMethodDeletedRow = "Yes";
                             }
@@ -3001,9 +3073,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * from Test where TestId =  " + myEditKey.myTestEditKey, con))
+                using (SqlCeCommand com29 = new SqlCeCommand("SELECT * from Test where TestId =  " + myEditKey.myTestEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com29.ExecuteReader();
                     if (reader.Read())
                     {
                         textBoxTestTestId.Text = Convert.ToString(reader.GetInt32(0));
@@ -3043,9 +3115,9 @@ namespace MNsure_Regression_1
 
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(TestId) FROM Test", con))
+                using (SqlCeCommand com30 = new SqlCeCommand("SELECT max(TestId) FROM Test", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com30.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myTestEditKey = Convert.ToString(reader.GetInt32(0) + 1);
@@ -3100,9 +3172,9 @@ namespace MNsure_Regression_1
 
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Test where TestId = " + myTestId, con))
+                using (SqlCeCommand com31 = new SqlCeCommand("SELECT * FROM Test where TestId = " + myTestId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com31.ExecuteReader();
                     if (reader.Read())
                     {
                         string myUpdateString;
@@ -3110,16 +3182,16 @@ namespace MNsure_Regression_1
                             ", Description = @Description" +
                             ", URL = @URL, IsSelected = @IsSelected, Notes = @Notes" +
                             " where TestId = " + myEditKey.myTestEditKey + ";";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                        using (SqlCeCommand com32 = new SqlCeCommand(myUpdateString, con))
                         {
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("TestType", myTestType);
-                            com3.Parameters.AddWithValue("Description", myDescription);
-                            com3.Parameters.AddWithValue("URL", myURL);
-                            com3.Parameters.AddWithValue("IsSelected", myIsSelected);
-                            com3.Parameters.AddWithValue("Notes", myNotes);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com32.Parameters.AddWithValue("Name", myName);
+                            com32.Parameters.AddWithValue("TestType", myTestType);
+                            com32.Parameters.AddWithValue("Description", myDescription);
+                            com32.Parameters.AddWithValue("URL", myURL);
+                            com32.Parameters.AddWithValue("IsSelected", myIsSelected);
+                            com32.Parameters.AddWithValue("Notes", myNotes);
+                            com32.ExecuteNonQuery();
+                            com32.Dispose();
                         }
                     }
                     else
@@ -3129,17 +3201,17 @@ namespace MNsure_Regression_1
                         myInsertString = "Insert into Test Values (" + myTestId +
                             ",   @Name, @Type, @Description, @Notes, @URL" +
                             ",   @IsSelected   );";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        using (SqlCeCommand com33 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.Parameters.AddWithValue("TestId", myTestId);
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("Type", myTestType);
-                            com3.Parameters.AddWithValue("Description", myDescription);
-                            com3.Parameters.AddWithValue("URL", myURL);
-                            com3.Parameters.AddWithValue("IsSelected", myIsSelected);
-                            com3.Parameters.AddWithValue("Notes", myNotes);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com33.Parameters.AddWithValue("TestId", myTestId);
+                            com33.Parameters.AddWithValue("Name", myName);
+                            com33.Parameters.AddWithValue("Type", myTestType);
+                            com33.Parameters.AddWithValue("Description", myDescription);
+                            com33.Parameters.AddWithValue("URL", myURL);
+                            com33.Parameters.AddWithValue("IsSelected", myIsSelected);
+                            com33.Parameters.AddWithValue("Notes", myNotes);
+                            com33.ExecuteNonQuery();
+                            com33.Dispose();
                         }
                     }
                 }
@@ -3236,9 +3308,9 @@ namespace MNsure_Regression_1
                 con = new SqlCeConnection(conString);
                 con.Open();
                 string myInsertString;
-                using (SqlCeCommand com2 = new SqlCeCommand("Select max(TestStepId) from TestSteps where TestId = " + mysTestId, con))
+                using (SqlCeCommand com34 = new SqlCeCommand("Select max(TestStepId) from TestSteps where TestId = " + mysTestId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com34.ExecuteReader();
                     if (reader.Read() && countSelectedTestSteps != 1)
                     {
                         myiTestStepId = reader.GetInt32(0);
@@ -3249,9 +3321,9 @@ namespace MNsure_Regression_1
                         myiTestStepId = 1;
                     }
                 }
-                using (SqlCeCommand com2 = new SqlCeCommand("Select Name from Windows where WindowId = " + myWindowId, con))
+                using (SqlCeCommand com35 = new SqlCeCommand("Select Name from Windows where WindowId = " + myWindowId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com35.ExecuteReader();
                     if (reader.Read())
                     {
                         myWindow = reader.GetString(0);
@@ -3262,10 +3334,10 @@ namespace MNsure_Regression_1
                 myInsertString = "insert into TestSteps values(" + myTestId.ToString() + ", " + myiTestStepId +
                     ", '" + myWindow + "', '" + myWindowId + "', '" + myClass + "', '" + myName + "', '', ''); ";
 
-                using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                using (SqlCeCommand com36 = new SqlCeCommand(myInsertString, con))
                 {
-                    com3.ExecuteNonQuery();
-                    com3.Dispose();
+                    com36.ExecuteNonQuery();
+                    com36.Dispose();
                 }
                 con.Close();
             }
@@ -3316,10 +3388,10 @@ namespace MNsure_Regression_1
                 string myDeleteString;
                 myDeleteString = "Delete from TestSteps where TestId = " + mysTestId + " and TestStepId = " + mysTestStepId;
 
-                using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString, con))
+                using (SqlCeCommand com37 = new SqlCeCommand(myDeleteString, con))
                 {
-                    com3.ExecuteNonQuery();
-                    com3.Dispose();
+                    com37.ExecuteNonQuery();
+                    com37.Dispose();
                 }
 
                 con.Close();
@@ -3373,7 +3445,7 @@ namespace MNsure_Regression_1
                     myApplication.myEnrollmentPlanType = "MN Care UQHP";
                 }
             }
-            else if(textBoxTotalMembers.Text == "2")
+            else if (textBoxTotalMembers.Text == "2")
             {
                 if (textBoxHMAmount.Text == "")
                 {
@@ -3444,9 +3516,9 @@ namespace MNsure_Regression_1
             con.Open();
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
+                using (SqlCeCommand com38 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com38.ExecuteReader();
                     if (reader.Read())
                     {
                         myScreenId = reader.GetString(0);
@@ -3501,9 +3573,9 @@ namespace MNsure_Regression_1
             con.Open();
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
+                using (SqlCeCommand com39 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com39.ExecuteReader();
                     if (reader.Read())
                     {
                         myScreenId = reader.GetString(0);
@@ -3546,21 +3618,21 @@ namespace MNsure_Regression_1
 
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM TestTemplates where TemplateId = " + myTemplateId, con))
+                using (SqlCeCommand com40 = new SqlCeCommand("SELECT * FROM TestTemplates where TemplateId = " + myTemplateId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com40.ExecuteReader();
                     if (reader.Read())
                     {
                         string myUpdateString;
                         myUpdateString = "Update TestTemplates set TemplateName = @Name"
                           + " , TestId  = @TestId " +
                             " where TemplateId = " + myEditKey.myTemplateEditKey + ";";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myUpdateString, con))
+                        using (SqlCeCommand com41 = new SqlCeCommand(myUpdateString, con))
                         {
-                            com3.Parameters.AddWithValue("Name", myName);
-                            com3.Parameters.AddWithValue("TestId", myTestId);
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com41.Parameters.AddWithValue("Name", myName);
+                            com41.Parameters.AddWithValue("TestId", myTestId);
+                            com41.ExecuteNonQuery();
+                            com41.Dispose();
                         }
                     }
                     else
@@ -3568,10 +3640,10 @@ namespace MNsure_Regression_1
                         string myInsertString;
                         myInsertString = "Insert into TestTemplates Values (" + myTemplateId +
                             ", " + myTestId + ", '" + myName + "' );";
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        using (SqlCeCommand com42 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com42.ExecuteNonQuery();
+                            com42.Dispose();
                         }
                     }
                 }
@@ -3621,10 +3693,10 @@ namespace MNsure_Regression_1
                 {
                     string myDeleteString;
                     myDeleteString = "Delete  FROM TestTemplates where TemplateId = " + mysTemplateId;
-                    using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString, con))
+                    using (SqlCeCommand com43 = new SqlCeCommand(myDeleteString, con))
                     {
-                        com3.ExecuteNonQuery();
-                        com3.Dispose();
+                        com43.ExecuteNonQuery();
+                        com43.Dispose();
                         myEditKey.myTemplateFirstTime = "No";
                         myEditKey.myTemplateDeletedRow = "Yes";
                     }
@@ -3663,9 +3735,9 @@ namespace MNsure_Regression_1
 
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(TemplateId) FROM TestTemplates", con))
+                using (SqlCeCommand com44 = new SqlCeCommand("SELECT max(TemplateId) FROM TestTemplates", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com44.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myTemplateEditKey = Convert.ToString(reader.GetInt32(0) + 1);
@@ -3700,9 +3772,9 @@ namespace MNsure_Regression_1
             con.Open();
             try
             {
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
+                using (SqlCeCommand com45 = new SqlCeCommand("SELECT ScreenId FROM Windows where WindowId = " + mysWindowId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com45.ExecuteReader();
                     if (reader.Read())
                     {
                         myScreenId = reader.GetString(0);
@@ -3740,29 +3812,69 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Test where TestId = '" + mysTestId + "';", con))
+                using (SqlCeCommand com46 = new SqlCeCommand("SELECT * FROM Test where TestId = '" + mysTestId + "';", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com46.ExecuteReader();
                     DialogResult result1 = MessageBox.Show("Are you sure you want to delete this Test?", "Delete Test", MessageBoxButtons.YesNo);
                     if (result1 == DialogResult.Yes)
                     {
                         string myDeleteString;
                         myDeleteString = "Delete FROM Test where TestId = " + mysTestId;
-                        using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString, con))
+                        using (SqlCeCommand com47 = new SqlCeCommand(myDeleteString, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com47.ExecuteNonQuery();
+                            com47.Dispose();
                             myEditKey.myTestFirstTime = "No";
                             myEditKey.myTestDeletedRow = "Yes";
                         }
                         string myDeleteString2;
                         myDeleteString2 = "Delete FROM TestSteps where TestId = " + mysTestId;
-                        using (SqlCeCommand com3 = new SqlCeCommand(myDeleteString2, con))
+                        using (SqlCeCommand com48 = new SqlCeCommand(myDeleteString2, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com48.ExecuteNonQuery();
+                            com48.Dispose();
                             myEditKey.myTestFirstTime = "No";
                             myEditKey.myTestDeletedRow = "Yes";
+                        }
+
+                        string myDeleteString3;
+                        myDeleteString3 = "Delete FROM TestTemplates where TestId = " + mysTestId;
+                        using (SqlCeCommand com74 = new SqlCeCommand(myDeleteString3, con))
+                        {
+                            com74.ExecuteNonQuery();
+                            com74.Dispose();
+                        }
+
+                        string myDeleteString4;
+                        myDeleteString4 = "Delete FROM Account where TestId = " + mysTestId;
+                        using (SqlCeCommand com75 = new SqlCeCommand(myDeleteString4, con))
+                        {
+                            com75.ExecuteNonQuery();
+                            com75.Dispose();
+                        }
+
+                        string myDeleteString5;
+                        myDeleteString5 = "Delete FROM Address where TestId = " + mysTestId;
+                        using (SqlCeCommand com76 = new SqlCeCommand(myDeleteString5, con))
+                        {
+                            com76.ExecuteNonQuery();
+                            com76.Dispose();
+                        }
+
+                        string myDeleteString6;
+                        myDeleteString6 = "Delete FROM Application where TestId = " + mysTestId;
+                        using (SqlCeCommand com77 = new SqlCeCommand(myDeleteString6, con))
+                        {
+                            com77.ExecuteNonQuery();
+                            com77.Dispose();
+                        }
+
+                        string myDeleteString7;
+                        myDeleteString7 = "Delete FROM HouseMembers where TestId = " + mysTestId;
+                        using (SqlCeCommand com78 = new SqlCeCommand(myDeleteString7, con))
+                        {
+                            com78.ExecuteNonQuery();
+                            com78.Dispose();
                         }
                     }
                 }
@@ -3822,9 +3934,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(TestId) FROM Test", con))
+                using (SqlCeCommand com49 = new SqlCeCommand("SELECT max(TestId) FROM Test", con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com49.ExecuteReader();
                     if (reader.Read())
                     {
                         myNewTestId = Convert.ToString(reader.GetInt32(0) + 1);
@@ -3834,17 +3946,17 @@ namespace MNsure_Regression_1
                     myInsertString = "Insert into Test Values (" + myNewTestId +
                         ",   @Name, @Type, @Description, @Notes, @URL" +
                         ",   @IsSelected   );";
-                    using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                    using (SqlCeCommand com50 = new SqlCeCommand(myInsertString, con))
                     {
-                        com3.Parameters.AddWithValue("TestId", myNewTestId);
-                        com3.Parameters.AddWithValue("Name", myTestName);
-                        com3.Parameters.AddWithValue("Type", myTestType);
-                        com3.Parameters.AddWithValue("Description", myDescription);
-                        com3.Parameters.AddWithValue("URL", myURL);
-                        com3.Parameters.AddWithValue("IsSelected", myIsSelected);
-                        com3.Parameters.AddWithValue("Notes", myNotes);
-                        com3.ExecuteNonQuery();
-                        com3.Dispose();
+                        com50.Parameters.AddWithValue("TestId", myNewTestId);
+                        com50.Parameters.AddWithValue("Name", myTestName);
+                        com50.Parameters.AddWithValue("Type", myTestType);
+                        com50.Parameters.AddWithValue("Description", myDescription);
+                        com50.Parameters.AddWithValue("URL", myURL);
+                        com50.Parameters.AddWithValue("IsSelected", myIsSelected);
+                        com50.Parameters.AddWithValue("Notes", myNotes);
+                        com50.ExecuteNonQuery();
+                        com50.Dispose();
                     }
                 }
 
@@ -3871,9 +3983,9 @@ namespace MNsure_Regression_1
                 con = new SqlCeConnection(conString);
                 con.Open();
                 string myInsertString;
-                using (SqlCeCommand com2 = new SqlCeCommand("Select * from TestSteps where TestId = " + myTestId, con))
+                using (SqlCeCommand com51 = new SqlCeCommand("Select * from TestSteps where TestId = " + myTestId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com51.ExecuteReader();
                     while (reader.Read())
                     {
                         myiTestStepId = reader.GetInt32(1);
@@ -3887,10 +3999,10 @@ namespace MNsure_Regression_1
                         myInsertString = "insert into TestSteps values(" + myNewTestId.ToString() + ", " + myiTestStepId +
                         ", '" + myWindow + "', '" + myWindowId + "', '" + myClass + "', '" + myMethodName + "', '', ''); ";
 
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        using (SqlCeCommand com52 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com52.ExecuteNonQuery();
+                            com52.Dispose();
                         }
                     }
                 }
@@ -3901,39 +4013,152 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Copy New Test Steps didn't work, Exception: " + a);
             }
 
-            /*try
+            try
             {
                 // Open the connection using the connection string.
                 con = new SqlCeConnection(conString);
                 con.Open();
                 string myInsertString;
-                using (SqlCeCommand com2 = new SqlCeCommand("Select * from Application where TestId = " + myTestId, con))
+                using (SqlCeCommand com53 = new SqlCeCommand("Select * from Application where TestId = " + myTestId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com53.ExecuteReader();
                     while (reader.Read())
                     {
-                        myiTestStepId = reader.GetInt32(1);
-                        
-                        myInsertString = "Insert into Application values (" + 1 + ", " + myiTestStepId +
-                                    ", "+ reader.GetInt32(2) + ", "+reader.GetInt32(3) + ", "+reader.GetInt32(4) + ", "+reader.GetInt32(5) + ", "+
-                                    reader.GetInt32(6) + ", "+reader.GetInt32(6) + ", "+reader.GetInt32(8) + ", "+reader.GetInt32(9) + ", "+reader.GetInt32(10) + ", "+
-                                    reader.GetInt32(11) + ", "+reader.GetInt32(12) + ", "+reader.GetInt32(13) + ", "+reader.GetInt32(14) + ", "+reader.GetInt32(15) + ", "+
-                                    reader.GetInt32(16) + ", "+reader.GetInt32(17) + ", "+reader.GetInt32(18) + ", "+reader.GetInt32(19) + ", "+reader.GetInt32(20) + ", "+
-                                    reader.GetInt32(21) + ", "+reader.GetInt32(22) + ", "+reader.GetInt32(23) + ", "+reader.GetInt32(24) + ", "+reader.GetInt32(25) + ", "+
-                                    reader.GetInt32(26) + ", "+reader.GetInt32(27) + ", "+reader.GetInt32(28) + ", ''"+ ", "+reader.GetInt32(30) + ", "+
-                                    reader.GetInt32(31) + ", "+reader.GetInt32(32) + ", "+reader.GetInt32(33) + ", "+reader.GetInt32(34) + ", "+reader.GetInt32(35) + ", "+
-                                    reader.GetInt32(36) + ", "+reader.GetInt32(37) + ", "+reader.GetInt32(38) + ", "+reader.GetInt32(39) + ", "+reader.GetInt32(40) + ", "+
-                                    reader.GetInt32(41) + ", "+reader.GetInt32(42) + ", "+reader.GetInt32(43) + ", "+reader.GetInt32(44) + ", "+reader.GetInt32(45) + ", "+
-                                    reader.GetInt32(46) + ", "+reader.GetInt32(47) + ", "+reader.GetInt32(48) + ", "+reader.GetInt32(49) + ", "+reader.GetInt32(50) + ", "+
-                                    reader.GetInt32(51) + ", "+reader.GetInt32(52) + ", "+reader.GetInt32(53) + ", "+reader.GetInt32(54) + ", "+reader.GetInt32(55) + ", "+
-                                    reader.GetInt32(56) + ", "+reader.GetInt32(57) + ", "+reader.GetInt32(58) + ", "+reader.GetInt32(59) + ", "+reader.GetInt32(60) + ", "+
-                                    reader.GetInt32(61) + ", "+reader.GetInt32(62) + ", "+reader.GetInt32(63) + ", "+reader.GetInt32(64) + ", "+reader.GetInt32(65) + ", "+
-                                    reader.GetInt32(66) + "); ";
-                        
-                        using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                        myInsertString = "Insert into Application values (1, " + Convert.ToInt32(myNewTestId) +
+                                    ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
+                                    "@DOB , @LiveMN, @PlanLiveMN, @PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @LanguageMost," +
+                                    "@WrittenLanguage, @VoterCard, @Notices, @AuthRep, @ApplyYourself, @Homeless, @AddressSame, @Hispanic," +
+                                    "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
+                                    "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
+                                    "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId );";
+                        using (SqlCeCommand com54 = new SqlCeCommand(myInsertString, con))
                         {
-                            com3.ExecuteNonQuery();
-                            com3.Dispose();
+                            com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
+                            com54.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            com54.Parameters.AddWithValue("LastName", reader.GetString(4));
+                            com54.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            com54.Parameters.AddWithValue("Gender", reader.GetString(6));
+                            com54.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
+                            if (!reader.IsDBNull(8))
+                            {
+                                com54.Parameters.AddWithValue("DOB", reader.GetDateTime(8));
+                            }
+                            else
+                            {
+                                myApplication.myDOB = "01/01/2011"; // special situation
+                                com54.Parameters.AddWithValue("DOB", reader.GetDateTime(8));
+                            }
+                            com54.Parameters.AddWithValue("LiveMN", reader.GetString(9));
+                            com54.Parameters.AddWithValue("PlanLiveMN", reader.GetString(10));
+                            com54.Parameters.AddWithValue("PrefContact", reader.GetString(11));
+                            com54.Parameters.AddWithValue("PhoneNum", reader.GetString(12));
+                            com54.Parameters.AddWithValue("PhoneType", reader.GetString(13));
+                            com54.Parameters.AddWithValue("AltNum", reader.GetString(14));
+                            com54.Parameters.AddWithValue("AltType", reader.GetString(15));
+                            com54.Parameters.AddWithValue("Email", reader.GetString(16));
+                            com54.Parameters.AddWithValue("LanguageMost", reader.GetString(17));
+                            com54.Parameters.AddWithValue("WrittenLanguage", reader.GetString(18));
+                            com54.Parameters.AddWithValue("VoterCard", reader.GetString(19));
+                            com54.Parameters.AddWithValue("Notices", reader.GetString(20));
+                            com54.Parameters.AddWithValue("AuthRep", reader.GetString(21));
+                            com54.Parameters.AddWithValue("ApplyYourself", reader.GetString(22));
+                            com54.Parameters.AddWithValue("Homeless", reader.GetString(23));
+                            com54.Parameters.AddWithValue("AddressSame", reader.GetString(24));
+                            com54.Parameters.AddWithValue("Hispanic", reader.GetString(25));
+                            com54.Parameters.AddWithValue("Race", reader.GetString(26));
+                            com54.Parameters.AddWithValue("SSN", reader.GetString(27));
+                            com54.Parameters.AddWithValue("Citizen", reader.GetString(28));
+                            com54.Parameters.AddWithValue("SSNNum", DBNull.Value);
+                            com54.Parameters.AddWithValue("Household", reader.GetString(30));
+                            com54.Parameters.AddWithValue("Dependants", reader.GetString(31));
+                            com54.Parameters.AddWithValue("IncomeYN", reader.GetString(32));
+                            com54.Parameters.AddWithValue("IncomeType", reader.GetString(33));
+                            com54.Parameters.AddWithValue("IncomeAmount", reader.GetString(34));
+                            com54.Parameters.AddWithValue("IncomeFrequency", reader.GetString(35));
+                            com54.Parameters.AddWithValue("IncomeMore", reader.GetString(36));
+                            com54.Parameters.AddWithValue("Employer", reader.GetString(37));
+                            com54.Parameters.AddWithValue("Seasonal", reader.GetString(38));
+                            com54.Parameters.AddWithValue("Reduced", reader.GetString(39));
+                            com54.Parameters.AddWithValue("Adjusted", reader.GetString(40));
+                            com54.Parameters.AddWithValue("Expected", reader.GetString(41));
+                            com54.Parameters.AddWithValue("PlanType", reader.GetString(42));
+                            com54.Parameters.AddWithValue("Foster", reader.GetString(43));
+                            com54.Parameters.AddWithValue("MailAddrYN", reader.GetString(44));
+                            com54.Parameters.AddWithValue("TribeName", reader.GetString(45));
+                            com54.Parameters.AddWithValue("LiveRes", reader.GetString(46));
+                            if (!reader.IsDBNull(47))
+                            {
+                                com54.Parameters.AddWithValue("TribeId", reader.GetString(47));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("TribeId", DBNull.Value);
+                            }
+                            com54.Parameters.AddWithValue("FederalTribe", reader.GetString(48));
+                            com54.Parameters.AddWithValue("Military", reader.GetString(49));
+                            if (!reader.IsDBNull(50))
+                            {
+                                com54.Parameters.AddWithValue("MilitaryDate", reader.GetDateTime(50));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                            }
+                            com54.Parameters.AddWithValue("AppliedSSN", reader.GetString(51));
+                            if (!reader.IsDBNull(52))
+                            {
+                                com54.Parameters.AddWithValue("WhyNoSSN", reader.GetString(52));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("WhyNoSSN", DBNull.Value);
+                            }
+                            com54.Parameters.AddWithValue("AssistSSN", reader.GetString(53));
+                            com54.Parameters.AddWithValue("OtherIns", reader.GetString(54));
+                            com54.Parameters.AddWithValue("KindIns", reader.GetString(55));
+                            com54.Parameters.AddWithValue("CoverageEnd", reader.GetString(56));
+                            com54.Parameters.AddWithValue("AddIns", reader.GetString(57));
+                            com54.Parameters.AddWithValue("ESC", reader.GetString(58));
+                            com54.Parameters.AddWithValue("RenewalCov", reader.GetString(59));
+                            com54.Parameters.AddWithValue("WithDiscounts", reader.GetString(60));
+                            com54.Parameters.AddWithValue("Pregnant", reader.GetString(61));
+                            com54.Parameters.AddWithValue("Children", reader.GetString(62));
+                            if (!reader.IsDBNull(63))
+                            {
+                                com54.Parameters.AddWithValue("DueDate", reader.GetDateTime(63));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("DueDate", DBNull.Value);
+                            }
+                            if (!reader.IsDBNull(64))
+                            {
+                                com54.Parameters.AddWithValue("PregnancyEnded", reader.GetString(64));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                            }
+                            if (!reader.IsDBNull(65))
+                            {
+                                com54.Parameters.AddWithValue("RegDate", reader.GetDateTime(65));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("RegDate", DBNull.Value);
+                            }
+                            if (!reader.IsDBNull(66))
+                            {
+                                com54.Parameters.AddWithValue("Day2TestId", reader.GetString(66));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("Day2TestId", DBNull.Value);
+                            }
+
+                            com54.ExecuteNonQuery();
+                            com54.Dispose();
                         }
                     }
                 }
@@ -3942,7 +4167,484 @@ namespace MNsure_Regression_1
             catch (Exception a)
             {
                 MessageBox.Show("Copy New Application didn't work, Exception: " + a);
-            }*/
+            }
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                int myNewAddressId = 0;
+                using (SqlCeCommand com55 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                {
+                    SqlCeDataReader reader = com55.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myNewAddressId = reader.GetInt32(0) + 1;
+                    }
+                }
+
+                using (SqlCeCommand com56 = new SqlCeCommand("Select * from Address where Type = 'Home' and TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com56.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        myInsertString = "Insert into Address values (1, " + Convert.ToInt32(myNewTestId) +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+
+                        using (SqlCeCommand com78 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com78.Parameters.AddWithValue("AddressId", myNewAddressId);
+                            com78.Parameters.AddWithValue("Address1", reader.GetString(3));
+                            if (!reader.IsDBNull(4))
+                            {
+                                com78.Parameters.AddWithValue("Address2", reader.GetString(4));
+                            }
+                            else
+                            {
+                                com78.Parameters.AddWithValue("Address2", DBNull.Value);
+                            }
+                            com78.Parameters.AddWithValue("City", reader.GetString(5));
+                            com78.Parameters.AddWithValue("State", reader.GetString(6));
+                            com78.Parameters.AddWithValue("Zip", reader.GetString(7));
+                            if (!reader.IsDBNull(8))
+                            {
+                                com78.Parameters.AddWithValue("Zip4", reader.GetString(8));
+                            }
+                            else
+                            {
+                                com78.Parameters.AddWithValue("Zip4", DBNull.Value);
+                            }
+                            com78.Parameters.AddWithValue("Type", "Home");
+                            com78.Parameters.AddWithValue("County", reader.GetString(9));
+                            if (!reader.IsDBNull(10))
+                            {
+                                com78.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                            }
+                            else
+                            {
+                                com78.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                            }                            
+
+                            using (SqlCeCommand com57 = new SqlCeCommand(myInsertString, con))
+                            {
+                                com57.ExecuteNonQuery();
+                                com57.Dispose();
+                            }
+
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                MessageBox.Show("Copy New Home Address didn't work, Exception: " + a);
+            }
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                int myNewAddressId = 0;
+                using (SqlCeCommand com58 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                {
+                    SqlCeDataReader reader = com58.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myNewAddressId = reader.GetInt32(0) + 1;
+                    }
+                }
+                using (SqlCeCommand com59 = new SqlCeCommand("Select * from Address where Type = Mailing and TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com59.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        myInsertString = "Insert into Address values (1, " + Convert.ToInt32(myNewTestId) +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+
+                        using (SqlCeCommand com79 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com79.Parameters.AddWithValue("AddressId", myNewAddressId);
+                            com79.Parameters.AddWithValue("Address1", reader.GetString(3));
+                            if (!reader.IsDBNull(4))
+                            {
+                                com79.Parameters.AddWithValue("Address2", reader.GetString(4));
+                            }
+                            else
+                            {
+                                com79.Parameters.AddWithValue("Address2", DBNull.Value);
+                            }
+                            com79.Parameters.AddWithValue("City", reader.GetString(5));
+                            com79.Parameters.AddWithValue("State", reader.GetString(6));
+                            com79.Parameters.AddWithValue("Zip", reader.GetString(7));
+                            if (!reader.IsDBNull(8))
+                            {
+                                com79.Parameters.AddWithValue("Zip4", reader.GetString(8));
+                            }
+                            else
+                            {
+                                com79.Parameters.AddWithValue("Zip4", DBNull.Value);
+                            }
+                            com79.Parameters.AddWithValue("County", reader.GetString(9));
+                            if (!reader.IsDBNull(10))
+                            {
+                                com79.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                            }
+                            else
+                            {
+                                com79.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                            }
+                            com79.Parameters.AddWithValue("Type", "Mailing");
+
+                            using (SqlCeCommand com60 = new SqlCeCommand(myInsertString, con))
+                            {
+                                com60.ExecuteNonQuery();
+                                com60.Dispose();
+                            }
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                //do nothing
+            }
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                int myNewAddressId = 0;
+                using (SqlCeCommand com61 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                {
+                    SqlCeDataReader reader = com61.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myNewAddressId = reader.GetInt32(0) + 1;
+                    }
+                }
+                using (SqlCeCommand com62 = new SqlCeCommand("Select * from Address where Type = Household 2 and TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com62.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        myInsertString = "Insert into Address values (1, " + Convert.ToInt32(myNewTestId) +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+
+                        using (SqlCeCommand com80 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com80.Parameters.AddWithValue("AddressId", myNewAddressId);
+                            com80.Parameters.AddWithValue("Address1", reader.GetString(3));
+                            if (!reader.IsDBNull(4))
+                            {
+                                com80.Parameters.AddWithValue("Address2", reader.GetString(4));
+                            }
+                            else
+                            {
+                                com80.Parameters.AddWithValue("Address2", DBNull.Value);
+                            }
+                            com80.Parameters.AddWithValue("City", reader.GetString(5));
+                            com80.Parameters.AddWithValue("State", reader.GetString(6));
+                            com80.Parameters.AddWithValue("Zip", reader.GetString(7));
+                            if (!reader.IsDBNull(8))
+                            {
+                                com80.Parameters.AddWithValue("Zip4", reader.GetString(8));
+                            }
+                            else
+                            {
+                                com80.Parameters.AddWithValue("Zip4", DBNull.Value);
+                            }
+                            com80.Parameters.AddWithValue("County", reader.GetString(9));
+                            if (!reader.IsDBNull(10))
+                            {
+                                com80.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                            }
+                            else
+                            {
+                                com80.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                            }
+                            com80.Parameters.AddWithValue("Type", "Household 2");
+
+                            using (SqlCeCommand com63 = new SqlCeCommand(myInsertString, con))
+                            {
+                                com63.ExecuteNonQuery();
+                                com63.Dispose();
+                            }
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                //do nothing
+            }
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                using (SqlCeCommand com64 = new SqlCeCommand("Select * from HouseMembers where HouseMembersID = 2 and TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com64.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        myInsertString = "Insert into HouseMembers values (2, " + Convert.ToInt32(myNewTestId) +
+                    ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
+                    "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
+                    "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
+                    "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
+
+                        using (SqlCeCommand com65 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com65.Parameters.AddWithValue("FirstName", reader.GetString(2));
+                            com65.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            com65.Parameters.AddWithValue("LastName", reader.GetString(4));
+                            com65.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            com65.Parameters.AddWithValue("Gender", reader.GetString(6));
+                            com65.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
+                            com65.Parameters.AddWithValue("DOB", reader.GetString(8));
+                            com65.Parameters.AddWithValue("LiveWithYou", reader.GetString(9));
+                            com65.Parameters.AddWithValue("MNHome", reader.GetString(10));
+                            com65.Parameters.AddWithValue("PersonHighlighted", reader.GetString(11));
+                            com65.Parameters.AddWithValue("LiveMN", reader.GetString(12));
+                            com65.Parameters.AddWithValue("TempAbsentMN", reader.GetString(13));
+                            com65.Parameters.AddWithValue("Homeless", reader.GetString(14));
+                            com65.Parameters.AddWithValue("PlanMakeMNHome", reader.GetString(15));
+                            com65.Parameters.AddWithValue("SeekingEmployment", reader.GetString(16));
+                            com65.Parameters.AddWithValue("Hispanic", reader.GetString(17));
+                            com65.Parameters.AddWithValue("Race", reader.GetString(18));
+                            com65.Parameters.AddWithValue("HaveSSN", reader.GetString(19));
+                            com65.Parameters.AddWithValue("SSN", DBNull.Value);
+                            com65.Parameters.AddWithValue("USCitizen", reader.GetString(21));
+                            com65.Parameters.AddWithValue("USNational", reader.GetString(22));
+                            com65.Parameters.AddWithValue("Pregnant", reader.GetString(23));
+                            com65.Parameters.AddWithValue("FosterCare", reader.GetString(24));
+                            com65.Parameters.AddWithValue("Relationship", reader.GetString(25));
+                            com65.Parameters.AddWithValue("HasIncome", reader.GetString(26));
+                            com65.Parameters.AddWithValue("RelationshiptoNextHM", reader.GetString(27));
+                            com65.Parameters.AddWithValue("TribeName", reader.GetString(28));
+                            com65.Parameters.AddWithValue("LiveRes", reader.GetString(29));
+                            com65.Parameters.AddWithValue("TribeId", reader.GetString(30));
+                            com65.Parameters.AddWithValue("FederalTribe", reader.GetString(31));
+                            com65.Parameters.AddWithValue("FileJointly", reader.GetString(32));
+                            com65.Parameters.AddWithValue("IncomeType", reader.GetString(33));
+                            com65.Parameters.AddWithValue("Employer", reader.GetString(34));
+                            com65.Parameters.AddWithValue("Seasonal", reader.GetString(35));
+                            com65.Parameters.AddWithValue("IncomeAmount", reader.GetString(36));
+                            com65.Parameters.AddWithValue("IncomeFrequency", reader.GetString(37));
+                            com65.Parameters.AddWithValue("IncomeMore", reader.GetString(38));
+                            com65.Parameters.AddWithValue("Reduced", reader.GetString(39));
+                            com65.Parameters.AddWithValue("Adjusted", reader.GetString(40));
+                            com65.Parameters.AddWithValue("Expected", reader.GetString(41));
+                            com65.Parameters.AddWithValue("PassCount", "1");
+                            com65.Parameters.AddWithValue("Military", reader.GetString(43));
+                            if (!reader.IsDBNull(44))
+                            {
+                                com65.Parameters.AddWithValue("MilitaryDate", reader.GetDateTime(44));
+                            }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                            }
+                            com65.Parameters.AddWithValue("PrefContact", reader.GetString(45));
+                            com65.Parameters.AddWithValue("PhoneNum", reader.GetString(46));
+                            com65.Parameters.AddWithValue("PhoneType", reader.GetString(47));
+                            com65.Parameters.AddWithValue("AltNum", reader.GetString(48));
+                            com65.Parameters.AddWithValue("AltType", reader.GetString(49));
+                            if (!reader.IsDBNull(50))
+                            {
+                                com65.Parameters.AddWithValue("Email", reader.GetString(50));
+                            }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("Email", DBNull.Value);
+                            }
+                            com65.Parameters.AddWithValue("VoterCard", reader.GetString(51));
+                            com65.Parameters.AddWithValue("Notices", reader.GetString(52));
+                            com65.Parameters.AddWithValue("AuthRep", reader.GetString(53));
+                            com65.Parameters.AddWithValue("Dependant", reader.GetString(54));
+                            com65.Parameters.AddWithValue("TaxFiler", reader.GetString(55));
+                            com65.Parameters.AddWithValue("Children", reader.GetString(56));
+                            if (!reader.IsDBNull(57))
+                            {
+                                com65.Parameters.AddWithValue("DueDate", reader.GetDateTime(57));
+                            }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("DueDate", DBNull.Value);
+                            }
+                            if (!reader.IsDBNull(58))
+                            {
+                                com65.Parameters.AddWithValue("PregnancyEnded", reader.GetDateTime(58));
+                            }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                            }
+                            com65.Parameters.AddWithValue("Reenroll", reader.GetString(59));
+                            com65.Parameters.AddWithValue("SaveExit", reader.GetString(60));
+
+                            com65.ExecuteNonQuery();
+                            com65.Dispose();
+                        }
+                        /*using (SqlCeCommand com65 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com65.ExecuteNonQuery();
+                            com65.Dispose();
+                        }*/
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                //do nothing
+            }
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                string myInsertString;
+                using (SqlCeCommand com66 = new SqlCeCommand("Select * from HouseMembers where HouseMembersID = 3 and TestId = " + myTestId, con))
+                {
+                    SqlCeDataReader reader = com66.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        /*myInsertString = "Insert into HouseMembers values ('3" + "', '" + Convert.ToInt32(myNewTestId) +
+                            "', '" + reader.GetString(2) + "', '" + reader.GetString(3) + "', '" + reader.GetString(4) + "', '" + reader.GetString(5) + "', '" +
+                            reader.GetString(6) + "', '" + reader.GetString(7) + "', '" + reader.GetString(8) + "', '" + reader.GetString(9) + "', '" + reader.GetString(10) + "', '" +
+                            reader.GetString(11) + "', '" + reader.GetString(12) + "', '" + reader.GetString(13) + "', '" + reader.GetString(14) + "', '" + reader.GetString(15) + "', '" +
+                            reader.GetString(16) + "', '" + reader.GetString(17) + "', '" + reader.GetString(18) + "', '" + reader.GetString(19) + "', '" + DBNull.Value + "', '" +
+                            reader.GetString(21) + "', '" + reader.GetString(22) + "', '" + reader.GetString(23) + "', '" + reader.GetString(24) + "', '" + reader.GetString(25) + "', '" +
+                            reader.GetString(26) + "', '" + reader.GetString(27) + "', '" + reader.GetString(28) + "', '','" + reader.GetString(30) + "', '" +
+                            reader.GetString(31) + "', '" + reader.GetString(32) + "', '" + reader.GetString(33) + "', '" + reader.GetString(34) + "', '" + reader.GetString(35) + "', '" +
+                            reader.GetString(36) + "', '" + reader.GetString(37) + "', '" + reader.GetString(38) + "', '" + reader.GetString(39) + "', '" + reader.GetString(40) + "', '" +
+                            reader.GetString(41) + "', '" + reader.GetString(42) + "', '" + reader.GetString(43) + "', '" + DBNull.Value + "', '" + reader.GetString(45) + "', '" +
+                            reader.GetString(46) + "', '" + reader.GetString(47) + "', '" + reader.GetString(48) + "', '" + reader.GetString(49) + "', '" + DBNull.Value + "', '" +
+                            reader.GetString(51) + "', '" + reader.GetString(52) + "', '" + reader.GetString(53) + "', '" + reader.GetString(54) + "', '" + reader.GetString(55) + "', '" +
+                            reader.GetString(56) + "', '" + DBNull.Value + "', '" + reader.GetDateTime(58) + "', '" + reader.GetString(59) + "', '" + reader.GetString(60) + "'); ";
+                        */
+                        myInsertString = "Insert into HouseMembers values (3, " + Convert.ToInt32(myNewTestId) +
+                    ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
+                    "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
+                    "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
+                    "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
+
+                        using (SqlCeCommand com67 = new SqlCeCommand(myInsertString, con))
+                        {
+                            com67.Parameters.AddWithValue("FirstName", reader.GetString(2));
+                            com67.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            com67.Parameters.AddWithValue("LastName", reader.GetString(4));
+                            com67.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            com67.Parameters.AddWithValue("Gender", reader.GetString(6));
+                            com67.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
+                            com67.Parameters.AddWithValue("DOB", reader.GetString(8));
+                            com67.Parameters.AddWithValue("LiveWithYou", reader.GetString(9));
+                            com67.Parameters.AddWithValue("MNHome", reader.GetString(10));
+                            com67.Parameters.AddWithValue("PersonHighlighted", reader.GetString(11));
+                            com67.Parameters.AddWithValue("LiveMN", reader.GetString(12));
+                            com67.Parameters.AddWithValue("TempAbsentMN", reader.GetString(13));
+                            com67.Parameters.AddWithValue("Homeless", reader.GetString(14));
+                            com67.Parameters.AddWithValue("PlanMakeMNHome", reader.GetString(15));
+                            com67.Parameters.AddWithValue("SeekingEmployment", reader.GetString(16));
+                            com67.Parameters.AddWithValue("Hispanic", reader.GetString(17));
+                            com67.Parameters.AddWithValue("Race", reader.GetString(18));
+                            com67.Parameters.AddWithValue("HaveSSN", reader.GetString(19));
+                            com67.Parameters.AddWithValue("SSN", DBNull.Value);
+                            com67.Parameters.AddWithValue("USCitizen", reader.GetString(21));
+                            com67.Parameters.AddWithValue("USNational", reader.GetString(22));
+                            com67.Parameters.AddWithValue("Pregnant", reader.GetString(23));
+                            com67.Parameters.AddWithValue("FosterCare", reader.GetString(24));
+                            com67.Parameters.AddWithValue("Relationship", reader.GetString(25));
+                            com67.Parameters.AddWithValue("HasIncome", reader.GetString(26));
+                            com67.Parameters.AddWithValue("RelationshiptoNextHM", reader.GetString(27));
+                            com67.Parameters.AddWithValue("TribeName", reader.GetString(28));
+                            com67.Parameters.AddWithValue("LiveRes", reader.GetString(29));
+                            com67.Parameters.AddWithValue("TribeId", reader.GetString(30));
+                            com67.Parameters.AddWithValue("FederalTribe", reader.GetString(31));
+                            com67.Parameters.AddWithValue("FileJointly", reader.GetString(32));
+                            com67.Parameters.AddWithValue("IncomeType", reader.GetString(33));
+                            com67.Parameters.AddWithValue("Employer", reader.GetString(34));
+                            com67.Parameters.AddWithValue("Seasonal", reader.GetString(35));
+                            com67.Parameters.AddWithValue("IncomeAmount", reader.GetString(36));
+                            com67.Parameters.AddWithValue("IncomeFrequency", reader.GetString(37));
+                            com67.Parameters.AddWithValue("IncomeMore", reader.GetString(38));
+                            com67.Parameters.AddWithValue("Reduced", reader.GetString(39));
+                            com67.Parameters.AddWithValue("Adjusted", reader.GetString(40));
+                            com67.Parameters.AddWithValue("Expected", reader.GetString(41));
+                            com67.Parameters.AddWithValue("PassCount", "1");
+                            com67.Parameters.AddWithValue("Military", reader.GetString(43));
+                            if (!reader.IsDBNull(44))
+                            {
+                                com67.Parameters.AddWithValue("MilitaryDate", reader.GetDateTime(44));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                            }
+                            com67.Parameters.AddWithValue("PrefContact", reader.GetString(45));
+                            com67.Parameters.AddWithValue("PhoneNum", reader.GetString(46));
+                            com67.Parameters.AddWithValue("PhoneType", reader.GetString(47));
+                            com67.Parameters.AddWithValue("AltNum", reader.GetString(48));
+                            com67.Parameters.AddWithValue("AltType", reader.GetString(49));
+                            if (!reader.IsDBNull(50))
+                            {
+                                com67.Parameters.AddWithValue("Email", reader.GetString(50));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("Email", DBNull.Value);
+                            }
+                            com67.Parameters.AddWithValue("VoterCard", reader.GetString(51));
+                            com67.Parameters.AddWithValue("Notices", reader.GetString(52));
+                            com67.Parameters.AddWithValue("AuthRep", reader.GetString(53));
+                            com67.Parameters.AddWithValue("Dependant", reader.GetString(54));
+                            com67.Parameters.AddWithValue("TaxFiler", reader.GetString(55));
+                            com67.Parameters.AddWithValue("Children", reader.GetString(56));
+                            if (!reader.IsDBNull(57))
+                            {
+                                com67.Parameters.AddWithValue("DueDate", reader.GetDateTime(57));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("DueDate", DBNull.Value);
+                            }
+                            if (!reader.IsDBNull(58))
+                            {
+                                com67.Parameters.AddWithValue("PregnancyEnded", reader.GetDateTime(58));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                            }
+                            com67.Parameters.AddWithValue("Reenroll", reader.GetString(59));
+                            com67.Parameters.AddWithValue("SaveExit", reader.GetString(60));
+
+                            com67.ExecuteNonQuery();
+                            com67.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch (Exception a)
+            {
+                //do nothing
+            }
 
             string testId;
             testId = textBoxTestTestId.Text;
@@ -3987,12 +4689,12 @@ namespace MNsure_Regression_1
 
         private void comboBoxCitizenWait_SelectedValueChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void comboBoxCaseWorkerWait_SelectedValueChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void textBoxMNSureBuild_TextChanged(object sender, EventArgs e)
@@ -4093,9 +4795,9 @@ namespace MNsure_Regression_1
             {
                 con = new SqlCeConnection(conString);
                 con.Open();
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * from TestTemplates where TemplateId =  " + myEditKey.myTemplateEditKey, con))
+                using (SqlCeCommand com68 = new SqlCeCommand("SELECT * from TestTemplates where TemplateId =  " + myEditKey.myTemplateEditKey, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
+                    SqlCeDataReader reader = com68.ExecuteReader();
                     if (reader.Read())
                     {
                         textBoxTemplateId.Text = Convert.ToString(reader.GetInt32(0));
@@ -4559,15 +5261,15 @@ namespace MNsure_Regression_1
                 {
                     con = new SqlCeConnection(conString);
                     con.Open();
-                    using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Address where TestId = " + myHistoryInfo.myTestId + "and Type = 'Mailing'", con))
+                    using (SqlCeCommand com69 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myHistoryInfo.myTestId + "and Type = 'Mailing'", con))
                     {
-                        SqlCeDataReader reader = com.ExecuteReader();
+                        SqlCeDataReader reader = com69.ExecuteReader();
                         string myDeleteString;
                         myDeleteString = "Delete FROM Address where TestId = " + myHistoryInfo.myTestId + "and Type = 'Mailing'";
-                        using (SqlCeCommand com2 = new SqlCeCommand(myDeleteString, con))
+                        using (SqlCeCommand com70 = new SqlCeCommand(myDeleteString, con))
                         {
-                            com2.ExecuteNonQuery();
-                            com2.Dispose();
+                            com70.ExecuteNonQuery();
+                            com70.Dispose();
                         }
                     }
                 }
@@ -4735,7 +5437,7 @@ namespace MNsure_Regression_1
             textBoxHMCity.Text = myHouseholdMembers.myMailCity;
             comboBoxHMState.Text = myHouseholdMembers.myMailState;
             textBoxHMZip.Text = myHouseholdMembers.myMailZip;
-            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;            
+            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -4812,7 +5514,7 @@ namespace MNsure_Regression_1
                 tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
                 dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
                 dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-            } 
+            }
 
             textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
             if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
@@ -4866,7 +5568,7 @@ namespace MNsure_Regression_1
             textBoxHMCity.Text = myHouseholdMembers.myMailCity;
             comboBoxHMState.Text = myHouseholdMembers.myMailState;
             textBoxHMZip.Text = myHouseholdMembers.myMailZip;
-            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;           
+            comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
             comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
             comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
             comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
@@ -4943,7 +5645,7 @@ namespace MNsure_Regression_1
                 tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
                 dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
                 dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-            } 
+            }
 
             textBoxCurrentMember.Text = Convert.ToString(myHouseholdMembers.HouseMembersID);
             if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
@@ -5067,7 +5769,7 @@ namespace MNsure_Regression_1
             mySelectedTest.myRowIndex = rowindex;
             string myTestId;
             myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
-            
+
             myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
             if (textBoxCurrentMember.Text == textBoxTotalMembers.Text)
             {
@@ -5133,7 +5835,7 @@ namespace MNsure_Regression_1
             myHouseholdMembers.myMailCity = textBoxHMCity.Text;
             myHouseholdMembers.myMailState = comboBoxHMState.Text;
             myHouseholdMembers.myMailZip = textBoxHMZip.Text;
-            myHouseholdMembers.myMailCounty = comboBoxHMCounty.Text;            
+            myHouseholdMembers.myMailCounty = comboBoxHMCounty.Text;
             myHouseholdMembers.myPlanMakeMNHome = comboBoxHMPlanToLiveInMN.Text;
             myHouseholdMembers.mySeekEmplMN = comboBoxHMSeekingEmployment.Text;
             myHouseholdMembers.myPersonHighlighted = comboBoxHMPersonHighlighted.Text;
@@ -5193,11 +5895,11 @@ namespace MNsure_Regression_1
             string conString = Properties.Settings.Default.Database1ConnectionString;
             string myInsertString;
             // Open the connection using the connection string.
-                con = new SqlCeConnection(conString);
-                con.Open();
+            con = new SqlCeConnection(conString);
+            con.Open();
 
             try
-            {               
+            {
                 //Delete row, then insert a new on based on the currently selected member.
                 myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
                 SqlCeCommand cmd2 = con.CreateCommand();
@@ -5211,91 +5913,91 @@ namespace MNsure_Regression_1
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
                     "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
 
-                using (SqlCeCommand com2 = new SqlCeCommand(myInsertString, con))
+                using (SqlCeCommand com71 = new SqlCeCommand(myInsertString, con))
                 {
-                    com2.Parameters.AddWithValue("FirstName", myHouseholdMembers.myFirstName);
-                    com2.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
-                    com2.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
-                    com2.Parameters.AddWithValue("Suffix", myHouseholdMembers.mySuffix);
-                    com2.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
-                    com2.Parameters.AddWithValue("MaritalStatus", myHouseholdMembers.myMaritalStatus);
-                    com2.Parameters.AddWithValue("DOB", myHouseholdMembers.myDOB);
-                    com2.Parameters.AddWithValue("LiveWithYou", myHouseholdMembers.myLiveWithYou);
-                    com2.Parameters.AddWithValue("MNHome", myHouseholdMembers.myPlanMakeMNHome); //is mnhome the same as planmakemnhome?
-                    com2.Parameters.AddWithValue("PersonHighlighted", myHouseholdMembers.myPersonHighlighted);
-                    com2.Parameters.AddWithValue("LiveMN", myHouseholdMembers.myLiveInMN);
-                    com2.Parameters.AddWithValue("TempAbsentMN", myHouseholdMembers.myTempAbsentMN);
-                    com2.Parameters.AddWithValue("Homeless", myHouseholdMembers.myHomeless);
-                    com2.Parameters.AddWithValue("PlanMakeMNHome", myHouseholdMembers.myPlanMakeMNHome);
-                    com2.Parameters.AddWithValue("SeekingEmployment", myHouseholdMembers.mySeekEmplMN);
-                    com2.Parameters.AddWithValue("Hispanic", myHouseholdMembers.myHispanic);
-                    com2.Parameters.AddWithValue("Race", myHouseholdMembers.myRace);
-                    com2.Parameters.AddWithValue("HaveSSN", myHouseholdMembers.myHaveSSN);
-                    com2.Parameters.AddWithValue("SSN", DBNull.Value);
-                    com2.Parameters.AddWithValue("USCitizen", myHouseholdMembers.myUSCitizen);
-                    com2.Parameters.AddWithValue("USNational", myHouseholdMembers.myUSNational);
-                    com2.Parameters.AddWithValue("Pregnant", myHouseholdMembers.myIsPregnant);
-                    com2.Parameters.AddWithValue("FosterCare", myHouseholdMembers.myBeenInFosterCare);
-                    com2.Parameters.AddWithValue("Relationship", myHouseholdMembers.myRelationship);
-                    com2.Parameters.AddWithValue("HasIncome", myHouseholdMembers.myHasIncome);
-                    com2.Parameters.AddWithValue("RelationshiptoNextHM", myHouseholdMembers.myRelationshiptoNextHM);
-                    com2.Parameters.AddWithValue("TribeName", myHouseholdMembers.myTribeName);
-                    com2.Parameters.AddWithValue("LiveRes", myHouseholdMembers.myLiveRes);
-                    com2.Parameters.AddWithValue("TribeId", myHouseholdMembers.myTribeId);
-                    com2.Parameters.AddWithValue("FederalTribe", myHouseholdMembers.myFederalTribe);
-                    com2.Parameters.AddWithValue("FileJointly", myHouseholdMembers.myFileJointly);
-                    com2.Parameters.AddWithValue("IncomeType", myHouseholdMembers.myIncomeType);
-                    com2.Parameters.AddWithValue("Employer", myHouseholdMembers.myIncomeEmployer);
-                    com2.Parameters.AddWithValue("Seasonal", myHouseholdMembers.myIncomeSeasonal);
-                    com2.Parameters.AddWithValue("IncomeAmount", myHouseholdMembers.myIncomeAmount);
-                    com2.Parameters.AddWithValue("IncomeFrequency", myHouseholdMembers.myIncomeFrequency);
-                    com2.Parameters.AddWithValue("IncomeMore", myHouseholdMembers.myIncomeMore);
-                    com2.Parameters.AddWithValue("Reduced", myHouseholdMembers.myIncomeReduced);
-                    com2.Parameters.AddWithValue("Adjusted", myHouseholdMembers.myIncomeAdjusted);
-                    com2.Parameters.AddWithValue("Expected", myHouseholdMembers.myIncomeExpected);
-                    com2.Parameters.AddWithValue("PassCount", "1");
-                    com2.Parameters.AddWithValue("Military", myHouseholdMembers.myMilitary);
+                    com71.Parameters.AddWithValue("FirstName", myHouseholdMembers.myFirstName);
+                    com71.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
+                    com71.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
+                    com71.Parameters.AddWithValue("Suffix", myHouseholdMembers.mySuffix);
+                    com71.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
+                    com71.Parameters.AddWithValue("MaritalStatus", myHouseholdMembers.myMaritalStatus);
+                    com71.Parameters.AddWithValue("DOB", myHouseholdMembers.myDOB);
+                    com71.Parameters.AddWithValue("LiveWithYou", myHouseholdMembers.myLiveWithYou);
+                    com71.Parameters.AddWithValue("MNHome", myHouseholdMembers.myPlanMakeMNHome); //is mnhome the same as planmakemnhome?
+                    com71.Parameters.AddWithValue("PersonHighlighted", myHouseholdMembers.myPersonHighlighted);
+                    com71.Parameters.AddWithValue("LiveMN", myHouseholdMembers.myLiveInMN);
+                    com71.Parameters.AddWithValue("TempAbsentMN", myHouseholdMembers.myTempAbsentMN);
+                    com71.Parameters.AddWithValue("Homeless", myHouseholdMembers.myHomeless);
+                    com71.Parameters.AddWithValue("PlanMakeMNHome", myHouseholdMembers.myPlanMakeMNHome);
+                    com71.Parameters.AddWithValue("SeekingEmployment", myHouseholdMembers.mySeekEmplMN);
+                    com71.Parameters.AddWithValue("Hispanic", myHouseholdMembers.myHispanic);
+                    com71.Parameters.AddWithValue("Race", myHouseholdMembers.myRace);
+                    com71.Parameters.AddWithValue("HaveSSN", myHouseholdMembers.myHaveSSN);
+                    com71.Parameters.AddWithValue("SSN", DBNull.Value);
+                    com71.Parameters.AddWithValue("USCitizen", myHouseholdMembers.myUSCitizen);
+                    com71.Parameters.AddWithValue("USNational", myHouseholdMembers.myUSNational);
+                    com71.Parameters.AddWithValue("Pregnant", myHouseholdMembers.myIsPregnant);
+                    com71.Parameters.AddWithValue("FosterCare", myHouseholdMembers.myBeenInFosterCare);
+                    com71.Parameters.AddWithValue("Relationship", myHouseholdMembers.myRelationship);
+                    com71.Parameters.AddWithValue("HasIncome", myHouseholdMembers.myHasIncome);
+                    com71.Parameters.AddWithValue("RelationshiptoNextHM", myHouseholdMembers.myRelationshiptoNextHM);
+                    com71.Parameters.AddWithValue("TribeName", myHouseholdMembers.myTribeName);
+                    com71.Parameters.AddWithValue("LiveRes", myHouseholdMembers.myLiveRes);
+                    com71.Parameters.AddWithValue("TribeId", myHouseholdMembers.myTribeId);
+                    com71.Parameters.AddWithValue("FederalTribe", myHouseholdMembers.myFederalTribe);
+                    com71.Parameters.AddWithValue("FileJointly", myHouseholdMembers.myFileJointly);
+                    com71.Parameters.AddWithValue("IncomeType", myHouseholdMembers.myIncomeType);
+                    com71.Parameters.AddWithValue("Employer", myHouseholdMembers.myIncomeEmployer);
+                    com71.Parameters.AddWithValue("Seasonal", myHouseholdMembers.myIncomeSeasonal);
+                    com71.Parameters.AddWithValue("IncomeAmount", myHouseholdMembers.myIncomeAmount);
+                    com71.Parameters.AddWithValue("IncomeFrequency", myHouseholdMembers.myIncomeFrequency);
+                    com71.Parameters.AddWithValue("IncomeMore", myHouseholdMembers.myIncomeMore);
+                    com71.Parameters.AddWithValue("Reduced", myHouseholdMembers.myIncomeReduced);
+                    com71.Parameters.AddWithValue("Adjusted", myHouseholdMembers.myIncomeAdjusted);
+                    com71.Parameters.AddWithValue("Expected", myHouseholdMembers.myIncomeExpected);
+                    com71.Parameters.AddWithValue("PassCount", "1");
+                    com71.Parameters.AddWithValue("Military", myHouseholdMembers.myMilitary);
                     if (myHouseholdMembers.myMilitaryDate != "" && myHouseholdMembers.myMilitaryDate != null)
                     {
-                        com2.Parameters.AddWithValue("MilitaryDate", myHouseholdMembers.myMilitaryDate);
+                        com71.Parameters.AddWithValue("MilitaryDate", myHouseholdMembers.myMilitaryDate);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
+                        com71.Parameters.AddWithValue("MilitaryDate", DBNull.Value);
                     }
-                    com2.Parameters.AddWithValue("PrefContact", myHouseholdMembers.myPrefContact);
-                    com2.Parameters.AddWithValue("PhoneNum", myHouseholdMembers.myPhoneNum);
-                    com2.Parameters.AddWithValue("PhoneType", myHouseholdMembers.myPhoneType);
-                    com2.Parameters.AddWithValue("AltNum", myHouseholdMembers.myAltNum);
-                    com2.Parameters.AddWithValue("AltType", myHouseholdMembers.myAltNumType);
-                    com2.Parameters.AddWithValue("Email", myHouseholdMembers.myEmail);
-                    com2.Parameters.AddWithValue("VoterCard", myHouseholdMembers.myVoterCard);
-                    com2.Parameters.AddWithValue("Notices", myHouseholdMembers.myNotices);
-                    com2.Parameters.AddWithValue("AuthRep", myHouseholdMembers.myAuthRep);
-                    com2.Parameters.AddWithValue("Dependant", myHouseholdMembers.myDependants);
-                    com2.Parameters.AddWithValue("TaxFiler", myHouseholdMembers.myTaxFiler);
-                    com2.Parameters.AddWithValue("Children", myHouseholdMembers.myChildren);
+                    com71.Parameters.AddWithValue("PrefContact", myHouseholdMembers.myPrefContact);
+                    com71.Parameters.AddWithValue("PhoneNum", myHouseholdMembers.myPhoneNum);
+                    com71.Parameters.AddWithValue("PhoneType", myHouseholdMembers.myPhoneType);
+                    com71.Parameters.AddWithValue("AltNum", myHouseholdMembers.myAltNum);
+                    com71.Parameters.AddWithValue("AltType", myHouseholdMembers.myAltNumType);
+                    com71.Parameters.AddWithValue("Email", myHouseholdMembers.myEmail);
+                    com71.Parameters.AddWithValue("VoterCard", myHouseholdMembers.myVoterCard);
+                    com71.Parameters.AddWithValue("Notices", myHouseholdMembers.myNotices);
+                    com71.Parameters.AddWithValue("AuthRep", myHouseholdMembers.myAuthRep);
+                    com71.Parameters.AddWithValue("Dependant", myHouseholdMembers.myDependants);
+                    com71.Parameters.AddWithValue("TaxFiler", myHouseholdMembers.myTaxFiler);
+                    com71.Parameters.AddWithValue("Children", myHouseholdMembers.myChildren);
                     if (myHouseholdMembers.myDueDate != "" && myHouseholdMembers.myDueDate != null)
                     {
-                        com2.Parameters.AddWithValue("DueDate", myHouseholdMembers.myDueDate);
+                        com71.Parameters.AddWithValue("DueDate", myHouseholdMembers.myDueDate);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("DueDate", DBNull.Value);
+                        com71.Parameters.AddWithValue("DueDate", DBNull.Value);
                     }
                     if (myHouseholdMembers.myPregnancyEnded != "" && myHouseholdMembers.myPregnancyEnded != null)
                     {
-                        com2.Parameters.AddWithValue("PregnancyEnded", myHouseholdMembers.myPregnancyEnded);
+                        com71.Parameters.AddWithValue("PregnancyEnded", myHouseholdMembers.myPregnancyEnded);
                     }
                     else
                     {
-                        com2.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
+                        com71.Parameters.AddWithValue("PregnancyEnded", DBNull.Value);
                     }
-                    com2.Parameters.AddWithValue("Reenroll", "No");
-                    com2.Parameters.AddWithValue("SaveExit", "No");
+                    com71.Parameters.AddWithValue("Reenroll", "No");
+                    com71.Parameters.AddWithValue("SaveExit", "No");
 
-                    com2.ExecuteNonQuery();
-                    com2.Dispose();
+                    com71.ExecuteNonQuery();
+                    com71.Dispose();
                 }
 
                 SqlCeCommand cmd3 = con.CreateCommand();
@@ -5310,9 +6012,9 @@ namespace MNsure_Regression_1
                     //fail silently
                 }
 
-                using (SqlCeCommand com3 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
+                using (SqlCeCommand com72 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
                 {
-                    SqlCeDataReader reader = com3.ExecuteReader();
+                    SqlCeDataReader reader = com72.ExecuteReader();
                     if (reader.Read())
                     {
                         myEditKey.myNextAddressId = Convert.ToString(reader.GetInt32(0) + 1);
@@ -5321,7 +6023,7 @@ namespace MNsure_Regression_1
                     {
                         MessageBox.Show("Did not find Address id");
                     }
-                    com3.Dispose();
+                    com72.Dispose();
                 }
 
                 SqlCeCommand cmd4 = con.CreateCommand();
@@ -5342,46 +6044,46 @@ namespace MNsure_Regression_1
                     string myInsertString3;
                     myInsertString3 = "Insert into Address values (" + 1 + ", " + myTestId +
                                     ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
-                    using (SqlCeCommand com5 = new SqlCeCommand(myInsertString3, con))
+                    using (SqlCeCommand com73 = new SqlCeCommand(myInsertString3, con))
                     {
                         myEditKey.myNextAddressId = Convert.ToString(Convert.ToInt32(myEditKey.myNextAddressId) + 1);
 
-                        com5.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
-                        com5.Parameters.AddWithValue("Address1", myHouseholdMembers.myMailAddress1);
+                        com73.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                        com73.Parameters.AddWithValue("Address1", myHouseholdMembers.myMailAddress1);
                         if (myHouseholdMembers.myMailAddress2 != "")
                         {
-                            com5.Parameters.AddWithValue("Address2", myHouseholdMembers.myMailAddress2);
+                            com73.Parameters.AddWithValue("Address2", myHouseholdMembers.myMailAddress2);
                         }
                         else
                         {
-                            com5.Parameters.AddWithValue("Address2", DBNull.Value);
+                            com73.Parameters.AddWithValue("Address2", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("City", myHouseholdMembers.myMailCity);
-                        com5.Parameters.AddWithValue("State", myHouseholdMembers.myMailState);
-                        com5.Parameters.AddWithValue("Zip", myHouseholdMembers.myMailZip);
-                        com5.Parameters.AddWithValue("Zip4", DBNull.Value);
-                        
-                        com5.Parameters.AddWithValue("County", myHouseholdMembers.myMailCounty);
+                        com73.Parameters.AddWithValue("City", myHouseholdMembers.myMailCity);
+                        com73.Parameters.AddWithValue("State", myHouseholdMembers.myMailState);
+                        com73.Parameters.AddWithValue("Zip", myHouseholdMembers.myMailZip);
+                        com73.Parameters.AddWithValue("Zip4", DBNull.Value);
+
+                        com73.Parameters.AddWithValue("County", myHouseholdMembers.myMailCounty);
                         if (myHouseholdMembers.myMailAptSuite != "")
                         {
-                            com5.Parameters.AddWithValue("AptSuite", myHouseholdMembers.myMailAptSuite);
+                            com73.Parameters.AddWithValue("AptSuite", myHouseholdMembers.myMailAptSuite);
                         }
                         else
                         {
-                            com5.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                            com73.Parameters.AddWithValue("AptSuite", DBNull.Value);
                         }
-                        com5.Parameters.AddWithValue("Type", "Household 2");
+                        com73.Parameters.AddWithValue("Type", "Household 2");
 
-                        com5.ExecuteNonQuery();
-                        com5.Dispose();
+                        com73.ExecuteNonQuery();
+                        com73.Dispose();
                     }
-                } 
+                }
             }
             catch (Exception g)
             {
                 MessageBox.Show("Failed to Save HM: " + g);
-            }                         
-  
+            }
+
             myHouseholdMembers.NumMembers = Convert.ToInt32(textBoxTotalMembers.Text);
             buttonSaveMember.BackColor = Color.Transparent;
             buttonDeleteMember.Enabled = true;
@@ -5423,12 +6125,12 @@ namespace MNsure_Regression_1
                 myApplication.myDueDate = null;
                 dateTimeDueDate.Enabled = false;
                 dateTimeDueDate.Format = DateTimePickerFormat.Custom;
-                dateTimeDueDate.CustomFormat = " ";                
+                dateTimeDueDate.CustomFormat = " ";
             }
             else
             {
                 dateTimeDueDate.Enabled = true;
-                dateTimeDueDate.Format = DateTimePickerFormat.Short;                
+                dateTimeDueDate.Format = DateTimePickerFormat.Short;
             }
         }
 
@@ -5449,7 +6151,7 @@ namespace MNsure_Regression_1
         }
 
         private void comboBoxPregnancyDone_SelectedValueChanged(object sender, EventArgs e)
-        {            
+        {
             if (comboBoxPregnancyDone.Text == "No")
             {
                 myApplication.myPregnancyEnded = null;
