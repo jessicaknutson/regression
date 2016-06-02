@@ -392,7 +392,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,  
+        public int DoEvidenceIA(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,  
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -403,10 +403,216 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]"));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]")).Click();
-                //driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div")).Click();
+                
+                System.Threading.Thread.Sleep(3000);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoPersonEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(6000);
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]"));
+                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]")).Click();//evidence tab
 
                 System.Threading.Thread.Sleep(3000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoPersonEvidenceOldAddressCorrection(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_listEvidencePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//action menu
+                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                System.Threading.Thread.Sleep(3000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveDynEvdModifyEvidencePagePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement3);
+
+                IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
+                textboxRecDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxRecDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
+                textboxReason.SendKeys("Reported by Client");                
+
+                IWebElement textboxEndDate = driver.FindElement(By.Id("__o3ida"));
+                textboxEndDate.Clear();
+                DateTime d1;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    d1 = myHistoryInfo.myTimeTravelDate;
+                    d1 = d1.AddDays(-1);
+                    textboxEndDate.SendKeys(d1.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    d1 = DateTime.Now;
+                    d1 = d1.AddDays(-1);
+                    textboxEndDate.SendKeys(d1.ToString("MM/dd/yyyy"));
+                }
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
+                buttonSave.Click();
+                
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoIAEvidenceOldAddressCorrection(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                driver.FindElement(By.XPath("//a[text()='Address']")).Click();
+                System.Threading.Thread.Sleep(4000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement2);
+
+                string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                driver.FindElement(By.XPath(primaryPath)).Click();//toggle
+                System.Threading.Thread.Sleep(5000);
+
+                var iFrameElement4 = driver.FindElement(By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement4);
+                
+                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle
+                System.Threading.Thread.Sleep(3000);
+
+                IWebElement textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[3]/td[9]/span/span/span"));
+                textboxOriginal.Click();//action menu
+                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                System.Threading.Thread.Sleep(3000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement3);
+
+                IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
+                textboxRecDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxRecDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
+                textboxReason.SendKeys("Reported by Client");
+
+                IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
+                textboxEffDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxEffDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }                              
+
+                IWebElement textboxEndDate = driver.FindElement(By.Id("__o3id15"));
+                textboxEndDate.Clear();
+                DateTime d1;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    d1 = myHistoryInfo.myTimeTravelDate;
+                    d1 = d1.AddDays(-1);
+                    textboxEndDate.SendKeys(d1.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    d1 = DateTime.Now;
+                    d1 = d1.AddDays(-1);
+                    textboxEndDate.SendKeys(d1.ToString("MM/dd/yyyy"));
+                }
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
+                buttonSave.Click();//this saves to the 1st row instead of the 2nd
+                System.Threading.Thread.Sleep(4000);
+
+                driver.SwitchTo().DefaultContent();
+                IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver); 
+                var rClick = action.ContextClick(fourthSearchTab); //right click
+                rClick.Perform();
+                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -456,6 +662,38 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoPersonNewEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_listEvidencePage.do')]"));
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_listEvidencePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                driver.FindElement(By.XPath("/html/body/div[1]/div/div[2]/a")).Click(); //new button
+
+                System.Threading.Thread.Sleep(3000);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
         public int DoActiveEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
@@ -711,6 +949,212 @@ namespace MNsure_Regression_1
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
                 
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoUpdateAddressEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                driver.FindElement(By.XPath("//a[text()='Address']")).Click();
+                System.Threading.Thread.Sleep(4000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement2);
+
+                string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                driver.FindElement(By.XPath(primaryPath)).Click();//toggle
+                System.Threading.Thread.Sleep(5000);
+
+                var iFrameElement4 = driver.FindElement(By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement4);
+
+                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
+                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                System.Threading.Thread.Sleep(3000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement3);
+
+                IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
+                textboxRecDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxRecDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
+                textboxReason.SendKeys("Reported by Client");
+
+                IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
+                textboxEffDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxEffDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxStreet = driver.FindElement(By.Id("__o3idd"));
+                textboxStreet.Clear();
+                textboxStreet.SendKeys(myEnrollment.myHomeAddress1);
+
+                IWebElement textboxCity = driver.FindElement(By.Id("__o3idf"));
+                textboxCity.Clear();
+                textboxCity.SendKeys(myEnrollment.myHomeCity);
+
+                IWebElement textboxCounty = driver.FindElement(By.Id("__o3id10"));
+                textboxCounty.Clear();
+                textboxCounty.SendKeys(myEnrollment.myHomeCounty);
+
+                IWebElement textboxState = driver.FindElement(By.Id("__o3id11"));
+                textboxState.Clear();
+                textboxState.SendKeys(myEnrollment.myHomeState);
+                System.Threading.Thread.Sleep(1000);
+
+                IWebElement textboxZip = driver.FindElement(By.Id("__o3id12"));
+                textboxZip.Clear();
+                textboxZip.SendKeys(myEnrollment.myHomeZip);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
+                buttonSave.Click();
+                System.Threading.Thread.Sleep(4000);
+
+                driver.SwitchTo().DefaultContent();
+                IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                var rClick = action.ContextClick(fourthSearchTab); //right click
+                rClick.Perform();
+                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoUpdateStateEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                driver.FindElement(By.XPath("//a[text()='State Residency']")).Click();
+                System.Threading.Thread.Sleep(4000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement2);
+
+                string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                driver.FindElement(By.XPath(primaryPath)).Click();//toggle
+                System.Threading.Thread.Sleep(3000);
+
+                var iFrameElement4 = driver.FindElement(By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement4);
+
+                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
+                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                System.Threading.Thread.Sleep(3000);
+
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement3);
+
+                IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
+                textboxRecDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxRecDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
+                textboxReason.SendKeys("Reported by Client");
+
+                IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
+                textboxEffDate.Clear();
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    textboxEffDate.SendKeys(myHistoryInfo.myTimeTravelDate.ToString("MM/dd/yyyy"));
+                }
+                else
+                {
+                    textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
+
+                IWebElement textboxStateRes = driver.FindElement(By.Id("__o3idd"));
+                textboxStateRes.Click();
+
+                IWebElement textboxCounty = driver.FindElement(By.Id("__o3idf"));
+                textboxCounty.Clear();
+                textboxCounty.SendKeys(myEnrollment.myHomeCounty);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
+                buttonSave.Click();
+                System.Threading.Thread.Sleep(5000);
+
+                driver.SwitchTo().DefaultContent();
+                IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                var rClick = action.ContextClick(fourthSearchTab); //right click
+                rClick.Perform();
+                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -1474,8 +1918,7 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
-        }
-        
+        }        
 
         public int DoNewEvidenceParticipantAddress(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
@@ -1529,6 +1972,71 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[4]/div[2]/a[2]/span/span/span"));
                 buttonSave.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoPersonNewEvidenceAddress(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+                driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/table/tbody/tr[1]/td[3]/span/span/span")).Click();//addresses actions button
+                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+
+                System.Threading.Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
+                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement2);
+
+                IWebElement textboxStreet = driver.FindElement(By.Id("__o3idb"));
+                textboxStreet.Clear();
+                textboxStreet.SendKeys(myEnrollment.myHomeAddress1);
+
+                IWebElement textboxCity = driver.FindElement(By.Id("__o3idd"));
+                textboxCity.Clear();
+                textboxCity.SendKeys(myEnrollment.myHomeCity);
+
+                IWebElement textboxCounty = driver.FindElement(By.Id("__o3ide"));
+                textboxCounty.Clear();
+                textboxCounty.SendKeys(myEnrollment.myHomeCounty);
+
+                IWebElement textboxState = driver.FindElement(By.Id("__o3idf"));
+                textboxState.Clear();
+                textboxState.SendKeys(myEnrollment.myHomeState);
+                System.Threading.Thread.Sleep(1000);
+
+                IWebElement textboxZip = driver.FindElement(By.Id("__o3id10"));
+                textboxZip.Clear();
+                textboxZip.SendKeys(myEnrollment.myHomeZip);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
+                buttonSave.Click();
+
+                System.Threading.Thread.Sleep(4000);
+                //driver.SwitchTo().DefaultContent(); //sometimes the new evidence screen does not close by itself
+                //driver.FindElement(By.XPath("/html/body/div[4]/div[1]/span[5]")).Click();//close new evidence
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;

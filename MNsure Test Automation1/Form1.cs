@@ -4190,7 +4190,7 @@ namespace MNsure_Regression_1
                     SqlCeDataReader reader = com56.ExecuteReader();
                     while (reader.Read())
                     {
-                        myInsertString = "Insert into Address values (1, " + Convert.ToInt32(myNewTestId) +
+                        myInsertString = "Insert into Address values (" + 1 + ", " + Convert.ToInt32(myNewTestId) +
                                     ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
 
                         using (SqlCeCommand com78 = new SqlCeCommand(myInsertString, con))
@@ -4226,13 +4226,9 @@ namespace MNsure_Regression_1
                             {
                                 com78.Parameters.AddWithValue("AptSuite", DBNull.Value);
                             }                            
-
-                            using (SqlCeCommand com57 = new SqlCeCommand(myInsertString, con))
-                            {
-                                com57.ExecuteNonQuery();
-                                com57.Dispose();
-                            }
-
+                            
+                            com78.ExecuteNonQuery();
+                            com78.Dispose();                          
                         }
                     }
                 }
