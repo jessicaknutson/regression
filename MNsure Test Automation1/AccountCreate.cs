@@ -492,7 +492,7 @@ namespace MNsure_Regression_1
                     myAccount2.Click();
                 }            
 
-                System.Threading.Thread.Sleep(8000);
+                System.Threading.Thread.Sleep(10000);
                 WebDriverWait wait3 = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait3.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait3.PollingInterval = TimeSpan.FromMilliseconds(100);

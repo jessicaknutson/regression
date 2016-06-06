@@ -534,7 +534,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Address']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -549,7 +549,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
                 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle
-                System.Threading.Thread.Sleep(3000);
+                System.Threading.Thread.Sleep(5000);
 
                 IWebElement textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[3]/td[9]/span/span/span"));
                 textboxOriginal.Click();//action menu
@@ -560,7 +560,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
-                IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
+                /*IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -583,7 +583,7 @@ namespace MNsure_Regression_1
                 else
                 {
                     textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
-                }                              
+                }   */                           
 
                 IWebElement textboxEndDate = driver.FindElement(By.Id("__o3id15"));
                 textboxEndDate.Clear();
@@ -605,7 +605,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();//this saves to the 1st row instead of the 2nd
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
@@ -782,7 +782,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Tax Filing Status']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -850,6 +850,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(4000);
                 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement firstSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(firstSearchTab); //right click
@@ -885,7 +886,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Income']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -943,6 +944,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(4000);
                 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -978,7 +980,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Address']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1025,6 +1027,14 @@ namespace MNsure_Regression_1
                     textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
                 }
 
+                IWebElement textboxParticipant = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr/td/div/div/div/table/tbody/tr[2]/td[1]/div/div[1]/input"));
+                textboxParticipant.Click();
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();                
+                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                //textboxParticipant.SendKeys(myEnrollment.myHomeAddress1);
+
                 IWebElement textboxStreet = driver.FindElement(By.Id("__o3idd"));
                 textboxStreet.Clear();
                 textboxStreet.SendKeys(myEnrollment.myHomeAddress1);
@@ -1053,8 +1063,8 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(4000);
 
                 driver.SwitchTo().DefaultContent();
-                IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
+                IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));                
                 var rClick = action.ContextClick(fourthSearchTab); //right click
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
@@ -1088,7 +1098,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='State Residency']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1149,6 +1159,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -1184,7 +1195,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Projected Annual Income']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1246,6 +1257,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -1273,6 +1285,8 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement fourthTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthTab); //right click
@@ -1312,7 +1326,7 @@ namespace MNsure_Regression_1
                 //driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle
                 FindEvidence(driver, By.LinkText("Projected Annual Income"));
                 driver.FindElement(By.LinkText("Projected Annual Income")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1466,7 +1480,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Birth and Death Details']")).Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1519,6 +1533,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(4000);
 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -2911,6 +2926,7 @@ namespace MNsure_Regression_1
         {
             try
             {
+                System.Threading.Thread.Sleep(4000);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));               
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRIC_listVerificationsForCasePage.do')]"));
@@ -3138,7 +3154,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                //System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"));

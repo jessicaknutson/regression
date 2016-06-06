@@ -258,7 +258,21 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();//healthcare app
+                IWebElement listboxFirst = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[2]"));
+                IWebElement listboxSecond = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[2]"));
+                IWebElement listboxThird = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[2]"));
+                if (listboxFirst.Text == "Health Care Application") 
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
+                }
+                else if (listboxSecond.Text == "Health Care Application")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span/input")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span/input")).Click();
+                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -595,7 +609,7 @@ namespace MNsure_Regression_1
 
                 if (isFemale == "Yes")
                 {
-                    IWebElement listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[22]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
+                    IWebElement listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
                     listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
                 }
 
@@ -689,7 +703,7 @@ namespace MNsure_Regression_1
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
+                    if (myHouseholdMembers.myGender == "Female")
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
                     }
@@ -698,7 +712,7 @@ namespace MNsure_Regression_1
                         listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
                     }
                     listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
-                    System.Threading.Thread.Sleep(1000);
+                    //System.Threading.Thread.Sleep(1000);
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -826,9 +840,11 @@ namespace MNsure_Regression_1
                     IWebElement checkboxPerson = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[3]/table/tbody/tr/td/table[2]/tbody/tr/td/div[2]/input"));
                     checkboxPerson.Click();
 
-                    IWebElement checkboxPerson2 = driver.FindElement(By.Id("__o3id7"));
-                    checkboxPerson2.Click();
-
+                    if (myHouseholdMembers.myTaxFiler == "Yes")
+                    {
+                        IWebElement checkboxPerson2 = driver.FindElement(By.Id("__o3id7"));
+                        checkboxPerson2.Click();
+                    }
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     if (householdCount == 3)
@@ -2232,7 +2248,7 @@ namespace MNsure_Regression_1
                     }
                     else if (householdCount == 3 && ((age3.Year - 1 > 11 && age3.Year - 1 < 19) || age3.Year - 1 == 0))
                     {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id38"));
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id3a"));//was id38
                     }
                     else if (indian == "Yes" || (householdCount == 3 && age3.Year - 1 < 12))
                     {

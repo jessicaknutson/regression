@@ -282,6 +282,16 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.textBoxEnrollDOB = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxEnrollMiddleName = new System.Windows.Forms.TextBox();
+            this.textBoxEnrollLastName = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBoxEnrollSuffix = new System.Windows.Forms.ComboBox();
+            this.textBoxEnrollFirstName = new System.Windows.Forms.TextBox();
             this.textBoxRegDate = new System.Windows.Forms.TextBox();
             this.label179 = new System.Windows.Forms.Label();
             this.comboBoxWithDiscounts = new System.Windows.Forms.ComboBox();
@@ -315,12 +325,8 @@
             this.textBoxHomeAddr2 = new System.Windows.Forms.TextBox();
             this.textBoxHomeAddr1 = new System.Windows.Forms.TextBox();
             this.label121 = new System.Windows.Forms.Label();
-            this.textBoxEnrollDOB = new System.Windows.Forms.TextBox();
             this.comboBoxMailAddrYN = new System.Windows.Forms.ComboBox();
             this.label108 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBoxEnrollMiddleName = new System.Windows.Forms.TextBox();
-            this.textBoxEnrollLastName = new System.Windows.Forms.TextBox();
             this.comboBoxEnrollApplyYourself = new System.Windows.Forms.ComboBox();
             this.label24 = new System.Windows.Forms.Label();
             this.comboBoxEnrollAuthRep = new System.Windows.Forms.ComboBox();
@@ -332,14 +338,10 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.comboBoxEnrollVoterCard = new System.Windows.Forms.ComboBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.comboBoxEnrollAddressSame = new System.Windows.Forms.ComboBox();
-            this.label6 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.comboBoxEnrollSuffix = new System.Windows.Forms.ComboBox();
             this.comboBoxEnrollGender = new System.Windows.Forms.ComboBox();
             this.comboBoxLiveMN = new System.Windows.Forms.ComboBox();
             this.comboBoxEnrollLanguageWritten = new System.Windows.Forms.ComboBox();
@@ -349,9 +351,7 @@
             this.comboBoxEnrollMaritalStatus = new System.Windows.Forms.ComboBox();
             this.label19 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.textBoxEnrollEmail = new System.Windows.Forms.TextBox();
-            this.textBoxEnrollFirstName = new System.Windows.Forms.TextBox();
             this.textBoxEnrollAltNum = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.textBoxPhoneNum = new System.Windows.Forms.TextBox();
@@ -1406,7 +1406,7 @@
             this.comboBoxHMTaxFiler.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMTaxFiler.Location = new System.Drawing.Point(817, 319);
+            this.comboBoxHMTaxFiler.Location = new System.Drawing.Point(862, 319);
             this.comboBoxHMTaxFiler.Name = "comboBoxHMTaxFiler";
             this.comboBoxHMTaxFiler.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMTaxFiler.TabIndex = 37;
@@ -1414,7 +1414,7 @@
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(747, 322);
+            this.label73.Location = new System.Drawing.Point(792, 322);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(64, 13);
             this.label73.TabIndex = 0;
@@ -1426,7 +1426,7 @@
             this.comboBoxHMDependant.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMDependant.Location = new System.Drawing.Point(686, 319);
+            this.comboBoxHMDependant.Location = new System.Drawing.Point(731, 319);
             this.comboBoxHMDependant.Name = "comboBoxHMDependant";
             this.comboBoxHMDependant.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMDependant.TabIndex = 36;
@@ -1434,7 +1434,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(583, 322);
+            this.label36.Location = new System.Drawing.Point(628, 322);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(98, 13);
             this.label36.TabIndex = 0;
@@ -1476,7 +1476,7 @@
             "Is Unrelated to",
             "Is Ward of",
             ""});
-            this.comboBoxHMRelationship2.Location = new System.Drawing.Point(322, 319);
+            this.comboBoxHMRelationship2.Location = new System.Drawing.Point(359, 319);
             this.comboBoxHMRelationship2.Name = "comboBoxHMRelationship2";
             this.comboBoxHMRelationship2.Size = new System.Drawing.Size(120, 21);
             this.comboBoxHMRelationship2.TabIndex = 34;
@@ -1484,11 +1484,11 @@
             // label161
             // 
             this.label161.AutoSize = true;
-            this.label161.Location = new System.Drawing.Point(233, 322);
+            this.label161.Location = new System.Drawing.Point(268, 322);
             this.label161.Name = "label161";
-            this.label161.Size = new System.Drawing.Size(84, 13);
+            this.label161.Size = new System.Drawing.Size(87, 13);
             this.label161.TabIndex = 0;
-            this.label161.Text = "#2 Relationship:";
+            this.label161.Text = "if 3 HH, 2 HH is?";
             // 
             // groupBox4
             // 
@@ -2027,7 +2027,7 @@
             this.comboBoxHMFileJointly.Items.AddRange(new object[] {
             "No",
             "Yes"});
-            this.comboBoxHMFileJointly.Location = new System.Drawing.Point(524, 319);
+            this.comboBoxHMFileJointly.Location = new System.Drawing.Point(569, 319);
             this.comboBoxHMFileJointly.Name = "comboBoxHMFileJointly";
             this.comboBoxHMFileJointly.Size = new System.Drawing.Size(50, 21);
             this.comboBoxHMFileJointly.TabIndex = 35;
@@ -2035,7 +2035,7 @@
             // label78
             // 
             this.label78.AutoSize = true;
-            this.label78.Location = new System.Drawing.Point(459, 322);
+            this.label78.Location = new System.Drawing.Point(504, 322);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(61, 13);
             this.label78.TabIndex = 0;
@@ -2169,7 +2169,7 @@
             "Is Unrelated to",
             "Is Ward of",
             ""});
-            this.comboBoxHMRelationship.Location = new System.Drawing.Point(101, 319);
+            this.comboBoxHMRelationship.Location = new System.Drawing.Point(130, 319);
             this.comboBoxHMRelationship.Name = "comboBoxHMRelationship";
             this.comboBoxHMRelationship.Size = new System.Drawing.Size(120, 21);
             this.comboBoxHMRelationship.TabIndex = 33;
@@ -2177,11 +2177,11 @@
             // label81
             // 
             this.label81.AutoSize = true;
-            this.label81.Location = new System.Drawing.Point(12, 322);
+            this.label81.Location = new System.Drawing.Point(17, 322);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(84, 13);
+            this.label81.Size = new System.Drawing.Size(108, 13);
             this.label81.TabIndex = 0;
-            this.label81.Text = "1# Relationship:";
+            this.label81.Text = "if 2 or 3 HH, 1 HH is?";
             // 
             // comboBoxHMBeenInFosterCare
             // 
@@ -2425,6 +2425,7 @@
             // 
             // comboBoxHMGender
             // 
+            this.comboBoxHMGender.Enabled = false;
             this.comboBoxHMGender.FormattingEnabled = true;
             this.comboBoxHMGender.Items.AddRange(new object[] {
             "Male",
@@ -2437,6 +2438,7 @@
             // 
             // comboBoxHMSuffix
             // 
+            this.comboBoxHMSuffix.Enabled = false;
             this.comboBoxHMSuffix.FormattingEnabled = true;
             this.comboBoxHMSuffix.Items.AddRange(new object[] {
             "Junior",
@@ -2454,6 +2456,7 @@
             // 
             this.textBoxHMLastName.Location = new System.Drawing.Point(420, 47);
             this.textBoxHMLastName.Name = "textBoxHMLastName";
+            this.textBoxHMLastName.ReadOnly = true;
             this.textBoxHMLastName.Size = new System.Drawing.Size(100, 20);
             this.textBoxHMLastName.TabIndex = 4;
             this.textBoxHMLastName.TextChanged += new System.EventHandler(this.textBoxHMLastName_TextChanged);
@@ -2462,6 +2465,7 @@
             // 
             this.textBoxHMMiddleName.Location = new System.Drawing.Point(274, 46);
             this.textBoxHMMiddleName.Name = "textBoxHMMiddleName";
+            this.textBoxHMMiddleName.ReadOnly = true;
             this.textBoxHMMiddleName.Size = new System.Drawing.Size(78, 20);
             this.textBoxHMMiddleName.TabIndex = 3;
             this.textBoxHMMiddleName.TextChanged += new System.EventHandler(this.textBoxHMMiddleName_TextChanged);
@@ -2470,6 +2474,7 @@
             // 
             this.textBoxHMFirstName.Location = new System.Drawing.Point(90, 46);
             this.textBoxHMFirstName.Name = "textBoxHMFirstName";
+            this.textBoxHMFirstName.ReadOnly = true;
             this.textBoxHMFirstName.Size = new System.Drawing.Size(100, 20);
             this.textBoxHMFirstName.TabIndex = 2;
             this.textBoxHMFirstName.TextChanged += new System.EventHandler(this.textBoxHMFirstName_TextChanged);
@@ -2840,7 +2845,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(0, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -3369,6 +3374,16 @@
             // 
             // groupBoxApplicantInformation
             // 
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollDOB);
+            this.groupBoxApplicantInformation.Controls.Add(this.label11);
+            this.groupBoxApplicantInformation.Controls.Add(this.label5);
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollMiddleName);
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollLastName);
+            this.groupBoxApplicantInformation.Controls.Add(this.label4);
+            this.groupBoxApplicantInformation.Controls.Add(this.label6);
+            this.groupBoxApplicantInformation.Controls.Add(this.label7);
+            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollSuffix);
+            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollFirstName);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxRegDate);
             this.groupBoxApplicantInformation.Controls.Add(this.label179);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxWithDiscounts);
@@ -3402,12 +3417,8 @@
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxHomeAddr2);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxHomeAddr1);
             this.groupBoxApplicantInformation.Controls.Add(this.label121);
-            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollDOB);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxMailAddrYN);
             this.groupBoxApplicantInformation.Controls.Add(this.label108);
-            this.groupBoxApplicantInformation.Controls.Add(this.label5);
-            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollMiddleName);
-            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollLastName);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollApplyYourself);
             this.groupBoxApplicantInformation.Controls.Add(this.label24);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollAuthRep);
@@ -3419,14 +3430,10 @@
             this.groupBoxApplicantInformation.Controls.Add(this.label22);
             this.groupBoxApplicantInformation.Controls.Add(this.label31);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollVoterCard);
-            this.groupBoxApplicantInformation.Controls.Add(this.label4);
             this.groupBoxApplicantInformation.Controls.Add(this.label21);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollAddressSame);
-            this.groupBoxApplicantInformation.Controls.Add(this.label6);
             this.groupBoxApplicantInformation.Controls.Add(this.label30);
-            this.groupBoxApplicantInformation.Controls.Add(this.label7);
             this.groupBoxApplicantInformation.Controls.Add(this.label8);
-            this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollSuffix);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollGender);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxLiveMN);
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollLanguageWritten);
@@ -3436,9 +3443,7 @@
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxEnrollMaritalStatus);
             this.groupBoxApplicantInformation.Controls.Add(this.label19);
             this.groupBoxApplicantInformation.Controls.Add(this.label9);
-            this.groupBoxApplicantInformation.Controls.Add(this.label11);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollEmail);
-            this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollFirstName);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxEnrollAltNum);
             this.groupBoxApplicantInformation.Controls.Add(this.label18);
             this.groupBoxApplicantInformation.Controls.Add(this.textBoxPhoneNum);
@@ -3460,9 +3465,101 @@
             this.groupBoxApplicantInformation.Text = "Information About You";
             this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
             // 
+            // textBoxEnrollDOB
+            // 
+            this.textBoxEnrollDOB.Location = new System.Drawing.Point(301, 65);
+            this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
+            this.textBoxEnrollDOB.ReadOnly = true;
+            this.textBoxEnrollDOB.Size = new System.Drawing.Size(80, 20);
+            this.textBoxEnrollDOB.TabIndex = 63;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(262, 68);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(33, 13);
+            this.label11.TabIndex = 62;
+            this.label11.Text = "DOB:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(223, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(72, 13);
+            this.label5.TabIndex = 54;
+            this.label5.Text = "Middle Name:";
+            // 
+            // textBoxEnrollMiddleName
+            // 
+            this.textBoxEnrollMiddleName.Location = new System.Drawing.Point(301, 15);
+            this.textBoxEnrollMiddleName.Name = "textBoxEnrollMiddleName";
+            this.textBoxEnrollMiddleName.ReadOnly = true;
+            this.textBoxEnrollMiddleName.Size = new System.Drawing.Size(100, 20);
+            this.textBoxEnrollMiddleName.TabIndex = 59;
+            // 
+            // textBoxEnrollLastName
+            // 
+            this.textBoxEnrollLastName.Location = new System.Drawing.Point(100, 42);
+            this.textBoxEnrollLastName.Name = "textBoxEnrollLastName";
+            this.textBoxEnrollLastName.ReadOnly = true;
+            this.textBoxEnrollLastName.Size = new System.Drawing.Size(117, 20);
+            this.textBoxEnrollLastName.TabIndex = 60;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(36, 20);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 55;
+            this.label4.Text = "First Name:";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(35, 45);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(61, 13);
+            this.label6.TabIndex = 56;
+            this.label6.Text = "Last Name:";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(259, 41);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 57;
+            this.label7.Text = "Suffix:";
+            // 
+            // comboBoxEnrollSuffix
+            // 
+            this.comboBoxEnrollSuffix.Enabled = false;
+            this.comboBoxEnrollSuffix.FormattingEnabled = true;
+            this.comboBoxEnrollSuffix.Items.AddRange(new object[] {
+            "Junior",
+            "Senior",
+            "Second",
+            "Third",
+            "Fourth"});
+            this.comboBoxEnrollSuffix.Location = new System.Drawing.Point(301, 39);
+            this.comboBoxEnrollSuffix.Name = "comboBoxEnrollSuffix";
+            this.comboBoxEnrollSuffix.Size = new System.Drawing.Size(80, 21);
+            this.comboBoxEnrollSuffix.TabIndex = 61;
+            // 
+            // textBoxEnrollFirstName
+            // 
+            this.textBoxEnrollFirstName.Location = new System.Drawing.Point(100, 17);
+            this.textBoxEnrollFirstName.Name = "textBoxEnrollFirstName";
+            this.textBoxEnrollFirstName.ReadOnly = true;
+            this.textBoxEnrollFirstName.Size = new System.Drawing.Size(117, 20);
+            this.textBoxEnrollFirstName.TabIndex = 58;
+            // 
             // textBoxRegDate
             // 
-            this.textBoxRegDate.Location = new System.Drawing.Point(670, 504);
+            this.textBoxRegDate.Location = new System.Drawing.Point(279, 508);
             this.textBoxRegDate.Name = "textBoxRegDate";
             this.textBoxRegDate.Size = new System.Drawing.Size(80, 20);
             this.textBoxRegDate.TabIndex = 53;
@@ -3470,7 +3567,7 @@
             // label179
             // 
             this.label179.AutoSize = true;
-            this.label179.Location = new System.Drawing.Point(572, 507);
+            this.label179.Location = new System.Drawing.Point(181, 511);
             this.label179.Name = "label179";
             this.label179.Size = new System.Drawing.Size(92, 13);
             this.label179.TabIndex = 52;
@@ -3482,7 +3579,7 @@
             this.comboBoxWithDiscounts.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(479, 506);
+            this.comboBoxWithDiscounts.Location = new System.Drawing.Point(279, 457);
             this.comboBoxWithDiscounts.Name = "comboBoxWithDiscounts";
             this.comboBoxWithDiscounts.Size = new System.Drawing.Size(48, 21);
             this.comboBoxWithDiscounts.TabIndex = 51;
@@ -3491,7 +3588,7 @@
             // label157
             // 
             this.label157.AutoSize = true;
-            this.label157.Location = new System.Drawing.Point(364, 509);
+            this.label157.Location = new System.Drawing.Point(164, 460);
             this.label157.Name = "label157";
             this.label157.Size = new System.Drawing.Size(109, 13);
             this.label157.TabIndex = 0;
@@ -3864,13 +3961,6 @@
             this.label121.TabIndex = 0;
             this.label121.Text = "Home/Current/Primary/Residential Address:";
             // 
-            // textBoxEnrollDOB
-            // 
-            this.textBoxEnrollDOB.Location = new System.Drawing.Point(78, 109);
-            this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
-            this.textBoxEnrollDOB.Size = new System.Drawing.Size(80, 20);
-            this.textBoxEnrollDOB.TabIndex = 13;
-            // 
             // comboBoxMailAddrYN
             // 
             this.comboBoxMailAddrYN.FormattingEnabled = true;
@@ -3892,36 +3982,13 @@
             this.label108.TabIndex = 0;
             this.label108.Text = "Mailing Address?";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(221, 18);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(72, 13);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "Middle Name:";
-            // 
-            // textBoxEnrollMiddleName
-            // 
-            this.textBoxEnrollMiddleName.Location = new System.Drawing.Point(299, 14);
-            this.textBoxEnrollMiddleName.Name = "textBoxEnrollMiddleName";
-            this.textBoxEnrollMiddleName.Size = new System.Drawing.Size(100, 20);
-            this.textBoxEnrollMiddleName.TabIndex = 8;
-            // 
-            // textBoxEnrollLastName
-            // 
-            this.textBoxEnrollLastName.Location = new System.Drawing.Point(78, 48);
-            this.textBoxEnrollLastName.Name = "textBoxEnrollLastName";
-            this.textBoxEnrollLastName.Size = new System.Drawing.Size(117, 20);
-            this.textBoxEnrollLastName.TabIndex = 9;
-            // 
             // comboBoxEnrollApplyYourself
             // 
             this.comboBoxEnrollApplyYourself.FormattingEnabled = true;
             this.comboBoxEnrollApplyYourself.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollApplyYourself.Location = new System.Drawing.Point(276, 506);
+            this.comboBoxEnrollApplyYourself.Location = new System.Drawing.Point(279, 430);
             this.comboBoxEnrollApplyYourself.Name = "comboBoxEnrollApplyYourself";
             this.comboBoxEnrollApplyYourself.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollApplyYourself.TabIndex = 28;
@@ -3929,7 +3996,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(125, 510);
+            this.label24.Location = new System.Drawing.Point(128, 434);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(145, 13);
             this.label24.TabIndex = 0;
@@ -3941,7 +4008,7 @@
             this.comboBoxEnrollAuthRep.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollAuthRep.Location = new System.Drawing.Point(382, 484);
+            this.comboBoxEnrollAuthRep.Location = new System.Drawing.Point(385, 406);
             this.comboBoxEnrollAuthRep.Name = "comboBoxEnrollAuthRep";
             this.comboBoxEnrollAuthRep.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollAuthRep.TabIndex = 27;
@@ -3952,7 +4019,7 @@
             this.comboBoxEnrollHomeless.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollHomeless.Location = new System.Drawing.Point(276, 409);
+            this.comboBoxEnrollHomeless.Location = new System.Drawing.Point(279, 336);
             this.comboBoxEnrollHomeless.Name = "comboBoxEnrollHomeless";
             this.comboBoxEnrollHomeless.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollHomeless.TabIndex = 24;
@@ -3960,7 +4027,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(14, 488);
+            this.label23.Location = new System.Drawing.Point(17, 410);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(362, 13);
             this.label23.TabIndex = 0;
@@ -3995,7 +4062,7 @@
             "Email",
             "Mail",
             "Both"});
-            this.comboBoxEnrollNotices.Location = new System.Drawing.Point(276, 461);
+            this.comboBoxEnrollNotices.Location = new System.Drawing.Point(279, 384);
             this.comboBoxEnrollNotices.Name = "comboBoxEnrollNotices";
             this.comboBoxEnrollNotices.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollNotices.TabIndex = 26;
@@ -4003,7 +4070,7 @@
             // label29
             // 
             this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(134, 413);
+            this.label29.Location = new System.Drawing.Point(137, 340);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(136, 13);
             this.label29.TabIndex = 0;
@@ -4012,7 +4079,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(86, 464);
+            this.label22.Location = new System.Drawing.Point(89, 387);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(184, 13);
             this.label22.TabIndex = 0;
@@ -4033,24 +4100,15 @@
             this.comboBoxEnrollVoterCard.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxEnrollVoterCard.Location = new System.Drawing.Point(276, 432);
+            this.comboBoxEnrollVoterCard.Location = new System.Drawing.Point(279, 360);
             this.comboBoxEnrollVoterCard.Name = "comboBoxEnrollVoterCard";
             this.comboBoxEnrollVoterCard.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollVoterCard.TabIndex = 25;
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 22);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "First Name:";
-            // 
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(14, 437);
+            this.label21.Location = new System.Drawing.Point(17, 365);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(256, 13);
             this.label21.TabIndex = 0;
@@ -4067,15 +4125,6 @@
             this.comboBoxEnrollAddressSame.Size = new System.Drawing.Size(48, 21);
             this.comboBoxEnrollAddressSame.TabIndex = 37;
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(13, 51);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(61, 13);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "Last Name:";
-            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -4085,45 +4134,23 @@
             this.label30.TabIndex = 0;
             this.label30.Text = "Is the Mailing Address the same as your home address?";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(257, 48);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "Suffix:";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(29, 82);
+            this.label8.Location = new System.Drawing.Point(52, 70);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 13);
             this.label8.TabIndex = 0;
             this.label8.Text = "Gender:";
             // 
-            // comboBoxEnrollSuffix
-            // 
-            this.comboBoxEnrollSuffix.FormattingEnabled = true;
-            this.comboBoxEnrollSuffix.Items.AddRange(new object[] {
-            "Junior",
-            "Senior",
-            "Second",
-            "Third",
-            "Fourth"});
-            this.comboBoxEnrollSuffix.Location = new System.Drawing.Point(299, 46);
-            this.comboBoxEnrollSuffix.Name = "comboBoxEnrollSuffix";
-            this.comboBoxEnrollSuffix.Size = new System.Drawing.Size(80, 21);
-            this.comboBoxEnrollSuffix.TabIndex = 10;
-            // 
             // comboBoxEnrollGender
             // 
+            this.comboBoxEnrollGender.Enabled = false;
             this.comboBoxEnrollGender.FormattingEnabled = true;
             this.comboBoxEnrollGender.Items.AddRange(new object[] {
             "Male",
             "Female"});
-            this.comboBoxEnrollGender.Location = new System.Drawing.Point(78, 79);
+            this.comboBoxEnrollGender.Location = new System.Drawing.Point(100, 67);
             this.comboBoxEnrollGender.Name = "comboBoxEnrollGender";
             this.comboBoxEnrollGender.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollGender.TabIndex = 11;
@@ -4134,7 +4161,7 @@
             this.comboBoxLiveMN.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxLiveMN.Location = new System.Drawing.Point(181, 154);
+            this.comboBoxLiveMN.Location = new System.Drawing.Point(184, 127);
             this.comboBoxLiveMN.Name = "comboBoxLiveMN";
             this.comboBoxLiveMN.Size = new System.Drawing.Size(48, 21);
             this.comboBoxLiveMN.TabIndex = 14;
@@ -4144,7 +4171,7 @@
             this.comboBoxEnrollLanguageWritten.FormattingEnabled = true;
             this.comboBoxEnrollLanguageWritten.Items.AddRange(new object[] {
             "English"});
-            this.comboBoxEnrollLanguageWritten.Location = new System.Drawing.Point(276, 379);
+            this.comboBoxEnrollLanguageWritten.Location = new System.Drawing.Point(279, 311);
             this.comboBoxEnrollLanguageWritten.Name = "comboBoxEnrollLanguageWritten";
             this.comboBoxEnrollLanguageWritten.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollLanguageWritten.TabIndex = 23;
@@ -4152,7 +4179,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(75, 382);
+            this.label20.Location = new System.Drawing.Point(78, 314);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(195, 13);
             this.label20.TabIndex = 0;
@@ -4161,7 +4188,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(49, 160);
+            this.label25.Location = new System.Drawing.Point(52, 133);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(126, 13);
             this.label25.TabIndex = 0;
@@ -4172,7 +4199,7 @@
             this.comboBoxEnrollLanguageMost.FormattingEnabled = true;
             this.comboBoxEnrollLanguageMost.Items.AddRange(new object[] {
             "English"});
-            this.comboBoxEnrollLanguageMost.Location = new System.Drawing.Point(276, 348);
+            this.comboBoxEnrollLanguageMost.Location = new System.Drawing.Point(279, 286);
             this.comboBoxEnrollLanguageMost.Name = "comboBoxEnrollLanguageMost";
             this.comboBoxEnrollLanguageMost.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollLanguageMost.TabIndex = 22;
@@ -4186,7 +4213,7 @@
             "Married",
             "Never Married",
             "Widow"});
-            this.comboBoxEnrollMaritalStatus.Location = new System.Drawing.Point(299, 78);
+            this.comboBoxEnrollMaritalStatus.Location = new System.Drawing.Point(100, 92);
             this.comboBoxEnrollMaritalStatus.Name = "comboBoxEnrollMaritalStatus";
             this.comboBoxEnrollMaritalStatus.Size = new System.Drawing.Size(120, 21);
             this.comboBoxEnrollMaritalStatus.TabIndex = 12;
@@ -4194,7 +4221,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(43, 352);
+            this.label19.Location = new System.Drawing.Point(46, 290);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(227, 13);
             this.label19.TabIndex = 0;
@@ -4203,38 +4230,22 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(219, 82);
+            this.label9.Location = new System.Drawing.Point(22, 96);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(74, 13);
             this.label9.TabIndex = 0;
             this.label9.Text = "Marital Status:";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(41, 115);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(33, 13);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "DOB:";
-            // 
             // textBoxEnrollEmail
             // 
-            this.textBoxEnrollEmail.Location = new System.Drawing.Point(181, 317);
+            this.textBoxEnrollEmail.Location = new System.Drawing.Point(184, 261);
             this.textBoxEnrollEmail.Name = "textBoxEnrollEmail";
             this.textBoxEnrollEmail.Size = new System.Drawing.Size(140, 20);
             this.textBoxEnrollEmail.TabIndex = 21;
             // 
-            // textBoxEnrollFirstName
-            // 
-            this.textBoxEnrollFirstName.Location = new System.Drawing.Point(78, 19);
-            this.textBoxEnrollFirstName.Name = "textBoxEnrollFirstName";
-            this.textBoxEnrollFirstName.Size = new System.Drawing.Size(117, 20);
-            this.textBoxEnrollFirstName.TabIndex = 7;
-            // 
             // textBoxEnrollAltNum
             // 
-            this.textBoxEnrollAltNum.Location = new System.Drawing.Point(181, 289);
+            this.textBoxEnrollAltNum.Location = new System.Drawing.Point(184, 237);
             this.textBoxEnrollAltNum.Name = "textBoxEnrollAltNum";
             this.textBoxEnrollAltNum.Size = new System.Drawing.Size(80, 20);
             this.textBoxEnrollAltNum.TabIndex = 19;
@@ -4242,7 +4253,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(140, 320);
+            this.label18.Location = new System.Drawing.Point(143, 264);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(35, 13);
             this.label18.TabIndex = 0;
@@ -4250,7 +4261,7 @@
             // 
             // textBoxPhoneNum
             // 
-            this.textBoxPhoneNum.Location = new System.Drawing.Point(181, 255);
+            this.textBoxPhoneNum.Location = new System.Drawing.Point(184, 212);
             this.textBoxPhoneNum.Name = "textBoxPhoneNum";
             this.textBoxPhoneNum.Size = new System.Drawing.Size(80, 20);
             this.textBoxPhoneNum.TabIndex = 17;
@@ -4258,7 +4269,7 @@
             // comboBoxEnrollAltPhoneType
             // 
             this.comboBoxEnrollAltPhoneType.FormattingEnabled = true;
-            this.comboBoxEnrollAltPhoneType.Location = new System.Drawing.Point(315, 289);
+            this.comboBoxEnrollAltPhoneType.Location = new System.Drawing.Point(318, 237);
             this.comboBoxEnrollAltPhoneType.Name = "comboBoxEnrollAltPhoneType";
             this.comboBoxEnrollAltPhoneType.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollAltPhoneType.TabIndex = 20;
@@ -4266,7 +4277,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(275, 291);
+            this.label17.Location = new System.Drawing.Point(278, 239);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(34, 13);
             this.label17.TabIndex = 0;
@@ -4278,7 +4289,7 @@
             this.comboBoxPlanLiveMN.Items.AddRange(new object[] {
             "Yes",
             "No"});
-            this.comboBoxPlanLiveMN.Location = new System.Drawing.Point(181, 186);
+            this.comboBoxPlanLiveMN.Location = new System.Drawing.Point(184, 159);
             this.comboBoxPlanLiveMN.Name = "comboBoxPlanLiveMN";
             this.comboBoxPlanLiveMN.Size = new System.Drawing.Size(48, 21);
             this.comboBoxPlanLiveMN.TabIndex = 15;
@@ -4286,7 +4297,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(49, 291);
+            this.label16.Location = new System.Drawing.Point(52, 239);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(126, 13);
             this.label16.TabIndex = 0;
@@ -4295,7 +4306,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(3, 189);
+            this.label12.Location = new System.Drawing.Point(6, 162);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(172, 13);
             this.label12.TabIndex = 0;
@@ -4304,7 +4315,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(43, 222);
+            this.label13.Location = new System.Drawing.Point(46, 189);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(132, 13);
             this.label13.TabIndex = 0;
@@ -4317,7 +4328,7 @@
             "Phone",
             "Email",
             "Mail"});
-            this.comboBoxEnrollPrefContact.Location = new System.Drawing.Point(181, 221);
+            this.comboBoxEnrollPrefContact.Location = new System.Drawing.Point(184, 186);
             this.comboBoxEnrollPrefContact.Name = "comboBoxEnrollPrefContact";
             this.comboBoxEnrollPrefContact.Size = new System.Drawing.Size(80, 21);
             this.comboBoxEnrollPrefContact.TabIndex = 16;
@@ -4332,7 +4343,7 @@
             "Mobile",
             "Other",
             "Pager"});
-            this.comboBoxPhoneType.Location = new System.Drawing.Point(315, 255);
+            this.comboBoxPhoneType.Location = new System.Drawing.Point(318, 212);
             this.comboBoxPhoneType.Name = "comboBoxPhoneType";
             this.comboBoxPhoneType.Size = new System.Drawing.Size(80, 21);
             this.comboBoxPhoneType.TabIndex = 18;
@@ -4340,7 +4351,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(94, 257);
+            this.label14.Location = new System.Drawing.Point(97, 215);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(81, 13);
             this.label14.TabIndex = 0;
@@ -4349,7 +4360,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(275, 257);
+            this.label15.Location = new System.Drawing.Point(278, 214);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(34, 13);
             this.label15.TabIndex = 0;
@@ -5272,7 +5283,6 @@
         private System.Windows.Forms.RadioButton radioButtonMore;
         private System.Windows.Forms.RadioButton radioButtonInformation;
         private System.Windows.Forms.GroupBox groupBoxApplicantInformation;
-        private System.Windows.Forms.TextBox textBoxEnrollLastName;
         private System.Windows.Forms.ComboBox comboBoxEnrollApplyYourself;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label24;
@@ -5286,14 +5296,10 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.ComboBox comboBoxEnrollVoterCard;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.ComboBox comboBoxEnrollAddressSame;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ComboBox comboBoxEnrollSuffix;
         private System.Windows.Forms.ComboBox comboBoxEnrollGender;
         private System.Windows.Forms.ComboBox comboBoxLiveMN;
         private System.Windows.Forms.ComboBox comboBoxEnrollLanguageWritten;
@@ -5303,9 +5309,7 @@
         private System.Windows.Forms.ComboBox comboBoxEnrollMaritalStatus;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox textBoxEnrollEmail;
-        private System.Windows.Forms.TextBox textBoxEnrollFirstName;
         private System.Windows.Forms.TextBox textBoxEnrollAltNum;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.TextBox textBoxPhoneNum;
@@ -5322,8 +5326,6 @@
         private System.Windows.Forms.TextBox textBoxEnrollTest;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.GroupBox groupBoxMoreAboutYou;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBoxEnrollMiddleName;
         private System.Windows.Forms.ComboBox comboBoxEnrollHispanic;
         private System.Windows.Forms.ComboBox comboBoxEnrollCitizen;
         private System.Windows.Forms.Label label35;
@@ -5534,7 +5536,6 @@
         private System.Windows.Forms.ComboBox comboBoxMilitary;
         private System.Windows.Forms.Label label119;
         private System.Windows.Forms.Label label120;
-        private System.Windows.Forms.TextBox textBoxEnrollDOB;
         private System.Windows.Forms.Label label123;
         private System.Windows.Forms.Label label122;
         private System.Windows.Forms.TextBox textBoxHomeZip;
@@ -5675,6 +5676,16 @@
         private System.Windows.Forms.Label label181;
         private System.Windows.Forms.ComboBox comboBoxEnvironment;
         private System.Windows.Forms.Label label180;
+        private System.Windows.Forms.TextBox textBoxEnrollDOB;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox textBoxEnrollMiddleName;
+        private System.Windows.Forms.TextBox textBoxEnrollLastName;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBoxEnrollSuffix;
+        private System.Windows.Forms.TextBox textBoxEnrollFirstName;
 
     }
 }

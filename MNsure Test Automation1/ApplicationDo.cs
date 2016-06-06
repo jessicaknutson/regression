@@ -808,12 +808,14 @@ namespace MNsure_Regression_1
                     IWebElement listboxPregnant;
                     //if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "Yes") //this is not the correct logic, something else triggers this, foster care maybe
                     //{
-                        listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[22]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
+
+                    listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
+                    listboxPregnant.SendKeys(myApplication.myIsPregnant);
                     /*}
                     else
                     {
                         listboxPregnant = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[22]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input"));
-                    }*/
+                    }
                     listboxPregnant.Click();
                     OpenQA.Selenium.Interactions.Actions action2 = new OpenQA.Selenium.Interactions.Actions(driver);
                     if (isPregnant == "No")
@@ -828,7 +830,7 @@ namespace MNsure_Regression_1
                         action2.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     }
                     System.Threading.Thread.Sleep(1000);
-                    //action2.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                    action2.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();*/
                 }
 
                 if (isPregnant == "Yes")
@@ -921,7 +923,7 @@ namespace MNsure_Regression_1
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
+                    if (myHouseholdMembers.myGender == "Female")
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
                     }
@@ -930,7 +932,7 @@ namespace MNsure_Regression_1
                         listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
                     }
                     listboxFosterCare.SendKeys(myApplication.myFosterCare);
-                    System.Threading.Thread.Sleep(1000);
+                    //System.Threading.Thread.Sleep(1000);
                     //outsideClick.Click();
                 }
 
@@ -1145,7 +1147,10 @@ namespace MNsure_Regression_1
                     checkboxPerson.Click();
 
                     IWebElement checkboxPerson2 = driver.FindElement(By.Id("__o3id7"));
-                    checkboxPerson2.Click();
+                    if (myHouseholdMembers.myTaxFiler == "Yes")
+                    {
+                        checkboxPerson2.Click();
+                    }
 
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);

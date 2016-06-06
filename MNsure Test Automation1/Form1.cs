@@ -130,11 +130,21 @@ namespace MNsure_Regression_1
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                     myAccountCreate.mySSN = Convert.ToString(temp1);
                     FillStructures myFillStructures = new FillStructures();
-                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);
-                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
-                    result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
+                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);                    
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                    AccountGeneration myAccountGeneration = new AccountGeneration();
+                    if (householdCount > 1)
+                    {
+                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2");
+                    }
+                    if (householdCount == 3)
+                    {
+                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3");
+                    }
+                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                    result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
+                    
                     if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
                     {
                         int temp2 = temp1 + 1;
@@ -374,9 +384,9 @@ namespace MNsure_Regression_1
                     MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                 }
 
-                driver.Dispose();
+                //driver.Dispose();
                 //driver2.Dispose();
-                driver3.Dispose();
+                //driver3.Dispose();
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
@@ -903,22 +913,22 @@ namespace MNsure_Regression_1
                 }
 
                 textBoxEnrollTest.Text = mySelectedTest.myTestName;
-                textBoxEnrollFirstName.Text = myAccountCreate.myFirstName;
-                textBoxEnrollMiddleName.Text = myAccountCreate.myMiddleName;
-                textBoxEnrollLastName.Text = myAccountCreate.myLastName;
-                comboBoxEnrollSuffix.Text = myApplication.mySuffix;
+                //textBoxEnrollFirstName.Text = myAccountCreate.myFirstName;
+                //textBoxEnrollMiddleName.Text = myAccountCreate.myMiddleName;
+                //textBoxEnrollLastName.Text = myAccountCreate.myLastName;
+                //comboBoxEnrollSuffix.Text = myApplication.mySuffix;
                 comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
                 comboBoxHomeCounty.Text = myApplication.myHomeCounty;
                 comboBoxEnrollGender.Text = myApplication.myGender;
                 comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
-                if (myApplication.myDOB == null)
+                /*if (myApplication.myDOB == null)
                 {
                     textBoxEnrollDOB.Text = myAccountCreate.myDOB;
                 }
                 else
                 {
                     textBoxEnrollDOB.Text = myApplication.myDOB;
-                }
+                }*/
                 textBoxHomeAddr1.Text = myApplication.myHomeAddress1;
                 if (myApplication.myHomeAddress2 != null)
                 {
@@ -1306,10 +1316,10 @@ namespace MNsure_Regression_1
             mySelectedTest.myRowIndex = rowindex;
             string mysTestId;
             mysTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
-            myApplication.myFirstName = textBoxEnrollFirstName.Text;
-            myApplication.myMiddleName = textBoxEnrollMiddleName.Text;
-            myApplication.myLastName = textBoxEnrollLastName.Text;
-            myApplication.mySuffix = comboBoxEnrollSuffix.Text;
+            myApplication.myFirstName = "";
+            myApplication.myMiddleName = "";
+            myApplication.myLastName = "";
+            myApplication.mySuffix = "";
             myApplication.myHomeAddress1 = textBoxHomeAddr1.Text;
             myApplication.myHomeAddress2 = textBoxHomeAddr2.Text;
             myApplication.myHomeAptSuite = textBoxHomeAptSuite.Text;
@@ -1329,7 +1339,7 @@ namespace MNsure_Regression_1
             myApplication.myAddressSame = comboBoxEnrollAddressSame.Text;
             myApplication.myGender = comboBoxEnrollGender.Text;
             myApplication.myMaritalStatus = comboBoxEnrollMaritalStatus.Text;
-            myApplication.myDOB = textBoxEnrollDOB.Text;
+            myApplication.myDOB = "";
             myApplication.myMailingAddressYN = comboBoxMailAddrYN.Text;
             myApplication.myLiveMN = comboBoxLiveMN.Text;
             myApplication.myPlanLiveMN = comboBoxPlanLiveMN.Text;
@@ -1612,6 +1622,7 @@ namespace MNsure_Regression_1
                     {
                         com8.Parameters.AddWithValue("Zip4", DBNull.Value);
                     }
+                    com8.Parameters.AddWithValue("Type", "Home");
                     com8.Parameters.AddWithValue("County", myApplication.myHomeCounty);
                     if (myApplication.myHomeAptSuite != "")
                     {
@@ -1620,8 +1631,7 @@ namespace MNsure_Regression_1
                     else
                     {
                         com8.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                    }
-                    com8.Parameters.AddWithValue("Type", "Home");
+                    }                    
 
                     com8.ExecuteNonQuery();
                     com8.Dispose();
@@ -1657,6 +1667,7 @@ namespace MNsure_Regression_1
                         {
                             com9.Parameters.AddWithValue("Zip4", DBNull.Value);
                         }
+                        com9.Parameters.AddWithValue("Type", "Mailing");
                         com9.Parameters.AddWithValue("County", myApplication.myMailCounty);
                         if (myApplication.myMailAptSuite != "")
                         {
@@ -1665,8 +1676,7 @@ namespace MNsure_Regression_1
                         else
                         {
                             com9.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                        }
-                        com9.Parameters.AddWithValue("Type", "Mailing");
+                        }                        
 
                         com9.ExecuteNonQuery();
                         com9.Dispose();
@@ -1814,6 +1824,7 @@ namespace MNsure_Regression_1
             {
                 buttonRemoveTest.Enabled = true;
             }
+            buttonGo.Enabled = true;
         }
 
         private void buttonRemoveTest_Click(object sender, EventArgs e)
@@ -1842,24 +1853,7 @@ namespace MNsure_Regression_1
             {
                 MessageBox.Show("Remove Test didn't work");
             }
-
-            int rCount;
-            string buttonEnable = "No";
-            rCount = dataGridViewSelectedTests.RowCount - 1;
-            if (Convert.ToString(dataGridViewSelectedTests.Rows[rCount].Cells[1].Style.BackColor.Name) == "Yellow")
-            {
-                buttonEnable = "No";
-                buttonGo.Enabled = false;
-            }
-            else
-            {
-                buttonEnable = "Yes";
-            }
-            if (buttonEnable == "Yes")
-            {
-                buttonGo.Enabled = true;
-            }
-
+                       
             con = new SqlCeConnection(conString);
             con.Open();
             SqlCeCommand cmd = con.CreateCommand();
@@ -1909,7 +1903,15 @@ namespace MNsure_Regression_1
             {
                 myHistoryInfo.myTestId = null;
             }
-
+            int numRowsCount = dataGridViewSelectedTests.RowCount;
+            if (numRowsCount == 1)
+            {
+                buttonGo.Enabled = false;
+            }
+            else
+            {
+                buttonGo.Enabled = true;
+            }
         }
 
         private void tabPageEnroll_Enter(object sender, EventArgs e)
@@ -1997,23 +1999,16 @@ namespace MNsure_Regression_1
 
             myNavHelper.myConfigureClicked = "No";
 
-            string buttonEnable = "No";
             int numRowsCount = dataGridViewSelectedTests.RowCount;
-            for (int iloop = 1; iloop < numRowsCount; iloop++)
-
-                if (Convert.ToString(dataGridViewSelectedTests.Rows[iloop].Cells[1].Style.BackColor.Name) == "Yellow")
-                {
-                    buttonEnable = "No";
-                    buttonGo.Enabled = false;
-                    break;
-                }
-                else
-                {
-                    buttonEnable = "Yes";
-                }
-            if (buttonEnable == "Yes")
+            if (numRowsCount == 1)
+            {
+                buttonGo.Enabled = false;
+            }
+            else
+            {
                 buttonGo.Enabled = true;
-
+            }
+            
             if (dataGridViewSelectedTests.CurrentCell == null)
             {
                 myHistoryInfo.myTestId = null;
@@ -4217,18 +4212,18 @@ namespace MNsure_Regression_1
                                 com78.Parameters.AddWithValue("Zip4", DBNull.Value);
                             }
                             com78.Parameters.AddWithValue("Type", "Home");
-                            com78.Parameters.AddWithValue("County", reader.GetString(9));
-                            if (!reader.IsDBNull(10))
+                            com78.Parameters.AddWithValue("County", reader.GetString(10));
+                            if (!reader.IsDBNull(11))
                             {
-                                com78.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                                com78.Parameters.AddWithValue("AptSuite", reader.GetString(11));
                             }
                             else
                             {
                                 com78.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                            }                            
-                            
+                            }
+
                             com78.ExecuteNonQuery();
-                            com78.Dispose();                          
+                            com78.Dispose();
                         }
                     }
                 }
@@ -4285,22 +4280,19 @@ namespace MNsure_Regression_1
                             {
                                 com79.Parameters.AddWithValue("Zip4", DBNull.Value);
                             }
-                            com79.Parameters.AddWithValue("County", reader.GetString(9));
-                            if (!reader.IsDBNull(10))
+                            com79.Parameters.AddWithValue("Type", "Mailing");
+                            com79.Parameters.AddWithValue("County", reader.GetString(10));
+                            if (!reader.IsDBNull(11))
                             {
-                                com79.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                                com79.Parameters.AddWithValue("AptSuite", reader.GetString(11));
                             }
                             else
                             {
                                 com79.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                            }
-                            com79.Parameters.AddWithValue("Type", "Mailing");
+                            }                            
 
-                            using (SqlCeCommand com60 = new SqlCeCommand(myInsertString, con))
-                            {
-                                com60.ExecuteNonQuery();
-                                com60.Dispose();
-                            }
+                            com79.ExecuteNonQuery();
+                            com79.Dispose();
                         }
                     }
                 }
@@ -4357,22 +4349,19 @@ namespace MNsure_Regression_1
                             {
                                 com80.Parameters.AddWithValue("Zip4", DBNull.Value);
                             }
-                            com80.Parameters.AddWithValue("County", reader.GetString(9));
-                            if (!reader.IsDBNull(10))
+                            com80.Parameters.AddWithValue("Type", "Household 2");
+                            com80.Parameters.AddWithValue("County", reader.GetString(10));
+                            if (!reader.IsDBNull(11))
                             {
-                                com80.Parameters.AddWithValue("AptSuite", reader.GetString(10));
+                                com80.Parameters.AddWithValue("AptSuite", reader.GetString(11));
                             }
                             else
                             {
                                 com80.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                            }
-                            com80.Parameters.AddWithValue("Type", "Household 2");
+                            }                            
 
-                            using (SqlCeCommand com63 = new SqlCeCommand(myInsertString, con))
-                            {
-                                com63.ExecuteNonQuery();
-                                com63.Dispose();
-                            }
+                            com80.ExecuteNonQuery();
+                            com80.Dispose();
                         }
                     }
                 }
@@ -6058,7 +6047,7 @@ namespace MNsure_Regression_1
                         com73.Parameters.AddWithValue("State", myHouseholdMembers.myMailState);
                         com73.Parameters.AddWithValue("Zip", myHouseholdMembers.myMailZip);
                         com73.Parameters.AddWithValue("Zip4", DBNull.Value);
-
+                        com73.Parameters.AddWithValue("Type", "Household 2");
                         com73.Parameters.AddWithValue("County", myHouseholdMembers.myMailCounty);
                         if (myHouseholdMembers.myMailAptSuite != "")
                         {
@@ -6067,8 +6056,7 @@ namespace MNsure_Regression_1
                         else
                         {
                             com73.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                        }
-                        com73.Parameters.AddWithValue("Type", "Household 2");
+                        }                        
 
                         com73.ExecuteNonQuery();
                         com73.Dispose();

@@ -29,8 +29,10 @@ namespace MNsure_Regression_1
                             myLastSSN.myLastSSN = line;
                         }
                         if (myLastSSN.myLastSSN == "")
-                        {                        
-                            MessageBox.Show("Problem creating SSN, the first line, SSN number, is missing, fix and restart");
+                        {
+                            MessageBox.Show("Problem creating SSN, the first line, SSN number, is missing, fix and restart", "SSN Missing", MessageBoxButtons.OK, MessageBoxIcon.None,
+                            MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
+                            break;
                         }
                         if (icount == 2)
                         {
@@ -75,7 +77,8 @@ namespace MNsure_Regression_1
             }
             catch (Exception e)
             {
-                MessageBox.Show("Problem creating SSN, SSN file is missing, fix and restart");
+                MessageBox.Show("Problem creating SSN, SSN file is missing, fix and restart", "SSN File Missing", MessageBoxButtons.OK, MessageBoxIcon.None,
+                    MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
             }
             return 1;
         }
@@ -103,13 +106,15 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            MessageBox.Show("Trying to write empty SSN file, fix bug");
+                            MessageBox.Show("Trying to write empty SSN file, fix bug", "SSN File Empty", MessageBoxButtons.OK, MessageBoxIcon.None,
+                            MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
                             return 2;
                         }
                     }
                     else
                     {
-                        MessageBox.Show("empty ssn, fix bug");
+                        MessageBox.Show("Empty SSN file, fix bug", "SSN File Empty", MessageBoxButtons.OK, MessageBoxIcon.None,
+                            MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
                         return 2;
                     }
                 }            

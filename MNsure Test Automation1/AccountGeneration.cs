@@ -23,12 +23,8 @@ namespace MNsure_Regression_1
 {
     class AccountGeneration
     {
-        public int GenerateNames(mystructSelectedTest myTest, ref mystructAccountCreate myAccountCreate)
+        public int GenerateNames(mystructSelectedTest myTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication)
         {
-            string conString = Properties.Settings.Default.Database1ConnectionString;
-            SqlCeConnection con;
-            con = new SqlCeConnection(conString);
-            con.Open();
             int result;
 
             string[] maleNames = { "Aaron", "Adrien", "Bob", "Chuck", "Charles", "Dean", "Eric", "Frank", "Gregory", "Harry", "Hank", "Indiana", "James", "Joseph", "Karl", "Larry", "Mark", "Martin", "Neal", "Nick", "Olie", "Patrick", "Robert", "Steven", "Stuart", "Ted", "Thomas", "Tim", "Ulrick", "Vern", "William", "Yary", "Zowie" };
@@ -36,7 +32,8 @@ namespace MNsure_Regression_1
             string[] maleMiddleNames = { "Joseph", "R", "Thomas", "Randy", "Rick" };
             string[] femaleMiddleNames = { "A", "B", "Candy", "R", "Lisa", "Wendy", "Z" };
             string[] lastNames = { "Able", "Adams", "Andle", "Adkin", "Back", "Balk", "Belt", "Bing", "Bend", "Baker", "Burns", "Calk", "Chart", "Chang", "Chong", "Dallas", "Dalt", "Decks", "Dills", "Dons", "Els", "Frat", "Gets", "Hark", "Jans", "Jons", "Kipp", "Lark", "Lefs", "Mack", "Nell", "Olla", "Peck", "Rass", "Stark", "Sims", "Stend", "Seps", "Toll", "Wats", "Welch", "Wills", "Whit", "Zena" };
-            string[] suffix = { "JR", "SR", "2", "3", "4", "II", "III", "IV" };
+            //string[] suffix = { "JR", "SR", "2", "3", "4", "II", "III", "IV" };
+            string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };
 
             Random rand = new Random();
             //<65 and >18 years old, otherwise need logic to handle other scenarios
@@ -46,8 +43,9 @@ namespace MNsure_Regression_1
                 myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
                 myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                 myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myAccountCreate.mySuffix = suffix[rand2.Next(1, 7)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);       
+                myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
+                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myApplication.myGender = "Male";
                 result = 1;
             }
             else
@@ -56,8 +54,9 @@ namespace MNsure_Regression_1
                 myAccountCreate.myFirstName = femaleNames[rand2.Next(1, femaleNames.Count())];
                 myAccountCreate.myMiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
                 myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myAccountCreate.mySuffix = suffix[rand2.Next(1, 7)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);                   
+                myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
+                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myApplication.myGender = "Female";
                 string temp1;
                 temp1 = myAccountCreate.myDOB;
                 result = 1;
@@ -81,114 +80,162 @@ namespace MNsure_Regression_1
             myAccountCreate.myQuestion5 = "What city would you like to retire to?";
             myAccountCreate.myAnswer5 = "Duluth";
 
-            return result;
-        }
-
-        public int GenerateHouseholdNames(mystructSelectedTest mySelectedTest, ref mystructHouseholdMembers myHouseholdMembers)
-        {
             string conString = Properties.Settings.Default.Database1ConnectionString;
             SqlCeConnection con;
-            con = new SqlCeConnection(conString);
-            con.Open();
-            int result;
-
-            string[] maleNames = { "Aaron", "Adrien", "Bob", "Chuck", "Charles", "Dean", "Eric", "Frank", "Gregory", "Harry", "Hank", "Indiana", "James", "Joseph", "Karl", "Larry", "Mark", "Martin", "Neal", "Nick", "Olie", "Patrick", "Robert", "Steven", "Stuart", "Ted", "Thomas", "Tim", "Ulrick", "Vern", "William", "Yary", "Zowie" };
-            string[] femaleNames = { "Abby", "Barb", "Betty", "Cathy", "Darla", "Debby", "Ellen", "Francis", "Grace", "Helen", "Ilean", "Jean", "Martha", "Nancy", "Nena", "Nora", "Patty", "Reena", "Stephanie", "Tammy", "Teresa", "Tina", "Thelma", "Trinity", "Vickie" };
-            string[] maleMiddleNames = { "Joseph", "R", "Thomas", "Randy", "Rick" };
-            string[] femaleMiddleNames = { "A", "B", "Candy", "R", "Lisa", "Wendy", "Z" };
-            string[] lastNames = { "Able", "Adams", "Andle", "Adkin", "Back", "Balk", "Belt", "Bing", "Bend", "Baker", "Burns", "Calk", "Chart", "Chang", "Chong", "Dallas", "Dalt", "Decks", "Dills", "Dons", "Els", "Frat", "Gets", "Hark", "Jans", "Jons", "Kipp", "Lark", "Lefs", "Mack", "Nell", "Olla", "Peck", "Rass", "Stark", "Sims", "Stend", "Seps", "Toll", "Wats", "Welch", "Wills", "Whit", "Zena" };
-            // string[] suffix = { "JR", "SR", "2", "3", "4", "II", "III", "IV" };
-            string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };
-
-            Random rand = new Random();
-            //<65 and >18 years old, otherwise need logic to handle other scenarios
-            if (rand.Next(1, 3) == 1)
-            {
-                Random rand2 = new Random();
-                myHouseholdMembers.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
-                myHouseholdMembers.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
-                myHouseholdMembers.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myHouseholdMembers.mySuffix = suffix[rand2.Next(1, suffix.Count())];
-                myHouseholdMembers.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
-                myHouseholdMembers.myGender = "Male";
-                result = 1;
-            }
-            else
-            {
-                Random rand2 = new Random();
-                myHouseholdMembers.myFirstName = femaleNames[rand2.Next(1, femaleNames.Count())];
-                myHouseholdMembers.myMiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
-                myHouseholdMembers.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myHouseholdMembers.mySuffix = suffix[rand2.Next(1, suffix.Count())];
-                myHouseholdMembers.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
-                myHouseholdMembers.myGender = "Female";
-                string temp1;
-                temp1 = myHouseholdMembers.myDOB;
-                result = 1;
-            }
-            System.Threading.Thread.Sleep(129);
-
-            //Get the next SSN in sequence          
-            /*
             try
             {
-                SqlCeCommand cmd2 = con.CreateCommand();
-                cmd2.CommandType = CommandType.Text;
-                //Fill Parties Datagrid
-
-                using (SqlCeCommand com2 = new SqlCeCommand("SELECT max(Account_SSN) FROM Test_Account", con))
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand(
+                    "SELECT * FROM Application where TestID = " + myTest.myTestId, con))
                 {
-                    SqlCeDataReader reader = com2.ExecuteReader();
-                    while (reader.Read())
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
                     {
-                        myAccountCreate.mySSN = reader.GetString(0);
-                        int temp1;
-                        temp1 = Convert.ToInt32(myAccountCreate.mySSN);
-                        temp1 = temp1 + 1;
-                        myAccountCreate.mySSN = Convert.ToString(temp1);
-                    }
+                        string myUpdateString;
+                        myUpdateString = "Update Application set Gender = @Gender where TestID = " + myTest.myTestId;
 
-                    com2.ExecuteNonQuery();
-                    com2.Dispose();
+                        using (SqlCeCommand com2 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com2.Parameters.AddWithValue("Gender", myApplication.myGender);
+                            com2.ExecuteNonQuery();
+                            com2.Dispose();
+                        }
+                    }
                 }
+                con.Close();
             }
             catch
             {
-                MessageBox.Show("Did not create ssn");
-            }          
-             */
+                MessageBox.Show("Update gender didn't work");
+            }
 
-            myHouseholdMembers.myMaritalStatus = "Married";
-            myHouseholdMembers.myLiveWithYou = "Yes";
-            myHouseholdMembers.myMNHome = "Yes";
-            myHouseholdMembers.myPersonHighlighted = "Yes";
-            myHouseholdMembers.myLiveInMN = "Yes";
-            myHouseholdMembers.myTempAbsentMN = "Yes";
-            myHouseholdMembers.myHomeless = "Yes";
+            return result;
+        }
 
-            /*myHouseholdMembers.Address1 = "12969 First Ave W";
-            myHouseholdMembers.Address2 = "PO 44";
-            myHouseholdMembers.AptSuite = "Suite 64";
-            myHouseholdMembers.City = "Minneapolis";
-            myHouseholdMembers.State = "Minnesota";
-            myHouseholdMembers.Zip = "55440";*/
-            //   myHouseholdMembers.Zip4 = "";
-            //   myHouseholdMembers.Email = "Test@Gmail.com";
-            //   myHouseholdMembers.Phone = "6128129996";
+        public int GenerateHouseholdNames(ref mystructHouseholdMembers myHouseholdMembers, int testId, string householdMember)
+        {
+            int result;
 
-            myHouseholdMembers.myPlanMakeMNHome = "Yes";
-            myHouseholdMembers.mySeekEmplMN = "Yes";
-            myHouseholdMembers.myHispanic = "No";
-            myHouseholdMembers.myRace = "White";
-            myHouseholdMembers.myHaveSSN = "Yes";
-            myHouseholdMembers.mySSN = "123456789";
-            myHouseholdMembers.myUSCitizen = "Yes";
-            myHouseholdMembers.myUSNational = "Yes";
-            myHouseholdMembers.myIsPregnant = "No";
-            myHouseholdMembers.myBeenInFosterCare = "No";
-            myHouseholdMembers.myRelationship = "Is the Spouse of";
-            myHouseholdMembers.myHasIncome = "No";
-            myHouseholdMembers.myRelationshiptoNextHM = "Is the Parent of";
+            //household 2
+            string[] maleNames2 = { "Abdul", "Abel", "Bart", "Calvin", "Carter", "Darren", "Ed", "Felix", "Gary", "Harvey", "Heath", "Isaac", "Jack", "Jake", "Keith", "Lee", "Mac", "Max", "Nate", "Noah", "Otto", "Paul", "Ray", "Sam", "Scott", "Taylor", "Theo", "Tanner", "Ulysses", "Victor", "Wade", "Yong", "Zack" };
+            string[] femaleNames2 = { "Allison", "Bebe", "Becky", "Cami", "Daisy", "Dani", "Estelle", "Fay", "Gayle", "Hanna", "Ida", "Jennifer", "Kali", "Lacie", "Mable", "Melissa", "Naomi", "Natalia", "Olivia", "Pam", "Rachel", "Sabrina", "Taisha", "Tabitha", "Tamara", "Teri", "Toni", "Ula", "Val", "Wendy", "Yoko", "Zelda" };
+            string[] lastNames2 = { "Abbott", "Abrams", "Albert", "Adler", "Babcock", "Backman", "Bacon", "Bailey", "Ballard", "Best", "Bradley", "Cable", "Cade", "Callaway", "Callahan", "Daley", "Damon", "Danner", "Darby", "Daniels", "Eagle", "Fairbanks", "Gage", "Hackney", "Ireland", "Johnson", "Jackson", "Kane", "Ladd", "Landers", "Miller", "Nelson", "Oconnor", "Peterson", "Rafferty", "Sadler", "Salmon", "Salter", "Samson", "Taber", "Tang", "Underhill", "Vale", "Winters", "York", "Zimmermann" };
+
+            //household 3
+            string[] maleNames3 = { "Abe", "Abraham", "Ben", "Carl", "Chad", "Dale", "Elliot", "Fred", "Glen", "Herb", "Homer", "Ivan", "Jason", "John", "Ken", "Logan", "Michael", "Mitch", "Norman", "Nigel", "Owen", "Peter", "Randy", "Sean", "Simon", "Toby", "Todd", "Tony", "Ulys", "Vince", "Wyatt", "Yang", "Zane" };
+            string[] femaleNames3 = { "April", "Beth", "Billi", "Candy", "Dolly", "Dixie", "Edith", "Faith", "Gloria", "Hazel", "Iris", "Jessica", "Katy", "Leigh", "Martha", "Marisa", "Nita", "Nichole", "Odell", "Perl", "Rikki", "Shawn", "Tora", "Terra", "Tonya", "Tonette", "Tomika", "Ursula", "Vanessa", "Wynona", "Ying", "Zula" };
+            string[] lastNames3 = { "Albright", "Andrews", "Ashford", "Arthur", "Bradford", "Bernard", "Branch", "Branson", "Braxton", "Brady", "Brandt", "Cameron", "Cambell", "Corbin", "Cope", "Devlin", "Dexter", "Dicksin", "Drummond", "Driscoll", "East", "Farmer", "Galvan", "Hall", "Irish", "Jamison", "Jay", "Keeler", "Landis", "Lemon", "Madson", "Neal", "Oleary", "Pepper", "Ramey", "Shay", "Sherwood", "Shields", "Shipmen", "Tanner", "Tetter", "Upton", "Vance", "Wingate", "Young", "Zhang" };
+
+
+            Random rand = new Random();
+            if (householdMember == "2")
+            {
+                if (rand.Next(1, 3) == 1)
+                {
+                    Random rand2 = new Random();
+                    myHouseholdMembers.myFirstName = maleNames2[rand2.Next(1, maleNames2.Count())];
+                    myHouseholdMembers.myLastName = lastNames2[rand2.Next(1, lastNames2.Count())];
+                    myHouseholdMembers.myGender = "Male";
+                    result = 1;
+                }
+                else
+                {
+                    Random rand2 = new Random();
+                    myHouseholdMembers.myFirstName = femaleNames2[rand2.Next(1, femaleNames2.Count())];
+                    myHouseholdMembers.myLastName = lastNames2[rand2.Next(1, lastNames2.Count())];
+                    myHouseholdMembers.myGender = "Female";
+                    result = 1;
+                }
+            }
+            else
+            {
+                if (rand.Next(1, 3) == 1)
+                {
+                    Random rand3 = new Random();
+                    myHouseholdMembers.myFirstName = maleNames3[rand3.Next(1, maleNames3.Count())];
+                    myHouseholdMembers.myLastName = lastNames3[rand3.Next(1, lastNames3.Count())];
+                    myHouseholdMembers.myGender = "Male";
+                    result = 1;
+                }
+                else
+                {
+                    Random rand3 = new Random();
+                    myHouseholdMembers.myFirstName = femaleNames3[rand3.Next(1, femaleNames3.Count())];
+                    myHouseholdMembers.myLastName = lastNames3[rand3.Next(1, lastNames3.Count())];
+                    myHouseholdMembers.myGender = "Female";
+                    result = 1;
+                }
+            }
+            System.Threading.Thread.Sleep(129);
+
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            if (householdMember == "2")
+            {
+                try
+                {
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    using (SqlCeCommand com3 = new SqlCeCommand(
+                        "SELECT * FROM Housemembers where TestID = " + testId + " and HouseMembersID = 2", con))
+                    {
+                        SqlCeDataReader reader = com3.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            string myUpdateString;
+                            myUpdateString = "Update HouseMembers set Gender = @Gender, FirstName = @First, LastName = @Last where TestID = " + testId + " and HouseMembersID = 2";
+
+                            using (SqlCeCommand com4 = new SqlCeCommand(myUpdateString, con))
+                            {
+                                com4.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
+                                com4.Parameters.AddWithValue("First", myHouseholdMembers.myFirstName);
+                                com4.Parameters.AddWithValue("Last", myHouseholdMembers.myLastName);
+                                com4.ExecuteNonQuery();
+                                com4.Dispose();
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("Update house member 2 names didn't work");
+                }
+            }
+            else
+            {
+                try
+                {
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    using (SqlCeCommand com5 = new SqlCeCommand(
+                        "SELECT * FROM Housemembers where TestID = " + testId + " and HouseMembersID = 3", con))
+                    {
+                        SqlCeDataReader reader = com5.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            string myUpdateString;
+                            myUpdateString = "Update HouseMembers set Gender = @Gender, FirstName = @First, LastName = @Last where TestID = " + testId + " and HouseMembersID = 3";
+
+                            using (SqlCeCommand com6 = new SqlCeCommand(myUpdateString, con))
+                            {
+                                com6.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
+                                com6.Parameters.AddWithValue("First", myHouseholdMembers.myFirstName);
+                                com6.Parameters.AddWithValue("Last", myHouseholdMembers.myLastName);
+                                com6.ExecuteNonQuery();
+                                com6.Dispose();
+                            }
+                        }
+                    }
+                    con.Close();
+                }
+                catch
+                {
+                    MessageBox.Show("Update house member 3 names didn't work");
+                }
+            }
+
             return result;
         }
 

@@ -29,11 +29,11 @@ namespace MNsure_Regression_1
                     SqlCeDataReader reader = com2.ExecuteReader();
                     if (reader.Read())
                     {
-                        if (!reader.IsDBNull(2)) { myApplication.myFirstName = myAccountCreate.myFirstName; }//auto generated
-                        if (!reader.IsDBNull(3)) { myApplication.myMiddleName = myAccountCreate.myMiddleName; }//auto generated
-                        if (!reader.IsDBNull(4)) { myApplication.myLastName = myAccountCreate.myLastName; }//auto generated
-                        if (!reader.IsDBNull(5)) { myApplication.mySuffix = reader.GetString(5); }
-                        if (!reader.IsDBNull(6)) { myApplication.myGender = reader.GetString(6); }
+                        if (!reader.IsDBNull(2)) { myApplication.myFirstName = myAccountCreate.myFirstName; } //auto generated
+                        if (!reader.IsDBNull(3)) { myApplication.myMiddleName = myAccountCreate.myMiddleName; } //auto generated
+                        if (!reader.IsDBNull(4)) { myApplication.myLastName = myAccountCreate.myLastName; } //auto generated
+                        if (!reader.IsDBNull(5)) { myApplication.mySuffix = myAccountCreate.mySuffix; } //auto generated
+                        if (!reader.IsDBNull(6)) { myApplication.myGender = reader.GetString(6); } //auto generated and updated earlier
                         if (!reader.IsDBNull(7)) { myApplication.myMaritalStatus = reader.GetString(7); }
                         if (!reader.IsDBNull(8))
                         {
@@ -266,7 +266,7 @@ namespace MNsure_Regression_1
                 {
                     SqlCeDataReader reader = com.ExecuteReader();
                     if (reader.Read())
-                    {
+                    {                      
                         myHouseholdMembers.HouseMembersID = reader.GetInt32(0); 
                         if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
                         if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
@@ -358,7 +358,7 @@ namespace MNsure_Regression_1
                 {
                     SqlCeDataReader reader = com.ExecuteReader();
                     if (reader.Read())
-                    {
+                    {                        
                         myHouseholdMembers.HouseMembersID = reader.GetInt32(0); 
                         if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
                         if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
@@ -489,7 +489,7 @@ namespace MNsure_Regression_1
                 myAccountCreate.myAccountID = 1;
                 int result;
                 AccountGeneration myAccountGeneration = new AccountGeneration();
-                result = myAccountGeneration.GenerateNames(mySelectedTest, ref myAccountCreate);
+                result = myAccountGeneration.GenerateNames(mySelectedTest, ref myAccountCreate, ref myApplication);
 
                 try
                 {
