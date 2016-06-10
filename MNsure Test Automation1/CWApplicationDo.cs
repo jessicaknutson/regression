@@ -376,7 +376,15 @@ namespace MNsure_Regression_1
                 buttonNext.Click();
 
                 myHouseholdMembers.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
-                myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                myEnrollment.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
+                myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
+
+                Enrollments myEnrollment2 = new Enrollments();
+                myHouseholdMembers.myReEnroll = "No"; //reset reenroll on start in case an error happened during previous run
+                myEnrollment2.DoUpdateReEnroll(myHistoryInfo, myHouseholdMembers.myReEnroll);
+                myHouseholdMembers.mySaveExit = "No"; //reset saveexit on start in case an error happened during previous run
+                myEnrollment2.DoUpdateSaveExit(myHistoryInfo, myHouseholdMembers.mySaveExit);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -458,6 +466,12 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.Id("__o3ide"));
                     IWebElement listboxHomeless = driver.FindElement(By.Id("__o3ide"));
                     listboxHomeless.SendKeys(myEnrollment.myHomeless);
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.Id("__o3idf"));
+                    IWebElement listboxTempAbsent = driver.FindElement(By.Id("__o3idf"));
+                    listboxTempAbsent.SendKeys("No");
                 }
 
                 IWebElement listboxAddressSame = driver.FindElement(By.Id("__o3id18"));
@@ -703,7 +717,7 @@ namespace MNsure_Regression_1
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myHouseholdMembers.myGender == "Female")
+                    if (myEnrollment.myGender == "Female")
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
                     }
@@ -942,7 +956,7 @@ namespace MNsure_Regression_1
                         }
 
                         myHouseholdMembers.myPassCount = "2";//update count to 2 to do the dependant screen another time
-                        myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                        myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     }
                 }
                 else  //pass count = 2
@@ -963,7 +977,7 @@ namespace MNsure_Regression_1
                     }
 
                     myHouseholdMembers.myPassCount = "1";//update count back to 1 to continue on to next screens
-                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
 
                 /*System.Threading.Thread.Sleep(1000);
@@ -1486,7 +1500,7 @@ namespace MNsure_Regression_1
                 {
                     incomeExpected = myHouseholdMembers.myIncomeExpected;
                     myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
-                    myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 else //pass count = 2
                 {
@@ -1499,7 +1513,7 @@ namespace MNsure_Regression_1
                         {
                             int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "2");
                             myHouseholdMembers.myPassCount = "3";//update count to 3 to do the income screens another time
-                            myApp.DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                            myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                         }
                         else
                         {
@@ -2193,9 +2207,9 @@ namespace MNsure_Regression_1
                 }*/
 
                 string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
-                string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP"); 
+                string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
 
-                if ( (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
+                if ( (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && myEnrollment.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh
                     // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
@@ -2266,12 +2280,12 @@ namespace MNsure_Regression_1
                 }
 
 
-                if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
+                if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && age.Year - 1 > 19 && myEnrollment.myHomeState != "Minnesota") //1 hh out of state
+                    || (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
                     //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
                 )
-                //not sure what the rule is here??????
                 {
                     IWebElement listboxMAStartDate;
                     if (householdCount == 1 && age.Year - 1 < 19)

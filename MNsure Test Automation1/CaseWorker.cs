@@ -746,7 +746,7 @@ namespace MNsure_Regression_1
             IWebElement firstPart = driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[4]"));
             string firstParticipant = firstPart.Text;
             
-            if (firstParticipant != name)
+            if (firstParticipant == name)
             {
                 return "/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a";
             }
@@ -941,7 +941,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(7000);
                 
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
@@ -1033,6 +1033,7 @@ namespace MNsure_Regression_1
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();                
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                System.Threading.Thread.Sleep(1000);
                 //textboxParticipant.SendKeys(myEnrollment.myHomeAddress1);
 
                 IWebElement textboxStreet = driver.FindElement(By.Id("__o3idd"));
@@ -1060,7 +1061,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
 
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
@@ -1254,7 +1255,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(7000);
 
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
@@ -2652,7 +2653,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(4000);
                 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -2692,7 +2693,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(15000);
+                System.Threading.Thread.Sleep(20000);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -3037,9 +3038,10 @@ namespace MNsure_Regression_1
                     {
                         age = hh1age;
                     }
-
-                    driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow
-                    driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr/td[2]")).Click();//select add proof
+                    System.Threading.Thread.Sleep(1000);
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/div/table/tbody/tr[1]/td[7]/span/span/span")).Click();//select arrow                    
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add Proof…')]")).Click();//select add proof                    
+                    System.Threading.Thread.Sleep(4000);
 
                     driver.SwitchTo().Window(driver.WindowHandles.Last());
 

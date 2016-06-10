@@ -119,6 +119,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(64)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(65)) { myApplication.myRegDate = Convert.ToDateTime(reader.GetDateTime(65)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
+                        if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
                     }
                 }
 
@@ -249,7 +250,7 @@ namespace MNsure_Regression_1
 
         }
 
-        public int doFillHMStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo)
+        public int doFillAppCountStructures(ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -258,84 +259,67 @@ namespace MNsure_Regression_1
 
             try
             {
-                SqlCeCommand cmd = con.CreateCommand();
-                cmd.CommandType = CommandType.Text;
+                SqlCeCommand cmd2 = con.CreateCommand();
+                cmd2.CommandType = CommandType.Text;
 
                 //Read configured rows if exist
-                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + mySelectedTest.myTestId + " and HouseMembersID = 2", con))
+                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myHistoryInfo.myTestId, con))
                 {
-                    SqlCeDataReader reader = com.ExecuteReader();
+                    SqlCeDataReader reader = com2.ExecuteReader();
                     if (reader.Read())
-                    {                      
-                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0); 
-                        if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
-                        if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
-                        if (!reader.IsDBNull(4)) { myHouseholdMembers.myLastName = reader.GetString(4); }
-                        if (!reader.IsDBNull(5)) { myHouseholdMembers.mySuffix = reader.GetString(5); }
-                        if (!reader.IsDBNull(6)) { myHouseholdMembers.myGender = reader.GetString(6); }
-                        if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); }
-                        if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); }
-                        if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); }
-                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }                     
-                        if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); }
-                        if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); }
-                        if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); }
-                        if (!reader.IsDBNull(14)) { myHouseholdMembers.myHomeless = reader.GetString(14); }
-                        if (!reader.IsDBNull(15)) { myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15); }
-                        if (!reader.IsDBNull(16)) { myHouseholdMembers.mySeekEmplMN = reader.GetString(16); }
-                        if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
-                        if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
-                        if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        //if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
-                        if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
-                        if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
-                        if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
-                        if (!reader.IsDBNull(24)) { myHouseholdMembers.myBeenInFosterCare = reader.GetString(24); }
-                        if (!reader.IsDBNull(25)) { myHouseholdMembers.myRelationship = reader.GetString(25); }
-                        if (!reader.IsDBNull(26)) { myHouseholdMembers.myHasIncome = reader.GetString(26); }
-                        if (!reader.IsDBNull(27)) { myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27); }
-                        if (!reader.IsDBNull(28)) { myHouseholdMembers.myTribeName = reader.GetString(28); }
-                        if (!reader.IsDBNull(29)) { myHouseholdMembers.myLiveRes = reader.GetString(29); }
-                        if (!reader.IsDBNull(30)) { myHouseholdMembers.myTribeId = reader.GetString(30); }
-                        if (!reader.IsDBNull(31)) { myHouseholdMembers.myFederalTribe = reader.GetString(31); }
-                        if (!reader.IsDBNull(32)) { myHouseholdMembers.myFileJointly = reader.GetString(32); }
-                        if (!reader.IsDBNull(33)) { myHouseholdMembers.myIncomeType = reader.GetString(33); }
-                        if (!reader.IsDBNull(34)) { myHouseholdMembers.myIncomeEmployer = reader.GetString(34); }
-                        if (!reader.IsDBNull(35)) { myHouseholdMembers.myIncomeSeasonal = reader.GetString(35); }
-                        if (!reader.IsDBNull(36)) { myHouseholdMembers.myIncomeAmount = reader.GetString(36); }
-                        if (!reader.IsDBNull(37)) { myHouseholdMembers.myIncomeFrequency = reader.GetString(37); }
-                        if (!reader.IsDBNull(38)) { myHouseholdMembers.myIncomeMore = reader.GetString(38); }
-                        if (!reader.IsDBNull(39)) { myHouseholdMembers.myIncomeReduced = reader.GetString(39); }
-                        if (!reader.IsDBNull(40)) { myHouseholdMembers.myIncomeAdjusted = reader.GetString(40); }
-                        if (!reader.IsDBNull(41)) { myHouseholdMembers.myIncomeExpected = reader.GetString(41); }
-                        if (!reader.IsDBNull(42)) { myHouseholdMembers.myPassCount = reader.GetString(42); }
-                        if (!reader.IsDBNull(43)) { myHouseholdMembers.myMilitary = reader.GetString(43); }
-                        if (!reader.IsDBNull(44)) { myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(45)) { myHouseholdMembers.myPrefContact = reader.GetString(45); }
-                        if (!reader.IsDBNull(46)) { myHouseholdMembers.myPhoneNum = reader.GetString(46); }
-                        if (!reader.IsDBNull(47)) { myHouseholdMembers.myPhoneType = reader.GetString(47); }
-                        if (!reader.IsDBNull(48)) { myHouseholdMembers.myAltNum = reader.GetString(48); }
-                        if (!reader.IsDBNull(49)) { myHouseholdMembers.myAltNumType = reader.GetString(49); }
-                        if (!reader.IsDBNull(50)) { myHouseholdMembers.myEmail = reader.GetString(50); }
-                        if (!reader.IsDBNull(51)) { myHouseholdMembers.myVoterCard = reader.GetString(51); }
-                        if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); }
-                        if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); }
-                        if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); }
-                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); }
-                        if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
-                        if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
-                        if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); }
+                    {                        
+                        if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
                     }
                 }
-
+                               
                 con.Close();
                 return 1;
             }
             catch (Exception e)
             {
-                MessageBox.Show("Fill household members structure didn't work " + e);
+                MessageBox.Show("Fill app pass count didn't work " + e);
+                return 1;
+            }
+
+        }
+
+        public int doFillHouseholdCountStructures(ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            con = new SqlCeConnection(conString);
+            con.Open();
+
+            try
+            {
+                SqlCeCommand cmd2 = con.CreateCommand();
+                cmd2.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com2 = new SqlCeCommand("SELECT * FROM HouseMembers where TestId = " + myHistoryInfo.myTestId + " and HouseMembersID = 2", con))
+                {
+                    SqlCeDataReader reader = com2.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (!reader.IsDBNull(42)) { myHouseholdMembers.myPassCount = reader.GetString(42); }
+                    }
+                }
+
+                //Read configured rows if exist
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM HouseMembers where TestId = " + myHistoryInfo.myTestId + " and HouseMembersID = 3", con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (!reader.IsDBNull(42)) { myHouseholdMembers.myPassCount = reader.GetString(42); }
+                    }
+                }
+                con.Close();
+                return 1;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Fill household pass count didn't work " + e);
                 return 1;
             }
 

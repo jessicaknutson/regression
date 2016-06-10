@@ -44,18 +44,18 @@ namespace MNsure_Regression_1
                 myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                 myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
                 myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
                 myApplication.myGender = "Male";
                 result = 1;
             }
             else
             {
-                Random rand2 = new Random();
-                myAccountCreate.myFirstName = femaleNames[rand2.Next(1, femaleNames.Count())];
-                myAccountCreate.myMiddleName = femaleMiddleNames[rand2.Next(1, femaleMiddleNames.Count())];
-                myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
-                myAccountCreate.myDOB = rand.Next(10, 12) + "/" + rand.Next(10, 28) + "/" + rand.Next(1951, 1996);
+                Random rand3 = new Random();
+                myAccountCreate.myFirstName = femaleNames[rand3.Next(1, femaleNames.Count())];
+                myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
+                myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
+                myAccountCreate.mySuffix = suffix[rand3.Next(1, 4)];
+                myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
                 myApplication.myGender = "Female";
                 string temp1;
                 temp1 = myAccountCreate.myDOB;
@@ -128,41 +128,41 @@ namespace MNsure_Regression_1
             string[] lastNames3 = { "Albright", "Andrews", "Ashford", "Arthur", "Bradford", "Bernard", "Branch", "Branson", "Braxton", "Brady", "Brandt", "Cameron", "Cambell", "Corbin", "Cope", "Devlin", "Dexter", "Dicksin", "Drummond", "Driscoll", "East", "Farmer", "Galvan", "Hall", "Irish", "Jamison", "Jay", "Keeler", "Landis", "Lemon", "Madson", "Neal", "Oleary", "Pepper", "Ramey", "Shay", "Sherwood", "Shields", "Shipmen", "Tanner", "Tetter", "Upton", "Vance", "Wingate", "Young", "Zhang" };
 
 
-            Random rand = new Random();
+            Random rand4 = new Random();
             if (householdMember == "2")
             {
-                if (rand.Next(1, 3) == 1)
+                if (rand4.Next(1, 3) == 1)
                 {
-                    Random rand2 = new Random();
-                    myHouseholdMembers.myFirstName = maleNames2[rand2.Next(1, maleNames2.Count())];
-                    myHouseholdMembers.myLastName = lastNames2[rand2.Next(1, lastNames2.Count())];
+                    Random rand5 = new Random();
+                    myHouseholdMembers.myFirstName = maleNames2[rand5.Next(1, maleNames2.Count())];
+                    myHouseholdMembers.myLastName = lastNames2[rand5.Next(1, lastNames2.Count())];
                     myHouseholdMembers.myGender = "Male";
                     result = 1;
                 }
                 else
                 {
-                    Random rand2 = new Random();
-                    myHouseholdMembers.myFirstName = femaleNames2[rand2.Next(1, femaleNames2.Count())];
-                    myHouseholdMembers.myLastName = lastNames2[rand2.Next(1, lastNames2.Count())];
+                    Random rand6 = new Random();
+                    myHouseholdMembers.myFirstName = femaleNames2[rand6.Next(1, femaleNames2.Count())];
+                    myHouseholdMembers.myLastName = lastNames2[rand6.Next(1, lastNames2.Count())];
                     myHouseholdMembers.myGender = "Female";
                     result = 1;
                 }
             }
             else
             {
-                if (rand.Next(1, 3) == 1)
+                if (rand4.Next(1, 3) == 1)
                 {
-                    Random rand3 = new Random();
-                    myHouseholdMembers.myFirstName = maleNames3[rand3.Next(1, maleNames3.Count())];
-                    myHouseholdMembers.myLastName = lastNames3[rand3.Next(1, lastNames3.Count())];
+                    Random rand7 = new Random();
+                    myHouseholdMembers.myFirstName = maleNames3[rand7.Next(1, maleNames3.Count())];
+                    myHouseholdMembers.myLastName = lastNames3[rand7.Next(1, lastNames3.Count())];
                     myHouseholdMembers.myGender = "Male";
                     result = 1;
                 }
                 else
                 {
-                    Random rand3 = new Random();
-                    myHouseholdMembers.myFirstName = femaleNames3[rand3.Next(1, femaleNames3.Count())];
-                    myHouseholdMembers.myLastName = lastNames3[rand3.Next(1, lastNames3.Count())];
+                    Random rand8 = new Random();
+                    myHouseholdMembers.myFirstName = femaleNames3[rand8.Next(1, femaleNames3.Count())];
+                    myHouseholdMembers.myLastName = lastNames3[rand8.Next(1, lastNames3.Count())];
                     myHouseholdMembers.myGender = "Female";
                     result = 1;
                 }

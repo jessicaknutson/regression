@@ -264,7 +264,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 case "CWApplicationDo":
@@ -289,7 +289,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmscwad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 case "HouseholdMembersDo":
@@ -315,7 +315,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmshm[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 case "Enrollments":
@@ -340,7 +340,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsen[6].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillHMStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 case "CaseWorker":
@@ -620,6 +620,7 @@ namespace MNsure_Regression_1
                                 myApplication.myRegDate = null;
                             }
                             if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
+                            if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
                         }
                         else
                         {
@@ -1405,6 +1406,7 @@ namespace MNsure_Regression_1
             }
             myApplication.myRegDate = textBoxRegDate.Text;
             myApplication.myDay2TestId = textBoxDay2TestId.Text;
+            myApplication.myPassCount = "1";
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -1434,7 +1436,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId, @PassCount );";
                 using (SqlCeCommand com6 = new SqlCeCommand(myInsertString, con))
                 {
                     com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -1552,6 +1554,7 @@ namespace MNsure_Regression_1
                     {
                         com6.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                     }
+                    com6.Parameters.AddWithValue("PassCount", myApplication.myPassCount);                    
 
                     com6.ExecuteNonQuery();
                     com6.Dispose();
@@ -4026,7 +4029,7 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId, @PassCount );";
                         using (SqlCeCommand com54 = new SqlCeCommand(myInsertString, con))
                         {
                             com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
@@ -4151,6 +4154,7 @@ namespace MNsure_Regression_1
                             {
                                 com54.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                             }
+                            com54.Parameters.AddWithValue("PassCount", reader.GetString(67));
 
                             com54.ExecuteNonQuery();
                             com54.Dispose();

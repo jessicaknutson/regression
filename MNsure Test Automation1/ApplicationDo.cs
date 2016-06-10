@@ -63,7 +63,9 @@ namespace MNsure_Regression_1
                 buttonNext.Click();
 
                 myHouseholdMembers.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
-                DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                myApplication.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
+                DoUpdateAppPassCount(myHistoryInfo, myApplication.myPassCount);
 
                 Enrollments myEnrollment = new Enrollments();
                 myHouseholdMembers.myReEnroll = "No"; //reset reenroll on start in case an error happened during previous run
@@ -179,6 +181,12 @@ namespace MNsure_Regression_1
                     listboxHomeless.Click();
 
                     outsideClick.Click();
+                }
+                else
+                {
+                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idf")));
+                    IWebElement listboxTempAbsent = driver.FindElement(By.Id("__o3idf"));
+                    listboxTempAbsent.SendKeys("No");
                 }
 
                 if (myApplication.myHomeless == "No")
@@ -920,10 +928,11 @@ namespace MNsure_Regression_1
                         fosterCare = "Yes";
                     }
                 }
+
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myHouseholdMembers.myGender == "Female")
+                    if (myApplication.myGender == "Female")
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
                     }
@@ -1224,7 +1233,7 @@ namespace MNsure_Regression_1
                         driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")).Click();//select else arrow
 
                         myHouseholdMembers.myPassCount = "2";//update count to 2 to do the dependant screen another time
-                        DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                        DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     }
                 }
                 else  //pass count = 2
@@ -1233,7 +1242,7 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")).Click();//select else arrow
 
                     myHouseholdMembers.myPassCount = "1";//update count back to 1 to continue on to next screens
-                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 System.Threading.Thread.Sleep(1000);
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
@@ -1686,7 +1695,7 @@ namespace MNsure_Regression_1
                 {
                     incomeExpected = myHouseholdMembers.myIncomeExpected;
                     myHouseholdMembers.myPassCount = "2";//update count to 2 to do the income screens another time
-                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
                 else //pass count = 2
                 {
@@ -1699,7 +1708,7 @@ namespace MNsure_Regression_1
                         {
                             int result = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "2");
                             myHouseholdMembers.myPassCount = "3";//update count to 3 to do the income screens another time
-                            DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                            DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                         }
                         else
                         {
@@ -2561,11 +2570,11 @@ namespace MNsure_Regression_1
                     temp1 = Convert.ToInt32(myApplication.myIncomeAmount);//1 hh
                 }*/
                 string isMA = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "MA");
-                string isBHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "BHP"); 
+                string isBHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "BHP");
 
-                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
-                   // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
-                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh related
+                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && myApplication.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
+                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh
+                    // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
                     )
                 {
@@ -2633,11 +2642,12 @@ namespace MNsure_Regression_1
                     listboxMAStartDate.SendKeys("No");
                 }
 
-                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
-                    //|| (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
+                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "True" && age.Year - 1 > 19 && myApplication.myHomeState != "Minnesota") //1 hh out of state
+                    || (myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
+                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
-                    )//not sure what the rule is here??????
+                    )
                 {
                     IWebElement listboxMAStartDate;
                     if (householdCount == 1 && age.Year - 1 < 19)
@@ -2844,13 +2854,13 @@ namespace MNsure_Regression_1
             {
                 if (myApplication.myHouseholdOther == "No")
                 {
-                    System.Threading.Thread.Sleep(2000);
+                    System.Threading.Thread.Sleep(4000);
                 }
                 else
                 {
                     System.Threading.Thread.Sleep(4000);
                     myHouseholdMembers.myPassCount = "1";//switch count back to 1 to reset and be ready for next run
-                    DoUpdatePassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
 
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"));
@@ -2889,7 +2899,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (12 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (12 + myHistoryInfo.myAppWait) * 1000;//norm 12
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3029,7 +3039,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdatePassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
+        public int DoUpdateHMPassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -3053,6 +3063,42 @@ namespace MNsure_Regression_1
                             com2.Parameters.AddWithValue("PassCount", updateValue);
                             com2.ExecuteNonQuery();
                             com2.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update pass count didn't work");
+            }
+            return 1;
+        }
+
+        public int DoUpdateAppPassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com3 = new SqlCeCommand(
+                    "SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Application set PassCount = @Passcount where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com4 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com4.Parameters.AddWithValue("PassCount", updateValue);
+                            com4.ExecuteNonQuery();
+                            com4.Dispose();
                         }
                     }
                 }

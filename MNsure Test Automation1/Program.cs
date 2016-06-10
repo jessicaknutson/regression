@@ -173,6 +173,7 @@ struct mystructSelectedTest
         public string myPregnancyEnded;
         public string myRegDate;
         public string myDay2TestId;
+        public string myPassCount;
     }
     struct mystructSSN
     {
@@ -254,7 +255,6 @@ struct mystructSelectedTest
         public string myIncomeReduced;
         public string myIncomeAdjusted;
         public string myIncomeExpected;
-        public string myPassCount;
         public string myPrefContact;
         public string myPhoneNum;
         public string myPhoneType;
@@ -271,6 +271,7 @@ struct mystructSelectedTest
         public string myPregnancyEnded;
         public string myReEnroll;
         public string mySaveExit;
+        public string myPassCount;
     }
 
     struct mystructEditKey
