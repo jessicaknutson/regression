@@ -422,6 +422,36 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoLifeEvents(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
+        {
+            try
+            {
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]"));
+                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]")).Click();
+
+                System.Threading.Thread.Sleep(3000);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoPersonEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
@@ -541,7 +571,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo);
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(5000);
 
@@ -741,12 +771,16 @@ namespace MNsure_Regression_1
             return "false";
         }
 
-        public String FindPrimaryEvidence(IWebDriver driver, string name)
+        public String FindPrimaryEvidence(IWebDriver driver, string name, ref mystructApplication myEnrollment, ref mystructHistoryInfo myHistoryInfo)
         {
             IWebElement firstPart = driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[4]"));
             string firstParticipant = firstPart.Text;
-            
-            if (firstParticipant == name)
+
+            FillStructures myFillStructures = new FillStructures();
+            int result;
+            result = myFillStructures.doFillAppCountStructures(ref myEnrollment, ref myHistoryInfo);
+
+            if ((firstParticipant == name && myEnrollment.myPassCount == "1") || (firstParticipant != name && myEnrollment.myPassCount == "2"))
             {
                 return "/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a";
             }
@@ -755,18 +789,6 @@ namespace MNsure_Regression_1
                 return "/html/body/div[2]/div[2]/div/table/tbody/tr[3]/td[1]/a";
             }
         }
-
-        /*public String FindPrimaryActionMenuEvidence(IWebDriver driver, string name)
-        {
-            if (driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[3]")).Text != name)
-            {
-                return "/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span";
-            }
-            else
-            {
-                return "/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span";
-            }
-        }*/
 
         public int DoUpdateTaxEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
@@ -789,7 +811,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName); 
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo); 
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);                
 
@@ -832,7 +854,7 @@ namespace MNsure_Regression_1
                 IWebElement textboxJointly = driver.FindElement(By.Id("__o3idc"));
                 textboxJointly.Click();
 
-                IWebElement textboxDate = driver.FindElement(By.Id("__o3id10"));
+                /*IWebElement textboxDate = driver.FindElement(By.Id("__o3id10"));
                 textboxDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -841,7 +863,7 @@ namespace MNsure_Regression_1
                 else
                 {
                     textboxDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
-                }
+                }*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -856,6 +878,21 @@ namespace MNsure_Regression_1
                 var rClick = action.ContextClick(firstSearchTab); //right click
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
+
+                //FillStructures myFillStructures = new FillStructures();
+                //int result;
+                if (myEnrollment.myPassCount == "1")
+                {
+                    myEnrollment.myPassCount = "2";//update count to 2 to do the screens another time
+                    myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
+                    //result = myFillStructures.doFillAppCountStructures(ref myEnrollment, ref myHistoryInfo);
+                }
+                else
+                {
+                    myEnrollment.myPassCount = "1";//update count back to 1 to move forward
+                    myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
+                    //result = myFillStructures.doFillAppCountStructures(ref myEnrollment, ref myHistoryInfo);
+                }
                 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -893,7 +930,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName); 
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo); 
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);
 
@@ -987,7 +1024,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo);
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(5000);
 
@@ -1028,7 +1065,9 @@ namespace MNsure_Regression_1
                 }
 
                 IWebElement textboxParticipant = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr/td/div/div/div/table/tbody/tr[2]/td[1]/div/div[1]/input"));
+                System.Threading.Thread.Sleep(1000);
                 textboxParticipant.Click();
+                System.Threading.Thread.Sleep(1000);
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();                
@@ -1047,6 +1086,7 @@ namespace MNsure_Regression_1
                 IWebElement textboxCounty = driver.FindElement(By.Id("__o3id10"));
                 textboxCounty.Clear();
                 textboxCounty.SendKeys(myEnrollment.myHomeCounty);
+                System.Threading.Thread.Sleep(1000);
 
                 IWebElement textboxState = driver.FindElement(By.Id("__o3id11"));
                 textboxState.Clear();
@@ -1061,7 +1101,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(4000);
 
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
@@ -1106,7 +1146,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo);
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);
 
@@ -1153,6 +1193,10 @@ namespace MNsure_Regression_1
                 textboxCounty.Clear();
                 textboxCounty.SendKeys(myEnrollment.myHomeCounty);
 
+                IWebElement textboxMNHome = driver.FindElement(By.Id("__o3id11"));
+                textboxMNHome.Clear();
+                textboxMNHome.SendKeys(myEnrollment.myLiveMN);
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
@@ -1180,7 +1224,7 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
-        }
+        }        
 
         public int DoUpdatePAIEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
@@ -1203,7 +1247,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName);
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo);
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);
 
@@ -1333,7 +1377,7 @@ namespace MNsure_Regression_1
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
 
-                string primaryPath = FindPrimaryEvidence(driver, myEnrollment.myFirstName + " " + myEnrollment.myLastName);
+                string primaryPath = FindPrimaryEvidence(driver, myEnrollment.myFirstName + " " + myEnrollment.myLastName, ref myEnrollment, ref myHistoryInfo);
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);
 
@@ -1488,7 +1532,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
 
                 string primaryName = DoDay2PrimaryName(myEnrollment.myDay2TestId);
-                string primaryPath = FindPrimaryEvidence(driver, primaryName); 
+                string primaryPath = FindPrimaryEvidence(driver, primaryName, ref myEnrollment, ref myHistoryInfo); 
                 driver.FindElement(By.XPath(primaryPath)).Click();//toggle
                 System.Threading.Thread.Sleep(3000);
 

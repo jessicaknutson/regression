@@ -2024,7 +2024,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
-            textBoxMNSureBuild.Text = "16.1.2a";
+            textBoxMNSureBuild.Text = "16.2";
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
