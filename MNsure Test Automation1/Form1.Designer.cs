@@ -1242,7 +1242,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(0, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;

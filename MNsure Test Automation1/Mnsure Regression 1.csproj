@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="AccountCreate.cs" />
     <Compile Include="AccountGeneration.cs" />
+    <Compile Include="WizardApplicationDo.cs" />
     <Compile Include="CWApplicationDo.cs" />
     <Compile Include="CaseWorker.cs" />
     <Compile Include="ApplicationDo.cs" />

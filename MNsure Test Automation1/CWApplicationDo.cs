@@ -137,42 +137,7 @@ namespace MNsure_Regression_1
                 listboxState.SendKeys(myEnrollment.myHomeState);
                 IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
                 listboxZip.SendKeys(myEnrollment.myHomeZip);
-
-                /*IWebElement listboxAddressSame = driver.FindElement(By.Id("__o3id18"));
-                listboxAddressSame.SendKeys(myEnrollment.myAddressSame);
-
-                if (myEnrollment.myMailingAddressYN == "Yes")
-                {
-                    driver.SwitchTo().DefaultContent();
-                    IWebElement element2 = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iframe")));
-                    var iFrameElement = driver.FindElement(By.TagName("iframe"));
-                    driver.SwitchTo().Frame(iFrameElement);
-
-                    IWebElement listboxMailAddress1 = driver.FindElement(By.Id("__o3id1a"));
-                    listboxMailAddress1.SendKeys(myEnrollment.myMailAddress1);
-                    if (myEnrollment.myMailAddress2 != null)
-                    {
-                        IWebElement listboxMailAddress2 = driver.FindElement(By.Id("__o3id1b"));
-                        listboxMailAddress2.SendKeys(myEnrollment.myMailAddress2);
-                    }
-                    if (myEnrollment.myMailAptSuite != null)
-                    {
-                        IWebElement listboxMailAptSuite = driver.FindElement(By.Id("__o3id19"));
-                        listboxMailAptSuite.SendKeys(myEnrollment.myMailAptSuite);
-                    }
-                    IWebElement listboxMailCity = driver.FindElement(By.Id("__o3id1c"));
-                    listboxMailCity.SendKeys(myEnrollment.myMailCity);
-
-                    IWebElement listboxMailCounty = driver.FindElement(By.Id("__o3id1d"));
-                    listboxMailCounty.SendKeys(myEnrollment.myMailCounty);
-
-                    IWebElement listboxMailState = driver.FindElement(By.Id("__o3id1e"));
-                    listboxMailState.SendKeys(myEnrollment.myMailState);
-
-                    IWebElement listboxMailZip = driver.FindElement(By.Id("__o3id1f"));
-                    listboxMailZip.SendKeys(myEnrollment.myMailZip);
-                }*/
-
+                
                 IWebElement listboxPhoneType = driver.FindElement(By.Id("__o3id20"));
                 listboxPhoneType.SendKeys(myEnrollment.myPhoneType);
 
@@ -261,7 +226,7 @@ namespace MNsure_Regression_1
                 IWebElement listboxFirst = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[2]"));
                 IWebElement listboxSecond = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[2]"));
                 IWebElement listboxThird = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[2]"));
-                if (listboxFirst.Text == "Health Care Application") 
+                if (listboxFirst.Text == "Health Care Application")
                 {
                     driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
                 }
@@ -1250,7 +1215,7 @@ namespace MNsure_Regression_1
                     frequency = myHouseholdMembers.myIncomeFrequency;
                     more = myHouseholdMembers.myIncomeMore;
                 }
-                
+
                 int appwait;
 
                 if (myEnrollment.myHouseholdOther == "No")
@@ -1702,8 +1667,8 @@ namespace MNsure_Regression_1
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (age.Year - 1 < 19 || age2.Year - 1 < 19 || age3.Year - 1 < 19))) // 3 hh
                 {
                     IWebElement listboxOutsideHome;
-                    string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA"); 
-                    if (isMA == "True")                     
+                    string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
+                    if (isMA == "True")
                     {
                         // listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[5]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
                         listboxOutsideHome = driver.FindElement(By.Id("__o3id12"));
@@ -2209,7 +2174,7 @@ namespace MNsure_Regression_1
                 string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
                 string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
 
-                if ( (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && myEnrollment.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
+                if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && myEnrollment.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh
                     // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
@@ -2532,6 +2497,29 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"));
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
 
+                System.Threading.Thread.Sleep(2000);                
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoParticipantsNew(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {                
                 System.Threading.Thread.Sleep(2000);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_listCaseMemberPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2551,11 +2539,32 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement3);
 
                 IWebElement textboxSSN = driver.FindElement(By.Id("__o3id0"));
-                textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                
+                HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
+                {
+                    string householdMember2SSN = DoGetHouseholdMemberSSN(myHistoryInfo.myTestId, "2");
+                    if (householdMember2SSN != null)
+                    {
+                        textboxSSN.SendKeys(householdMember2SSN); //household member 2
+                    }
+                    else
+                    {
+                        textboxSSN.SendKeys(myEnrollment.mySSNNum); //primary member
+                    }
+                }
+                else
+                {
+                    textboxSSN.SendKeys(myEnrollment.mySSNNum); //primary member
+                }
+
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[5]/a[1]/span/span/span")).Click(); //search
+                System.Threading.Thread.Sleep(2000);
 
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[6]/div/div[2]/table/tbody/tr/td[1]/span/a/span/span/span")).Click(); //select
+                System.Threading.Thread.Sleep(1000);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 driver.SwitchTo().DefaultContent();
                 driver.SwitchTo().Frame(iFrameElement2);
@@ -2578,6 +2587,38 @@ namespace MNsure_Regression_1
                 return 2;
             }
         }
+
+
+        public string DoGetHouseholdMemberSSN(string testId, string memberId)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM HouseMembers where TestId = " + "'" + testId + "'" + " and HouseMembersID = " + "'" + memberId + "'", con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return reader.GetString(20);
+                    }
+                    else
+                    {
+                        return "Error locating household member ssn";
+                    }
+                }
+            }
+            catch
+            {
+                return "Error locating household member ssn";
+            }
+
+        }
+
 
     }
 }

@@ -635,5 +635,41 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int doUpdateHouseholdSSN(ref mystructHistoryInfo myHistoryInfo, string updateValue, string memberId)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand(
+                    "SELECT * FROM HouseMembers where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update HouseMembers set SSN = @mySSN where TestID = " + myHistoryInfo.myTestId + " and HouseMembersID = " + memberId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("mySSN", updateValue);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update SaveExit didn't work");
+            }
+            return 1;
+        }
+
     }
 }

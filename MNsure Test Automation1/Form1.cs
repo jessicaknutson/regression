@@ -81,6 +81,7 @@ namespace MNsure_Regression_1
             object reflectResulten = null;
             object reflectResultcw = null;
             object reflectResulthm = null;
+            object reflectResultwad = null;            
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
@@ -150,6 +151,7 @@ namespace MNsure_Regression_1
                         int temp2 = temp1 + 1;
                         myHouseholdMembers.mySSN = Convert.ToString(temp2);
                         myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
                     }
                     else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
                     {
@@ -292,6 +294,31 @@ namespace MNsure_Regression_1
                                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
+                                case "WizardApplicationDo":
+                                    object[] parmswad = new object[8];
+                                    parmswad[0] = driver2;
+                                    parmswad[1] = myAccountCreate;
+                                    parmswad[2] = myApplication;
+                                    parmswad[3] = myHouseholdMembers;
+                                    parmswad[4] = myHistoryInfo;
+                                    parmswad[5] = returnStatus;
+                                    parmswad[6] = returnException;
+                                    parmswad[7] = returnScreenshot;
+
+                                    WizardApplicationDo myWizardApplicationDo = new WizardApplicationDo();
+                                    Type reflectTestTypewad = typeof(WizardApplicationDo);
+                                    MethodInfo reflectMethodToInvokewad = reflectTestTypewad.GetMethod(myMethod);
+                                    ParameterInfo[] reflectMethodParameterswad = reflectMethodToInvokewad.GetParameters();
+                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                    reflectResultwad = reflectMethodToInvokewad.Invoke(myWizardApplicationDo, parmswad);
+                                    myHistoryInfo.myTestStepStatus = parmswad[5].ToString();
+                                    myHistoryInfo.myStepException = parmswad[6].ToString();
+                                    myHistoryInfo.myScreenShot = parmswad[7].ToString();
+                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    //must fill structures again after updating pass count
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    break;
+
                                 case "HouseholdMembersDo":
                                     object[] parmshm = new object[9];
                                     parmshm[0] = driver;
@@ -368,6 +395,8 @@ namespace MNsure_Regression_1
                                         myHistoryInfo.myIcnumber = parmscw[7].ToString();
                                     }
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    //must fill structures again after updating pass count
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                                     break;
 
                                 default:
