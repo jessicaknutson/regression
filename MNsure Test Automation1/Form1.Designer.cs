@@ -1242,7 +1242,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 650);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -2425,7 +2425,6 @@
             // 
             // comboBoxHMGender
             // 
-            this.comboBoxHMGender.Enabled = false;
             this.comboBoxHMGender.FormattingEnabled = true;
             this.comboBoxHMGender.Items.AddRange(new object[] {
             "Male",
@@ -3469,7 +3468,6 @@
             // 
             this.textBoxEnrollDOB.Location = new System.Drawing.Point(301, 65);
             this.textBoxEnrollDOB.Name = "textBoxEnrollDOB";
-            this.textBoxEnrollDOB.ReadOnly = true;
             this.textBoxEnrollDOB.Size = new System.Drawing.Size(80, 20);
             this.textBoxEnrollDOB.TabIndex = 63;
             // 
@@ -4145,7 +4143,6 @@
             // 
             // comboBoxEnrollGender
             // 
-            this.comboBoxEnrollGender.Enabled = false;
             this.comboBoxEnrollGender.FormattingEnabled = true;
             this.comboBoxEnrollGender.Items.AddRange(new object[] {
             "Male",

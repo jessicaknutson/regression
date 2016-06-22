@@ -40,7 +40,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/RegisterPerson_resolveStartWizardPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/RegisterPerson_resolveStartWizardPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/RegisterPerson_resolveStartWizardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -70,7 +70,7 @@ namespace MNsure_Regression_1
             try
             {
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.Id("__o3id1"));
+                myApp.DoWaitForElement(driver, By.Id("__o3id1"), myHistoryInfo);
 
                 IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id1"));
                 listboxSSNNum.SendKeys(myEnrollment.mySSNNum);
@@ -188,7 +188,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"));
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
 
                 //driver.FindElement(By.XPath("/html/body/div[8]/table/tbody/tr[6]/td[2]")).Click();//new app form
@@ -218,7 +218,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -270,12 +270,12 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -322,12 +322,12 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -378,12 +378,12 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -415,7 +415,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -428,13 +428,13 @@ namespace MNsure_Regression_1
 
                 if (myEnrollment.myLiveMN == "Yes")
                 {
-                    myApp.DoWaitForElement(driver, By.Id("__o3ide"));
+                    myApp.DoWaitForElement(driver, By.Id("__o3ide"), myHistoryInfo);
                     IWebElement listboxHomeless = driver.FindElement(By.Id("__o3ide"));
                     listboxHomeless.SendKeys(myEnrollment.myHomeless);
                 }
                 else
                 {
-                    myApp.DoWaitForElement(driver, By.Id("__o3idf"));
+                    myApp.DoWaitForElement(driver, By.Id("__o3idf"), myHistoryInfo);
                     IWebElement listboxTempAbsent = driver.FindElement(By.Id("__o3idf"));
                     listboxTempAbsent.SendKeys("No");
                 }
@@ -507,12 +507,12 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -727,11 +727,11 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (24 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -764,7 +764,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
@@ -800,7 +800,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -866,7 +866,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1010,13 +1010,13 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1048,7 +1048,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1095,17 +1095,17 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (95 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (15 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (25 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
 
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1226,7 +1226,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (30 + myHistoryInfo.myAppWait) * 1000; //1 hh
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000; //1 hh
                     }
                 }
                 else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")//&& myHouseholdMembers.myHasIncome == "No")
@@ -1275,7 +1275,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1283,7 +1283,7 @@ namespace MNsure_Regression_1
                 IWebElement textboxIncomeType = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div[2]/div/div/div/div[16]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
                 textboxIncomeType.SendKeys(type);
 
-                myApp.DoWaitForElement(driver, By.Id("__o3id7"));
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxIncomeEmployer = driver.FindElement(By.Id("__o3id7"));
                 textboxIncomeEmployer.SendKeys(employer);
 
@@ -1356,13 +1356,13 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
 
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1394,7 +1394,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1451,7 +1451,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1531,7 +1531,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1563,7 +1563,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1708,7 +1708,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -1718,7 +1718,7 @@ namespace MNsure_Regression_1
                     IWebElement listboxESC;
                     if (myEnrollment.myHouseholdOther == "No")
                     {
-                        listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td/div[2]/div/div[1]/input"));
+                        listboxESC = driver.FindElement(By.Id("__o3id6"));
                     }
                     else
                     {
@@ -1726,6 +1726,117 @@ namespace MNsure_Regression_1
                     }
                     listboxESC.Click();
                 }
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoEmployerSponsoredCoverageMore(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                //System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3id6")));
+
+                IWebElement listboxESC = driver.FindElement(By.Id("__o3id6"));
+                listboxESC.SendKeys("No");
+
+                IWebElement listboxAccessESC = driver.FindElement(By.Id("__o3id7"));
+                listboxAccessESC.SendKeys(myEnrollment.myESC);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoEmployerDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            try
+            {
+                //System.Threading.Thread.Sleep(2000);
+                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
+                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3id6")));
+
+                IWebElement textBoxName = driver.FindElement(By.Id("__o3id6"));
+                textBoxName.SendKeys("Target");
+
+                IWebElement textBoxId = driver.FindElement(By.Id("__o3id7"));
+                textBoxId.SendKeys("12345");
+
+                IWebElement textBoxFulltime = driver.FindElement(By.Id("__o3id8"));
+                textBoxFulltime.SendKeys("Yes");
+
+                IWebElement listboxEmployee = driver.FindElement(By.Id("__o3id9"));
+                listboxEmployee.SendKeys("Yes");
+
+                IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3idb"));
+                listboxAddress1.SendKeys("1 Main St");                
+
+                IWebElement listboxCity = driver.FindElement(By.Id("__o3ide"));
+                listboxCity.SendKeys("Minneapolis");
+
+                IWebElement listboxCounty = driver.FindElement(By.Id("__o3idf"));
+                listboxCounty.SendKeys("Hennepin");
+
+                IWebElement listboxState = driver.FindElement(By.Id("__o3id10"));
+                listboxState.SendKeys("Minnesota");
+
+                IWebElement listboxZip = driver.FindElement(By.Id("__o3id11"));
+                listboxZip.SendKeys("55418");
+
+                IWebElement textboxWaiting = driver.FindElement(By.Id("__o3id16"));
+                textboxWaiting.SendKeys("No");
+
+                IWebElement textboxNewYear = driver.FindElement(By.Id("__o3id18"));
+                textboxNewYear.SendKeys("None");
+
+                IWebElement textboxMinimum = driver.FindElement(By.Id("__o3id19"));
+                textboxMinimum.SendKeys("No");
+
+                IWebElement textboxCoverageEnd = driver.FindElement(By.Id("__o3id1d"));
+                textboxCoverageEnd.SendKeys(myEnrollment.myCoverageEnd);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -1755,7 +1866,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2317,7 +2428,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2367,12 +2478,12 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (30 + myHistoryInfo.myAppWait) * 1000;//10
+                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;//10
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2443,7 +2554,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2494,7 +2605,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"));
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
 
                 System.Threading.Thread.Sleep(2000);                

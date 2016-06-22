@@ -36,32 +36,95 @@ namespace MNsure_Regression_1
             string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };
 
             Random rand = new Random();
-            //<65 and >18 years old, otherwise need logic to handle other scenarios
-            if (rand.Next(1, 3) == 1)
+
+            if (myApplication.myGender != null && myApplication.myGender != "")
             {
-                Random rand2 = new Random();
-                myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
-                myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
-                myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
-                myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
-                myApplication.myGender = "Male";
-                result = 1;
+                if (myApplication.myGender == "Male")
+                {
+                    Random rand2 = new Random();
+                    myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
+                    myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
+                    if (myApplication.myDOB != null && myApplication.myDOB != "")
+                    {
+                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
+                    }
+                    else
+                    {
+                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
+                    }
+                    myApplication.myGender = "Male";
+
+                    result = 1;
+                }
+                else
+                {
+                    Random rand3 = new Random();
+                    myAccountCreate.myFirstName = femaleNames[rand3.Next(1, femaleNames.Count())];
+                    myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = suffix[rand3.Next(1, 4)];
+                    if (myApplication.myDOB != null && myApplication.myDOB != "")
+                    {
+                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
+                    }
+                    else
+                    {
+                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
+                    }
+                    myApplication.myGender = "Female";
+
+                    string temp1;
+                    temp1 = myAccountCreate.myDOB;
+                    result = 1;
+                }
             }
             else
             {
-                Random rand3 = new Random();
-                myAccountCreate.myFirstName = femaleNames[rand3.Next(1, femaleNames.Count())];
-                myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
-                myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
-                myAccountCreate.mySuffix = suffix[rand3.Next(1, 4)];
-                myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
-                myApplication.myGender = "Female";
-                string temp1;
-                temp1 = myAccountCreate.myDOB;
-                result = 1;
+                //<65 and >18 years old, otherwise need logic to handle other scenarios
+                if (rand.Next(1, 3) == 1)
+                {
+                    Random rand4 = new Random();
+                    myAccountCreate.myFirstName = maleNames[rand4.Next(1, maleNames.Count())];
+                    myAccountCreate.myMiddleName = maleMiddleNames[rand4.Next(1, maleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand4.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = suffix[rand4.Next(1, 4)];
+                    if (myApplication.myDOB != null && myApplication.myDOB != "")
+                    {
+                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
+                    }
+                    else
+                    {
+                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
+                    }
+                    myApplication.myGender = "Male";
+
+                    result = 1;
+                }
+                else
+                {
+                    Random rand5 = new Random();
+                    myAccountCreate.myFirstName = femaleNames[rand5.Next(1, femaleNames.Count())];
+                    myAccountCreate.myMiddleName = femaleMiddleNames[rand5.Next(1, femaleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand5.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = suffix[rand5.Next(1, 4)];
+                    if (myApplication.myDOB != null && myApplication.myDOB != "")
+                    {
+                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
+                    }
+                    else
+                    {
+                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
+                    }
+                    myApplication.myGender = "Female";
+
+                    string temp1;
+                    temp1 = myAccountCreate.myDOB;
+                    result = 1;
+                }
             }
-            System.Threading.Thread.Sleep(100);
+            //System.Threading.Thread.Sleep(100);
 
             myAccountCreate.myEmail = "Test@Gmail.com";
             myAccountCreate.myPhone = "(612)812-9996";
@@ -128,46 +191,90 @@ namespace MNsure_Regression_1
             string[] lastNames3 = { "Albright", "Andrews", "Ashford", "Arthur", "Bradford", "Bernard", "Branch", "Branson", "Braxton", "Brady", "Brandt", "Cameron", "Cambell", "Corbin", "Cope", "Devlin", "Dexter", "Dicksin", "Drummond", "Driscoll", "East", "Farmer", "Galvan", "Hall", "Irish", "Jamison", "Jay", "Keeler", "Landis", "Lemon", "Madson", "Neal", "Oleary", "Pepper", "Ramey", "Shay", "Sherwood", "Shields", "Shipmen", "Tanner", "Tetter", "Upton", "Vance", "Wingate", "Young", "Zhang" };
 
 
-            Random rand4 = new Random();
+            Random rand6 = new Random();
             if (householdMember == "2")
             {
-                if (rand4.Next(1, 3) == 1)
+                if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")
                 {
-                    Random rand5 = new Random();
-                    myHouseholdMembers.myFirstName = maleNames2[rand5.Next(1, maleNames2.Count())];
-                    myHouseholdMembers.myLastName = lastNames2[rand5.Next(1, lastNames2.Count())];
-                    myHouseholdMembers.myGender = "Male";
-                    result = 1;
+                    if (myHouseholdMembers.myGender == "Male")
+                    {
+                        Random rand7 = new Random();
+                        myHouseholdMembers.myFirstName = maleNames2[rand7.Next(1, maleNames2.Count())];
+                        myHouseholdMembers.myLastName = lastNames2[rand7.Next(1, lastNames2.Count())];
+                        myHouseholdMembers.myGender = "Male";
+                        result = 1;
+                    }
+                    else
+                    {
+                        Random rand8 = new Random();
+                        myHouseholdMembers.myFirstName = femaleNames2[rand8.Next(1, femaleNames2.Count())];
+                        myHouseholdMembers.myLastName = lastNames2[rand8.Next(1, lastNames2.Count())];
+                        myHouseholdMembers.myGender = "Female";
+                        result = 1;
+                    }
                 }
                 else
                 {
-                    Random rand6 = new Random();
-                    myHouseholdMembers.myFirstName = femaleNames2[rand6.Next(1, femaleNames2.Count())];
-                    myHouseholdMembers.myLastName = lastNames2[rand6.Next(1, lastNames2.Count())];
-                    myHouseholdMembers.myGender = "Female";
-                    result = 1;
+                    if (rand6.Next(1, 3) == 1)
+                    {
+                        Random rand9 = new Random();
+                        myHouseholdMembers.myFirstName = maleNames2[rand9.Next(1, maleNames2.Count())];
+                        myHouseholdMembers.myLastName = lastNames2[rand9.Next(1, lastNames2.Count())];
+                        myHouseholdMembers.myGender = "Male";
+                        result = 1;
+                    }
+                    else
+                    {
+                        Random rand10 = new Random();
+                        myHouseholdMembers.myFirstName = femaleNames2[rand10.Next(1, femaleNames2.Count())];
+                        myHouseholdMembers.myLastName = lastNames2[rand10.Next(1, lastNames2.Count())];
+                        myHouseholdMembers.myGender = "Female";
+                        result = 1;
+                    }
                 }
             }
             else
             {
-                if (rand4.Next(1, 3) == 1)
+                if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")
                 {
-                    Random rand7 = new Random();
-                    myHouseholdMembers.myFirstName = maleNames3[rand7.Next(1, maleNames3.Count())];
-                    myHouseholdMembers.myLastName = lastNames3[rand7.Next(1, lastNames3.Count())];
-                    myHouseholdMembers.myGender = "Male";
-                    result = 1;
+                    if (myHouseholdMembers.myGender == "Male")
+                    {
+                        Random rand11 = new Random();
+                        myHouseholdMembers.myFirstName = maleNames3[rand11.Next(1, maleNames3.Count())];
+                        myHouseholdMembers.myLastName = lastNames3[rand11.Next(1, lastNames3.Count())];
+                        myHouseholdMembers.myGender = "Male";
+                        result = 1;
+                    }
+                    else
+                    {
+                        Random rand12 = new Random();
+                        myHouseholdMembers.myFirstName = femaleNames3[rand12.Next(1, femaleNames3.Count())];
+                        myHouseholdMembers.myLastName = lastNames3[rand12.Next(1, lastNames3.Count())];
+                        myHouseholdMembers.myGender = "Female";
+                        result = 1;
+                    }
                 }
                 else
                 {
-                    Random rand8 = new Random();
-                    myHouseholdMembers.myFirstName = femaleNames3[rand8.Next(1, femaleNames3.Count())];
-                    myHouseholdMembers.myLastName = lastNames3[rand8.Next(1, lastNames3.Count())];
-                    myHouseholdMembers.myGender = "Female";
-                    result = 1;
+                    if (rand6.Next(1, 3) == 1)
+                    {
+                        Random rand13 = new Random();
+                        myHouseholdMembers.myFirstName = maleNames3[rand13.Next(1, maleNames3.Count())];
+                        myHouseholdMembers.myLastName = lastNames3[rand13.Next(1, lastNames3.Count())];
+                        myHouseholdMembers.myGender = "Male";
+                        result = 1;
+                    }
+                    else
+                    {
+                        Random rand14 = new Random();
+                        myHouseholdMembers.myFirstName = femaleNames3[rand14.Next(1, femaleNames3.Count())];
+                        myHouseholdMembers.myLastName = lastNames3[rand14.Next(1, lastNames3.Count())];
+                        myHouseholdMembers.myGender = "Female";
+                        result = 1;
+                    }
                 }
             }
-            System.Threading.Thread.Sleep(129);
+            //System.Threading.Thread.Sleep(100);
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;

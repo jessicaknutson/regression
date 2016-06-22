@@ -943,22 +943,22 @@ namespace MNsure_Regression_1
                 }
 
                 textBoxEnrollTest.Text = mySelectedTest.myTestName;
-                //textBoxEnrollFirstName.Text = myAccountCreate.myFirstName;
-                //textBoxEnrollMiddleName.Text = myAccountCreate.myMiddleName;
-                //textBoxEnrollLastName.Text = myAccountCreate.myLastName;
-                //comboBoxEnrollSuffix.Text = myApplication.mySuffix;
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = ""; 
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
                 comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
                 comboBoxHomeCounty.Text = myApplication.myHomeCounty;
                 comboBoxEnrollGender.Text = myApplication.myGender;
                 comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
-                /*if (myApplication.myDOB == null)
+                if (myApplication.myDOB == null)
                 {
                     textBoxEnrollDOB.Text = myAccountCreate.myDOB;
                 }
                 else
                 {
                     textBoxEnrollDOB.Text = myApplication.myDOB;
-                }*/
+                }
                 textBoxHomeAddr1.Text = myApplication.myHomeAddress1;
                 if (myApplication.myHomeAddress2 != null)
                 {
@@ -1369,7 +1369,7 @@ namespace MNsure_Regression_1
             myApplication.myAddressSame = comboBoxEnrollAddressSame.Text;
             myApplication.myGender = comboBoxEnrollGender.Text;
             myApplication.myMaritalStatus = comboBoxEnrollMaritalStatus.Text;
-            myApplication.myDOB = "";
+            myApplication.myDOB = textBoxEnrollDOB.Text;
             myApplication.myMailingAddressYN = comboBoxMailAddrYN.Text;
             myApplication.myLiveMN = comboBoxLiveMN.Text;
             myApplication.myPlanLiveMN = comboBoxPlanLiveMN.Text;

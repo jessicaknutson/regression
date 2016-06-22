@@ -38,7 +38,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -71,6 +71,39 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoCoverage(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);                
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a/span/span/span")).Click();//next 
+                System.Threading.Thread.Sleep(1000);
+                driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span")).Click();//next on conditional evidence screen
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoRelationships(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
@@ -78,7 +111,7 @@ namespace MNsure_Regression_1
             {                
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -106,6 +139,180 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoApplicationDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxMedicaid = driver.FindElement(By.Id("__o3id6"));
+                textboxMedicaid.SendKeys("No");
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoSSNDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxHaveSSN = driver.FindElement(By.Id("__o3id6"));
+                textboxHaveSSN.SendKeys(myHouseholdMembers.myHaveSSN);
+
+                IWebElement textboxSSN = driver.FindElement(By.Id("__o3id7"));
+                textboxSSN.SendKeys(myHouseholdMembers.mySSN);
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoCitizenshipDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxCitizen = driver.FindElement(By.Id("__o3id6"));
+                textboxCitizen.SendKeys(myHouseholdMembers.myUSCitizen);
+
+                if (myHouseholdMembers.myUSCitizen == "No")
+                {
+                    IWebElement listboxNational = driver.FindElement(By.Id("__o3id7"));
+                    listboxNational.SendKeys(myHouseholdMembers.myUSNational);
+
+                    if (myHouseholdMembers.myUSNational == "No")
+                    {
+                        IWebElement listboxPresent = driver.FindElement(By.Id("__o3id8"));
+                        listboxPresent.SendKeys("Yes");
+
+                        IWebElement listboxImmigration = driver.FindElement(By.Id("__o3id9"));
+                        listboxImmigration.SendKeys("Lawful Permanent Resident (LPR)");
+
+                        IWebElement listboxRefugee = driver.FindElement(By.Id("__o3ida"));
+                        listboxRefugee.SendKeys("No");
+
+                        IWebElement listboxBefore = driver.FindElement(By.Id("__o3idb"));
+                        listboxBefore.SendKeys("No");
+
+                        IWebElement listboxQualified = driver.FindElement(By.Id("__o3idc"));
+                        listboxQualified.SendKeys("Yes");
+                        System.Threading.Thread.Sleep(500);
+
+                        IWebElement listboxDocument = driver.FindElement(By.Id("__o3ide"));
+                        listboxDocument.SendKeys("I-327 (Reentry Permit)");
+                    }
+                }
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoDocumentDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxAlien = driver.FindElement(By.Id("__o3id6"));
+                textboxAlien.SendKeys("A1234567");
+
+                IWebElement textboxCard = driver.FindElement(By.Id("__o3id7"));
+                textboxCard.SendKeys("ABC7778889991");
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+        
         public int DoApplicantDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
@@ -113,7 +320,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -167,7 +374,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -252,7 +459,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -293,7 +500,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -349,7 +556,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -389,7 +596,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -424,7 +631,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -498,7 +705,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();               
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -530,7 +737,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -610,10 +817,51 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxMilitary = driver.FindElement(By.Id("__o3id6"));
+                textboxMilitary.Click();
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);                
+
+                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
+                buttonNext.Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoMilitaryStatus(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
+
+                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement);
+
+                IWebElement textboxReturn = driver.FindElement(By.Id("__o3id6"));
+                textboxReturn.SendKeys(myHouseholdMembers.myMilitary);
+
+                IWebElement textboxEnded = driver.FindElement(By.Id("__o3id7"));
+                textboxEnded.SendKeys(myHouseholdMembers.myMilitaryDate);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -642,7 +890,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -674,7 +922,7 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -705,7 +953,7 @@ namespace MNsure_Regression_1
             try
             {
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.Id("__o3id1"));
+                myApp.DoWaitForElement(driver, By.Id("__o3id1"), myHistoryInfo);
 
                 IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id1"));
                 listboxSSNNum.SendKeys(myHouseholdMembers.mySSN);
