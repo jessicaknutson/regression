@@ -49,13 +49,16 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw201");//Enter username
                     myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome6#");//Enter password
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");//Enter password
                 }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();//Click next button
+
+                myEnrollment.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
+                myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -133,7 +136,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(2000);
+                    System.Threading.Thread.Sleep(4000);
                 }
                 ApplicationDo myApp = new ApplicationDo();
                 driver.SwitchTo().DefaultContent();
@@ -160,6 +163,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches             
                 driver.FindElement(By.LinkText("Person…")).Click();
 
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[1]"), myHistoryInfo);
                 IWebElement firstSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[1]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(firstSearchTab); //right click
@@ -260,7 +264,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
@@ -283,7 +287,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(1000);
 
                 driver.FindElement(By.LinkText("Person…")).Click();
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(4000);
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div/div/div[2]/div/div/div/span/span/span/span[2]"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -627,7 +631,7 @@ namespace MNsure_Regression_1
             {
                 System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
-
+                ApplicationDo myApp = new ApplicationDo();
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_listEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
@@ -639,6 +643,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveDynEvdModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -729,6 +734,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id15"), myHistoryInfo);
                 IWebElement textboxEndDate = driver.FindElement(By.Id("__o3id15"));
                 textboxEndDate.Clear();
                 DateTime d1;
@@ -752,6 +758,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -955,6 +962,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
@@ -1023,7 +1031,7 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement);
 
                 driver.FindElement(By.XPath("//a[text()='Income']")).Click();
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(6000);
 
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
@@ -1045,6 +1053,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
@@ -1125,6 +1134,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1246,6 +1256,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1347,6 +1358,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1453,8 +1465,8 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_workspaceActiveHighLevelPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
-                FindEvidence(driver, By.LinkText("Projected Annual Income"));
-                driver.FindElement(By.LinkText("Projected Annual Income")).Click();
+                FindEvidence(driver, By.LinkText("Marital Status"));
+                driver.FindElement(By.LinkText("Marital Status")).Click();
                 System.Threading.Thread.Sleep(5000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1476,6 +1488,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1490,9 +1503,12 @@ namespace MNsure_Regression_1
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
                 textboxReason.SendKeys("Reported by Client");
 
-                IWebElement textboxAmount = driver.FindElement(By.Id("__o3idb"));
-                textboxAmount.Clear();
-                textboxAmount.SendKeys(myEnrollment.myIncomeAmount);
+                IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
+                textboxEffDate.Clear();
+                textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+
+                IWebElement textboxStatus = driver.FindElement(By.Id("__o3idb"));
+                textboxStatus.SendKeys("Married");
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -1501,6 +1517,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(4000);
 
                 driver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
                 IWebElement fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
@@ -1618,6 +1635,7 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_resolveModifyEvidencePagePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id7"), myHistoryInfo);
                 IWebElement textboxRecDate = driver.FindElement(By.Id("__o3id7"));
                 textboxRecDate.Clear();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1691,6 +1709,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/form/div/div[3]/div/div/table/tbody/tr[1]/td[1]/div/div[3]/input[1]"), myHistoryInfo);
                 IWebElement textboxEmploymentType = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/div/table/tbody/tr[1]/td[1]/div/div[3]/input[1]"));
                 textboxEmploymentType.SendKeys("Full Time");
 
@@ -1766,6 +1785,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -1815,7 +1835,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[87]/td[3]/span/span/span")).Click();//ssn details actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -1838,7 +1858,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
-                System.Threading.Thread.Sleep(1000);
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -1884,7 +1904,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[60]/td[3]/span/span/span")).Click();//marital status actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -1907,6 +1927,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -1951,7 +1972,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[90]/td[3]/span/span/span")).Click();//state residency actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -1974,6 +1995,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2034,7 +2056,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[78]/td[3]/span/span/span")).Click();//pregnancy actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2043,6 +2065,7 @@ namespace MNsure_Regression_1
 
                 string wifeNameAge = DoGetWifeNameAge(driver, myEnrollment, ref myHistoryInfo);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement listboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 listboxParticipant.Clear();
                 listboxParticipant.SendKeys(wifeNameAge);
@@ -2106,6 +2129,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id3"), myHistoryInfo);
                 IWebElement textboxAddress = driver.FindElement(By.Id("__o3id3"));
                 textboxAddress.Click();
 
@@ -2167,12 +2191,13 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/table/tbody/tr[1]/td[3]/span/span/span")).Click();//addresses actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3idb"), myHistoryInfo);
                 IWebElement textboxStreet = driver.FindElement(By.Id("__o3idb"));
                 textboxStreet.Clear();
                 textboxStreet.SendKeys(myEnrollment.myHomeAddress1);
@@ -2230,13 +2255,14 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();//participant addr actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id3"), myHistoryInfo);
                 IWebElement textboxAddress = driver.FindElement(By.Id("__o3id3"));
                 textboxAddress.Click();
 
@@ -2302,7 +2328,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[79]/td[3]/span/span/span")).Click();//projected annual income actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2325,6 +2351,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2369,7 +2396,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[61]/td[3]/span/span/span")).Click();//medicaid enrollment actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2392,6 +2419,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2430,7 +2458,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[16]/td[3]/span/span/span")).Click();//birth and death details actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2453,6 +2481,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2495,7 +2524,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[63]/td[3]/span/span/span")).Click();//member relationship actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2518,6 +2547,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2562,7 +2592,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[20]/td[3]/span/span/span")).Click();//citizen status actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2585,6 +2615,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2626,7 +2657,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[93]/td[3]/span/span/span")).Click();//tax filing status actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2649,6 +2680,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -2697,7 +2729,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[49]/td[3]/span/span/span")).Click();//gender actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(6000);
                 driver.SwitchTo().DefaultContent();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
 
@@ -2720,6 +2752,7 @@ namespace MNsure_Regression_1
                 String age = Convert.ToString(fullAge.Year - 1);
                 string fullName = first + " " + last + " (" + age + ")";
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id5"), myHistoryInfo);
                 IWebElement textboxParticipant = driver.FindElement(By.Id("__o3id5"));
                 textboxParticipant.Clear();
                 textboxParticipant.SendKeys(fullName);
@@ -3003,6 +3036,7 @@ namespace MNsure_Regression_1
                     System.Threading.Thread.Sleep(5000);
 
                     driver.SwitchTo().DefaultContent();
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div[3]/div[1]/div[4]/div/div[2]"), myHistoryInfo);
                     IWebElement firstTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div[3]/div[1]/div[4]/div/div[2]"));
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     var rClick = action.ContextClick(firstTab); //right click

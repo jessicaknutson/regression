@@ -186,6 +186,7 @@ namespace MNsure_Regression_1
                     appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
@@ -2431,6 +2432,7 @@ namespace MNsure_Regression_1
             try
             {
                 System.Threading.Thread.Sleep(2000);
+                ApplicationDo myApp = new ApplicationDo();
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_listCaseMemberPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
@@ -2471,6 +2473,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[5]/a[1]/span/span/span")).Click(); //search
                 System.Threading.Thread.Sleep(2000);
 
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/form/div/div[6]/div/div[2]/table/tbody/tr/td[1]/span/a/span/span/span"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[6]/div/div[2]/table/tbody/tr/td[1]/span/a/span/span/span")).Click(); //select
                 System.Threading.Thread.Sleep(1000);
 
@@ -2478,6 +2481,7 @@ namespace MNsure_Regression_1
 
                 driver.SwitchTo().DefaultContent();
                 driver.SwitchTo().Frame(iFrameElement2);
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div/a[1]/span/span/span"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span")).Click(); //save
 
                 System.Threading.Thread.Sleep(10000);
