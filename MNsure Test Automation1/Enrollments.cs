@@ -382,7 +382,7 @@ namespace MNsure_Regression_1
                     else
                     {
                         IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_12"));
-                        buttonContinue.Click(); //this does not always work so may have to select these 3 screens 3 times, this is a current known production bug
+                        buttonContinue.Click();
                         myHouseholdMembers.myPassCount = "4";//update count to 4 to do the screens another time
                         myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     }
@@ -453,13 +453,11 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 System.Threading.Thread.Sleep(2000);
-                //check for link Skip to Plans
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.CssSelector("a._skipNavigation._viewPlans"))));
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                // click skip to plan
-                IWebElement linkSkipToPlan = myDriver.FindElement(By.CssSelector("a._skipNavigation._viewPlans"));
+                IWebElement linkSkipToPlan = myDriver.FindElement(By.CssSelector("a._skipNavigation._viewPlans")); // click skip to plan
                 linkSkipToPlan.Click();
 
                 returnStatus = "Pass";
@@ -490,9 +488,7 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 System.Threading.Thread.Sleep(2000);
-                //check for checkbox acceptance
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("checkAcceptance"))));
-
                 IWebElement checkboxAccept = myDriver.FindElement(By.Id("checkAcceptance"));
                 checkboxAccept.Click();
 
@@ -532,15 +528,6 @@ namespace MNsure_Regression_1
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-
-                /*if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myReEnroll == "Yes")
-                {                                                                  
-                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[3]/input")).Click();
-                }
-                else
-                {
-                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[3]/input")).Click();
-                }*/
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 IWebElement element;
@@ -582,7 +569,7 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -591,22 +578,12 @@ namespace MNsure_Regression_1
                 {
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;//norm 8
                 }
-                System.Threading.Thread.Sleep(appwait);
-                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]")));
+                System.Threading.Thread.Sleep(appwait);*/
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]"), myHistoryInfo);
 
                 myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]")).Click();
                 System.Threading.Thread.Sleep(1000);
-                /*if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myReEnroll == "Yes")
-                {
-                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[3]/input")).Click();
-                }
-                else
-                {
-                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]")).Click();
-                }*/
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -656,31 +633,20 @@ namespace MNsure_Regression_1
                 IWebElement buttonEnroll3 = myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
                 buttonEnroll3.Click();
 
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (40 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (35 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (15 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
 
-                //myDriver.SwitchTo().DefaultContent();
                 DoWaitForPlanSummary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers, By.CssSelector("a.buttonNext"));
-                /*WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
 
-                //this keeps failing, the screen never shows up with next button
-                var iFrameElement3 = myDriver.FindElement(By.TagName("iFrame"));
-                myDriver.SwitchTo().Frame(iFrameElement3);
-                System.Threading.Thread.Sleep(1000);
-
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.CssSelector("a.buttonNext"))));*/
                 IWebElement buttonContinue = myDriver.FindElement(By.CssSelector("a.buttonNext"));
                 buttonContinue.Click();
 
@@ -719,21 +685,9 @@ namespace MNsure_Regression_1
                 IWebElement buttonEnroll = myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[1]"));
                 buttonEnroll.Click();
 
-                /*System.Threading.Thread.Sleep(30000);
-                myDriver.SwitchTo().DefaultContent();
-                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
-
-                var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
-                myDriver.SwitchTo().Frame(iFrameElement);
-                System.Threading.Thread.Sleep(1000);*/
-
                 DoWaitForPlanSummary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers, By.XPath("/html/body/div[1]/div[3]/div[3]/span[5]/a"));
 
-                //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[3]/div[3]/span[5]/a"))));
                 IWebElement buttonExit = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[5]/a"));
                 buttonExit.Click();
 
@@ -1221,7 +1175,7 @@ namespace MNsure_Regression_1
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
             appwait = (45 + myHistoryInfo.myAppWait) * 1000;
-            System.Threading.Thread.Sleep(appwait);        
+            System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
             if (myHistoryInfo.myRelogin == "Yes")
             {
@@ -1260,7 +1214,6 @@ namespace MNsure_Regression_1
                 {
                     //do nothing and continue
                 }
-                //System.Threading.Thread.Sleep(1000);
                 DoEnroll(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
                 DoSelectHH(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
@@ -1268,9 +1221,9 @@ namespace MNsure_Regression_1
                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (householdCount == 1)
-                {                    
+                {
                     appwait = (45 + myHistoryInfo.myAppWait) * 1000;
-                    System.Threading.Thread.Sleep(appwait);        
+                    System.Threading.Thread.Sleep(appwait);
                 }
 
                 if (householdCount > 1)
@@ -1278,7 +1231,7 @@ namespace MNsure_Regression_1
                     DoSelectPrimary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
-                    System.Threading.Thread.Sleep(appwait);        
+                    System.Threading.Thread.Sleep(appwait);
                 }
 
                 FillStructures myFillStructures = new FillStructures();
@@ -1296,7 +1249,7 @@ namespace MNsure_Regression_1
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
             appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-            System.Threading.Thread.Sleep(appwait);        
+            System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
 
             for (int i = 0; i < iterations; i++)
@@ -1330,7 +1283,7 @@ namespace MNsure_Regression_1
                 if (householdCount == 1)
                 {
                     appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-                    System.Threading.Thread.Sleep(appwait);        
+                    System.Threading.Thread.Sleep(appwait);
                 }
 
                 if (householdCount > 1)
@@ -1338,7 +1291,7 @@ namespace MNsure_Regression_1
                     DoSelectPrimary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
                     appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-                    System.Threading.Thread.Sleep(appwait);        
+                    System.Threading.Thread.Sleep(appwait);
                 }
 
                 FillStructures myFillStructures = new FillStructures();
@@ -1356,7 +1309,7 @@ namespace MNsure_Regression_1
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
             appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-            System.Threading.Thread.Sleep(appwait);        
+            System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
             if (myHistoryInfo.myRelogin == "Yes")
             {
@@ -1383,10 +1336,8 @@ namespace MNsure_Regression_1
                 IList<IWebElement> elements = elems2;
                 if (elements != null && elements.Count > 0)
                 {
-                    //System.Threading.Thread.Sleep(2000);
                     return "true";
                 }
-                //System.Threading.Thread.Sleep(1000);
                 DoEnroll(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
                 DoSelectHH(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
@@ -1409,9 +1360,7 @@ namespace MNsure_Regression_1
                 DoDentalPlanDetails(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
                 appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-                System.Threading.Thread.Sleep(appwait);        
-                //FillStructures myFillStructures = new FillStructures();
-                //int result = myFillStructures.doFillAppCountStructures(ref myEnrollment, ref myHistoryInfo);
+                System.Threading.Thread.Sleep(appwait);
             }
             return "false";
         }

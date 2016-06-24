@@ -50,10 +50,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>44B9D4C0E691E2EF200BF7D5132B88C4C660EA62</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>7C925BF2FF0A8949A968B651F05232FDA43D245D</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MNsureTestAutomation1_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>Mnsure Regression 1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -152,6 +152,7 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Mnsure Regression 1_TemporaryKey.pfx" />
     <None Include="MNsureTestAutomation1_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

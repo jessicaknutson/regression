@@ -137,7 +137,7 @@ namespace MNsure_Regression_1
                 listboxState.SendKeys(myEnrollment.myHomeState);
                 IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
                 listboxZip.SendKeys(myEnrollment.myHomeZip);
-                
+
                 IWebElement listboxPhoneType = driver.FindElement(By.Id("__o3id20"));
                 listboxPhoneType.SendKeys(myEnrollment.myPhoneType);
 
@@ -176,7 +176,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (10 + myHistoryInfo.myAppWait) * 1000;
@@ -185,13 +185,12 @@ namespace MNsure_Regression_1
                 {
                     appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
 
-                //driver.FindElement(By.XPath("/html/body/div[8]/table/tbody/tr[6]/td[2]")).Click();//new app form
                 driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -263,7 +262,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -272,7 +271,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -315,7 +314,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (10 + myHistoryInfo.myAppWait) * 1000;
@@ -324,7 +323,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -371,7 +370,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -380,7 +379,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -500,7 +499,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -509,7 +508,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -535,11 +534,6 @@ namespace MNsure_Regression_1
                 listboxSSN.SendKeys(myEnrollment.mySSN);
 
                 if (myEnrollment.mySSN != "Yes")
-                /*{
-                    IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id1d"));
-                    listboxSSNNum.SendKeys(myEnrollment.mySSNNum);
-                }
-                else*/
                 {
                     IWebElement listboxAppliedSSN = driver.FindElement(By.Id("__o3id1e"));
                     listboxAppliedSSN.SendKeys(myEnrollment.myAppliedSSN);
@@ -597,18 +591,9 @@ namespace MNsure_Regression_1
                     string children;
                     string dueDate;
                     string pregnancyEnded;
-                    /*if (householdMember == "1")
-                    {*/
                     children = myEnrollment.myChildren;
                     dueDate = myEnrollment.myDueDate;
                     pregnancyEnded = myEnrollment.myPregnancyEnded;
-                    /*}
-                    else
-                    {
-                        children = myHouseholdMembers.myChildren;
-                        dueDate = myHouseholdMembers.myDueDate;
-                        pregnancyEnded = myHouseholdMembers.myPregnancyEnded;
-                    }*/
                     driver.FindElement(By.Id("__o3id20")).SendKeys(children);
                     driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
                     driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
@@ -628,37 +613,6 @@ namespace MNsure_Regression_1
                 DateTime age = DateTime.MinValue + span;
 
                 DateTime age2 = DateTime.MinValue;
-                /*if (myApplication.myHouseholdOther == "Yes")
-                {
-                    DateTime birth2 = Convert.ToDateTime(myHouseholdMembers.myDOB);
-                    TimeSpan span2;
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        span2 = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth2;
-                    }
-                    else
-                    {
-                        span2 = DateTime.Now - birth2;
-                    }
-                    age2 = DateTime.MinValue + span2;
-                }*/
-                /* DateTime age3 = DateTime.MinValue;
-                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
-                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                 if (householdCount == 3)
-                 {
-                     DateTime birth3 = Convert.ToDateTime(myHouseholdMembers.myDOB);
-                     TimeSpan span3;
-                     if (myHistoryInfo.myInTimeTravel == "Yes")
-                     {
-                         span3 = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth3;
-                     }
-                     else
-                     {
-                         span3 = DateTime.Now - birth3;
-                     }
-                     age3 = DateTime.MinValue + span3;
-                 }*/
 
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
@@ -668,10 +622,6 @@ namespace MNsure_Regression_1
                         fosterCare = "Yes";
                     }
                 }
-                /*else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //3 hh, is this needed?
-                { 
-
-                }*/
                 else
                 {
                     if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
@@ -691,7 +641,6 @@ namespace MNsure_Regression_1
                         listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
                     }
                     listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
-                    //System.Threading.Thread.Sleep(1000);
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -720,7 +669,7 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (94 + myHistoryInfo.myAppWait) * 1000;
@@ -729,12 +678,14 @@ namespace MNsure_Regression_1
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);
+                driver.SwitchTo().Frame(iFrameElement);                
+
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[2]/a/span/span/span"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -807,15 +758,11 @@ namespace MNsure_Regression_1
 
                 if (myEnrollment.myHouseholdOther == "No")
                 {
-                    //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/table[2]/tbody/tr/td/div[2]/div/div[1]/input")));
-
                     IWebElement checkboxPerson = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[3]/table/tbody/tr/td/table[2]/tbody/tr/td/div[2]/input"));
                     checkboxPerson.Click();
                 }
                 else
                 {
-                    //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/table[2]/tbody/tr/td[1]/div[2]/div/div[1]/input")));
-
                     IWebElement checkboxPerson = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[3]/table/tbody/tr/td/table[2]/tbody/tr/td/div[2]/input"));
                     checkboxPerson.Click();
 
@@ -876,7 +823,6 @@ namespace MNsure_Regression_1
                 IWebElement listboxDependent;
                 if (myEnrollment.myHouseholdOther == "No")
                 {
-                    //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[5]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[1]/input")));
                     listboxDependent = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div[2]/div/div/div[5]/table/tbody/tr/td[2]/select"));
                     listboxDependent.SendKeys(myEnrollment.myDependants);
                 }
@@ -888,13 +834,11 @@ namespace MNsure_Regression_1
                         int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "3");
                         if (myHouseholdMembers.myHasIncome == "Yes" && myHouseholdMembers.myTaxFiler == "Yes")
                         {
-                            //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")));
                             listboxDependent = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input"));
                             listboxDependent.SendKeys(myHouseholdMembers.myDependants);
                         }
                         else
                         {
-                            //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[7]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")));
                             listboxDependent = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div[2]/div/div/div[7]/table/tbody/tr[1]/td[2]/select"));
                             listboxDependent.SendKeys(myHouseholdMembers.myDependants);
                         }
@@ -911,7 +855,6 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")));
                         listboxDependent = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input"));
                         listboxDependent.SendKeys(myHouseholdMembers.myDependants);
 
@@ -926,7 +869,6 @@ namespace MNsure_Regression_1
                 }
                 else  //pass count = 2
                 {
-                    //IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input")));
                     listboxDependent = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[4]/table/tbody/tr[1]/td[2]/div/div[2]/div[1]/div[1]/input"));
                     listboxDependent.SendKeys(myHouseholdMembers.myDependants);
 
@@ -944,39 +886,6 @@ namespace MNsure_Regression_1
                     myHouseholdMembers.myPassCount = "1";//update count back to 1 to continue on to next screens
                     myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                 }
-
-                /*System.Threading.Thread.Sleep(1000);
-                //OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
-                string dependant = "No";
-                if (householdCount == 3)
-                {
-                    FillStructures myFillStructures = new FillStructures();
-                    int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "3");
-                    if (myHouseholdMembers.myDependants == "Yes")
-                    {
-                        dependant = "Yes";
-                    }
-                }
-                else
-                {
-                    if (myEnrollment.myDependants == "Yes")
-                    {
-                        dependant = "Yes";
-                    }
-                }
-                
-                if (dependant == "No")
-                {
-                    action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                    action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                }
-                else
-                {
-                    action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                    action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                    action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                }
-                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -1003,7 +912,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -1012,7 +921,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
@@ -1079,7 +988,7 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                int appwait;
+                /*int appwait;
                 if (myEnrollment.myHouseholdOther == "Yes" && (myHouseholdMembers.myPassCount == "2" || myHouseholdMembers.myPassCount == "3"))
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1103,7 +1012,7 @@ namespace MNsure_Regression_1
                     }
                 }
 
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1114,13 +1023,11 @@ namespace MNsure_Regression_1
 
                 if (myEnrollment.myHouseholdOther == "No" || (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
                 {
-                    //myApp.DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"));
                     listboxAnyIncome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
                     listboxAnyIncome.SendKeys(myEnrollment.myIncomeYN);
                 }
                 else
                 {
-                    //myApp.DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"));
                     listboxAnyIncome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div[2]/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
 
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
@@ -1216,7 +1123,7 @@ namespace MNsure_Regression_1
                     more = myHouseholdMembers.myIncomeMore;
                 }
 
-                int appwait;
+                /*int appwait;
 
                 if (myEnrollment.myHouseholdOther == "No")
                 {
@@ -1229,7 +1136,7 @@ namespace MNsure_Regression_1
                         appwait = (6 + myHistoryInfo.myAppWait) * 1000; //1 hh
                     }
                 }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")//&& myHouseholdMembers.myHasIncome == "No")
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
@@ -1273,7 +1180,7 @@ namespace MNsure_Regression_1
                         appwait = (20 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1325,7 +1232,7 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                int appwait;
+                /*int appwait;
                 if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1360,7 +1267,7 @@ namespace MNsure_Regression_1
                     }
                 }
 
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1621,47 +1528,6 @@ namespace MNsure_Regression_1
                     age3 = DateTime.MinValue + span3;
                 }
 
-                /*int temp1 = myHousehold.DoHouseholdTotalIncome(myEnrollment, myHouseholdMembers, myHistoryInfo);
-                int temp2 = myHousehold.DoHouseholdTotalIncomeUnrelatedTo(myEnrollment, myHouseholdMembers, myHistoryInfo); 
-                if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
-                {
-                    String household2Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (myHouseholdMembers.myRelationship == "Is Unrelated to")
-                    {
-                        temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount);
-                        temp2 = Convert.ToInt32(household2Income);
-                    }
-                    else
-                    {
-                        temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount) + Convert.ToInt32(household2Income);//2 hh
-                    }
-                }
-                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3)
-                {
-                    String household2Income = "0";
-                    String household3Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    household3Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "3");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (household3Income == null || household3Income == "")
-                    {
-                        household3Income = "0";
-                    }
-                    temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount) + Convert.ToInt32(household2Income) + Convert.ToInt32(household3Income);//3 hh
-                }
-                else
-                {
-                    temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount);//1 hh
-                }*/
-
                 if (myEnrollment.myHouseholdOther == "No" && age.Year - 1 < 19 && householdCount == 1 //1 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (age.Year - 1 < 19 || age2.Year - 1 < 19)) // 2 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (age.Year - 1 < 19 || age2.Year - 1 < 19 || age3.Year - 1 < 19))) // 3 hh
@@ -1670,12 +1536,10 @@ namespace MNsure_Regression_1
                     string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
                     if (isMA == "True")
                     {
-                        // listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[5]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
                         listboxOutsideHome = driver.FindElement(By.Id("__o3id12"));
                     }
                     else
                     {
-                        //listboxOutsideHome = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[3]/div/div/div/div/div[4]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/select"));
                         listboxOutsideHome = driver.FindElement(By.Id("__o3ida"));
                     }
                     listboxOutsideHome.SendKeys("No");
@@ -1754,7 +1618,6 @@ namespace MNsure_Regression_1
 
             try
             {
-                //System.Threading.Thread.Sleep(2000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1793,7 +1656,6 @@ namespace MNsure_Regression_1
 
             try
             {
-                //System.Threading.Thread.Sleep(2000);
                 WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -1812,7 +1674,7 @@ namespace MNsure_Regression_1
                 listboxEmployee.SendKeys("Yes");
 
                 IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3idb"));
-                listboxAddress1.SendKeys("1 Main St");                
+                listboxAddress1.SendKeys("1 Main St");
 
                 IWebElement listboxCity = driver.FindElement(By.Id("__o3ide"));
                 listboxCity.SendKeys("Minneapolis");
@@ -2241,53 +2103,11 @@ namespace MNsure_Regression_1
                 }
                 listboxMedicaidLongTerm.SendKeys("No");
 
-                //int temp1 = myHousehold.DoHouseholdTotalIncome(myEnrollment, myHouseholdMembers, myHistoryInfo);
-                //int temp2 = myHousehold.DoHouseholdTotalIncomeUnrelatedTo(myEnrollment, myHouseholdMembers, myHistoryInfo); 
-                /*if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)
-                {
-                    String household2Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (myHouseholdMembers.myRelationship == "Is Unrelated to")
-                    {
-                        temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount);
-                        temp2 = Convert.ToInt32(household2Income);
-                    }
-                    else
-                    {
-                        temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount) + Convert.ToInt32(household2Income);//2 hh
-                    }
-                }
-                else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3)
-                {
-                    String household2Income = "0";
-                    String household3Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    household3Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "3");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (household3Income == null || household3Income == "")
-                    {
-                        household3Income = "0";
-                    }
-                    temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount) + Convert.ToInt32(household2Income) + Convert.ToInt32(household3Income);//3 hh
-                }
-                else
-                {
-                    temp1 = Convert.ToInt32(myEnrollment.myIncomeAmount);//1 hh
-                }*/
-
                 string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
                 string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
 
                 if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && myEnrollment.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh
-                    // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
                 )
                 {
@@ -2307,11 +2127,6 @@ namespace MNsure_Regression_1
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id27"));
                         listboxMedicareInjury.SendKeys("No");
                     }
-                    /*else if (householdCount == 3 && age3.Year - 1 < 12 && temp1 > 28223 && temp1 < 40320) //bhp10, 10 yr only not qhp
-                    {
-                        listboxMedicareInjury = driver.FindElement(By.Id("__o3id3a"));
-                        listboxMedicareInjury.SendKeys("No");
-                    }*/
                     else if (householdCount == 3 && (age3.Year - 1 < 12 || age3.Year - 1 == 0))
                     {
                         listboxMedicareInjury = driver.FindElement(By.Id("__o3id36"));
@@ -2358,7 +2173,6 @@ namespace MNsure_Regression_1
 
                 if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && age.Year - 1 > 19 && myEnrollment.myHomeState != "Minnesota") //1 hh out of state
                     || (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
-                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
                 )
@@ -2416,7 +2230,7 @@ namespace MNsure_Regression_1
         {
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -2425,7 +2239,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -2459,7 +2273,7 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (95 + myHistoryInfo.myAppWait) * 1000;
@@ -2481,21 +2295,15 @@ namespace MNsure_Regression_1
                         appwait = (10 + myHistoryInfo.myAppWait) * 1000;//10
                     }
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
-                driver.FindElement(By.Id("__o3id0")).Click();//renew
-
-
-                /* if (myApplication.myRenewalCov == "0")
-                 {
-                     IWebElement checkboxRenewCov = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[3]/td/div/fieldset/div/div[6]/div/input"));
-                     checkboxRenewCov.Click();
-                 }*/
+                myApp.DoWaitForElement(driver, By.Id("__o3id0"), myHistoryInfo);
+                driver.FindElement(By.Id("__o3id0")).Click();//renew                              
 
                 IWebElement checkboxIAgreeNoticeRR = driver.FindElement(By.Id("__o3id1"));
                 checkboxIAgreeNoticeRR.Click();
@@ -2508,15 +2316,6 @@ namespace MNsure_Regression_1
 
                 IWebElement checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
                 checkboxIAgreeStatementsBelow.Click();
-
-                /*IWebElement textboxFirstName = driver.FindElement(By.Id("__o3ide"));
-                textboxFirstName.SendKeys(myApplication.myFirstName);
-
-                IWebElement textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
-                textboxMiddleName.SendKeys(myApplication.myMiddleName);
-
-                IWebElement textboxLastName = driver.FindElement(By.Id("__o3id10"));
-                textboxLastName.SendKeys(myApplication.myLastName);*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -2608,7 +2407,7 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
 
-                System.Threading.Thread.Sleep(2000);                
+                System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -2630,7 +2429,7 @@ namespace MNsure_Regression_1
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             try
-            {                
+            {
                 System.Threading.Thread.Sleep(2000);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_listCaseMemberPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);

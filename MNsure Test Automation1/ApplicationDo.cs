@@ -571,26 +571,11 @@ namespace MNsure_Regression_1
                     textboxEmail.SendKeys(myApplication.myEmail);
                 }
 
-                //  These values default to English, so not needed to interact, leaving code in case
-                //  need to change languages.
-                //            IWebElement listboxLangaugeMost = driver.FindElement(By.Id("__o3id2d"));
-                //                var selectlistboxLangaugeMost = new SelectElement(listboxLangaugeMost);
-                //                selectlistboxLangaugeMost.SelectByValue(myApplication.myLanguageMost);
-                //    listboxLangaugeMost.SendKeys(myApplication.myLanguageMost);
-
-                //            IWebElement listboxWrittenLangauge = driver.FindElement(By.Id("__o3id30"));
-                //            var selectlistboxWrittenLangauge = new SelectElement(listboxWrittenLangauge);
-                //            selectlistboxLangaugeMost.SelectByValue(myApplication.myLanguageMost);
-                // listboxWrittenLangauge.SendKeys(myApplication.myLanguageWritten);
-
                 IWebElement listboxVoterCard = driver.FindElement(By.Id("__o3id5e"));
                 listboxVoterCard.SendKeys(myApplication.myVoterCard);
 
                 IWebElement listboxNotices = driver.FindElement(By.Id("__o3id5f"));
                 listboxNotices.SendKeys(myApplication.myNotices);
-
-                /*IWebElement listboxAuthRep = driver.FindElement(By.Id("__o3id34"));
-                listboxAuthRep.SendKeys(myApplication.myAuthRep);*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -839,7 +824,7 @@ namespace MNsure_Regression_1
                     IWebElement listboxPregnant;
                     listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
                     listboxPregnant.Clear();
-                    listboxPregnant.SendKeys(myApplication.myIsPregnant);                   
+                    listboxPregnant.SendKeys(myApplication.myIsPregnant);
                 }
 
                 if (isPregnant == "Yes")
@@ -892,7 +877,7 @@ namespace MNsure_Regression_1
                     }
                     age2 = DateTime.MinValue + span2;
                 }
-                
+
                 string fosterCare = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
@@ -960,14 +945,14 @@ namespace MNsure_Regression_1
                 {
                     if (myApplication.myGender == "Female")
                     {
-                        isFemale = "Yes";                        
+                        isFemale = "Yes";
                     }
-                }               
+                }
 
                 if (isFemale == "Yes")
                 {
                     IWebElement listboxPregnant = driver.FindElement(By.Id("__o3id1a"));
-                    listboxPregnant.SendKeys(myApplication.myIsPregnant);                   
+                    listboxPregnant.SendKeys(myApplication.myIsPregnant);
                 }
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next")));
@@ -1073,7 +1058,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (20 + myHistoryInfo.myAppWait) * 1000;
@@ -1082,7 +1067,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (14 + myHistoryInfo.myAppWait) * 1000;//norm 10
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"), myHistoryInfo);
 
                 driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input")).Click();//select else arrow
@@ -2570,52 +2555,11 @@ namespace MNsure_Regression_1
                 }
                 listboxMedicaidLongTerm.SendKeys("No");
 
-                /*int temp1 = myHousehold.DoHouseholdTotalIncome(myApplication, myHouseholdMembers, myHistoryInfo);
-                int temp2 = myHousehold.DoHouseholdTotalIncomeUnrelatedTo(myApplication, myHouseholdMembers, myHistoryInfo); 
-                if (myApplication.myHouseholdOther == "Yes" && householdCount == 2)
-                {
-                    String household2Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (myHouseholdMembers.myRelationship == "Is Unrelated to")
-                    {
-                        temp1 = Convert.ToInt32(myApplication.myIncomeAmount);
-                        temp2 = Convert.ToInt32(household2Income);
-                    }
-                    else
-                    {
-                        temp1 = Convert.ToInt32(myApplication.myIncomeAmount) + Convert.ToInt32(household2Income);//2 hh
-                    }
-                }
-                else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3)
-                {
-                    String household2Income = "0";
-                    String household3Income = "0";
-                    household2Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "2");
-                    household3Income = myHousehold.DoHouseholdIncome(myHistoryInfo, "3");
-                    if (household2Income == null || household2Income == "")
-                    {
-                        household2Income = "0";
-                    }
-                    if (household3Income == null || household3Income == "")
-                    {
-                        household3Income = "0";
-                    }
-                    temp1 = Convert.ToInt32(myApplication.myIncomeAmount) + Convert.ToInt32(household2Income) + Convert.ToInt32(household3Income);//3 hh
-                }
-                else
-                {
-                    temp1 = Convert.ToInt32(myApplication.myIncomeAmount);//1 hh
-                }*/
                 string isMA = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "MA");
                 string isBHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "BHP");
 
                 if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && myApplication.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20)) //1 hh
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh
-                    // || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 < 32041 && temp2 < 32041) || age.Year - 1 < 20 || age2.Year - 1 < 20)) // 2 hh unrelated
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
                     )
                 {
@@ -2687,7 +2631,6 @@ namespace MNsure_Regression_1
 
                 if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "True" && age.Year - 1 > 19 && myApplication.myHomeState != "Minnesota") //1 hh out of state
                     || (myApplication.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19) //1 hh
-                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && myHouseholdMembers.myRelationship == "Is Unrelated to" && ((temp1 > 32040 || temp2 > 32040) && age.Year - 1 > 19 && age2.Year - 1 > 19)) // 2 hh unrelated
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False" && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
                     )
@@ -2935,7 +2878,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                int appwait;
+                /*int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (20 + myHistoryInfo.myAppWait) * 1000;
@@ -2944,7 +2887,7 @@ namespace MNsure_Regression_1
                 {
                     appwait = (12 + myHistoryInfo.myAppWait) * 1000;//norm 12
                 }
-                System.Threading.Thread.Sleep(appwait);
+                System.Threading.Thread.Sleep(appwait);*/
 
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
 
@@ -3174,7 +3117,7 @@ namespace MNsure_Regression_1
                 }
                 int appwait;
                 appwait = (1 + myHistoryInfo.myAppWait) * 1000;
-                System.Threading.Thread.Sleep(appwait);                
+                System.Threading.Thread.Sleep(appwait);
             }
             return "false";
         }
