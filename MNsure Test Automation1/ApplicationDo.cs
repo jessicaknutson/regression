@@ -881,14 +881,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -897,13 +897,13 @@ namespace MNsure_Regression_1
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myApplication.myGender == "Female")
+                    if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")//what is the rule here
                     {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
+                        listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));                        
                     }
                     else
                     {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
+                        listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
                     }
                     listboxFosterCare.SendKeys(myApplication.myFosterCare);
                 }

@@ -156,6 +156,9 @@ namespace MNsure_Regression_1
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[4]/div[2]/a[2]/span/span/span"));
                 buttonSave.Click();
 
+                CaseWorker myCW = new CaseWorker();
+                myCW.DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;

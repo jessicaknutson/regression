@@ -116,6 +116,7 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
+                myApp.DoWaitForElement(driver, By.Id("__o3id6"), myHistoryInfo);
                 IWebElement textboxEffectiveDate = driver.FindElement(By.Id("__o3id6"));
                 textboxEffectiveDate.SendKeys(myHouseholdMembers.myRelationship);
                 System.Threading.Thread.Sleep(1000);
@@ -822,9 +823,11 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
-                IWebElement textboxMilitary = driver.FindElement(By.Id("__o3id6"));
-                textboxMilitary.Click();
-
+                if (myHouseholdMembers.myMilitary == "Yes")
+                {
+                    IWebElement textboxMilitary = driver.FindElement(By.Id("__o3id6"));
+                    textboxMilitary.Click();
+                }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);                
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
