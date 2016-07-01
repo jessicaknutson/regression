@@ -37,11 +37,18 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 myDriver.Manage().Window.Maximize();
-
-                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -75,10 +82,19 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"), myHistoryInfo);
+
                 IWebElement myselectFirstName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"));
                 myselectFirstName.SendKeys(myAccountCreate.myFirstName);
 
@@ -201,10 +217,19 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"), myHistoryInfo);
+
                 IWebElement myselectUserName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"));
                 myselectUserName.SendKeys(myAccountCreate.myUsername);
 
@@ -281,10 +306,18 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -321,7 +354,22 @@ namespace MNsure_Regression_1
                 }
                 myDriver.Manage().Window.Maximize();
 
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+
+                /*if (myHistoryInfo.myEnvironment == "STST2")//this may be changing
+                {
+                    driver.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                    myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button
+                }*/
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -367,10 +415,21 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 myDriver.Manage().Window.Maximize();
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"))));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
+
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button
-                
+                myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button                
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -393,11 +452,18 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(2000);
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -427,10 +493,18 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -460,15 +534,24 @@ namespace MNsure_Regression_1
             IWebDriver myDriver = driver;
 
             try
-            {                
+            {
+                int appwait;
+                ApplicationDo myApp = new ApplicationDo();
                 if (myHistoryInfo.myRelogin == "Yes")
                 {
-                    myDriver = driver3;                    
-                    System.Threading.Thread.Sleep(8000);
-                    WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                    wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                    wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                    IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a")));
+                    myDriver = driver3;
+
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
+
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
 
                     //Click my account link                                                  
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"));
@@ -476,30 +559,48 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(2000);
-                    WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                    wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                    wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                    IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a")));
+
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
+
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"), myHistoryInfo);
 
                     //Click my account link                                                  
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"));
                     myAccount.Click();
 
-                    System.Threading.Thread.Sleep(6000);
-                    WebDriverWait wait2 = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                    wait2.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                    wait2.PollingInterval = TimeSpan.FromMilliseconds(100);
-                    IWebElement element2 = wait2.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a")));
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
+
                     IWebElement myAccount2 = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a"));
                     myAccount2.Click();
-                }            
+                }
 
-                System.Threading.Thread.Sleep(10000);
-                WebDriverWait wait3 = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait3.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait3.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element3 = wait3.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.TagName("iFrame")));
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                myApp.DoWaitForElement(driver, By.TagName("iFrame"), myHistoryInfo);
 
                 /*myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div[2]/div/nav/ol/li[2]/span/span/span/span[1]")).Click();//select payments first
 
@@ -542,10 +643,18 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
 
-                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div/div/div[3]/a/button")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[3]/a/button"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -577,37 +686,45 @@ namespace MNsure_Regression_1
             {
                 driver.SwitchTo().DefaultContent();
 
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element;                
-                IWebElement textboxLogin;
-                if (myHistoryInfo.myEnvironment == "STST")
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")));
-                    textboxLogin= driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")));
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                ApplicationDo myApp = new ApplicationDo();
+
+                IWebElement textboxLogin;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
+                    textboxLogin = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
                     textboxLogin = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
                 }
-                
+
                 textboxLogin.SendKeys(myAccountCreate.myUsername);
 
                 IWebElement textboxPW;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                   textboxPW = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
+                    textboxPW = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
                 }
                 else
                 {
                     textboxPW = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input"));
                 }
                 textboxPW.SendKeys(myAccountCreate.myPassword);
-                
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                
+
                 IWebElement buttonSignIn;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -618,7 +735,7 @@ namespace MNsure_Regression_1
                     buttonSignIn = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
                 }
                 buttonSignIn.Click();
-                
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;

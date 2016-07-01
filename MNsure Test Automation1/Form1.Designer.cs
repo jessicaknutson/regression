@@ -86,6 +86,8 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.checkBoxHMRandom = new System.Windows.Forms.CheckBox();
+            this.label184 = new System.Windows.Forms.Label();
             this.comboBoxHMPregnancyDone = new System.Windows.Forms.ComboBox();
             this.comboBoxHMChildren = new System.Windows.Forms.ComboBox();
             this.dateTimeHMPregnancyEnded = new System.Windows.Forms.DateTimePicker();
@@ -282,6 +284,10 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.groupBoxApplicantInformation = new System.Windows.Forms.GroupBox();
+            this.checkBoxRandom = new System.Windows.Forms.CheckBox();
+            this.label183 = new System.Windows.Forms.Label();
+            this.textBoxEnrollSSNNum = new System.Windows.Forms.TextBox();
+            this.label182 = new System.Windows.Forms.Label();
             this.textBoxEnrollDOB = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -450,12 +456,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label182 = new System.Windows.Forms.Label();
-            this.textBoxEnrollSSNNum = new System.Windows.Forms.TextBox();
-            this.label183 = new System.Windows.Forms.Label();
-            this.checkBoxRandom = new System.Windows.Forms.CheckBox();
-            this.checkBoxHMRandom = new System.Windows.Forms.CheckBox();
-            this.label184 = new System.Windows.Forms.Label();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -593,7 +593,8 @@
             this.comboBoxEnvironment.FormattingEnabled = true;
             this.comboBoxEnvironment.Items.AddRange(new object[] {
             "ATST",
-            "STST"});
+            "STST",
+            "STST2"});
             this.comboBoxEnvironment.Location = new System.Drawing.Point(492, 90);
             this.comboBoxEnvironment.Name = "comboBoxEnvironment";
             this.comboBoxEnvironment.Size = new System.Drawing.Size(65, 21);
@@ -796,7 +797,7 @@
             // 
             // buttonRemoveTest
             // 
-            this.buttonRemoveTest.Location = new System.Drawing.Point(680, 128);
+            this.buttonRemoveTest.Location = new System.Drawing.Point(680, 206);
             this.buttonRemoveTest.Name = "buttonRemoveTest";
             this.buttonRemoveTest.Size = new System.Drawing.Size(81, 23);
             this.buttonRemoveTest.TabIndex = 2;
@@ -806,7 +807,7 @@
             // 
             // buttonAddTest
             // 
-            this.buttonAddTest.Location = new System.Drawing.Point(680, 77);
+            this.buttonAddTest.Location = new System.Drawing.Point(680, 155);
             this.buttonAddTest.Name = "buttonAddTest";
             this.buttonAddTest.Size = new System.Drawing.Size(81, 23);
             this.buttonAddTest.TabIndex = 1;
@@ -1256,6 +1257,26 @@
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
+            // 
+            // checkBoxHMRandom
+            // 
+            this.checkBoxHMRandom.AutoSize = true;
+            this.checkBoxHMRandom.Checked = true;
+            this.checkBoxHMRandom.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxHMRandom.Location = new System.Drawing.Point(286, 23);
+            this.checkBoxHMRandom.Name = "checkBoxHMRandom";
+            this.checkBoxHMRandom.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxHMRandom.TabIndex = 137;
+            this.checkBoxHMRandom.UseVisualStyleBackColor = true;
+            // 
+            // label184
+            // 
+            this.label184.AutoSize = true;
+            this.label184.Location = new System.Drawing.Point(198, 23);
+            this.label184.Name = "label184";
+            this.label184.Size = new System.Drawing.Size(84, 13);
+            this.label184.TabIndex = 136;
+            this.label184.Text = "Random Name?";
             // 
             // comboBoxHMPregnancyDone
             // 
@@ -3472,6 +3493,42 @@
             this.groupBoxApplicantInformation.Text = "Information About You";
             this.groupBoxApplicantInformation.Enter += new System.EventHandler(this.groupBoxApplicantInformation_Enter);
             // 
+            // checkBoxRandom
+            // 
+            this.checkBoxRandom.AutoSize = true;
+            this.checkBoxRandom.Checked = true;
+            this.checkBoxRandom.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRandom.Location = new System.Drawing.Point(172, 20);
+            this.checkBoxRandom.Name = "checkBoxRandom";
+            this.checkBoxRandom.Size = new System.Drawing.Size(15, 14);
+            this.checkBoxRandom.TabIndex = 67;
+            this.checkBoxRandom.UseVisualStyleBackColor = true;
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Location = new System.Drawing.Point(58, 20);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(111, 13);
+            this.label183.TabIndex = 66;
+            this.label183.Text = "Random Name/SSN?";
+            // 
+            // textBoxEnrollSSNNum
+            // 
+            this.textBoxEnrollSSNNum.Location = new System.Drawing.Point(301, 13);
+            this.textBoxEnrollSSNNum.Name = "textBoxEnrollSSNNum";
+            this.textBoxEnrollSSNNum.Size = new System.Drawing.Size(100, 20);
+            this.textBoxEnrollSSNNum.TabIndex = 65;
+            // 
+            // label182
+            // 
+            this.label182.AutoSize = true;
+            this.label182.Location = new System.Drawing.Point(263, 17);
+            this.label182.Name = "label182";
+            this.label182.Size = new System.Drawing.Size(32, 13);
+            this.label182.TabIndex = 64;
+            this.label182.Text = "SSN:";
+            // 
             // textBoxEnrollDOB
             // 
             this.textBoxEnrollDOB.Location = new System.Drawing.Point(301, 89);
@@ -4981,7 +5038,7 @@
             // 
             // buttonRemoveTestStep
             // 
-            this.buttonRemoveTestStep.Location = new System.Drawing.Point(834, 317);
+            this.buttonRemoveTestStep.Location = new System.Drawing.Point(834, 425);
             this.buttonRemoveTestStep.Name = "buttonRemoveTestStep";
             this.buttonRemoveTestStep.Size = new System.Drawing.Size(75, 23);
             this.buttonRemoveTestStep.TabIndex = 13;
@@ -4991,7 +5048,7 @@
             // 
             // buttonAddTestStep
             // 
-            this.buttonAddTestStep.Location = new System.Drawing.Point(834, 275);
+            this.buttonAddTestStep.Location = new System.Drawing.Point(834, 383);
             this.buttonAddTestStep.Name = "buttonAddTestStep";
             this.buttonAddTestStep.Size = new System.Drawing.Size(75, 23);
             this.buttonAddTestStep.TabIndex = 12;
@@ -5199,62 +5256,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label182
-            // 
-            this.label182.AutoSize = true;
-            this.label182.Location = new System.Drawing.Point(263, 17);
-            this.label182.Name = "label182";
-            this.label182.Size = new System.Drawing.Size(32, 13);
-            this.label182.TabIndex = 64;
-            this.label182.Text = "SSN:";
-            // 
-            // textBoxEnrollSSNNum
-            // 
-            this.textBoxEnrollSSNNum.Location = new System.Drawing.Point(301, 13);
-            this.textBoxEnrollSSNNum.Name = "textBoxEnrollSSNNum";
-            this.textBoxEnrollSSNNum.Size = new System.Drawing.Size(100, 20);
-            this.textBoxEnrollSSNNum.TabIndex = 65;
-            // 
-            // label183
-            // 
-            this.label183.AutoSize = true;
-            this.label183.Location = new System.Drawing.Point(58, 20);
-            this.label183.Name = "label183";
-            this.label183.Size = new System.Drawing.Size(111, 13);
-            this.label183.TabIndex = 66;
-            this.label183.Text = "Random Name/SSN?";
-            // 
-            // checkBoxRandom
-            // 
-            this.checkBoxRandom.AutoSize = true;
-            this.checkBoxRandom.Checked = true;
-            this.checkBoxRandom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxRandom.Location = new System.Drawing.Point(172, 20);
-            this.checkBoxRandom.Name = "checkBoxRandom";
-            this.checkBoxRandom.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxRandom.TabIndex = 67;
-            this.checkBoxRandom.UseVisualStyleBackColor = true;
-            // 
-            // checkBoxHMRandom
-            // 
-            this.checkBoxHMRandom.AutoSize = true;
-            this.checkBoxHMRandom.Checked = true;
-            this.checkBoxHMRandom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHMRandom.Location = new System.Drawing.Point(286, 23);
-            this.checkBoxHMRandom.Name = "checkBoxHMRandom";
-            this.checkBoxHMRandom.Size = new System.Drawing.Size(15, 14);
-            this.checkBoxHMRandom.TabIndex = 137;
-            this.checkBoxHMRandom.UseVisualStyleBackColor = true;
-            // 
-            // label184
-            // 
-            this.label184.AutoSize = true;
-            this.label184.Location = new System.Drawing.Point(198, 23);
-            this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(84, 13);
-            this.label184.TabIndex = 136;
-            this.label184.Text = "Random Name?";
             // 
             // FormMain
             // 

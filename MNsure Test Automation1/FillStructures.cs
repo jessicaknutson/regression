@@ -417,7 +417,7 @@ namespace MNsure_Regression_1
 
         }
 
-        public int doCreateAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication)
+        public int doCreateAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -473,7 +473,7 @@ namespace MNsure_Regression_1
                 myAccountCreate.myAccountID = 1;
                 int result;
                 AccountGeneration myAccountGeneration = new AccountGeneration();
-                result = myAccountGeneration.GenerateNames(mySelectedTest, ref myAccountCreate, ref myApplication);
+                result = myAccountGeneration.GenerateNames(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
 
                 try
                 {

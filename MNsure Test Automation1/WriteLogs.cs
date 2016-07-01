@@ -191,6 +191,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("IC Number: " + myHistoryInfo.myIcnumber);
                 doc.InsertParagraph("App Build: " + myHistoryInfo.myAppBuild);
                 doc.InsertParagraph("MNsure Build: " + myHistoryInfo.myMnsureBuild);
+                doc.InsertParagraph("Environment: " + myHistoryInfo.myEnvironment);
                 doc.InsertParagraph(" ");
                 doc.InsertParagraph("Start Time: " + myHistoryInfo.myTestStartTime);
                 doc.InsertParagraph("End Time: " + myHistoryInfo.myTestEndTime);
@@ -334,7 +335,8 @@ namespace MNsure_Regression_1
                 excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
                     + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
                     + ", SSN: " + myApplication.mySSNNum + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
-                    + ", App Build: " + myHistoryInfo.myAppBuild + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
+                    + ", App Build: " + myHistoryInfo.myAppBuild + ", Environment: " + myHistoryInfo.myEnvironment 
+                    + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
 
                 int i = 0; //offset for header rows
                 foreach (string s in myHistoryInfo.myRequiredScreenshots)
@@ -399,8 +401,19 @@ namespace MNsure_Regression_1
                     }
                     i = i + 1;
                 }
-
-                string workbookSavePath = "C:\\TemplatesRun\\" + "RunId_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTemplate + ".xlsx";
+                string workbookSavePath;
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    workbookSavePath = "C:\\TemplatesRun\\SS_" + "RunId_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTemplate + ".xlsx";
+                }
+                else if (myHistoryInfo.myEnvironment == "ATST")
+                {
+                    workbookSavePath = "C:\\TemplatesRun\\A_" + "RunId_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTemplate + ".xlsx";
+                }
+                else
+                {
+                    workbookSavePath = "C:\\TemplatesRun\\S_" + "RunId_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTemplate + ".xlsx";
+                }
                 excelWorkbook.SaveAs(workbookSavePath,
                 Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookDefault, Type.Missing, Type.Missing, Type.Missing, Type.Missing,
                 Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);

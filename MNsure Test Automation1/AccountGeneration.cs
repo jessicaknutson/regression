@@ -23,7 +23,7 @@ namespace MNsure_Regression_1
 {
     class AccountGeneration
     {
-        public int GenerateNames(mystructSelectedTest myTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication)
+        public int GenerateNames(mystructSelectedTest myTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
         {
             int result;
 
@@ -52,7 +52,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
+                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1994, 1996);//51-96
                     }
                     myApplication.myGender = "Male";
 
@@ -71,7 +71,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
+                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1994, 1996);
                     }
                     myApplication.myGender = "Female";
 
@@ -96,7 +96,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
+                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1994, 1996);
                     }
                     myApplication.myGender = "Male";
 
@@ -115,7 +115,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
+                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1994, 1996);
                     }
                     myApplication.myGender = "Female";
 
@@ -124,8 +124,12 @@ namespace MNsure_Regression_1
                     result = 1;
                 }
             }
-            //System.Threading.Thread.Sleep(100);
 
+            if (myHistoryInfo.myEnvironment == "STST2")
+            {
+                myAccountCreate.myFirstName = "SS" + myAccountCreate.myFirstName;
+                myAccountCreate.myLastName = "SS" + myAccountCreate.myLastName;
+            }
             myAccountCreate.myEmail = "Test@Gmail.com";
             myAccountCreate.myPhone = "(612)812-9996";
             myAccountCreate.myUsername = "st" + myAccountCreate.myFirstName.Substring(0, 1) +
@@ -176,7 +180,7 @@ namespace MNsure_Regression_1
             return result;
         }
 
-        public int GenerateHouseholdNames(ref mystructHouseholdMembers myHouseholdMembers, int testId, string householdMember)
+        public int GenerateHouseholdNames(ref mystructHouseholdMembers myHouseholdMembers, int testId, string householdMember, ref mystructHistoryInfo myHistoryInfo)
         {
             int result;
 
@@ -274,7 +278,12 @@ namespace MNsure_Regression_1
                     }
                 }
             }
-            //System.Threading.Thread.Sleep(100);
+
+            if (myHistoryInfo.myEnvironment == "STST2")
+            {
+                myHouseholdMembers.myFirstName = "SS" + myHouseholdMembers.myFirstName;
+                myHouseholdMembers.myLastName = "SS" + myHouseholdMembers.myLastName;
+            }
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;

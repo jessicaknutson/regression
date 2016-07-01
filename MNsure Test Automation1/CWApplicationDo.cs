@@ -38,6 +38,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/RegisterPerson_resolveStartWizardPage.do')]"), myHistoryInfo);
@@ -69,6 +79,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.Id("__o3id1"), myHistoryInfo);
 
@@ -179,17 +199,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
@@ -219,6 +238,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -266,16 +295,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (5 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -318,16 +347,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -374,16 +403,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -416,6 +445,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -503,16 +542,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -621,14 +660,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -673,21 +712,21 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (94 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);                
+                driver.SwitchTo().Frame(iFrameElement);
 
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[2]/a/span/span/span"), myHistoryInfo);
 
@@ -716,6 +755,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
@@ -753,6 +802,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -815,6 +874,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -916,16 +985,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
@@ -959,6 +1028,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -992,31 +1071,16 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                /*int appwait;
-                if (myEnrollment.myHouseholdOther == "Yes" && (myHouseholdMembers.myPassCount == "2" || myHouseholdMembers.myPassCount == "3"))
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (15 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (2 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1127,64 +1191,16 @@ namespace MNsure_Regression_1
                     more = myHouseholdMembers.myIncomeMore;
                 }
 
-                /*int appwait;
-
-                if (myEnrollment.myHouseholdOther == "No")
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (25 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000; //1 hh
-                    }
-                }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
-                {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (235 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (24 + myHistoryInfo.myAppWait) * 1000;//norm 8
-                    }
-                }
-                else if (myEnrollment.myHouseholdOther == "Yes" && (myHouseholdMembers.myHasIncome == "Yes" || myEnrollment.myIncomeYN == "Yes"))
-                {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (155 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (25 + myHistoryInfo.myAppWait) * 1000;//was 16
-                    }
-                }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3" && myHouseholdMembers.myHasIncome == "Yes")
-                {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (155 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (40 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (16 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (20 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1236,42 +1252,16 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                /*int appwait;
-                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (175 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (12 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                }
-                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3")
-                {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (45 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (12 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
-                    }
-                    else
-                    {
-                        appwait = (2 + myHistoryInfo.myAppWait) * 1000;
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -1303,6 +1293,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -1360,6 +1360,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -1440,6 +1450,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -1472,6 +1492,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -1532,9 +1562,9 @@ namespace MNsure_Regression_1
                     age3 = DateTime.MinValue + span3;
                 }
 
-                if (myEnrollment.myHouseholdOther == "No" && age.Year - 1 < 19 && householdCount == 1 //1 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (age.Year - 1 < 19 || age2.Year - 1 < 19)) // 2 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (age.Year - 1 < 19 || age2.Year - 1 < 19 || age3.Year - 1 < 19))) // 3 hh
+                if (myEnrollment.myHouseholdOther == "No" && age.Year - 1 < 21 && householdCount == 1 //1 hh
+                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (age.Year - 1 < 21 || age2.Year - 1 < 21)) // 2 hh
+                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (age.Year - 1 < 21 || age2.Year - 1 < 21 || age3.Year - 1 < 21))) // 3 hh
                 {
                     IWebElement listboxOutsideHome;
                     string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
@@ -1574,10 +1604,20 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
-
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
@@ -1622,11 +1662,19 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3id6")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
 
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.Id("__o3id6"), myHistoryInfo);
                 IWebElement listboxESC = driver.FindElement(By.Id("__o3id6"));
                 listboxESC.SendKeys("No");
 
@@ -1660,11 +1708,19 @@ namespace MNsure_Regression_1
 
             try
             {
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("__o3id6")));
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
 
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(driver, By.Id("__o3id6"), myHistoryInfo);
                 IWebElement textBoxName = driver.FindElement(By.Id("__o3id6"));
                 textBoxName.SendKeys("Target");
 
@@ -1730,6 +1786,17 @@ namespace MNsure_Regression_1
             int timeOut = myHistoryInfo.myCitizenWait;
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -2234,16 +2301,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -2277,29 +2344,16 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (95 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    HouseholdMembersDo myHousehold = new HouseholdMembersDo();
-                    int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                    if (householdCount == 3)
-                    {
-                        appwait = (65 + myHistoryInfo.myAppWait) * 1000;//30
-                    }
-                    else if (householdCount == 2)
-                    {
-                        appwait = (45 + myHistoryInfo.myAppWait) * 1000;//20
-                    }
-                    else
-                    {
-                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;//10
-                    }
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
 
@@ -2355,6 +2409,16 @@ namespace MNsure_Regression_1
 
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/CommonIntake_createApplicationFormForConcernRolePage.do')]"), myHistoryInfo);
@@ -2404,7 +2468,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                System.Threading.Thread.Sleep(3000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
@@ -2434,7 +2507,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_listCaseMemberPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
@@ -2448,7 +2530,15 @@ namespace MNsure_Regression_1
 
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr[1]/td/span/span[2]/a[1]/img")).Click(); //search
 
-                System.Threading.Thread.Sleep(4000);
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/TaskQuery_searchPersonPopupPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
@@ -2487,7 +2577,15 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div/a[1]/span/span/span"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span")).Click(); //save
 
-                System.Threading.Thread.Sleep(10000);
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -2504,7 +2602,6 @@ namespace MNsure_Regression_1
                 return 2;
             }
         }
-
 
         public string DoGetHouseholdMemberSSN(string testId, string memberId)
         {

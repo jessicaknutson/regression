@@ -36,6 +36,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -76,12 +86,22 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement);                
+                driver.SwitchTo().Frame(iFrameElement);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -108,7 +128,17 @@ namespace MNsure_Regression_1
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             try
-            {                
+            {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -145,6 +175,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -180,6 +220,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -218,6 +268,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -281,6 +341,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -313,12 +383,22 @@ namespace MNsure_Regression_1
                 return 2;
             }
         }
-        
+
         public int DoApplicantDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment, mystructHouseholdMembers myHouseholdMembers,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -373,6 +453,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -385,7 +475,7 @@ namespace MNsure_Regression_1
                     IWebElement listboxSSN = driver.FindElement(By.Id("__o3id6"));
                     listboxSSN.SendKeys(myHouseholdMembers.myHaveSSN);
                 }
-                
+
                 IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id7"));
                 listboxSSNNum.SendKeys(myHouseholdMembers.mySSN);
 
@@ -432,7 +522,7 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.Id("__o3id18")).SendKeys(dueDate);
                     driver.FindElement(By.Id("__o3id19")).SendKeys(pregnancyEnded);
                 }
-                              
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
@@ -458,6 +548,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -499,6 +599,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -555,6 +665,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -595,6 +715,16 @@ namespace MNsure_Regression_1
 
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -630,6 +760,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -704,7 +844,17 @@ namespace MNsure_Regression_1
         {
             try
             {
-                driver.SwitchTo().DefaultContent();               
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
 
@@ -736,6 +886,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -816,6 +976,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -828,7 +998,7 @@ namespace MNsure_Regression_1
                     IWebElement textboxMilitary = driver.FindElement(By.Id("__o3id6"));
                     textboxMilitary.Click();
                 }
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);                
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a[2]/span/span/span"));
                 buttonNext.Click();
@@ -853,6 +1023,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -891,6 +1071,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -923,6 +1113,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"), myHistoryInfo);
@@ -955,6 +1155,16 @@ namespace MNsure_Regression_1
         {
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.Id("__o3id1"), myHistoryInfo);
 
@@ -990,7 +1200,7 @@ namespace MNsure_Regression_1
                 tempDOB = tempDOB.Substring(0, tempDOBLength);
                 IWebElement textboxDOB = driver.FindElement(By.Id("__o3idb"));
                 textboxDOB.SendKeys(tempDOB);
-                
+
                 IWebElement listboxLanguage = driver.FindElement(By.Id("__o3ide"));
                 listboxLanguage.SendKeys("English");
 
@@ -1017,7 +1227,7 @@ namespace MNsure_Regression_1
                 IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
                 listboxState.SendKeys(myEnrollment.myHomeState);
                 IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
-                listboxZip.SendKeys(myEnrollment.myHomeZip);                
+                listboxZip.SendKeys(myEnrollment.myHomeZip);
 
                 IWebElement listboxPhoneType = driver.FindElement(By.Id("__o3id20"));
                 listboxPhoneType.SendKeys(myHouseholdMembers.myPhoneType);

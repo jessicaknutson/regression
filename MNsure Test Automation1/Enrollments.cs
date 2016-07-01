@@ -40,7 +40,16 @@ namespace MNsure_Regression_1
             try
             {
                 driver.SwitchTo().DefaultContent();
-                System.Threading.Thread.Sleep(3000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[1]/div[1]")));
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -76,6 +85,16 @@ namespace MNsure_Regression_1
 
             try
             {
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -118,7 +137,16 @@ namespace MNsure_Regression_1
                     myDriver = driver3;
                 }
                 myDriver.SwitchTo().DefaultContent();
-                System.Threading.Thread.Sleep(3000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 try
                 {
                     if (myHistoryInfo.myRelogin == "Yes")
@@ -196,13 +224,30 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
+                int appwait;
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    System.Threading.Thread.Sleep(6000);
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
                 }
                 else
                 {
-                    System.Threading.Thread.Sleep(4000);
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
                 }
 
                 if ((myEnrollment.myHouseholdOther == "No" && myEnrollment.myPassCount == "1")
@@ -217,12 +262,17 @@ namespace MNsure_Regression_1
                 }
                 else if ((myEnrollment.myHouseholdOther == "No" && myEnrollment.myPassCount == "3")
                     || (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "3")
-                    || (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2"))
+                    || (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                    || (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                    )
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_6"))));
                 }
-                else if ((myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes")
-                    || (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "4"))
+                else if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_8"))));
+                }
+                else if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "4")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_14"))));
                 }
@@ -251,7 +301,21 @@ namespace MNsure_Regression_1
                 }
                 else if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {
-                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_14"));
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_6"));
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input")).Click();
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[2]/div/input")).Click();
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[3]/div/input")).Click();
+                }
+                else if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_8"));
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input")).Click();
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[2]/div/input")).Click();
+                    myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[3]/div/input")).Click();
+                }
+                else if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3")
+                {
+                    buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_10"));
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input")).Click();
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[2]/div/input")).Click();
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[3]/div/input")).Click();
@@ -273,22 +337,22 @@ namespace MNsure_Regression_1
                     myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
                     buttonContinue.Click();
                 }
-                if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "1")
+                if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {
-                    myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screen another time
-                    myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    //myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screen another time
+                    //myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     buttonContinue.Click();
                 }
-                else if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "2")
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
-                    myHouseholdMembers.myPassCount = "3";//update count to 3 to do the screen another time
-                    myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    //myHouseholdMembers.myPassCount = "3";//update count to 3 to do the screen another time
+                    //myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     buttonContinue.Click();
                 }
-                else if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myPassCount == "3")
+                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3")
                 {
-                    myHouseholdMembers.myPassCount = "1";//update count to 1 to continue to next screens
-                    myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                    //myHouseholdMembers.myPassCount = "1";//update count to 1 to continue to next screens
+                    //myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     buttonContinue.Click();
                 }
                 else
@@ -323,15 +387,30 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 //check for text at the bottom
-                if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes")
+                if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_8"))));
+                    IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
+                    checkboxPrimary.Click();
+                }
+                else if (myHouseholdMembers.myReEnroll == "Yes" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "3")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_16"))));
                     IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
                     checkboxPrimary.Click();
                 }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
+                else if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_4"))));
                     //if (myHouseholdMembers.myReEnroll == "No" && myHouseholdMembers.mySaveExit == "Yes")
@@ -340,7 +419,7 @@ namespace MNsure_Regression_1
                     checkboxPrimary.Click();
                     //}
                 }
-                else if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
+                else if (myHouseholdMembers.myReEnroll == "No" && myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "2")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("dijit_form_Button_8"))));
                     IWebElement checkboxPrimary = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[3]/div/div[3]/div/div[1]/div/input"));
@@ -374,8 +453,24 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    if (myHouseholdMembers.myReEnroll == "Yes")
+                    if (myHouseholdMembers.myReEnroll == "Yes" && myHouseholdMembers.myPassCount == "1")
                     {
+                        myHouseholdMembers.myPassCount = "2";//update count to 2 to do the screens another time
+                        myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                        IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_8"));
+                        buttonContinue.Click();
+                    }
+                    else if (myHouseholdMembers.myReEnroll == "Yes" && myHouseholdMembers.myPassCount == "2")
+                    {
+                        myHouseholdMembers.myPassCount = "3";//update count to 2 to do the screens another time
+                        myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
+                        IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_12"));
+                        buttonContinue.Click();
+                    }
+                    else if (myHouseholdMembers.myReEnroll == "Yes" && myHouseholdMembers.myPassCount == "3")
+                    {
+                        myHouseholdMembers.myPassCount = "4";//update count to 2 to do the screens another time
+                        myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                         IWebElement buttonContinue = myDriver.FindElement(By.Id("dijit_form_Button_16"));
                         buttonContinue.Click();
                     }
@@ -386,7 +481,6 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myPassCount = "4";//update count to 4 to do the screens another time
                         myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
                     }
-
                 }
 
                 returnStatus = "Pass";
@@ -416,7 +510,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 DoWaitForFindProvider(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers, By.CssSelector("a.buttonNext._startPA"));
 
@@ -452,7 +555,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.CssSelector("a._skipNavigation._viewPlans"))));
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
@@ -487,7 +599,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("checkAcceptance"))));
                 IWebElement checkboxAccept = myDriver.FindElement(By.Id("checkAcceptance"));
                 checkboxAccept.Click();
@@ -524,7 +645,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -569,16 +699,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                /*int appwait;
+                int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;//norm 8
+                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
                 }
-                System.Threading.Thread.Sleep(appwait);*/
+                System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]"), myHistoryInfo);
 
@@ -625,7 +755,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -677,7 +816,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -725,7 +873,16 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(3000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 IWebElement taxAmount = driver.FindElement(By.XPath("//div[@class='hcrBenefitValue']"));
                 string tax = taxAmount.Text;
@@ -784,7 +941,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -839,7 +1005,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -897,7 +1072,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(4000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
 
                 if (myHistoryInfo.myEnvironment == "STST")
@@ -946,7 +1130,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.TagName("iFrame")));
@@ -986,14 +1179,31 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(2000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[1]/div/div[2]")));
                 IWebElement buttonSubmit = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[1]/div/div[2]"));
                 buttonSubmit.Click();
 
-                System.Threading.Thread.Sleep(4000);
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -1023,7 +1233,16 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                System.Threading.Thread.Sleep(4000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 myDriver.SwitchTo().DefaultContent();
 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/div[1]")));
@@ -1039,6 +1258,9 @@ namespace MNsure_Regression_1
 
                 myHouseholdMembers.myReEnroll = "Yes"; //update reenroll to do the screens another time
                 DoUpdateReEnroll(myHistoryInfo, myHouseholdMembers.myReEnroll);
+                myHouseholdMembers.myPassCount = "1";//update count to 1 to do the screens another time
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -1062,7 +1284,16 @@ namespace MNsure_Regression_1
 
             try
             {
-                System.Threading.Thread.Sleep(3000);
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
                 //check for first name input box at the bottom
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"))));
 

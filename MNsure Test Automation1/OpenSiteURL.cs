@@ -31,9 +31,13 @@ namespace MNsure_Regression_1
         {
             try
             {
-                if (myHistoryInfo.myEnvironment == "STST")
+                if (myHistoryInfo.myEnvironment == "STST")// || myHistoryInfo.myEnvironment == "STST2")
                 {
                     driver.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");                
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")//this may be changing
+                {
+                    driver.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
                 else
                 {
@@ -60,9 +64,13 @@ namespace MNsure_Regression_1
         {
             try
             {
-                if (myHistoryInfo.myEnvironment == "STST")
+                if (myHistoryInfo.myEnvironment == "STST")// || myHistoryInfo.myEnvironment == "STST2")
                 {
                     driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
                 else
                 {
@@ -98,6 +106,10 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Individual");
                 }
                 else
                 {
@@ -135,6 +147,10 @@ namespace MNsure_Regression_1
                 {
                     driver2.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
                 }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver2.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                }
                 else
                 {
                     driver2.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/Curam");
@@ -163,6 +179,10 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
                 }
                 else
                 {

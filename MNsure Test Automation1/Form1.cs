@@ -129,19 +129,32 @@ namespace MNsure_Regression_1
                     InitializeSSN myInitializeSSN = new InitializeSSN();
                     result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
-                    myAccountCreate.mySSN = Convert.ToString(temp1);
+                    myAccountCreate.mySSN = Convert.ToString(temp1);                    
+                    if (myHistoryInfo.myEnvironment == "STST2")
+                    {                        
+                        myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "444");
+                    }
+                    if (myHistoryInfo.myEnvironment == "STST1")
+                    {
+                        string beginning = myAccountCreate.mySSN.Substring(0, 3);
+                        if (beginning == "444")
+                        {
+                            myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "144");
+                        }
+                    }
+
                     FillStructures myFillStructures = new FillStructures();
-                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication);                    
+                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);                    
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     AccountGeneration myAccountGeneration = new AccountGeneration();
                     if (householdCount > 1)
                     {
-                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2");
+                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myHistoryInfo);
                     }
                     if (householdCount == 3)
                     {
-                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3");
+                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
                     }
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
@@ -150,13 +163,38 @@ namespace MNsure_Regression_1
                     {
                         int temp2 = temp1 + 1;
                         myHouseholdMembers.mySSN = Convert.ToString(temp2);
-                        myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "444");
+                        }
+                        if (myHistoryInfo.myEnvironment == "STST1")
+                        {
+                            string beginning = myHouseholdMembers.mySSN.Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "144");
+                            }
+                        }
+                        myLastSSN.myLastSSN = myHouseholdMembers.mySSN;                        
+                        
                         result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
                     }
                     else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
                     {
                         int temp3 = temp1 + 2;
                         myLastSSN.myLastSSN = Convert.ToString(temp3);
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            myLastSSN.myLastSSN = myLastSSN.myLastSSN.Remove(0, 3).Insert(0, "444");
+                        }
+                        if (myHistoryInfo.myEnvironment == "STST1")
+                        {
+                            string beginning = myLastSSN.myLastSSN.Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                myLastSSN.myLastSSN = myLastSSN.myLastSSN.Remove(0, 3).Insert(0, "144");
+                            }
+                        }
                     }
                     else
                     {
@@ -164,8 +202,10 @@ namespace MNsure_Regression_1
                     }
 
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
-
+                    if (myHistoryInfo.myEnvironment != "STST2")
+                    {
+                        result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
+                    }
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myClass;
