@@ -329,6 +329,19 @@ namespace MNsure_Regression_1
                 object[,] valueArray = (object[,])excelRange.get_Value(
                             XlRangeValueDataType.xlRangeValueDefault);
 
+                if (myHistoryInfo.myEnvironment == "STST2")                
+                {
+                    excelWorksheet.Cells[3, 2] = "STST2 Environment is up.";
+                }
+                else if (myHistoryInfo.myEnvironment == "ATST") 
+                {
+                    excelWorksheet.Cells[3, 2] = "ATST Environment is up.";
+                }
+                else 
+                {
+                    excelWorksheet.Cells[3, 2] = "STST Environment is up.";
+                }
+
                 excelWorksheet.Cells[4, 2] = myHistoryInfo.myIcnumber;
                 excelWorksheet.Cells[3, 5] = myHistoryInfo.myExecutedBy;
                 excelWorksheet.Cells[3, 7] = mystringExecutionDate;

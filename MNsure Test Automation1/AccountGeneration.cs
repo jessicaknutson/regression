@@ -52,7 +52,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1994, 1996);//51-96
+                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);//51-96
                     }
                     myApplication.myGender = "Male";
 
@@ -71,7 +71,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1994, 1996);
+                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
                     }
                     myApplication.myGender = "Female";
 
@@ -96,7 +96,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1994, 1996);
+                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
                     }
                     myApplication.myGender = "Male";
 
@@ -115,7 +115,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1994, 1996);
+                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
                     }
                     myApplication.myGender = "Female";
 

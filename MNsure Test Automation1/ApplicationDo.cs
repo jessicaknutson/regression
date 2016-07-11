@@ -836,6 +836,35 @@ namespace MNsure_Regression_1
                 listboxCitizen.SendKeys(myApplication.myCitizen);
                 outsideClick.Click();
 
+                //This will only appear if age 18-27
+                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
+                TimeSpan span;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    span = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth;
+                }
+                else
+                {
+                    span = DateTime.Now - birth;
+                }
+                DateTime age = DateTime.MinValue + span;
+
+                DateTime age2 = DateTime.MinValue;
+                if (myApplication.myHouseholdOther == "Yes")
+                {
+                    DateTime birth2 = Convert.ToDateTime(myHouseholdMembers.myDOB);
+                    TimeSpan span2;
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        span2 = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth2;
+                    }
+                    else
+                    {
+                        span2 = DateTime.Now - birth2;
+                    }
+                    age2 = DateTime.MinValue + span2;
+                }
+                
                 string isPregnant = "No";
                 string isFemale = "No";
                 string householdMember = "1";
@@ -853,7 +882,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    if (myApplication.myGender == "Female")
+                    if (myApplication.myGender == "Female" && age.Year - 1 < 65)
                     {
                         isFemale = "Yes";
                         if (myApplication.myIsPregnant == "Yes")
@@ -892,36 +921,7 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
                     driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
                 }
-
-                //This will only appear if age 18-27
-                DateTime birth = Convert.ToDateTime(myApplication.myDOB);
-                TimeSpan span;
-                if (myHistoryInfo.myInTimeTravel == "Yes")
-                {
-                    span = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth;
-                }
-                else
-                {
-                    span = DateTime.Now - birth;
-                }
-                DateTime age = DateTime.MinValue + span;
-
-                DateTime age2 = DateTime.MinValue;
-                if (myApplication.myHouseholdOther == "Yes")
-                {
-                    DateTime birth2 = Convert.ToDateTime(myHouseholdMembers.myDOB);
-                    TimeSpan span2;
-                    if (myHistoryInfo.myInTimeTravel == "Yes")
-                    {
-                        span2 = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth2;
-                    }
-                    else
-                    {
-                        span2 = DateTime.Now - birth2;
-                    }
-                    age2 = DateTime.MinValue + span2;
-                }
-
+                                
                 string fosterCare = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
@@ -2275,7 +2275,7 @@ namespace MNsure_Regression_1
                     age3 = DateTime.MinValue + span3;
                 }
 
-                if ((myApplication.myHouseholdOther == "No" && householdCount == 1 && age.Year - 1 < 21) //1 hh
+                if ((myApplication.myHouseholdOther == "Yes" && householdCount == 1 && age.Year - 1 < 21) //1 hh
                    || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && (age.Year - 1 < 21 || age2.Year - 1 < 21)) // 2 hh
                   || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (age.Year - 1 < 21 || age2.Year - 1 < 21 || age3.Year - 1 < 21))) // 3 hh
                 {
