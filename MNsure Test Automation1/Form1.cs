@@ -134,7 +134,7 @@ namespace MNsure_Regression_1
                     {                        
                         myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "444");
                     }
-                    if (myHistoryInfo.myEnvironment == "STST1")
+                    if (myHistoryInfo.myEnvironment == "STST")
                     {
                         string beginning = myAccountCreate.mySSN.Substring(0, 3);
                         if (beginning == "444")
@@ -167,7 +167,7 @@ namespace MNsure_Regression_1
                         {
                             myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "444");
                         }
-                        if (myHistoryInfo.myEnvironment == "STST1")
+                        if (myHistoryInfo.myEnvironment == "STST")
                         {
                             string beginning = myHouseholdMembers.mySSN.Substring(0, 3);
                             if (beginning == "444")
@@ -187,7 +187,7 @@ namespace MNsure_Regression_1
                         {
                             myLastSSN.myLastSSN = myLastSSN.myLastSSN.Remove(0, 3).Insert(0, "444");
                         }
-                        if (myHistoryInfo.myEnvironment == "STST1")
+                        if (myHistoryInfo.myEnvironment == "STST")
                         {
                             string beginning = myLastSSN.myLastSSN.Substring(0, 3);
                             if (beginning == "444")
@@ -1656,18 +1656,6 @@ namespace MNsure_Regression_1
                     com6.Dispose();
                 }
 
-                SqlCeCommand cmd3 = con.CreateCommand();
-                cmd3.CommandType = CommandType.Text;
-                try
-                {
-                    cmd3.CommandText = "Delete from Address where TestId = " + mysTestId + ";";
-                    cmd3.ExecuteNonQuery();
-                }
-                catch
-                {
-                    //fail silently
-                }
-
                 using (SqlCeCommand com7 = new SqlCeCommand("SELECT max(AddressId) FROM Address", con))
                 {
                     SqlCeDataReader reader = com7.ExecuteReader();
@@ -1686,7 +1674,7 @@ namespace MNsure_Regression_1
                 cmd4.CommandType = CommandType.Text;
                 try
                 {
-                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + " and (Type = Home or Type = Mailing);";
+                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + " and (Type = 'Home' or Type = 'Mailing')" + ";";
                     cmd4.ExecuteNonQuery();
                 }
                 catch
@@ -3505,7 +3493,7 @@ namespace MNsure_Regression_1
             }
             catch (Exception y)
             {
-                MessageBox.Show("Delete Test step didn't work, ecxeption: " + y);
+                MessageBox.Show("Delete Test step didn't work, exception: " + y);
             }
         }
 
@@ -6105,19 +6093,7 @@ namespace MNsure_Regression_1
                         MessageBox.Show("Did not find Address id");
                     }
                     com72.Dispose();
-                }
-
-                SqlCeCommand cmd4 = con.CreateCommand();
-                cmd4.CommandType = CommandType.Text;
-                try
-                {
-                    cmd4.CommandText = "Delete from Address where TestId = " + myTestId + " and Type = Household 2;";
-                    cmd4.ExecuteNonQuery();
-                }
-                catch
-                {
-                    //fail silently
-                }
+                }               
 
                 //Basic address stuff
                 if (myHouseholdMembers.myMailAddress1 != "")
