@@ -4734,17 +4734,30 @@ namespace MNsure_Regression_1
 
         private void checkBoxTimeTravel_CheckedChanged(object sender, EventArgs e)
         {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            con = new SqlCeConnection(conString);
+            con.Open();
+            SqlCeCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
             if (checkBoxTimeTravel.Checked == true)
             {
                 labelTimeTravel.BackColor = Color.Yellow;
                 labelTimeTravel.Visible = true;
-                myHistoryInfo.myInTimeTravel = "Yes";
+                myHistoryInfo.myInTimeTravel = "Yes";                
+                cmd.CommandText = "Select * from Test where IsSelected = 'No' and Name like '% in TT'" + ";";                
             }
             else
             {
                 labelTimeTravel.Visible = false;
-                myHistoryInfo.myInTimeTravel = "No";
+                myHistoryInfo.myInTimeTravel = "No";                
+                cmd.CommandText = "Select * from Test where IsSelected = 'No'" + ";";                
             }
+            cmd.ExecuteNonQuery();
+            System.Data.DataTable dt = new System.Data.DataTable();
+            SqlCeDataAdapter da = new SqlCeDataAdapter(cmd);
+            da.Fill(dt);
+            dataGridViewAvailableTests.DataSource = dt;
         }
 
         private void comboBoxCitizenWait_SelectedValueChanged(object sender, EventArgs e)

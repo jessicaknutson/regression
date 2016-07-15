@@ -4,17 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-
 using System.Windows.Forms;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support;
-using OpenQA.Selenium.Support.UI; /// for dropdown
-
+using OpenQA.Selenium.Support.UI; 
 using System.Net;
 using System.Data.Sql;
-
 using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 using OpenQA.Selenium.Chrome;
@@ -46,14 +43,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
-                    if (myApplication.myDOB != null && myApplication.myDOB != "")
-                    {
-                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
-                    }
-                    else
-                    {
-                        myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);//51-96
-                    }
+                    myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
                     myApplication.myGender = "Male";
 
                     result = 1;
@@ -65,14 +55,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = suffix[rand3.Next(1, 4)];
-                    if (myApplication.myDOB != null && myApplication.myDOB != "")
-                    {
-                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
-                    }
-                    else
-                    {
-                        myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
-                    }
+                    myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
                     myApplication.myGender = "Female";
 
                     string temp1;
@@ -90,14 +73,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = maleMiddleNames[rand4.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand4.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = suffix[rand4.Next(1, 4)];
-                    if (myApplication.myDOB != null && myApplication.myDOB != "")
-                    {
-                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
-                    }
-                    else
-                    {
-                        myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
-                    }
+                    myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
                     myApplication.myGender = "Male";
 
                     result = 1;
@@ -109,14 +85,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand5.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand5.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = suffix[rand5.Next(1, 4)];
-                    if (myApplication.myDOB != null && myApplication.myDOB != "")
-                    {
-                        myAccountCreate.myDOB = myApplication.myDOB;//if this is set on test grab it
-                    }
-                    else
-                    {
-                        myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
-                    }
+                    myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
                     myApplication.myGender = "Female";
 
                     string temp1;

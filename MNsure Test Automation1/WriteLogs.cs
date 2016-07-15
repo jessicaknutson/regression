@@ -40,7 +40,6 @@ namespace MNsure_Regression_1
                     if (reader.Read())
                     {
                         myHistoryInfo.myRunId = reader.GetInt32(0);
-                        //   MessageBox.Show(num.ToString());
                     }
                     else
                     {
@@ -64,7 +63,6 @@ namespace MNsure_Regression_1
                     com3.ExecuteNonQuery();
                     com3.Dispose();
                 }
-
             }
 
             catch (Exception e)
@@ -226,7 +224,6 @@ namespace MNsure_Regression_1
                         {
                             using (MemoryStream ms = new MemoryStream())
                             {
-                                //    System.Drawing.Image myImg = System.Drawing.Image.FromFile(@"C:\Logs\Screenshot1.jpg");
                                 System.Drawing.Image myImg = System.Drawing.Image.FromFile(myLogStepSS);
                                 myImg.Save(ms, myImg.RawFormat);  // Save your picture in a memory stream.
                                 ms.Seek(0, SeekOrigin.Begin);
@@ -292,7 +289,6 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Why No SSN: " + myApplication.myWhyNoSSN);
                 doc.InsertParagraph("Application Data, Asssistance with SSN: " + myApplication.myAssistSSN);
                 doc.InsertParagraph("Application Data, Citizen: " + myApplication.myCitizen);
-                //    myEnrollment.mySSNNum = reader.GetString(37);
                 doc.InsertParagraph("Application Data, Household Other: " + myApplication.myHouseholdOther);
                 doc.InsertParagraph("Application Data, Dependents: " + myApplication.myDependants);
                 doc.InsertParagraph("Application Data, Have Income: " + myApplication.myIncomeYN);
@@ -329,15 +325,15 @@ namespace MNsure_Regression_1
                 object[,] valueArray = (object[,])excelRange.get_Value(
                             XlRangeValueDataType.xlRangeValueDefault);
 
-                if (myHistoryInfo.myEnvironment == "STST2")                
+                if (myHistoryInfo.myEnvironment == "STST2")
                 {
                     excelWorksheet.Cells[3, 2] = "STST2 Environment is up.";
                 }
-                else if (myHistoryInfo.myEnvironment == "ATST") 
+                else if (myHistoryInfo.myEnvironment == "ATST")
                 {
                     excelWorksheet.Cells[3, 2] = "ATST Environment is up.";
                 }
-                else 
+                else
                 {
                     excelWorksheet.Cells[3, 2] = "STST Environment is up.";
                 }
@@ -348,7 +344,7 @@ namespace MNsure_Regression_1
                 excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
                     + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
                     + ", SSN: " + myApplication.mySSNNum + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
-                    + ", App Build: " + myHistoryInfo.myAppBuild + ", Environment: " + myHistoryInfo.myEnvironment 
+                    + ", App Build: " + myHistoryInfo.myAppBuild + ", Environment: " + myHistoryInfo.myEnvironment
                     + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
 
                 int i = 0; //offset for header rows
@@ -442,13 +438,6 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 MessageBox.Show("Didn't write results " + e);
-                //   excelWorkbook.Close(true, Type.Missing, Type.Missing);
-
-                //  app.Quit();
-
-                //  Marshal.ReleaseComObject(excelWorkbook);
-                //   Marshal.ReleaseComObject(app);
-
                 return 2;
             }
         }
@@ -517,7 +506,6 @@ namespace MNsure_Regression_1
                     {
                         num = reader.GetInt32(0);
                         myHistoryInfo.myTestHistoryId = num + 1;
-                        //   MessageBox.Show(num.ToString());
                     }
 
                     com2.ExecuteNonQuery();
@@ -540,7 +528,6 @@ namespace MNsure_Regression_1
                     com3.ExecuteNonQuery();
                     com3.Dispose();
                 }
-
             }
 
             catch (Exception e)
@@ -580,9 +567,6 @@ namespace MNsure_Regression_1
                                 myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myRequiredScreenshotFile[i] + ", " + myHistoryInfo.myScreenShot;
                             }
                             ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                            //scrolldown if necessary and capture the full screen
-
                         }
                         i = i + 1;
                     }
@@ -615,36 +599,11 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                                     myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                                     break;
-                                }
-                                /*else if (i == 29)//all required steps are populated, populate failure in first
-                                {
-                                    int j = 1;
-                                    foreach (string v in myHistoryInfo.myRequiredStepStatus)
-                                    {
-                                        if (myHistoryInfo.myRequiredStepStatus[j] != null)
-                                        {
-                                            myHistoryInfo.myRequiredStepStatus[j] = myHistoryInfo.myTestStepStatus;
-                                            myHistoryInfo.myRequiredScreenshotFile[j] = myHistoryInfo.myScreenShot;
-                                            break;
-                                        }
-                                        j = j + 1;
-                                    }
-                                }*/
+                                }                               
                                 i = i + 1;
                             }
                             break;
-                        }
-                        /*else if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] != null && myHistoryInfo.myRequiredScreenshots[i].Length > 0)
-                        {
-                            driver.Manage().Window.Maximize();
-                            Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
-                            myHistoryInfo.myScreenShot = @"C:\Logs\SS_" + myHistoryInfo.myRunId + "_" + myHistoryInfo.myTestId + "_" + myHistoryInfo.myTestStepName + ".jpg";
-                            ss.SaveAsFile(myHistoryInfo.myScreenShot, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                            myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
-                            myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
-                            break;
-                        }*/
+                        }                       
                         else if (i == 29)//all required steps are populated, populate failure in first
                         {
                             driver.Manage().Window.Maximize();
@@ -722,9 +681,7 @@ namespace MNsure_Regression_1
             string myWindow;
             int i = 0;
             for (int row = 6; row < worksheet.UsedRange.Rows.Count; ++row)
-            {
-
-                // IsFound = "No";
+            {                
                 //access each cell
                 myWindow = Convert.ToString(valueArray[row, 8]);
                 if (myWindow != "")

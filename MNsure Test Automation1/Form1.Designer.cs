@@ -37,8 +37,6 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.comboBoxEnvironment = new System.Windows.Forms.ComboBox();
             this.label180 = new System.Windows.Forms.Label();
-            this.label165 = new System.Windows.Forms.Label();
-            this.label76 = new System.Windows.Forms.Label();
             this.label139 = new System.Windows.Forms.Label();
             this.label138 = new System.Windows.Forms.Label();
             this.comboBoxAppWait = new System.Windows.Forms.ComboBox();
@@ -567,8 +565,6 @@
             // 
             this.groupBox8.Controls.Add(this.comboBoxEnvironment);
             this.groupBox8.Controls.Add(this.label180);
-            this.groupBox8.Controls.Add(this.label165);
-            this.groupBox8.Controls.Add(this.label76);
             this.groupBox8.Controls.Add(this.label139);
             this.groupBox8.Controls.Add(this.label138);
             this.groupBox8.Controls.Add(this.comboBoxAppWait);
@@ -595,7 +591,7 @@
             "ATST",
             "STST",
             "STST2"});
-            this.comboBoxEnvironment.Location = new System.Drawing.Point(492, 90);
+            this.comboBoxEnvironment.Location = new System.Drawing.Point(486, 102);
             this.comboBoxEnvironment.Name = "comboBoxEnvironment";
             this.comboBoxEnvironment.Size = new System.Drawing.Size(65, 21);
             this.comboBoxEnvironment.TabIndex = 25;
@@ -605,35 +601,16 @@
             // label180
             // 
             this.label180.AutoSize = true;
-            this.label180.Location = new System.Drawing.Point(417, 93);
+            this.label180.Location = new System.Drawing.Point(417, 105);
             this.label180.Name = "label180";
             this.label180.Size = new System.Drawing.Size(69, 13);
             this.label180.TabIndex = 24;
             this.label180.Text = "Environment:";
             // 
-            // label165
-            // 
-            this.label165.AutoSize = true;
-            this.label165.Location = new System.Drawing.Point(5, 175);
-            this.label165.Name = "label165";
-            this.label165.Size = new System.Drawing.Size(411, 13);
-            this.label165.TabIndex = 23;
-            this.label165.Text = "(income details, add income details, signature, relationships, 3 hh details, find" +
-    " provider)";
-            // 
-            // label76
-            // 
-            this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(5, 150);
-            this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(385, 13);
-            this.label76.TabIndex = 22;
-            this.label76.Text = "(household about, hh members without discounts, tax dependants, any income, )";
-            // 
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(234, 126);
+            this.label139.Location = new System.Drawing.Point(234, 141);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(49, 13);
             this.label139.TabIndex = 21;
@@ -642,7 +619,7 @@
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(34, 126);
+            this.label138.Location = new System.Drawing.Point(34, 141);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(135, 13);
             this.label138.TabIndex = 20;
@@ -669,7 +646,7 @@
             "120",
             "150",
             "180"});
-            this.comboBoxAppWait.Location = new System.Drawing.Point(175, 123);
+            this.comboBoxAppWait.Location = new System.Drawing.Point(175, 138);
             this.comboBoxAppWait.Name = "comboBoxAppWait";
             this.comboBoxAppWait.Size = new System.Drawing.Size(55, 21);
             this.comboBoxAppWait.TabIndex = 19;
@@ -678,7 +655,7 @@
             // 
             // textBoxExecutedBy
             // 
-            this.textBoxExecutedBy.Location = new System.Drawing.Point(110, 50);
+            this.textBoxExecutedBy.Location = new System.Drawing.Point(110, 57);
             this.textBoxExecutedBy.Name = "textBoxExecutedBy";
             this.textBoxExecutedBy.Size = new System.Drawing.Size(156, 20);
             this.textBoxExecutedBy.TabIndex = 18;
@@ -687,7 +664,7 @@
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(34, 53);
+            this.label118.Location = new System.Drawing.Point(34, 60);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(70, 13);
             this.label118.TabIndex = 17;
@@ -696,7 +673,7 @@
             // checkBoxTimeTravel
             // 
             this.checkBoxTimeTravel.AutoSize = true;
-            this.checkBoxTimeTravel.Location = new System.Drawing.Point(37, 79);
+            this.checkBoxTimeTravel.Location = new System.Drawing.Point(37, 97);
             this.checkBoxTimeTravel.Name = "checkBoxTimeTravel";
             this.checkBoxTimeTravel.Size = new System.Drawing.Size(104, 17);
             this.checkBoxTimeTravel.TabIndex = 6;
@@ -706,7 +683,7 @@
             // 
             // dateTimePickerTimeTravel
             // 
-            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(206, 81);
+            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(209, 97);
             this.dateTimePickerTimeTravel.Name = "dateTimePickerTimeTravel";
             this.dateTimePickerTimeTravel.Size = new System.Drawing.Size(97, 20);
             this.dateTimePickerTimeTravel.TabIndex = 7;
@@ -715,7 +692,7 @@
             // label104
             // 
             this.label104.AutoSize = true;
-            this.label104.Location = new System.Drawing.Point(401, 53);
+            this.label104.Location = new System.Drawing.Point(401, 65);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(85, 13);
             this.label104.TabIndex = 16;
@@ -723,7 +700,7 @@
             // 
             // textBoxMNSureBuild
             // 
-            this.textBoxMNSureBuild.Location = new System.Drawing.Point(492, 50);
+            this.textBoxMNSureBuild.Location = new System.Drawing.Point(486, 62);
             this.textBoxMNSureBuild.Name = "textBoxMNSureBuild";
             this.textBoxMNSureBuild.Size = new System.Drawing.Size(65, 20);
             this.textBoxMNSureBuild.TabIndex = 8;
@@ -732,7 +709,7 @@
             // labelAppBuild
             // 
             this.labelAppBuild.AutoSize = true;
-            this.labelAppBuild.Location = new System.Drawing.Point(401, 26);
+            this.labelAppBuild.Location = new System.Drawing.Point(388, 27);
             this.labelAppBuild.Name = "labelAppBuild";
             this.labelAppBuild.Size = new System.Drawing.Size(98, 13);
             this.labelAppBuild.TabIndex = 13;
@@ -741,7 +718,7 @@
             // labelTimeTravel
             // 
             this.labelTimeTravel.AutoSize = true;
-            this.labelTimeTravel.Location = new System.Drawing.Point(153, 83);
+            this.labelTimeTravel.Location = new System.Drawing.Point(153, 97);
             this.labelTimeTravel.Name = "labelTimeTravel";
             this.labelTimeTravel.Size = new System.Drawing.Size(50, 13);
             this.labelTimeTravel.TabIndex = 6;
@@ -5646,7 +5623,6 @@
         private System.Windows.Forms.Label label145;
         private System.Windows.Forms.ComboBox comboBoxRenewalCov;
         private System.Windows.Forms.Label label146;
-        private System.Windows.Forms.Label label76;
         private System.Windows.Forms.ComboBox comboBoxHMFileJointly;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.ComboBox comboBoxHMMoreIncome;
@@ -5705,7 +5681,6 @@
         private System.Windows.Forms.TextBox textBoxTotalMembers;
         private System.Windows.Forms.ComboBox comboBoxHMRelationship2;
         private System.Windows.Forms.Label label161;
-        private System.Windows.Forms.Label label165;
         private System.Windows.Forms.ComboBox comboBoxPregnant;
         private System.Windows.Forms.Label label172;
         private System.Windows.Forms.ComboBox comboBoxHMDependant;

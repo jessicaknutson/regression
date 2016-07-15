@@ -39,34 +39,34 @@ namespace MNsure_Regression_1
                 driver.Manage().Window.Maximize();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button so you can signout as individual
+                driver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();
 
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USRST117");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@12345");//Enter password
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@12345");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USRST117");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@12345");//Enter password
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@12345");
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("cwceb01");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("cwceb01");
                     myAccountCreate.myCaseWorkerLoginId = "cwceb01";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");//Enter password
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");
                     /*
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw201");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw201");
                     myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");//Enter password
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");
                     */
                 }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();//Click next button
+                driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();
 
                 myEnrollment.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
                 myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
@@ -97,34 +97,34 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");//Enter username
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@12345");//Enter password
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@12345");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");//Enter username
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@12345");//Enter password
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@12345");
                 }
                 else
                 {
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");//Enter username
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");
                     myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome6#");//Enter password                
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome6#");               
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();//Click sign in button
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();//Click sign in button
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();
                 }
 
                 returnStatus = "Pass";
@@ -2285,8 +2285,6 @@ namespace MNsure_Regression_1
                     buttonSave.Click();
                 }
 
-                //System.Threading.Thread.Sleep(3000);
-
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -2395,8 +2393,6 @@ namespace MNsure_Regression_1
                     buttonSave.Click();
                 }
 
-                //System.Threading.Thread.Sleep(3000);
-
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -2500,9 +2496,7 @@ namespace MNsure_Regression_1
 
                     buttonSave.Click();
                 }
-
-                //System.Threading.Thread.Sleep(3000);                
-
+          
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -2633,9 +2627,7 @@ namespace MNsure_Regression_1
 
                     buttonSave.Click();
                 }
-
-                //System.Threading.Thread.Sleep(3000);                
-
+             
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -2850,9 +2842,6 @@ namespace MNsure_Regression_1
                     buttonSave.Click();
                 }
 
-                //System.Threading.Thread.Sleep(3000);
-
-
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -2959,8 +2948,6 @@ namespace MNsure_Regression_1
 
                     buttonSave.Click();
                 }
-
-                //System.Threading.Thread.Sleep(4000);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -3070,8 +3057,6 @@ namespace MNsure_Regression_1
                     buttonSave.Click();
                 }
 
-                //System.Threading.Thread.Sleep(3000);
-
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -3175,8 +3160,7 @@ namespace MNsure_Regression_1
 
                     buttonSave.Click();
                 }
-                //System.Threading.Thread.Sleep(3000);               
-
+           
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -4106,7 +4090,6 @@ namespace MNsure_Regression_1
                 IWebElement secondTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div[3]/div[1]/div[4]/div/div[2]"));
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(secondTab); //right click
-                //System.Threading.Thread.Sleep(2000);
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close all tabs')]")).Click();
 
@@ -4214,7 +4197,6 @@ namespace MNsure_Regression_1
                     IWebElement secondTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div[3]/div[1]/div[4]/div/div[2]"));
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     var rClick = action.ContextClick(secondTab); //right click
-                    //System.Threading.Thread.Sleep(2000);
                     rClick.Perform();
                     driver.FindElement(By.XPath("//td[contains(text(), 'Close all tabs')]")).Click();
 
@@ -5185,7 +5167,6 @@ namespace MNsure_Regression_1
                 IList<IWebElement> elements = elems2;
                 if (elements != null && elements.Count > 0)
                 {
-                    //System.Threading.Thread.Sleep(2000);
                     return "true";
                 }
                 System.Threading.Thread.Sleep(2000);

@@ -31,11 +31,11 @@ namespace MNsure_Regression_1
         {
             try
             {
-                if (myHistoryInfo.myEnvironment == "STST")// || myHistoryInfo.myEnvironment == "STST2")
+                if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");                
+                    driver.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
-                else if (myHistoryInfo.myEnvironment == "STST2")//this may be changing
+                else if (myHistoryInfo.myEnvironment == "STST2")
                 {
                     driver.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
@@ -51,7 +51,7 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; 
+                returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -64,7 +64,42 @@ namespace MNsure_Regression_1
         {
             try
             {
-                if (myHistoryInfo.myEnvironment == "STST")// || myHistoryInfo.myEnvironment == "STST2")
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
+                }
+
+                relogin = "Yes";
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoOpenMNsureReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
@@ -115,7 +150,7 @@ namespace MNsure_Regression_1
                 {
                     driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Individual");
                 }
-                
+
                 // This checks for the Sign In button
                 IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
 
@@ -126,7 +161,7 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; 
+                returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -163,7 +198,7 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; 
+                returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -196,7 +231,7 @@ namespace MNsure_Regression_1
             catch (Exception e)
             {
                 returnException = Convert.ToString(e);
-                returnStatus = "Fail"; 
+                returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;

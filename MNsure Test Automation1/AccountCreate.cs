@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using System.Windows.Forms;
 using System.IO;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support;
-using OpenQA.Selenium.Support.UI; /// for dropdown
-
+using OpenQA.Selenium.Support.UI;
 using System.Net;
 using System.Data.Sql;
-
 using System.Data.SqlClient;
 using System.Data.SqlServerCe;
 using OpenQA.Selenium.Chrome;
@@ -98,33 +95,29 @@ namespace MNsure_Regression_1
                 IWebElement myselectFirstName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"));
                 myselectFirstName.SendKeys(myAccountCreate.myFirstName);
 
-                //Enter Middle Name
                 IWebElement myselectMiddleName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[2]"));
                 if (myAccountCreate.myMiddleName != null)
                 {
                     myselectMiddleName.SendKeys(myAccountCreate.myMiddleName);
                 }
-                //Enter Last Name
                 IWebElement myselectLasteName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
                 myselectLasteName.SendKeys(myAccountCreate.myLastName);
 
-                //Enter Suffix
                 IWebElement myselectSuffix = driver.FindElement(By.XPath("//html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/select"));
                 if (myAccountCreate.mySuffix != null)
                 {
                     myselectSuffix.SendKeys(myAccountCreate.mySuffix);
                 }
-                //Enter Address1
+
                 IWebElement myselectAddress1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
                 myselectAddress1.SendKeys(myApplication.myHomeAddress1);
 
-                //Enter Address2
                 IWebElement myselectAddress2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
                 if (myApplication.myHomeAddress2 != null)
                 {
                     myselectAddress2.SendKeys(myApplication.myHomeAddress2);
                 }
-                //Enter City
+
                 IWebElement myselectCity = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/input"));
                 myselectCity.SendKeys(myApplication.myHomeCity);
 
@@ -132,48 +125,39 @@ namespace MNsure_Regression_1
                 IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
                 outsideClick.Click();
 
-                //Enter State
                 IWebElement myselectState = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/select"));
                 myselectState.SendKeys(myApplication.myHomeState);
 
-                //Enter Zip
                 IWebElement myselectZip = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[1]"));
                 myselectZip.SendKeys(myApplication.myHomeZip);
 
-                //Enter Zip4
                 IWebElement myselectZip4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[2]"));
                 if (myApplication.myHomeZip4 != null)
                 {
                     myselectZip4.SendKeys(myApplication.myHomeZip4);
                 }
-                //Enter Email
+
                 IWebElement myselectEmail = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[1]"));
                 myselectEmail.SendKeys(myAccountCreate.myEmail);
 
-                //Enter Email again
                 IWebElement myselectEmail2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[2]"));
                 myselectEmail2.SendKeys(myAccountCreate.myEmail);
 
-                //Enter Phone number
                 IWebElement myselectPhone = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[1]"));
                 myselectPhone.SendKeys(myAccountCreate.myPhone);
 
                 string mysSSN1 = myAccountCreate.mySSN.Substring(0, 3);
                 string mysSSN2 = myAccountCreate.mySSN.Substring(3, 2);
                 string mysSSN3 = myAccountCreate.mySSN.Substring(5, 4);
-                //Enter SSN1
                 IWebElement myselectSSN1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[2]"));
                 myselectSSN1.SendKeys(mysSSN1);
 
-                //Enter SSN2
                 IWebElement myselectSSN2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[3]"));
                 myselectSSN2.SendKeys(mysSSN2);
 
-                //Enter SSN3
                 IWebElement myselectSSN3 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[4]"));
                 myselectSSN3.SendKeys(mysSSN3);
 
-                //Enter DOB
                 IWebElement myselectDOB = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[5]"));
                 if (myApplication.myDOB != "01/01/2011")
                 {
@@ -183,7 +167,7 @@ namespace MNsure_Regression_1
                 {
                     myselectDOB.SendKeys(myAccountCreate.myDOB);
                 }
-                //Enter Captcha
+
                 IWebElement myselectCaptcha = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
                 myselectCaptcha.SendKeys("Google");
 
@@ -321,7 +305,6 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                //Click next button to get to account login
                 IWebElement myclickNext = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"));
                 myclickNext.Click();
 
@@ -365,11 +348,6 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
 
-                /*if (myHistoryInfo.myEnvironment == "STST2")//this may be changing
-                {
-                    driver.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
-                    myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button
-                }*/
                 WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
                 wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
@@ -429,7 +407,7 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();//Click signin button                
+                myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -467,7 +445,6 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                //Click apply with discount link                                                  
                 IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"));
                 myclickLinkContinue.Click();
 
@@ -508,7 +485,6 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                //Click apply without discount link                                                  
                 IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a"));
                 myclickLinkContinue.Click();
 
@@ -553,7 +529,6 @@ namespace MNsure_Regression_1
 
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
 
-                    //Click my account link                                                  
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"));
                     myAccount.Click();
                 }
@@ -572,7 +547,6 @@ namespace MNsure_Regression_1
 
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"), myHistoryInfo);
 
-                    //Click my account link                                                  
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"));
                     myAccount.Click();
 
@@ -602,10 +576,6 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 myApp.DoWaitForElement(driver, By.TagName("iFrame"), myHistoryInfo);
 
-                /*myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div[2]/div/nav/ol/li[2]/span/span/span/span[1]")).Click();//select payments first
-
-                myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div[2]/div/nav/ol/li[1]/span/span/span/span[1]")).Click();//select home
-                */
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement);
 
@@ -658,7 +628,6 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                //Click continue
                 IWebElement myclickContinue = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[3]/a/button"));
                 myclickContinue.Click();
 

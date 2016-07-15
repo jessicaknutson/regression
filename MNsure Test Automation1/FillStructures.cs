@@ -71,7 +71,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(24)) { myApplication.myAddressSame = reader.GetString(24); }
                         if (!reader.IsDBNull(25)) { myApplication.myHispanic = reader.GetString(25); }
                         if (!reader.IsDBNull(26)) { myApplication.myRace = reader.GetString(26); }
-                        if (!reader.IsDBNull(27)) { myApplication.mySSN = reader.GetString(27); }                        
+                        if (!reader.IsDBNull(27)) { myApplication.mySSN = reader.GetString(27); }
                         if (!reader.IsDBNull(28)) { myApplication.myCitizen = reader.GetString(28); }
                         if (myApplication.mySSN == "Yes")
                         {
@@ -81,7 +81,7 @@ namespace MNsure_Regression_1
                         {
                             myApplication.mySSNNum = null;
                         }
-                        
+
                         if (!reader.IsDBNull(30)) { myApplication.myHouseholdOther = reader.GetString(30); }
                         if (!reader.IsDBNull(31)) { myApplication.myDependants = reader.GetString(31); }
                         if (!reader.IsDBNull(32)) { myApplication.myIncomeYN = reader.GetString(32); }
@@ -132,7 +132,7 @@ namespace MNsure_Regression_1
                     SqlCeDataReader reader = com2.ExecuteReader();
                     if (reader.Read())
                     {
-                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0); 
+                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
                         if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
                         if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
                         if (!reader.IsDBNull(4)) { myHouseholdMembers.myLastName = reader.GetString(4); }
@@ -141,7 +141,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); }
                         if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); }
                         if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); }
-                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }                       
+                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }
                         if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); }
                         if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); }
                         if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); }
@@ -224,7 +224,7 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(7)) { myHouseholdMembers.myMailZip = reader.GetString(7); }
                             if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); }
                             if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); }
-                        }                        
+                        }
                         else
                         {
                             if (!reader.IsDBNull(3)) { myApplication.myMailAddress1 = reader.GetString(3); }
@@ -267,11 +267,11 @@ namespace MNsure_Regression_1
                 {
                     SqlCeDataReader reader = com2.ExecuteReader();
                     if (reader.Read())
-                    {                        
+                    {
                         if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
                     }
                 }
-                               
+
                 con.Close();
                 return 1;
             }
@@ -342,8 +342,8 @@ namespace MNsure_Regression_1
                 {
                     SqlCeDataReader reader = com.ExecuteReader();
                     if (reader.Read())
-                    {                        
-                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0); 
+                    {
+                        myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
                         if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
                         if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
                         if (!reader.IsDBNull(4)) { myHouseholdMembers.myLastName = reader.GetString(4); }
@@ -352,7 +352,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); }
                         if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); }
                         if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); }
-                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }                    
+                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }
                         if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); }
                         if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); }
                         if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); }
@@ -362,7 +362,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        //if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
+                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
                         if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
                         if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
                         if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
@@ -493,7 +493,7 @@ namespace MNsure_Regression_1
                         if (myApplication.mySSN == "Yes")
                         {
                             com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);
-                        } 
+                        }
                         else
                         {
                             com3.Parameters.AddWithValue("SSN", DBNull.Value);
@@ -551,7 +551,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); }
                         if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); }
                         if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); }
-                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }                      
+                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }
                         if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); }
                         if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); }
                         if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); }
@@ -561,7 +561,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        //if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
+                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
                         if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
                         if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
                         if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
@@ -623,7 +623,7 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(7)) { myHouseholdMembers.myMailZip = reader.GetString(7); }
                             if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); }
                             if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); }
-                        }                      
+                        }
                     }
                 }
 

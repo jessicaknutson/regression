@@ -693,131 +693,12 @@ namespace MNsure_Regression_1
                 IWebElement listboxPreferredContact = driver.FindElement(By.Id("__o3id4f"));
                 listboxPreferredContact.SendKeys(myEnrollment.myPrefContact);
 
-                /*
-                string isPregnant = "No";
-                string isFemale = "No";
-                string householdMember = "1";
-                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
-                {*/
-                    /*if (myHouseholdMembers.myGender == "Female")
-                    {
-                        isFemale = "Yes";
-                        if (myHouseholdMembers.myIsPregnant == "Yes")
-                        {
-                            isPregnant = "Yes";
-                            householdMember = "2";
-                        }
-                    }*/
-                /*}
-                else
-                {
-                    if (myEnrollment.myGender == "Female")
-                    {
-                        isFemale = "Yes";
-                        if (myEnrollment.myIsPregnant == "Yes")
-                        {
-                            isPregnant = "Yes";
-                        }
-                    }
-                }
-
-                if (isFemale == "Yes")
-                {
-                    IWebElement listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
-                    listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
-                }
-
-                if (isPregnant == "Yes")
-                {
-                    string children;
-                    string dueDate;
-                    string pregnancyEnded;
-                    children = myEnrollment.myChildren;
-                    dueDate = myEnrollment.myDueDate;
-                    pregnancyEnded = myEnrollment.myPregnancyEnded;
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(children);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
-                }
-
-                //This will only appear if age 18-27
-                DateTime birth = Convert.ToDateTime(myEnrollment.myDOB);
-                TimeSpan span;
-                if (myHistoryInfo.myInTimeTravel == "Yes")
-                {
-                    span = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth;
-                }
-                else
-                {
-                    span = DateTime.Now - birth;
-                }
-                DateTime age = DateTime.MinValue + span;
-
-                DateTime age2 = DateTime.MinValue;
-
-                string fosterCare = "No";
-                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
-                {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
-                    {
-                        fosterCare = "Yes";
-                    }
-                }
-                else
-                {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
-                    {
-                        fosterCare = "Yes";
-                    }
-                }
-                if (fosterCare == "Yes")
-                {
-                    IWebElement listboxFosterCare;
-                    if (myEnrollment.myGender == "Female")
-                    {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
-                    }
-                    else
-                    {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
-                    }
-                    listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
-                }
-                */
-
-
-                /*string mysAPhone1 = myEnrollment.myAltNum.Substring(0, 3);
-                string mysAPhone2 = myEnrollment.myAltNum.Substring(3, 3);
-                string mysAPhone3 = myEnrollment.myAltNum.Substring(6, 4);
-                IWebElement textboxAPhoneNum = driver.FindElement(By.Id("__o3id28"));
-                textboxAPhoneNum.SendKeys(mysAPhone1);
-                IWebElement textboxAPhoneNum2 = driver.FindElement(By.Id("__o3id29"));
-                textboxAPhoneNum2.SendKeys(mysAPhone2);
-                IWebElement textboxAPhoneNum3 = driver.FindElement(By.Id("__o3id2a"));
-                textboxAPhoneNum3.SendKeys(mysAPhone3);
-
-                IWebElement listboxAPhoneType = driver.FindElement(By.Id("__o3id2b"));
-                listboxAPhoneType.SendKeys(myEnrollment.myAltNumType);
-
-                IWebElement textboxEmail = driver.FindElement(By.Id("__o3id2c"));
-                textboxEmail.SendKeys(myEnrollment.myEmail);
-                 * */
-
                 IWebElement listboxVoterCard = driver.FindElement(By.Id("__o3id5e"));
                 listboxVoterCard.SendKeys(myEnrollment.myVoterCard);
 
                 IWebElement listboxNotices = driver.FindElement(By.Id("__o3id5f"));
                 listboxNotices.SendKeys(myEnrollment.myNotices);
 
-                /*IWebElement listboxAuthRep = driver.FindElement(By.Id("__o3id34"));
-                listboxAuthRep.SendKeys(myEnrollment.myAuthRep);
-
-                if (myEnrollment.myApplyYourself == "No")
-                {
-                    IWebElement listboxApplyYouself = driver.FindElement(By.Id("__o3id35"));
-                    listboxApplyYouself.SendKeys(myEnrollment.myApplyYourself);
-                }
-                 * */
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div/a/span/span/span"));
@@ -924,7 +805,7 @@ namespace MNsure_Regression_1
                     }
                 }
 
-                if (isFemale == "Yes")
+                if (isFemale == "Yes")// && myEnrollment.myEnrollmentPlanType != "MN Care QHP")//what is the rule here??
                 {
                     IWebElement listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
                     listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
@@ -961,14 +842,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -1080,7 +961,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonNext;
                 if (myEnrollment.myEnrollmentPlanType == "MN Care UQHP")
-                { 
+                {
                     buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div/a[2]/span/span/span"));
                 }
                 else
@@ -2485,11 +2366,16 @@ namespace MNsure_Regression_1
 
                 string isMA = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "MA");
                 string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
+                string isQHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "QHP");
 
-                if ( (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && myEnrollment.myHomeState == "Minnesota" && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 ) )//1 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20) ) // 2 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True" || age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20) ) // 3 hh
-                )
+                if (myEnrollment.myHomeState == "Minnesota" && //(myEnrollment.myHouseholdOther == "No" && householdCount == 1 && (isMA == "True" || isBHP == "True") && age.Year - 1 < 20)//1 hh
+                    (((householdCount == 1 || householdCount == 2) && (isMA == "True" || isBHP == "True")) //bd bhp1,2, ma1,2
+                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 20 || age2.Year - 1 < 20) ) // 2 hh
+                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True") ) //bd bhp2, ma1                    
+                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isQHP == "True" && (age.Year - 1 < 20 || age2.Year - 1 < 20)) // bd qhp2
+                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
+                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && isQHP == "True" && (age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
+                ))
                 {
                     IWebElement listboxMedicareInjury;
                     if (householdCount == 1 && age.Year - 1 < 19)
@@ -2531,7 +2417,9 @@ namespace MNsure_Regression_1
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id2a"));
                     }
-                    else if (householdCount == 3 && ((age3.Year - 1 > 11 && age3.Year - 1 < 18) || (isMA == "True" && age3.Year - 1 < 10) || age3.Year - 1 == 0) )
+                    else if ((householdCount == 3 && ((age3.Year - 1 > 11 && age3.Year - 1 < 18) || (isMA == "True" && age3.Year - 1 < 11) || age3.Year - 1 == 0))
+                        || (householdCount == 3 && age3.Year - 1 == 10 && isBHP == "True")
+                        )
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id3a"));
                     }
@@ -2549,13 +2437,7 @@ namespace MNsure_Regression_1
                     }
                     listboxMAStartDate.SendKeys("No");
                 }
-
-
-                if ((myEnrollment.myHouseholdOther == "No" && householdCount == 1 && age.Year - 1 > 19 && myEnrollment.myHomeState != "Minnesota") //1 hh out of state
-                    || (myEnrollment.myHouseholdOther == "No" && householdCount == 1 && isMA == "False" && isBHP == "False" )//&& age.Year - 1 > 19) //1 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isMA == "False" && isBHP == "False")// && age.Year - 1 > 19 && age2.Year - 1 > 19) // 2 hh
-                    || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && isMA == "False" && isBHP == "False")// && age.Year - 1 > 19 && age2.Year - 1 > 19 && age3.Year - 1 > 19) // 3 hh
-                )
+                else
                 {
                     IWebElement listboxMAStartDate;
                     if (householdCount == 1 && age.Year - 1 < 19)
@@ -2572,7 +2454,7 @@ namespace MNsure_Regression_1
                     }
                     else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)//2 hh
                     {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id27"));                    
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id27"));
                         //listboxMAStartDate = driver.FindElement(By.Id("__o3id2a"));
                     }
                     else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
@@ -2669,7 +2551,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
@@ -2706,7 +2588,7 @@ namespace MNsure_Regression_1
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (myEnrollment.myEnrollmentPlanType != "MN Care UQHP" || (myEnrollment.myEnrollmentPlanType == "MN Care UQHP" && householdCount == 3))
                 {
-                    System.Threading.Thread.Sleep(2000);                
+                    System.Threading.Thread.Sleep(2000);
                     IWebElement checkboxRenewOptions = driver.FindElement(By.Id("__o3id1"));
                     checkboxRenewOptions.Click();
 
