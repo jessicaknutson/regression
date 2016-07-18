@@ -93,7 +93,7 @@ namespace MNsure_Regression_1
                 profile.SetPreference("network.http.use-cache", false);
 
                 //create separate driver for logout and relogin to citizen portal
-                FirefoxDriver driver3 = new FirefoxDriver(profile);
+                FirefoxDriver driver3 = new FirefoxDriver(profile);                
                 driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
 
                 //create separate driver for case worker

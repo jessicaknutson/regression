@@ -1865,15 +1865,15 @@ namespace MNsure_Regression_1
                     listboxIncomeAdjusted.SendKeys(incomeExpected);
                 }
 
-                /*if (myHistoryInfo.myInTimeTravel == "Yes")
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
-                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
+                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2017") &&
+                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2018"))//these dates are a year too far in the future, once we get 2017 configured then these dates can be corrected
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
-                }*/
+                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -3344,7 +3344,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
