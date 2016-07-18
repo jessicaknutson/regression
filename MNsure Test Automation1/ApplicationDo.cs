@@ -1865,7 +1865,7 @@ namespace MNsure_Regression_1
                     listboxIncomeAdjusted.SendKeys(incomeExpected);
                 }
 
-                if (myHistoryInfo.myInTimeTravel == "Yes")
+                /*if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
                         myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
@@ -1873,7 +1873,7 @@ namespace MNsure_Regression_1
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
-                }
+                }*/
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
