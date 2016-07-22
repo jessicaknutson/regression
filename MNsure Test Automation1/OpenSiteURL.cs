@@ -88,7 +88,7 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
@@ -123,7 +123,7 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
@@ -163,7 +163,115 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoAssisterURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Individual");
+                }
+                else
+                {
+                    driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Individual");
+                }
+
+                // This checks for the Sign In button
+                IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }               
+
+        public int DoBrokerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        {
+            try
+            {               
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Broker");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver2.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Broker");
+                }
+                else
+                {
+                    driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Broker");
+                }
+
+                // This checks for the Sign In button
+                IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoBrokerRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
+            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Broker");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Broker");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Broker");
+                }
+
+                // This checks for the Sign In button
+                IWebElement myfield = driver3.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }

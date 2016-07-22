@@ -31,7 +31,7 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoCaseWorkerLogin(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoCaseWorkerLogin(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -84,9 +84,9 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
-        }
+        }       
 
-        public int DoCaseWorkerLoginTimeTravel(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoCaseWorkerLoginTimeTravel(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -142,7 +142,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHCRCases(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoHCRCases(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -260,7 +260,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoPersonHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoPersonHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -297,7 +297,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoRegisterPerson(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoRegisterPerson(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -364,7 +364,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNotification(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNotification(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -427,7 +427,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIAHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoIAHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -483,7 +483,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEvidenceIA(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoEvidenceIA(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -522,7 +522,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoLifeEventsAdd(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoLifeEventsAdd(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -591,7 +591,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoLifeEventsRemove(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoLifeEventsRemove(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -665,7 +665,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoLifeEventsCoverage(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoLifeEventsCoverage(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -729,7 +729,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoPersonEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoPersonEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -767,7 +767,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoPersonEvidenceOldAddressCorrection(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoPersonEvidenceOldAddressCorrection(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -846,7 +846,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIAEvidenceOldAddressCorrection(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoIAEvidenceOldAddressCorrection(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -973,7 +973,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1056,7 +1056,7 @@ namespace MNsure_Regression_1
                 return 2;
             }
         }
-        public int DoActiveEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoActiveEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1165,7 +1165,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateTaxEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateTaxEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1298,7 +1298,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateIncomeEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateIncomeEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1405,7 +1405,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateAddressEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateAddressEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1561,7 +1561,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateStateEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateStateEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1689,7 +1689,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdatePAIEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdatePAIEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1814,7 +1814,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoClosePDCTab(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoClosePDCTab(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1855,7 +1855,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateMaritalEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateMaritalEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -1970,7 +1970,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUpdateBirthEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUpdateBirthEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2086,7 +2086,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceESC(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceESC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2182,7 +2182,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceAppDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceAppDetails(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2300,7 +2300,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceSSNDetails(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceSSNDetails(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2408,7 +2408,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceMaritalStatus(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceMaritalStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2512,7 +2512,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceStateResidency(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceStateResidency(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2643,7 +2643,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidencePregnancy(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidencePregnancy(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2756,7 +2756,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceParticipantAddress(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceParticipantAddress(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2857,7 +2857,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoPersonNewEvidenceAddress(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoPersonNewEvidenceAddress(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -2964,7 +2964,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceParticipantAddressMailing(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceParticipantAddressMailing(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3072,7 +3072,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceProjectedAnnualIncome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceProjectedAnnualIncome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3176,7 +3176,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceMedicaid(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceMedicaid(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3270,7 +3270,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceBirth(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceBirth(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3371,7 +3371,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceRelationship(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceRelationship(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3477,7 +3477,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceCitizenStatus(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceCitizenStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3576,7 +3576,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceTaxStatus(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceTaxStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3687,7 +3687,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoNewEvidenceGender(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoNewEvidenceGender(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3790,7 +3790,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoValidateEvidenceChanges(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoValidateEvidenceChanges(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3847,7 +3847,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoApplyEvidenceChanges(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoApplyEvidenceChanges(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3912,7 +3912,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAppFilerConsent(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoAppFilerConsent(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -3978,7 +3978,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoVerification(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoVerification(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4047,7 +4047,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoTasks(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoTasks(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4111,7 +4111,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCloseTasks(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoCloseTasks(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4228,7 +4228,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAddProof(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoAddProof(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4405,7 +4405,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoMAHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoMAHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4500,7 +4500,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoMAActivateCase(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoMAActivateCase(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4557,7 +4557,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoClosePDC(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoClosePDC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4614,7 +4614,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCloseIC(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoCloseIC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4666,7 +4666,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoBHPHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoBHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4765,7 +4765,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoQHPHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoQHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4863,7 +4863,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoUQHPHome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoUQHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -4960,7 +4960,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoDeterminations(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoDeterminations(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -5036,7 +5036,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoDecision(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoDecision(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try
@@ -5084,7 +5084,7 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIncome(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
+        public int DoIncome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
             ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber)
         {
             try

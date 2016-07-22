@@ -30,6 +30,7 @@ namespace MNsure_Regression_1
         mystructAccountCreate myAccountCreate;
         mystructHistoryInfo myHistoryInfo;
         mystructApplication myApplication;
+        mystructAssister myAssister;
         mystructSSN myLastSSN;
         mystructNavHelper myNavHelper;
         mystructReadFileValues myReadFileValues;
@@ -81,7 +82,8 @@ namespace MNsure_Regression_1
             object reflectResulten = null;
             object reflectResultcw = null;
             object reflectResulthm = null;
-            object reflectResultwad = null;            
+            object reflectResultwad = null;
+            object reflectResulta = null;
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
@@ -93,7 +95,7 @@ namespace MNsure_Regression_1
                 profile.SetPreference("network.http.use-cache", false);
 
                 //create separate driver for logout and relogin to citizen portal
-                FirefoxDriver driver3 = new FirefoxDriver(profile);                
+                FirefoxDriver driver3 = new FirefoxDriver(profile);
                 driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
 
                 //create separate driver for case worker
@@ -129,9 +131,9 @@ namespace MNsure_Regression_1
                     InitializeSSN myInitializeSSN = new InitializeSSN();
                     result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
-                    myAccountCreate.mySSN = Convert.ToString(temp1);                    
+                    myAccountCreate.mySSN = Convert.ToString(temp1);
                     if (myHistoryInfo.myEnvironment == "STST2")
-                    {                        
+                    {
                         myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "444");
                     }
                     if (myHistoryInfo.myEnvironment == "STST")
@@ -144,7 +146,7 @@ namespace MNsure_Regression_1
                     }
 
                     FillStructures myFillStructures = new FillStructures();
-                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);                    
+                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     AccountGeneration myAccountGeneration = new AccountGeneration();
@@ -156,9 +158,9 @@ namespace MNsure_Regression_1
                     {
                         result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
                     }
-                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
-                    
+
                     if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
                     {
                         int temp2 = temp1 + 1;
@@ -175,8 +177,8 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "144");
                             }
                         }
-                        myLastSSN.myLastSSN = myHouseholdMembers.mySSN;                        
-                        
+                        myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+
                         result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
                     }
                     else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
@@ -306,7 +308,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "CWApplicationDo":
@@ -331,7 +333,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmscwad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "WizardApplicationDo":
@@ -356,7 +358,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmswad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "HouseholdMembersDo":
@@ -382,7 +384,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmshm[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "Enrollments":
@@ -407,7 +409,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsen[6].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "CaseWorker":
@@ -436,7 +438,39 @@ namespace MNsure_Regression_1
                                     }
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    break;
+
+                                case "Assister":
+                                    object[] parmsa = new object[11];
+                                    parmsa[0] = driver;
+                                    parmsa[1] = driver2;
+                                    parmsa[2] = driver3;
+                                    parmsa[3] = myAccountCreate;
+                                    parmsa[4] = myApplication;
+                                    parmsa[5] = myAssister;
+                                    parmsa[6] = myHistoryInfo;
+                                    parmsa[7] = returnStatus;
+                                    parmsa[8] = returnException;
+                                    parmsa[9] = returnScreenshot;
+                                    parmsa[10] = returnICNumber;
+
+                                    AssisterDo myAssisterDo = new AssisterDo();
+                                    Type reflectTestTypea = typeof(AssisterDo);
+                                    MethodInfo reflectMethodToInvokea = reflectTestTypea.GetMethod(myMethod);
+                                    ParameterInfo[] reflectMethodParametersa = reflectMethodToInvokea.GetParameters();
+                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                    reflectResulta = reflectMethodToInvokea.Invoke(new AssisterDo(), parmsa);
+                                    myHistoryInfo.myTestStepStatus = parmsa[7].ToString();
+                                    myHistoryInfo.myStepException = parmsa[8].ToString();
+                                    myHistoryInfo.myScreenShot = parmsa[9].ToString();
+                                    if (parmsa[10].ToString() != String.Empty)
+                                    {
+                                        myHistoryInfo.myIcnumber = parmsa[10].ToString();
+                                    }
+                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    //must fill structures again after updating pass count
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 default:
@@ -817,6 +851,22 @@ namespace MNsure_Regression_1
                                     myHouseholdMembers.myMailAptSuite = reader.GetString(11);
                                 }
                             }
+                            else if (reader.GetString(9) == "Assister")
+                            {
+                                myAssister.myAddress1 = reader.GetString(3);
+                                if (!reader.IsDBNull(4))
+                                {
+                                    myAssister.myAddress2 = reader.GetString(4);
+                                }
+                                myAssister.myCity = reader.GetString(5);
+                                myAssister.myState = reader.GetString(6);
+                                myAssister.myZip = reader.GetString(7);
+                                myAssister.myCounty = reader.GetString(10);
+                                if (!reader.IsDBNull(11))
+                                {
+                                    myAssister.myAptSuite = reader.GetString(11);
+                                }
+                            }
                             else
                             {
                                 myApplication.myMailAddress1 = reader.GetString(3);
@@ -979,6 +1029,47 @@ namespace MNsure_Regression_1
                             com5.Dispose();
                         }
                     }
+
+                    SqlCeCommand cmd5 = con.CreateCommand();
+                    cmd5.CommandType = CommandType.Text;
+
+                    //Read configured rows if exist
+                    using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Assister where TestID = " + myTestId, con))
+                    {
+                        SqlCeDataReader reader = com6.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            myAssister.AssisterId = reader.GetString(2);                            
+                            myAssister.myCommunication = reader.GetString(3);
+                            myAssister.myLanguage = reader.GetString(4);
+                            myAssister.myMethod = reader.GetString(5);
+                            if (!reader.IsDBNull(6))
+                            {
+                                myAssister.myPhoneType = reader.GetString(6);
+                            }
+                            if (!reader.IsDBNull(7))
+                            {
+                                myAssister.myPhoneNum = reader.GetString(7);
+                            }
+                            myAssister.myCategory = reader.GetString(8);
+                            myAssister.myType = reader.GetString(9);
+                            if (!reader.IsDBNull(10))
+                            {
+                                myAssister.myEmail = reader.GetString(10);
+                            }
+                            if (!reader.IsDBNull(11))
+                            {
+                                myAssister.myLastName = reader.GetString(11);
+                            }
+                            if (!reader.IsDBNull(12))
+                            {
+                                myAssister.myFirstName = reader.GetString(12);
+                            }
+                        }
+                        com6.ExecuteNonQuery();
+                        com6.Dispose();
+                    }
+
                 }
                 catch (Exception f)
                 {
@@ -1155,10 +1246,20 @@ namespace MNsure_Regression_1
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
-                    textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
-                    textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
-                    textBoxHMLastName.Text = myHouseholdMembers.myLastName;
-                    comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+                    if (checkBoxHMRandom.Checked == false)            
+                    {
+                        textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+                        textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+                        textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+                        comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+                    }
+                    else
+                    {
+                        textBoxHMFirstName.Text = "";
+                        textBoxHMMiddleName.Text = "";
+                        textBoxHMLastName.Text = "";
+                        comboBoxHMSuffix.Text = "";
+                    }
                     comboBoxHMGender.Text = myHouseholdMembers.myGender;
                     comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
                     textBoxHMDOB.Text = myHouseholdMembers.myDOB;
@@ -1351,9 +1452,32 @@ namespace MNsure_Regression_1
                     textBoxTotalMembers.Text = "1";
                 }
 
+                if (myAssister.myLastName != null)
+                {
+                    textBoxAssisterFirstName.Text = myAssister.myFirstName; 
+                    textBoxAssisterLastName.Text = myAssister.myLastName;                    
+                    comboBoxAssisterCommunication.Text = myAssister.myCommunication;
+                    comboBoxAssisterLanguage.Text = myAssister.myLanguage;
+                    comboBoxAssisterMethod.Text = myAssister.myMethod;
+                    textBoxAssisterId.Text = Convert.ToString(myAssister.AssisterId);
+                    comboBoxAssisterPhoneType.Text = myAssister.myPhoneType;
+                    textBoxAssisterPhoneNumber.Text = myAssister.myPhoneNum;
+                    comboBoxAssisterCategory.Text = myAssister.myCategory;
+                    comboBoxAssisterType.Text = myAssister.myType;
+                    textBoxAssisterStreet1.Text = myAssister.myAddress1;
+                    textBoxAssisterStreet2.Text = myAssister.myAddress2;
+                    textBoxAssisterAptSuite.Text = myAssister.myAptSuite;
+                    textBoxAssisterCity.Text = myAssister.myCity;
+                    comboBoxAssisterState.Text = myAssister.myState;
+                    textBoxAssisterZip.Text = myAssister.myZip;
+                    comboBoxAssisterCounty.Text = myAssister.myCounty;
+                    textBoxAssisterEmail.Text = myAssister.myEmail;
+                }
+
                 groupBoxApplicantInformation.Visible = true;
                 groupBoxMoreAboutYou.Visible = false;
                 groupBoxHouseholdOther.Visible = false;
+                groupBoxAssister.Visible = false;
                 groupBoxDependants.Visible = false;
                 groupBoxEnrollIncome.Visible = false;
             }
@@ -1461,7 +1585,7 @@ namespace MNsure_Regression_1
             if (checkBoxRandom.Checked == true)
             {
                 myApplication.mySSNNum = "";
-            } 
+            }
             else
             {
                 myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
@@ -1650,7 +1774,7 @@ namespace MNsure_Regression_1
                     {
                         com6.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                     }
-                    com6.Parameters.AddWithValue("PassCount", myApplication.myPassCount);                    
+                    com6.Parameters.AddWithValue("PassCount", myApplication.myPassCount);
 
                     com6.ExecuteNonQuery();
                     com6.Dispose();
@@ -1718,7 +1842,7 @@ namespace MNsure_Regression_1
                     else
                     {
                         com8.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                    }                    
+                    }
 
                     com8.ExecuteNonQuery();
                     com8.Dispose();
@@ -1763,12 +1887,153 @@ namespace MNsure_Regression_1
                         else
                         {
                             com9.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                        }                        
+                        }
 
                         com9.ExecuteNonQuery();
                         com9.Dispose();
                     }
                 }
+
+                if (textBoxAssisterLastName.Text != null && textBoxAssisterLastName.Text != "")
+                {
+                    myAssister.myFirstName = textBoxAssisterFirstName.Text;
+                    myAssister.myLastName = textBoxAssisterLastName.Text;
+                    myAssister.myCommunication = comboBoxAssisterCommunication.Text;
+                    myAssister.myLanguage = comboBoxAssisterLanguage.Text;
+                    myAssister.myMethod = comboBoxAssisterMethod.Text;
+                    myAssister.AssisterId = textBoxAssisterId.Text;
+                    myAssister.myPhoneType = comboBoxAssisterPhoneType.Text;
+                    myAssister.myPhoneNum = textBoxAssisterPhoneNumber.Text;
+                    myAssister.myCategory = comboBoxAssisterCategory.Text;
+                    myAssister.myType = comboBoxAssisterType.Text;
+                    myAssister.myAddress1 = textBoxAssisterStreet1.Text;
+                    myAssister.myAddress2 = textBoxAssisterStreet2.Text;
+                    myAssister.myAptSuite = textBoxAssisterAptSuite.Text;
+                    myAssister.myCity = textBoxAssisterCity.Text;
+                    myAssister.myState = comboBoxAssisterState.Text;
+                    myAssister.myZip = textBoxAssisterZip.Text;
+                    myAssister.myCounty = comboBoxAssisterCounty.Text;
+                    myAssister.myEmail = textBoxAssisterEmail.Text;
+
+                    SqlCeCommand cmd5 = con.CreateCommand();
+                    cmd5.CommandType = CommandType.Text;
+                    try
+                    {
+                        cmd5.CommandText = "Delete from Assister where TestId = " + mysTestId + ";";
+                        cmd5.ExecuteNonQuery();
+                    }
+                    catch
+                    {
+                        //fail silently
+                    }
+
+                    using (SqlCeCommand com8 = new SqlCeCommand("SELECT max(Id) FROM Assister", con))
+                    {
+                        SqlCeDataReader reader = com8.ExecuteReader();
+                        if (reader.Read())
+                        {
+                            myEditKey.myNextAssisterId = Convert.ToString(reader.GetInt32(0) + 1);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Did not find Address id");
+                        }
+                        com8.Dispose();
+                    }
+
+                    string myInsertString4;
+                    myInsertString4 = "Insert into Assister values (@Id," + mysTestId +
+                                    ", @AssisterId, @Communication, @Language, @Method, @PhoneType, @PhoneNum, @Category, @Type, @Email, @LastName, @FirstName );";
+                    using (SqlCeCommand com10 = new SqlCeCommand(myInsertString4, con))
+                    {
+                        com10.Parameters.AddWithValue("Id", myEditKey.myNextAssisterId);
+                        com10.Parameters.AddWithValue("AssisterId", myAssister.AssisterId);                        
+                        com10.Parameters.AddWithValue("Communication", myAssister.myCommunication);
+                        com10.Parameters.AddWithValue("Language", myAssister.myLanguage);
+                        com10.Parameters.AddWithValue("Method", myAssister.myMethod);
+                        if (myAssister.myPhoneType != "")
+                        {
+                            com10.Parameters.AddWithValue("PhoneType", myAssister.myPhoneType);
+                        }
+                        else
+                        {
+                            com10.Parameters.AddWithValue("PhoneType", DBNull.Value);
+                        }
+                        if (myAssister.myPhoneNum != "")
+                        {
+                            com10.Parameters.AddWithValue("PhoneNum", myAssister.myPhoneNum);
+                        }
+                        else
+                        {
+                            com10.Parameters.AddWithValue("PhoneNum", DBNull.Value);
+                        }
+                        com10.Parameters.AddWithValue("Category", myAssister.myCategory);
+                        com10.Parameters.AddWithValue("Type", myAssister.myType);
+                        com10.Parameters.AddWithValue("Email", myAssister.myEmail);
+                        com10.Parameters.AddWithValue("LastName", myAssister.myLastName);
+                        com10.Parameters.AddWithValue("FirstName", myAssister.myFirstName);                        
+
+                        com10.ExecuteNonQuery();
+                        com10.Dispose();
+                    }
+
+                    string myInsertString5;
+                    myInsertString5 = "Insert into Address values (" + 1 + ", " + mysTestId +
+                                    ", @AddressId, @Address1, @Address2, @City, @State, @Zip, @Zip4, @Type, @County, @AptSuite );";
+                    using (SqlCeCommand com11 = new SqlCeCommand(myInsertString5, con))
+                    {
+                        myEditKey.myNextAddressId = Convert.ToString(Convert.ToInt32(myEditKey.myNextAddressId) + 1);
+
+                        com11.Parameters.AddWithValue("AddressId", myEditKey.myNextAddressId);
+                        com11.Parameters.AddWithValue("Address1", myAssister.myAddress1);
+                        if (myAssister.myAddress2 != "")
+                        {
+                            com11.Parameters.AddWithValue("Address2", myAssister.myAddress2);
+                        }
+                        else
+                        {
+                            com11.Parameters.AddWithValue("Address2", DBNull.Value);
+                        }
+                        com11.Parameters.AddWithValue("City", myAssister.myCity);
+                        com11.Parameters.AddWithValue("State", myAssister.myState);
+                        com11.Parameters.AddWithValue("Zip", myAssister.myZip);
+                        com11.Parameters.AddWithValue("Zip4", DBNull.Value);
+                        com11.Parameters.AddWithValue("Type", "Assister");
+                        com11.Parameters.AddWithValue("County", myAssister.myCounty);
+                        if (myAssister.myAptSuite != "")
+                        {
+                            com11.Parameters.AddWithValue("AptSuite", myAssister.myAptSuite);
+                        }
+                        else
+                        {
+                            com11.Parameters.AddWithValue("AptSuite", DBNull.Value);
+                        }
+
+                        com11.ExecuteNonQuery();
+                        com11.Dispose();
+                    }
+                }
+                else
+                {
+                    textBoxAssisterFirstName.Text = "";
+                    comboBoxAssisterCommunication.Text = "";
+                    comboBoxAssisterLanguage.Text = "";
+                    comboBoxAssisterMethod.Text = "";
+                    textBoxAssisterId.Text = "";
+                    comboBoxAssisterPhoneType.Text = "";
+                    textBoxAssisterPhoneNumber.Text = "";
+                    comboBoxAssisterCategory.Text = "";
+                    comboBoxAssisterType.Text = "";
+                    textBoxAssisterStreet1.Text = "";
+                    textBoxAssisterStreet2.Text = "";
+                    textBoxAssisterAptSuite.Text = "";
+                    textBoxAssisterCity.Text = "";
+                    comboBoxAssisterState.Text = "";
+                    textBoxAssisterZip.Text = "";
+                    comboBoxAssisterCounty.Text = "";
+                    textBoxAssisterEmail.Text = "";
+                }
+
             }
             catch (Exception f)
             {
@@ -1787,6 +2052,7 @@ namespace MNsure_Regression_1
             groupBoxDependants.Visible = false;
             groupBoxHouseholdOther.Visible = false;
             groupBoxEnrollIncome.Visible = false;
+            groupBoxAssister.Visible = false;
         }
 
         private void radioButtonInformation_Click(object sender, EventArgs e)
@@ -1797,6 +2063,7 @@ namespace MNsure_Regression_1
             groupBoxDependants.Visible = false;
             groupBoxHouseholdOther.Visible = false;
             groupBoxEnrollIncome.Visible = false;
+            groupBoxAssister.Visible = false;
         }
 
         private void radioButtonHouseholdOther_Click(object sender, EventArgs e)
@@ -1807,6 +2074,7 @@ namespace MNsure_Regression_1
             groupBoxMoreAboutYou.Visible = false;
             groupBoxDependants.Visible = false;
             groupBoxEnrollIncome.Visible = false;
+            groupBoxAssister.Visible = false;
         }
 
         private void radioButtonEnrollDependants_Click(object sender, EventArgs e)
@@ -1817,6 +2085,7 @@ namespace MNsure_Regression_1
             groupBoxDependants.Location = new System.Drawing.Point(18, 40);
             groupBoxDependants.Visible = true;
             groupBoxEnrollIncome.Visible = false;
+            groupBoxAssister.Visible = false;
         }
 
         private void radioButtonIncome_Click(object sender, EventArgs e)
@@ -1827,6 +2096,19 @@ namespace MNsure_Regression_1
             groupBoxDependants.Visible = false;
             groupBoxEnrollIncome.Location = new System.Drawing.Point(18, 40);
             groupBoxEnrollIncome.Visible = true;
+            groupBoxAssister.Visible = false;
+
+        }
+
+        private void radioButtonAssister_Click(object sender, EventArgs e)
+        {
+            groupBoxHouseholdOther.Visible = false;
+            groupBoxApplicantInformation.Visible = false;
+            groupBoxMoreAboutYou.Visible = false;
+            groupBoxAssister.Location = new System.Drawing.Point(18, 40);
+            groupBoxAssister.Visible = true;
+            groupBoxEnrollIncome.Visible = false;
+            groupBoxDependants.Visible = false;
         }
 
         private void buttonAddTest_Click(object sender, EventArgs e)
@@ -1940,7 +2222,7 @@ namespace MNsure_Regression_1
             {
                 MessageBox.Show("Remove Test didn't work");
             }
-                       
+
             con = new SqlCeConnection(conString);
             con.Open();
             SqlCeCommand cmd = con.CreateCommand();
@@ -2095,7 +2377,7 @@ namespace MNsure_Regression_1
             {
                 buttonGo.Enabled = true;
             }
-            
+
             if (dataGridViewSelectedTests.CurrentCell == null)
             {
                 myHistoryInfo.myTestId = null;
@@ -4378,7 +4660,7 @@ namespace MNsure_Regression_1
                             else
                             {
                                 com79.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                            }                            
+                            }
 
                             com79.ExecuteNonQuery();
                             com79.Dispose();
@@ -4447,7 +4729,7 @@ namespace MNsure_Regression_1
                             else
                             {
                                 com80.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                            }                            
+                            }
 
                             com80.ExecuteNonQuery();
                             com80.Dispose();
@@ -4596,7 +4878,7 @@ namespace MNsure_Regression_1
                 {
                     SqlCeDataReader reader = com66.ExecuteReader();
                     while (reader.Read())
-                    {                        
+                    {
                         myInsertString = "Insert into HouseMembers values (3, " + Convert.ToInt32(myNewTestId) +
                     ", @FirstName, @MiddleName, @LastName, @Suffix, @Gender, @MaritalStatus, " +
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
@@ -4744,14 +5026,14 @@ namespace MNsure_Regression_1
             {
                 labelTimeTravel.BackColor = Color.Yellow;
                 labelTimeTravel.Visible = true;
-                myHistoryInfo.myInTimeTravel = "Yes";                
-                cmd.CommandText = "Select * from Test where IsSelected = 'No' and Name like '% in TT'" + ";";                
+                myHistoryInfo.myInTimeTravel = "Yes";
+                cmd.CommandText = "Select * from Test where IsSelected = 'No' and Name like '% in TT'" + ";";
             }
             else
             {
                 labelTimeTravel.Visible = false;
-                myHistoryInfo.myInTimeTravel = "No";                
-                cmd.CommandText = "Select * from Test where IsSelected = 'No'" + ";";                
+                myHistoryInfo.myInTimeTravel = "No";
+                cmd.CommandText = "Select * from Test where IsSelected = 'No'" + ";";
             }
             cmd.ExecuteNonQuery();
             System.Data.DataTable dt = new System.Data.DataTable();
@@ -5892,7 +6174,7 @@ namespace MNsure_Regression_1
             string myTestId;
             myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
 
-            if (checkBoxRandom.Checked == true)
+            if (checkBoxHMRandom.Checked == true)
             {
                 myHouseholdMembers.myFirstName = "";
                 myHouseholdMembers.myLastName = "";
@@ -6106,7 +6388,7 @@ namespace MNsure_Regression_1
                         MessageBox.Show("Did not find Address id");
                     }
                     com72.Dispose();
-                }               
+                }
 
                 //Basic address stuff
                 if (myHouseholdMembers.myMailAddress1 != "")
@@ -6141,7 +6423,7 @@ namespace MNsure_Regression_1
                         else
                         {
                             com73.Parameters.AddWithValue("AptSuite", DBNull.Value);
-                        }                        
+                        }
 
                         com73.ExecuteNonQuery();
                         com73.Dispose();
@@ -6265,6 +6547,8 @@ namespace MNsure_Regression_1
         {
             myHistoryInfo.myEnvironment = comboBoxEnvironment.Text;
         }
+
+      
 
     }
 }

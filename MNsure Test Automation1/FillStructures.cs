@@ -11,7 +11,7 @@ namespace MNsure_Regression_1
 {
     class FillStructures
     {
-        public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructHistoryInfo myHistoryInfo)
+        public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructAssister myAssister, ref mystructHistoryInfo myHistoryInfo)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -225,6 +225,16 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); }
                             if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); }
                         }
+                        else if (reader.GetString(9) == "Assister")
+                        {
+                            if (!reader.IsDBNull(3)) { myAssister.myAddress1 = reader.GetString(3); }
+                            if (!reader.IsDBNull(4)) { myAssister.myAddress2 = reader.GetString(4); }
+                            if (!reader.IsDBNull(5)) { myAssister.myCity = reader.GetString(5); }
+                            if (!reader.IsDBNull(6)) { myAssister.myState = reader.GetString(6); }
+                            if (!reader.IsDBNull(7)) { myAssister.myZip = reader.GetString(7); }
+                            if (!reader.IsDBNull(10)) { myAssister.myCounty = reader.GetString(10); }
+                            if (!reader.IsDBNull(11)) { myAssister.myAptSuite = reader.GetString(11); }
+                        }
                         else
                         {
                             if (!reader.IsDBNull(3)) { myApplication.myMailAddress1 = reader.GetString(3); }
@@ -237,6 +247,30 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(11)) { myApplication.myMailAptSuite = reader.GetString(11); }
                         }
                     }
+
+                    SqlCeCommand cmd5 = con.CreateCommand();
+                    cmd5.CommandType = CommandType.Text;
+
+                    //Read configured rows if exist
+                    using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Assister where TestId = " + mySelectedTest.myTestId, con))
+                    {
+                        SqlCeDataReader reader2 = com4.ExecuteReader();
+                        if (reader2.Read())
+                        {
+                            if (!reader2.IsDBNull(2)) { myAssister.AssisterId = reader2.GetString(2); }                            
+                            if (!reader2.IsDBNull(3)) { myAssister.myCommunication = reader2.GetString(3); }
+                            if (!reader2.IsDBNull(4)) { myAssister.myLanguage = reader2.GetString(4); }
+                            if (!reader2.IsDBNull(5)) { myAssister.myMethod = reader2.GetString(5); }
+                            if (!reader2.IsDBNull(6)) { myAssister.myPhoneType = reader2.GetString(6); }
+                            if (!reader2.IsDBNull(7)) { myAssister.myPhoneNum = reader2.GetString(7); }
+                            if (!reader2.IsDBNull(8)) { myAssister.myCategory = reader2.GetString(8); }
+                            if (!reader2.IsDBNull(9)) { myAssister.myType = reader2.GetString(9); }
+                            if (!reader2.IsDBNull(10)) { myAssister.myEmail = reader2.GetString(10); }                            
+                            if (!reader2.IsDBNull(11)) { myAssister.myLastName = reader2.GetString(11); }
+                            if (!reader2.IsDBNull(12)) { myAssister.myFirstName = reader2.GetString(12); }
+                        }
+                    }
+
                 }
 
                 con.Close();

@@ -59,6 +59,44 @@
             this.dataGridViewSelectedTests = new System.Windows.Forms.DataGridView();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageConfigureEnrollment = new System.Windows.Forms.TabPage();
+            this.groupBoxAssister = new System.Windows.Forms.GroupBox();
+            this.textBoxAssisterLastName = new System.Windows.Forms.TextBox();
+            this.label201 = new System.Windows.Forms.Label();
+            this.textBoxAssisterEmail = new System.Windows.Forms.TextBox();
+            this.label200 = new System.Windows.Forms.Label();
+            this.textBoxAssisterZip = new System.Windows.Forms.TextBox();
+            this.comboBoxAssisterState = new System.Windows.Forms.ComboBox();
+            this.comboBoxAssisterCounty = new System.Windows.Forms.ComboBox();
+            this.textBoxAssisterStreet1 = new System.Windows.Forms.TextBox();
+            this.textBoxAssisterStreet2 = new System.Windows.Forms.TextBox();
+            this.textBoxAssisterCity = new System.Windows.Forms.TextBox();
+            this.textBoxAssisterAptSuite = new System.Windows.Forms.TextBox();
+            this.label199 = new System.Windows.Forms.Label();
+            this.label198 = new System.Windows.Forms.Label();
+            this.label197 = new System.Windows.Forms.Label();
+            this.label196 = new System.Windows.Forms.Label();
+            this.label195 = new System.Windows.Forms.Label();
+            this.label194 = new System.Windows.Forms.Label();
+            this.label193 = new System.Windows.Forms.Label();
+            this.label192 = new System.Windows.Forms.Label();
+            this.comboBoxAssisterType = new System.Windows.Forms.ComboBox();
+            this.comboBoxAssisterCategory = new System.Windows.Forms.ComboBox();
+            this.textBoxAssisterPhoneNumber = new System.Windows.Forms.TextBox();
+            this.comboBoxAssisterPhoneType = new System.Windows.Forms.ComboBox();
+            this.textBoxAssisterId = new System.Windows.Forms.TextBox();
+            this.comboBoxAssisterMethod = new System.Windows.Forms.ComboBox();
+            this.comboBoxAssisterLanguage = new System.Windows.Forms.ComboBox();
+            this.comboBoxAssisterCommunication = new System.Windows.Forms.ComboBox();
+            this.textBoxAssisterFirstName = new System.Windows.Forms.TextBox();
+            this.label191 = new System.Windows.Forms.Label();
+            this.label190 = new System.Windows.Forms.Label();
+            this.label189 = new System.Windows.Forms.Label();
+            this.label188 = new System.Windows.Forms.Label();
+            this.label187 = new System.Windows.Forms.Label();
+            this.label186 = new System.Windows.Forms.Label();
+            this.label185 = new System.Windows.Forms.Label();
+            this.label165 = new System.Windows.Forms.Label();
+            this.label76 = new System.Windows.Forms.Label();
             this.groupBoxEnrollIncome = new System.Windows.Forms.GroupBox();
             this.comboBoxEnrollIncomeExpected = new System.Windows.Forms.ComboBox();
             this.label48 = new System.Windows.Forms.Label();
@@ -222,6 +260,7 @@
             this.comboBoxEnrollHouseholdOther = new System.Windows.Forms.ComboBox();
             this.label37 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioButtonAssister = new System.Windows.Forms.RadioButton();
             this.radioButtonIncome = new System.Windows.Forms.RadioButton();
             this.radioButtonEnrollDependants = new System.Windows.Forms.RadioButton();
             this.radioButtonHouseholdOther = new System.Windows.Forms.RadioButton();
@@ -463,6 +502,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSelectedTests)).BeginInit();
             this.tabControlMain.SuspendLayout();
             this.tabPageConfigureEnrollment.SuspendLayout();
+            this.groupBoxAssister.SuspendLayout();
             this.groupBoxEnrollIncome.SuspendLayout();
             this.groupBoxDependants.SuspendLayout();
             this.groupBoxHouseholdOther.SuspendLayout();
@@ -829,6 +869,7 @@
             // 
             // tabPageConfigureEnrollment
             // 
+            this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxAssister);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxEnrollIncome);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxDependants);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxHouseholdOther);
@@ -847,6 +888,457 @@
             this.tabPageConfigureEnrollment.UseVisualStyleBackColor = true;
             this.tabPageConfigureEnrollment.Enter += new System.EventHandler(this.tabPageConfigureEnrollment_Enter);
             this.tabPageConfigureEnrollment.Leave += new System.EventHandler(this.tabPageConfigureEnrollment_Leave);
+            // 
+            // groupBoxAssister
+            // 
+            this.groupBoxAssister.BackColor = System.Drawing.Color.White;
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterLastName);
+            this.groupBoxAssister.Controls.Add(this.label201);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterEmail);
+            this.groupBoxAssister.Controls.Add(this.label200);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterZip);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterState);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterCounty);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterStreet1);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterStreet2);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterCity);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterAptSuite);
+            this.groupBoxAssister.Controls.Add(this.label199);
+            this.groupBoxAssister.Controls.Add(this.label198);
+            this.groupBoxAssister.Controls.Add(this.label197);
+            this.groupBoxAssister.Controls.Add(this.label196);
+            this.groupBoxAssister.Controls.Add(this.label195);
+            this.groupBoxAssister.Controls.Add(this.label194);
+            this.groupBoxAssister.Controls.Add(this.label193);
+            this.groupBoxAssister.Controls.Add(this.label192);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterType);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterCategory);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterPhoneNumber);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterPhoneType);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterId);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterMethod);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterLanguage);
+            this.groupBoxAssister.Controls.Add(this.comboBoxAssisterCommunication);
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterFirstName);
+            this.groupBoxAssister.Controls.Add(this.label191);
+            this.groupBoxAssister.Controls.Add(this.label190);
+            this.groupBoxAssister.Controls.Add(this.label189);
+            this.groupBoxAssister.Controls.Add(this.label188);
+            this.groupBoxAssister.Controls.Add(this.label187);
+            this.groupBoxAssister.Controls.Add(this.label186);
+            this.groupBoxAssister.Controls.Add(this.label185);
+            this.groupBoxAssister.Controls.Add(this.label165);
+            this.groupBoxAssister.Controls.Add(this.label76);
+            this.groupBoxAssister.Location = new System.Drawing.Point(29, 55);
+            this.groupBoxAssister.Name = "groupBoxAssister";
+            this.groupBoxAssister.Size = new System.Drawing.Size(800, 526);
+            this.groupBoxAssister.TabIndex = 1;
+            this.groupBoxAssister.TabStop = false;
+            this.groupBoxAssister.Text = "Assister";
+            // 
+            // textBoxAssisterLastName
+            // 
+            this.textBoxAssisterLastName.Location = new System.Drawing.Point(130, 52);
+            this.textBoxAssisterLastName.Name = "textBoxAssisterLastName";
+            this.textBoxAssisterLastName.Size = new System.Drawing.Size(197, 20);
+            this.textBoxAssisterLastName.TabIndex = 2;
+            // 
+            // label201
+            // 
+            this.label201.AutoSize = true;
+            this.label201.Location = new System.Drawing.Point(64, 56);
+            this.label201.Name = "label201";
+            this.label201.Size = new System.Drawing.Size(61, 13);
+            this.label201.TabIndex = 0;
+            this.label201.Text = "Last Name:";
+            // 
+            // textBoxAssisterEmail
+            // 
+            this.textBoxAssisterEmail.Location = new System.Drawing.Point(130, 360);
+            this.textBoxAssisterEmail.Name = "textBoxAssisterEmail";
+            this.textBoxAssisterEmail.Size = new System.Drawing.Size(197, 20);
+            this.textBoxAssisterEmail.TabIndex = 11;
+            // 
+            // label200
+            // 
+            this.label200.AutoSize = true;
+            this.label200.Location = new System.Drawing.Point(89, 363);
+            this.label200.Name = "label200";
+            this.label200.Size = new System.Drawing.Size(35, 13);
+            this.label200.TabIndex = 0;
+            this.label200.Text = "Email:";
+            // 
+            // textBoxAssisterZip
+            // 
+            this.textBoxAssisterZip.Location = new System.Drawing.Point(461, 225);
+            this.textBoxAssisterZip.Name = "textBoxAssisterZip";
+            this.textBoxAssisterZip.Size = new System.Drawing.Size(91, 20);
+            this.textBoxAssisterZip.TabIndex = 18;
+            // 
+            // comboBoxAssisterState
+            // 
+            this.comboBoxAssisterState.FormattingEnabled = true;
+            this.comboBoxAssisterState.Items.AddRange(new object[] {
+            "Alabama",
+            "Alaska",
+            "American Samoa",
+            "Arizona",
+            "Arkansas",
+            "California",
+            "Colorado",
+            "Connecticut",
+            "Delaware",
+            "District of Columbia",
+            "Florida",
+            "Georgia",
+            "Guam",
+            "Hawaii",
+            "Idaho",
+            "Illinois",
+            "Indiana",
+            "Iowa",
+            "Kansas",
+            "Kentucky",
+            "Louisiana",
+            "Maine",
+            "Maryland",
+            "Marshall Islands",
+            "Massachusetts",
+            "Michigan",
+            "Micronesia",
+            "Minnesota",
+            "Mississippi",
+            "Missouri",
+            "Montana",
+            "Nebraska",
+            "Nevada",
+            "New Hampshire",
+            "New Jersey",
+            "New Mexico",
+            "New York",
+            "North Carolina",
+            "North Dakota",
+            "Northern Marianas",
+            "Ohio",
+            "Oklahoma",
+            "Oregon",
+            "Palau",
+            "Pennsylvania",
+            "Puerto Rico",
+            "Rhode Island",
+            "South Carolina",
+            "South Dakota",
+            "Tennessee",
+            "Texas",
+            "Utah",
+            "Vermont",
+            "Virginia",
+            "Virgin Islands",
+            "Washington",
+            "West Virginia",
+            "Wisconsin",
+            "Wyoming"});
+            this.comboBoxAssisterState.Location = new System.Drawing.Point(461, 198);
+            this.comboBoxAssisterState.Name = "comboBoxAssisterState";
+            this.comboBoxAssisterState.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterState.TabIndex = 17;
+            // 
+            // comboBoxAssisterCounty
+            // 
+            this.comboBoxAssisterCounty.FormattingEnabled = true;
+            this.comboBoxAssisterCounty.Items.AddRange(new object[] {
+            "Aitkin",
+            "Anoka",
+            "Becker",
+            "Beltrami",
+            "Benton",
+            "Big Stone",
+            "Blue Earth",
+            "Brown",
+            "Dakota",
+            "Hennepin",
+            "Olmsted",
+            "Ramsey",
+            "Out Of State"});
+            this.comboBoxAssisterCounty.Location = new System.Drawing.Point(461, 171);
+            this.comboBoxAssisterCounty.Name = "comboBoxAssisterCounty";
+            this.comboBoxAssisterCounty.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterCounty.TabIndex = 16;
+            // 
+            // textBoxAssisterStreet1
+            // 
+            this.textBoxAssisterStreet1.Location = new System.Drawing.Point(461, 93);
+            this.textBoxAssisterStreet1.Name = "textBoxAssisterStreet1";
+            this.textBoxAssisterStreet1.Size = new System.Drawing.Size(137, 20);
+            this.textBoxAssisterStreet1.TabIndex = 13;
+            // 
+            // textBoxAssisterStreet2
+            // 
+            this.textBoxAssisterStreet2.Location = new System.Drawing.Point(461, 119);
+            this.textBoxAssisterStreet2.Name = "textBoxAssisterStreet2";
+            this.textBoxAssisterStreet2.Size = new System.Drawing.Size(137, 20);
+            this.textBoxAssisterStreet2.TabIndex = 14;
+            // 
+            // textBoxAssisterCity
+            // 
+            this.textBoxAssisterCity.Location = new System.Drawing.Point(461, 145);
+            this.textBoxAssisterCity.Name = "textBoxAssisterCity";
+            this.textBoxAssisterCity.Size = new System.Drawing.Size(137, 20);
+            this.textBoxAssisterCity.TabIndex = 15;
+            // 
+            // textBoxAssisterAptSuite
+            // 
+            this.textBoxAssisterAptSuite.Location = new System.Drawing.Point(461, 67);
+            this.textBoxAssisterAptSuite.Name = "textBoxAssisterAptSuite";
+            this.textBoxAssisterAptSuite.Size = new System.Drawing.Size(137, 20);
+            this.textBoxAssisterAptSuite.TabIndex = 12;
+            // 
+            // label199
+            // 
+            this.label199.AutoSize = true;
+            this.label199.Location = new System.Drawing.Point(412, 175);
+            this.label199.Name = "label199";
+            this.label199.Size = new System.Drawing.Size(43, 13);
+            this.label199.TabIndex = 0;
+            this.label199.Text = "County:";
+            // 
+            // label198
+            // 
+            this.label198.AutoSize = true;
+            this.label198.Location = new System.Drawing.Point(430, 226);
+            this.label198.Name = "label198";
+            this.label198.Size = new System.Drawing.Size(25, 13);
+            this.label198.TabIndex = 0;
+            this.label198.Text = "Zip:";
+            // 
+            // label197
+            // 
+            this.label197.AutoSize = true;
+            this.label197.Location = new System.Drawing.Point(420, 200);
+            this.label197.Name = "label197";
+            this.label197.Size = new System.Drawing.Size(35, 13);
+            this.label197.TabIndex = 0;
+            this.label197.Text = "State:";
+            // 
+            // label196
+            // 
+            this.label196.AutoSize = true;
+            this.label196.Location = new System.Drawing.Point(428, 146);
+            this.label196.Name = "label196";
+            this.label196.Size = new System.Drawing.Size(27, 13);
+            this.label196.TabIndex = 0;
+            this.label196.Text = "City:";
+            // 
+            // label195
+            // 
+            this.label195.AutoSize = true;
+            this.label195.Location = new System.Drawing.Point(408, 122);
+            this.label195.Name = "label195";
+            this.label195.Size = new System.Drawing.Size(47, 13);
+            this.label195.TabIndex = 0;
+            this.label195.Text = "Street 2:";
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Location = new System.Drawing.Point(408, 95);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(47, 13);
+            this.label194.TabIndex = 0;
+            this.label194.Text = "Street 1:";
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Location = new System.Drawing.Point(400, 70);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(55, 13);
+            this.label193.TabIndex = 0;
+            this.label193.Text = "Apt/Suite:";
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Location = new System.Drawing.Point(372, 44);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(85, 13);
+            this.label192.TabIndex = 0;
+            this.label192.Text = "Primary Address:";
+            // 
+            // comboBoxAssisterType
+            // 
+            this.comboBoxAssisterType.FormattingEnabled = true;
+            this.comboBoxAssisterType.Items.AddRange(new object[] {
+            "Broker"});
+            this.comboBoxAssisterType.Location = new System.Drawing.Point(130, 314);
+            this.comboBoxAssisterType.Name = "comboBoxAssisterType";
+            this.comboBoxAssisterType.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterType.TabIndex = 10;
+            // 
+            // comboBoxAssisterCategory
+            // 
+            this.comboBoxAssisterCategory.FormattingEnabled = true;
+            this.comboBoxAssisterCategory.Items.AddRange(new object[] {
+            "Broker",
+            "Certified Application Counselor",
+            "Navigator"});
+            this.comboBoxAssisterCategory.Location = new System.Drawing.Point(130, 287);
+            this.comboBoxAssisterCategory.Name = "comboBoxAssisterCategory";
+            this.comboBoxAssisterCategory.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterCategory.TabIndex = 9;
+            // 
+            // textBoxAssisterPhoneNumber
+            // 
+            this.textBoxAssisterPhoneNumber.Location = new System.Drawing.Point(130, 245);
+            this.textBoxAssisterPhoneNumber.Name = "textBoxAssisterPhoneNumber";
+            this.textBoxAssisterPhoneNumber.Size = new System.Drawing.Size(137, 20);
+            this.textBoxAssisterPhoneNumber.TabIndex = 8;
+            // 
+            // comboBoxAssisterPhoneType
+            // 
+            this.comboBoxAssisterPhoneType.FormattingEnabled = true;
+            this.comboBoxAssisterPhoneType.Items.AddRange(new object[] {
+            "Business",
+            "Fax",
+            "Home",
+            "Mobile",
+            "Other",
+            "Pager"});
+            this.comboBoxAssisterPhoneType.Location = new System.Drawing.Point(130, 218);
+            this.comboBoxAssisterPhoneType.Name = "comboBoxAssisterPhoneType";
+            this.comboBoxAssisterPhoneType.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterPhoneType.TabIndex = 7;
+            // 
+            // textBoxAssisterId
+            // 
+            this.textBoxAssisterId.Location = new System.Drawing.Point(130, 179);
+            this.textBoxAssisterId.Name = "textBoxAssisterId";
+            this.textBoxAssisterId.Size = new System.Drawing.Size(91, 20);
+            this.textBoxAssisterId.TabIndex = 6;
+            // 
+            // comboBoxAssisterMethod
+            // 
+            this.comboBoxAssisterMethod.FormattingEnabled = true;
+            this.comboBoxAssisterMethod.Items.AddRange(new object[] {
+            "Email",
+            "Phone",
+            "Post/Mail",
+            "Web/Portal"});
+            this.comboBoxAssisterMethod.Location = new System.Drawing.Point(130, 152);
+            this.comboBoxAssisterMethod.Name = "comboBoxAssisterMethod";
+            this.comboBoxAssisterMethod.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterMethod.TabIndex = 5;
+            // 
+            // comboBoxAssisterLanguage
+            // 
+            this.comboBoxAssisterLanguage.FormattingEnabled = true;
+            this.comboBoxAssisterLanguage.Items.AddRange(new object[] {
+            "English",
+            "Spanish"});
+            this.comboBoxAssisterLanguage.Location = new System.Drawing.Point(130, 125);
+            this.comboBoxAssisterLanguage.Name = "comboBoxAssisterLanguage";
+            this.comboBoxAssisterLanguage.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterLanguage.TabIndex = 4;
+            // 
+            // comboBoxAssisterCommunication
+            // 
+            this.comboBoxAssisterCommunication.FormattingEnabled = true;
+            this.comboBoxAssisterCommunication.Items.AddRange(new object[] {
+            "Email",
+            "Mail",
+            "Phone"});
+            this.comboBoxAssisterCommunication.Location = new System.Drawing.Point(130, 98);
+            this.comboBoxAssisterCommunication.Name = "comboBoxAssisterCommunication";
+            this.comboBoxAssisterCommunication.Size = new System.Drawing.Size(91, 21);
+            this.comboBoxAssisterCommunication.TabIndex = 3;
+            // 
+            // textBoxAssisterFirstName
+            // 
+            this.textBoxAssisterFirstName.Location = new System.Drawing.Point(130, 26);
+            this.textBoxAssisterFirstName.Name = "textBoxAssisterFirstName";
+            this.textBoxAssisterFirstName.Size = new System.Drawing.Size(197, 20);
+            this.textBoxAssisterFirstName.TabIndex = 1;
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.Location = new System.Drawing.Point(43, 248);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(81, 13);
+            this.label191.TabIndex = 0;
+            this.label191.Text = "Phone Number:";
+            // 
+            // label190
+            // 
+            this.label190.AutoSize = true;
+            this.label190.Location = new System.Drawing.Point(30, 290);
+            this.label190.Name = "label190";
+            this.label190.Size = new System.Drawing.Size(94, 13);
+            this.label190.TabIndex = 0;
+            this.label190.Text = "Provider Category:";
+            // 
+            // label189
+            // 
+            this.label189.AutoSize = true;
+            this.label189.Location = new System.Drawing.Point(48, 317);
+            this.label189.Name = "label189";
+            this.label189.Size = new System.Drawing.Size(76, 13);
+            this.label189.TabIndex = 0;
+            this.label189.Text = "Provider Type:";
+            // 
+            // label188
+            // 
+            this.label188.AutoSize = true;
+            this.label188.Location = new System.Drawing.Point(42, 103);
+            this.label188.Name = "label188";
+            this.label188.Size = new System.Drawing.Size(82, 13);
+            this.label188.TabIndex = 0;
+            this.label188.Text = "Communication:";
+            // 
+            // label187
+            // 
+            this.label187.AutoSize = true;
+            this.label187.Location = new System.Drawing.Point(66, 128);
+            this.label187.Name = "label187";
+            this.label187.Size = new System.Drawing.Size(58, 13);
+            this.label187.TabIndex = 0;
+            this.label187.Text = "Language:";
+            // 
+            // label186
+            // 
+            this.label186.AutoSize = true;
+            this.label186.Location = new System.Drawing.Point(78, 154);
+            this.label186.Name = "label186";
+            this.label186.Size = new System.Drawing.Size(46, 13);
+            this.label186.TabIndex = 0;
+            this.label186.Text = "Method:";
+            // 
+            // label185
+            // 
+            this.label185.AutoSize = true;
+            this.label185.Location = new System.Drawing.Point(66, 182);
+            this.label185.Name = "label185";
+            this.label185.Size = new System.Drawing.Size(58, 13);
+            this.label185.TabIndex = 0;
+            this.label185.Text = "Assister Id:";
+            // 
+            // label165
+            // 
+            this.label165.AutoSize = true;
+            this.label165.Location = new System.Drawing.Point(56, 219);
+            this.label165.Name = "label165";
+            this.label165.Size = new System.Drawing.Size(68, 13);
+            this.label165.TabIndex = 0;
+            this.label165.Text = "Phone Type:";
+            // 
+            // label76
+            // 
+            this.label76.AutoSize = true;
+            this.label76.Location = new System.Drawing.Point(64, 30);
+            this.label76.Name = "label76";
+            this.label76.Size = new System.Drawing.Size(60, 13);
+            this.label76.TabIndex = 0;
+            this.label76.Text = "First Name:";
             // 
             // groupBoxEnrollIncome
             // 
@@ -1230,7 +1722,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
             this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
-            this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 650);
+            this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 600);
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
@@ -1240,7 +1732,7 @@
             this.checkBoxHMRandom.AutoSize = true;
             this.checkBoxHMRandom.Checked = true;
             this.checkBoxHMRandom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxHMRandom.Location = new System.Drawing.Point(286, 23);
+            this.checkBoxHMRandom.Location = new System.Drawing.Point(317, 23);
             this.checkBoxHMRandom.Name = "checkBoxHMRandom";
             this.checkBoxHMRandom.Size = new System.Drawing.Size(15, 14);
             this.checkBoxHMRandom.TabIndex = 137;
@@ -1251,9 +1743,9 @@
             this.label184.AutoSize = true;
             this.label184.Location = new System.Drawing.Point(198, 23);
             this.label184.Name = "label184";
-            this.label184.Size = new System.Drawing.Size(84, 13);
+            this.label184.Size = new System.Drawing.Size(111, 13);
             this.label184.TabIndex = 136;
-            this.label184.Text = "Random Name?";
+            this.label184.Text = "Random Name/SSN?";
             // 
             // comboBoxHMPregnancyDone
             // 
@@ -2711,6 +3203,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioButtonAssister);
             this.groupBox1.Controls.Add(this.radioButtonIncome);
             this.groupBox1.Controls.Add(this.radioButtonEnrollDependants);
             this.groupBox1.Controls.Add(this.radioButtonHouseholdOther);
@@ -2718,10 +3211,22 @@
             this.groupBox1.Controls.Add(this.radioButtonInformation);
             this.groupBox1.Location = new System.Drawing.Point(278, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(768, 37);
+            this.groupBox1.Size = new System.Drawing.Size(627, 37);
             this.groupBox1.TabIndex = 57;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Application";
+            // 
+            // radioButtonAssister
+            // 
+            this.radioButtonAssister.AutoSize = true;
+            this.radioButtonAssister.Location = new System.Drawing.Point(545, 14);
+            this.radioButtonAssister.Name = "radioButtonAssister";
+            this.radioButtonAssister.Size = new System.Drawing.Size(61, 17);
+            this.radioButtonAssister.TabIndex = 7;
+            this.radioButtonAssister.TabStop = true;
+            this.radioButtonAssister.Text = "Assister";
+            this.radioButtonAssister.UseVisualStyleBackColor = true;
+            this.radioButtonAssister.Click += new System.EventHandler(this.radioButtonAssister_Click);
             // 
             // radioButtonIncome
             // 
@@ -2846,7 +3351,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1008, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -3462,7 +3967,7 @@
             this.groupBoxApplicantInformation.Controls.Add(this.comboBoxPhoneType);
             this.groupBoxApplicantInformation.Controls.Add(this.label14);
             this.groupBoxApplicantInformation.Controls.Add(this.label15);
-            this.groupBoxApplicantInformation.Location = new System.Drawing.Point(0, 40);
+            this.groupBoxApplicantInformation.Location = new System.Drawing.Point(50, 40);
             this.groupBoxApplicantInformation.Name = "groupBoxApplicantInformation";
             this.groupBoxApplicantInformation.Size = new System.Drawing.Size(850, 560);
             this.groupBoxApplicantInformation.TabIndex = 55;
@@ -3475,7 +3980,7 @@
             this.checkBoxRandom.AutoSize = true;
             this.checkBoxRandom.Checked = true;
             this.checkBoxRandom.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxRandom.Location = new System.Drawing.Point(172, 20);
+            this.checkBoxRandom.Location = new System.Drawing.Point(193, 20);
             this.checkBoxRandom.Name = "checkBoxRandom";
             this.checkBoxRandom.Size = new System.Drawing.Size(15, 14);
             this.checkBoxRandom.TabIndex = 67;
@@ -3484,11 +3989,11 @@
             // label183
             // 
             this.label183.AutoSize = true;
-            this.label183.Location = new System.Drawing.Point(58, 20);
+            this.label183.Location = new System.Drawing.Point(8, 20);
             this.label183.Name = "label183";
-            this.label183.Size = new System.Drawing.Size(111, 13);
+            this.label183.Size = new System.Drawing.Size(173, 13);
             this.label183.TabIndex = 66;
-            this.label183.Text = "Random Name/SSN?";
+            this.label183.Text = "Random Name/SSN/Gender/DOB";
             // 
             // textBoxEnrollSSNNum
             // 
@@ -5257,6 +5762,8 @@
             this.tabControlMain.ResumeLayout(false);
             this.tabPageConfigureEnrollment.ResumeLayout(false);
             this.tabPageConfigureEnrollment.PerformLayout();
+            this.groupBoxAssister.ResumeLayout(false);
+            this.groupBoxAssister.PerformLayout();
             this.groupBoxEnrollIncome.ResumeLayout(false);
             this.groupBoxEnrollIncome.PerformLayout();
             this.groupBoxDependants.ResumeLayout(false);
@@ -5725,6 +6232,45 @@
         private System.Windows.Forms.Label label183;
         private System.Windows.Forms.CheckBox checkBoxHMRandom;
         private System.Windows.Forms.Label label184;
+        private System.Windows.Forms.RadioButton radioButtonAssister;
+        private System.Windows.Forms.GroupBox groupBoxAssister;
+        private System.Windows.Forms.Label label76;
+        private System.Windows.Forms.ComboBox comboBoxAssisterType;
+        private System.Windows.Forms.ComboBox comboBoxAssisterCategory;
+        private System.Windows.Forms.TextBox textBoxAssisterPhoneNumber;
+        private System.Windows.Forms.ComboBox comboBoxAssisterPhoneType;
+        private System.Windows.Forms.TextBox textBoxAssisterId;
+        private System.Windows.Forms.ComboBox comboBoxAssisterMethod;
+        private System.Windows.Forms.ComboBox comboBoxAssisterLanguage;
+        private System.Windows.Forms.ComboBox comboBoxAssisterCommunication;
+        private System.Windows.Forms.TextBox textBoxAssisterFirstName;
+        private System.Windows.Forms.Label label191;
+        private System.Windows.Forms.Label label190;
+        private System.Windows.Forms.Label label189;
+        private System.Windows.Forms.Label label188;
+        private System.Windows.Forms.Label label187;
+        private System.Windows.Forms.Label label186;
+        private System.Windows.Forms.Label label185;
+        private System.Windows.Forms.Label label165;
+        private System.Windows.Forms.TextBox textBoxAssisterZip;
+        private System.Windows.Forms.ComboBox comboBoxAssisterState;
+        private System.Windows.Forms.ComboBox comboBoxAssisterCounty;
+        private System.Windows.Forms.TextBox textBoxAssisterStreet1;
+        private System.Windows.Forms.TextBox textBoxAssisterStreet2;
+        private System.Windows.Forms.TextBox textBoxAssisterCity;
+        private System.Windows.Forms.TextBox textBoxAssisterAptSuite;
+        private System.Windows.Forms.Label label199;
+        private System.Windows.Forms.Label label198;
+        private System.Windows.Forms.Label label197;
+        private System.Windows.Forms.Label label196;
+        private System.Windows.Forms.Label label195;
+        private System.Windows.Forms.Label label194;
+        private System.Windows.Forms.Label label193;
+        private System.Windows.Forms.Label label192;
+        private System.Windows.Forms.TextBox textBoxAssisterEmail;
+        private System.Windows.Forms.Label label200;
+        private System.Windows.Forms.TextBox textBoxAssisterLastName;
+        private System.Windows.Forms.Label label201;
 
     }
 }

@@ -190,6 +190,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("App Build: " + myHistoryInfo.myAppBuild);
                 doc.InsertParagraph("MNsure Build: " + myHistoryInfo.myMnsureBuild);
                 doc.InsertParagraph("Environment: " + myHistoryInfo.myEnvironment);
+                doc.InsertParagraph("Additional Wait Time: " + myHistoryInfo.myAppWait);
                 doc.InsertParagraph(" ");
                 doc.InsertParagraph("Start Time: " + myHistoryInfo.myTestStartTime);
                 doc.InsertParagraph("End Time: " + myHistoryInfo.myTestEndTime);

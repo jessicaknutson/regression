@@ -273,6 +273,29 @@ struct mystructSelectedTest
         public string mySaveExit;
         public string myPassCount;
     }
+    
+    struct mystructAssister
+    {
+        public string AssisterId;
+        public int TestId;
+        public string myFirstName;
+        public string myLastName;
+        public string myCommunication;
+        public string myLanguage;
+        public string myMethod;
+        public string myPhoneType;
+        public string myPhoneNum;
+        public string myCategory;
+        public string myType;
+        public string myAddress1;
+        public string myAddress2;
+        public string myAptSuite;
+        public string myCity;
+        public string myState;
+        public string myZip;
+        public string myCounty; 
+        public string myEmail;    
+    }
 
     struct mystructEditKey
     {
@@ -289,6 +312,7 @@ struct mystructSelectedTest
         public string myTemplateDeletedRow;
         public string myTemplateEditKey;
         public string myNextAddressId;
+        public string myNextAssisterId;
     }
 
 

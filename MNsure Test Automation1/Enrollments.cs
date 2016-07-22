@@ -96,12 +96,17 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     DoWaitForEstimator(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
-                        myHouseholdMembers, By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myHouseholdMembers, By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    DoWaitForEstimator(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
+                    myHouseholdMembers, By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                 }
                 else
                 {
                     DoWaitForEstimator(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
-                        myHouseholdMembers, By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myHouseholdMembers, By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -835,6 +840,12 @@ namespace MNsure_Regression_1
                         var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                         driver.SwitchTo().Frame(iFrameElement);
                     }
+                    else if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                        var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                        driver.SwitchTo().Frame(iFrameElement);
+                    }
                     else
                     {
                         new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
@@ -894,6 +905,11 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
                 else
@@ -958,6 +974,11 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
                 else
@@ -1027,6 +1048,12 @@ namespace MNsure_Regression_1
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
                 else
@@ -1365,6 +1392,11 @@ namespace MNsure_Regression_1
                         var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                         myDriver.SwitchTo().Frame(iFrameElement);
                     }
+                    else if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                        myDriver.SwitchTo().Frame(iFrameElement);
+                    }
                     else
                     {
                         var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
@@ -1494,6 +1526,11 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
                 else
