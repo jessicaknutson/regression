@@ -204,10 +204,10 @@ namespace MNsure_Regression_1
                     }
 
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    if (myHistoryInfo.myEnvironment != "STST2")
-                    {
+                    //if (myHistoryInfo.myEnvironment != "STST2")
+                    //{
                         result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
-                    }
+                    //}
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myClass;
