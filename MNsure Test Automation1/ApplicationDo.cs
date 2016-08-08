@@ -28,40 +28,48 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoGettingStarted(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoGettingStarted(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;//was 2
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-                DoWaitForElement(driver, By.TagName("iFrame"), myHistoryInfo);
-
-                var iFrameElement = driver.FindElement(By.TagName("iFrame"));
-                driver.SwitchTo().Frame(iFrameElement);
+                myDriver.SwitchTo().DefaultContent();
+                DoWaitForElement(myDriver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setup')]"), myHistoryInfo);
+                var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setup')]"));
+                //DoWaitForElement(myDriver, By.TagName("iFrame"), myHistoryInfo); 
+                //var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
+                myDriver.SwitchTo().Frame(iFrameElement);
 
                 //wait for link
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/div[1]/span[1]/b"))));
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("__o3btn.next_label"))));
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id6")));
-                IWebElement checkboxAgree = driver.FindElement(By.Id("__o3id6"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id6")));
+                IWebElement checkboxAgree = myDriver.FindElement(By.Id("__o3id6"));
                 checkboxAgree.Click();
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next_label")));
-                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next_label")));
+                IWebElement buttonNext = myDriver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
 
                 myHouseholdMembers.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
@@ -84,19 +92,26 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoApplicantDetailsAbout(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplicantDetailsAbout(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
+            IWebDriver myDriver = driver;
+
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -108,11 +123,11 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
 
-                DoWaitForElement(driver, By.Id("__o3btn.next"), myHistoryInfo);
+                DoWaitForElement(myDriver, By.Id("__o3btn.next"), myHistoryInfo);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonNext2 = driver.FindElement(By.Id("__o3btn.next"));
+                IWebElement buttonNext2 = myDriver.FindElement(By.Id("__o3btn.next"));
                 buttonNext2.Click();
 
                 returnStatus = "Pass";
@@ -124,19 +139,25 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoApplicantDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplicantDetails(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -148,50 +169,58 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
 
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
-                IWebElement textboxFirstName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"));
+                DoWaitForElement(myDriver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
+                IWebElement textboxFirstName = myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"));
                 textboxFirstName.SendKeys(myApplication.myFirstName);
 
-                IWebElement textboxMiddleName = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[4]/table/tbody/tr/td[1]/div/div/input"));
+                IWebElement textboxMiddleName = myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[4]/table/tbody/tr/td[1]/div/div/input"));
                 if (myApplication.myMiddleName != null)
                 {
                     textboxMiddleName.SendKeys(myApplication.myMiddleName);
                 }
-                IWebElement textboxLastName = driver.FindElement(By.Id("__o3id8"));
+                IWebElement textboxLastName = myDriver.FindElement(By.Id("__o3id8"));
                 textboxLastName.SendKeys(myApplication.myLastName);
 
-                IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id9"));
+                IWebElement textboxSuffix = myDriver.FindElement(By.Id("__o3id9"));
                 if (myApplication.mySuffix != null)
                 {
                     textboxSuffix.SendKeys(myApplication.mySuffix);
                 }
-                IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
+
+                IWebElement textboxGender = myDriver.FindElement(By.Id("__o3ida"));
                 textboxGender.SendKeys(myApplication.myGender);
 
-                IWebElement textboxMaritalStatus = driver.FindElement(By.Id("__o3idb"));
+                IWebElement textboxMaritalStatus = myDriver.FindElement(By.Id("__o3idb"));
                 textboxMaritalStatus.SendKeys(myApplication.myMaritalStatus);
 
-                string tempDOB;
+                /*string tempDOB;
                 int tempDOBLength;
                 tempDOB = Convert.ToString(myApplication.myDOB);
                 tempDOBLength = tempDOB.Length;
                 tempDOB = tempDOB.Substring(0, tempDOBLength);
-                IWebElement textboxDOB = driver.FindElement(By.Id("__o3idc"));
+                IWebElement textboxDOB = myDriver.FindElement(By.Id("__o3idc"));
+                textboxDOB.SendKeys(tempDOB);*/
+
+                IWebElement textboxDOB = myDriver.FindElement(By.Id("__o3idc"));
+                textboxDOB.Click();
+                string tempDOB;
+                tempDOB = Convert.ToString(myApplication.myDOB);
+                tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
                 textboxDOB.SendKeys(tempDOB);
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idd")));
-                IWebElement listboxLiveMN = driver.FindElement(By.Id("__o3idd"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idd")));
+                IWebElement listboxLiveMN = myDriver.FindElement(By.Id("__o3idd"));
                 listboxLiveMN.SendKeys(myApplication.myLiveMN);
                 listboxLiveMN.Click();
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]")));
-                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]")));
+                IWebElement outsideClick = myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[4]/table/tbody/tr[1]/td[1]/span[1]"));
                 outsideClick.Click();
 
                 if (myApplication.myLiveMN == "Yes")
                 {
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3ide")));
-                    IWebElement listboxHomeless = driver.FindElement(By.Id("__o3ide"));
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3ide")));
+                    IWebElement listboxHomeless = myDriver.FindElement(By.Id("__o3ide"));
                     listboxHomeless.SendKeys(myApplication.myHomeless);
                     listboxHomeless.Click();
 
@@ -199,103 +228,103 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idf")));
-                    IWebElement listboxTempAbsent = driver.FindElement(By.Id("__o3idf"));
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idf")));
+                    IWebElement listboxTempAbsent = myDriver.FindElement(By.Id("__o3idf"));
                     listboxTempAbsent.SendKeys("No");
                 }
 
                 if (myApplication.myHomeless == "No")
                 {
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id11")));
-                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id11"));
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id11")));
+                    IWebElement listboxAddress1 = myDriver.FindElement(By.Id("__o3id11"));
                     listboxAddress1.SendKeys(myApplication.myHomeAddress1);
 
                     if (myApplication.myHomeAddress2 != null)
                     {
-                        IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id12"));
+                        IWebElement listboxAddress2 = myDriver.FindElement(By.Id("__o3id12"));
                         listboxAddress2.SendKeys(myApplication.myHomeAddress2);
                     }
                     if (myApplication.myHomeAptSuite != null)
                     {
-                        IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id13"));
+                        IWebElement listboxAptSuite = myDriver.FindElement(By.Id("__o3id13"));
                         listboxAptSuite.SendKeys(myApplication.myHomeAptSuite);
                     }
-                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id14"));
+                    IWebElement listboxCity = myDriver.FindElement(By.Id("__o3id14"));
                     listboxCity.SendKeys(myApplication.myHomeCity);
 
-                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id15"));
+                    IWebElement listboxCounty = myDriver.FindElement(By.Id("__o3id15"));
                     listboxCounty.SendKeys(myApplication.myHomeCounty);
 
-                    IWebElement listboxState = driver.FindElement(By.Id("__o3id16"));
+                    IWebElement listboxState = myDriver.FindElement(By.Id("__o3id16"));
                     listboxState.SendKeys(myApplication.myHomeState);
 
-                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id17"));
+                    IWebElement listboxZip = myDriver.FindElement(By.Id("__o3id17"));
                     listboxZip.SendKeys(myApplication.myHomeZip);
 
-                    IWebElement listboxAddressSame = driver.FindElement(By.Id("__o3id18"));
+                    IWebElement listboxAddressSame = myDriver.FindElement(By.Id("__o3id18"));
                     listboxAddressSame.SendKeys(myApplication.myAddressSame);
                 }
                 else
                 {
-                    new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id10")));
-                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id10"));
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id10")));
+                    IWebElement listboxCounty = myDriver.FindElement(By.Id("__o3id10"));
                     listboxCounty.SendKeys(myApplication.myHomeCounty);
 
-                    IWebElement listboxHaveMailingAddress = driver.FindElement(By.Id("__o3id19"));
+                    IWebElement listboxHaveMailingAddress = myDriver.FindElement(By.Id("__o3id19"));
                     listboxHaveMailingAddress.SendKeys(myApplication.myMailingAddressYN);
                 }
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id21")));
-                IWebElement listboxPlanLiveMN = driver.FindElement(By.Id("__o3id21"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3id21")));
+                IWebElement listboxPlanLiveMN = myDriver.FindElement(By.Id("__o3id21"));
                 listboxPlanLiveMN.SendKeys(myApplication.myPlanLiveMN);
 
                 if (myApplication.myMailingAddressYN == "Yes")
                 {
-                    driver.SwitchTo().DefaultContent();
-                    DoWaitForElement(driver, By.TagName("iframe"), myHistoryInfo);
+                    myDriver.SwitchTo().DefaultContent();
+                    DoWaitForElement(myDriver, By.TagName("iframe"), myHistoryInfo);
 
-                    var iFrameElement = driver.FindElement(By.TagName("iframe"));
-                    driver.SwitchTo().Frame(iFrameElement);
+                    var iFrameElement = myDriver.FindElement(By.TagName("iframe"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
 
-                    IWebElement listboxAddress1 = driver.FindElement(By.Id("__o3id1a"));
+                    IWebElement listboxAddress1 = myDriver.FindElement(By.Id("__o3id1a"));
                     listboxAddress1.SendKeys(myApplication.myMailAddress1);
                     if (myApplication.myMailAddress2 != null)
                     {
-                        IWebElement listboxAddress2 = driver.FindElement(By.Id("__o3id1b"));
+                        IWebElement listboxAddress2 = myDriver.FindElement(By.Id("__o3id1b"));
                         listboxAddress2.SendKeys(myApplication.myMailAddress2);
                     }
                     if (myApplication.myMailAptSuite != null)
                     {
-                        IWebElement listboxAptSuite = driver.FindElement(By.Id("__o3id1c"));
+                        IWebElement listboxAptSuite = myDriver.FindElement(By.Id("__o3id1c"));
                         listboxAptSuite.SendKeys(myApplication.myMailAptSuite);
                     }
-                    IWebElement listboxCity = driver.FindElement(By.Id("__o3id1d"));
+                    IWebElement listboxCity = myDriver.FindElement(By.Id("__o3id1d"));
                     listboxCity.SendKeys(myApplication.myMailCity);
 
-                    IWebElement listboxCounty = driver.FindElement(By.Id("__o3id1e"));
+                    IWebElement listboxCounty = myDriver.FindElement(By.Id("__o3id1e"));
                     listboxCounty.SendKeys(myApplication.myMailCounty);
 
-                    IWebElement listboxState = driver.FindElement(By.Id("__o3id1f"));
+                    IWebElement listboxState = myDriver.FindElement(By.Id("__o3id1f"));
                     listboxState.SendKeys(myApplication.myMailState);
 
-                    IWebElement listboxZip = driver.FindElement(By.Id("__o3id20"));
+                    IWebElement listboxZip = myDriver.FindElement(By.Id("__o3id20"));
                     listboxZip.SendKeys(myApplication.myMailZip);
                 }
 
-                IWebElement listboxPreferedContact = driver.FindElement(By.Id("__o3id23"));
+                IWebElement listboxPreferedContact = myDriver.FindElement(By.Id("__o3id23"));
                 listboxPreferedContact.SendKeys(myApplication.myPrefContact);
 
                 string mysPhone1 = myApplication.myPhoneNum.Substring(0, 3);
                 string mysPhone2 = myApplication.myPhoneNum.Substring(3, 3);
                 string mysPhone3 = myApplication.myPhoneNum.Substring(6, 4);
-                IWebElement textboxPhoneNum = driver.FindElement(By.Id("__o3id24"));
+                IWebElement textboxPhoneNum = myDriver.FindElement(By.Id("__o3id24"));
                 textboxPhoneNum.SendKeys(mysPhone1);
-                IWebElement textboxPhoneNum2 = driver.FindElement(By.Id("__o3id25"));
+                IWebElement textboxPhoneNum2 = myDriver.FindElement(By.Id("__o3id25"));
                 textboxPhoneNum2.SendKeys(mysPhone2);
-                IWebElement textboxPhoneNum3 = driver.FindElement(By.Id("__o3id26"));
+                IWebElement textboxPhoneNum3 = myDriver.FindElement(By.Id("__o3id26"));
                 textboxPhoneNum3.SendKeys(mysPhone3);
 
-                IWebElement listboxPhoneType = driver.FindElement(By.Id("__o3id27"));
+                IWebElement listboxPhoneType = myDriver.FindElement(By.Id("__o3id27"));
                 listboxPhoneType.SendKeys(myApplication.myPhoneType);
                 System.Threading.Thread.Sleep(500);
 
@@ -304,36 +333,36 @@ namespace MNsure_Regression_1
                     string mysAPhone1 = myApplication.myAltNum.Substring(0, 3);
                     string mysAPhone2 = myApplication.myAltNum.Substring(3, 3);
                     string mysAPhone3 = myApplication.myAltNum.Substring(6, 4);
-                    IWebElement textboxAPhoneNum = driver.FindElement(By.Id("__o3id28"));
+                    IWebElement textboxAPhoneNum = myDriver.FindElement(By.Id("__o3id28"));
                     textboxAPhoneNum.SendKeys(mysAPhone1);
-                    IWebElement textboxAPhoneNum2 = driver.FindElement(By.Id("__o3id29"));
+                    IWebElement textboxAPhoneNum2 = myDriver.FindElement(By.Id("__o3id29"));
                     textboxAPhoneNum2.SendKeys(mysAPhone2);
-                    IWebElement textboxAPhoneNum3 = driver.FindElement(By.Id("__o3id2a"));
+                    IWebElement textboxAPhoneNum3 = myDriver.FindElement(By.Id("__o3id2a"));
                     textboxAPhoneNum3.SendKeys(mysAPhone3);
 
-                    IWebElement listboxAPhoneType = driver.FindElement(By.Id("__o3id2b"));
+                    IWebElement listboxAPhoneType = myDriver.FindElement(By.Id("__o3id2b"));
                     listboxAPhoneType.SendKeys(myApplication.myAltNumType);
                 }
                 if (myApplication.myEmail != null)
                 {
-                    IWebElement textboxEmail = driver.FindElement(By.Id("__o3id2c"));
+                    IWebElement textboxEmail = myDriver.FindElement(By.Id("__o3id2c"));
                     textboxEmail.SendKeys(myApplication.myEmail);
                 }
-                IWebElement listboxVoterCard = driver.FindElement(By.Id("__o3id32"));
+                IWebElement listboxVoterCard = myDriver.FindElement(By.Id("__o3id32"));
                 listboxVoterCard.SendKeys(myApplication.myVoterCard);
 
-                IWebElement listboxNotices = driver.FindElement(By.Id("__o3id33"));
+                IWebElement listboxNotices = myDriver.FindElement(By.Id("__o3id33"));
                 listboxNotices.SendKeys(myApplication.myNotices);
 
-                IWebElement listboxAuthRep = driver.FindElement(By.Id("__o3id34"));
+                IWebElement listboxAuthRep = myDriver.FindElement(By.Id("__o3id34"));
                 listboxAuthRep.SendKeys(myApplication.myAuthRep);
 
-                IWebElement listboxApplyYouself = driver.FindElement(By.Id("__o3id35"));
+                IWebElement listboxApplyYouself = myDriver.FindElement(By.Id("__o3id35"));
                 listboxApplyYouself.SendKeys(myApplication.myApplyYourself);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
+                IWebElement buttonNext = myDriver.FindElement(By.Id("__o3btn.next_label"));
                 buttonNext.Click();
 
                 returnStatus = "Pass";
@@ -345,14 +374,14 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoApplicantDetailsWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplicantDetailsWithoutDiscounts(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -379,11 +408,13 @@ namespace MNsure_Regression_1
                 }
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id8"));
                 textboxLastName.SendKeys(myApplication.myLastName);
+                
                 if (myApplication.mySuffix != null && myApplication.mySuffix != "")
                 {
                     IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id9"));
                     textboxSuffix.SendKeys(myApplication.mySuffix);
                 }
+
                 IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
                 textboxGender.SendKeys(myApplication.myGender);
 
@@ -620,8 +651,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoApplicantDetailsPrimary(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplicantDetailsPrimary(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -649,11 +680,13 @@ namespace MNsure_Regression_1
                 }
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id8"));
                 textboxLastName.SendKeys(myHouseholdMembers.myLastName);
+                
                 if (myHouseholdMembers.mySuffix != null && myHouseholdMembers.mySuffix != "")
                 {
                     IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id9"));
                     textboxSuffix.SendKeys(myHouseholdMembers.mySuffix);
                 }
+
                 IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
                 textboxGender.SendKeys(myHouseholdMembers.myGender);
 
@@ -748,13 +781,20 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoMoreAboutYou(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoMoreAboutYou(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
+            IWebDriver myDriver = driver;
+
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -765,10 +805,10 @@ namespace MNsure_Regression_1
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input")).Click();//select arrow
+                DoWaitForElement(myDriver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"), myHistoryInfo);
+                myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input")).Click();//select arrow
                 System.Threading.Thread.Sleep(1000);
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(myDriver);
 
                 if (myApplication.myHispanic == "No")
                 {
@@ -783,51 +823,51 @@ namespace MNsure_Regression_1
                 }
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 
-                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[6]/table/tbody/tr/td[1]"));
+                IWebElement outsideClick = myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[6]/table/tbody/tr/td[1]"));
                 outsideClick.Click();
 
                 if (myApplication.myRace == "Indian")
                 {
-                    IWebElement checkboxRace = driver.FindElement(By.Id("__o3idc"));
+                    IWebElement checkboxRace = myDriver.FindElement(By.Id("__o3idc"));
                     checkboxRace.Click();
                 }
                 else
                 {
-                    IWebElement checkboxRace = driver.FindElement(By.Id("__o3id17"));
+                    IWebElement checkboxRace = myDriver.FindElement(By.Id("__o3id17"));
                     checkboxRace.Click();
                 }
 
-                IWebElement listboxSSN = driver.FindElement(By.Id("__o3id1c"));
+                IWebElement listboxSSN = myDriver.FindElement(By.Id("__o3id1c"));
                 listboxSSN.SendKeys(myApplication.mySSN);
                 outsideClick.Click();
 
                 if (myApplication.mySSN == "Yes")
                 {
-                    IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id1d"));
+                    IWebElement listboxSSNNum = myDriver.FindElement(By.Id("__o3id1d"));
                     listboxSSNNum.SendKeys(myApplication.mySSNNum);
                 }
                 else
                 {
-                    IWebElement listboxAppliedSSN = driver.FindElement(By.Id("__o3id1e"));
+                    IWebElement listboxAppliedSSN = myDriver.FindElement(By.Id("__o3id1e"));
                     listboxAppliedSSN.SendKeys(myApplication.myAppliedSSN);
                     outsideClick.Click();
                     if (myApplication.myAppliedSSN == "No")
                     {
-                        IWebElement listboxWhyNoSSN = driver.FindElement(By.Id("__o3id1f"));
+                        IWebElement listboxWhyNoSSN = myDriver.FindElement(By.Id("__o3id1f"));
                         listboxWhyNoSSN.SendKeys(myApplication.myWhyNoSSN);
                         outsideClick.Click();
                     }
 
                     if (myApplication.myWhyNoSSN == "Other")
                     {
-                        IWebElement listboxAssistSSN = driver.FindElement(By.Id("__o3id20"));
+                        IWebElement listboxAssistSSN = myDriver.FindElement(By.Id("__o3id20"));
                         listboxAssistSSN.SendKeys(myApplication.myAssistSSN);
                         outsideClick.Click();
                     }
                 }
                 outsideClick.Click();
 
-                IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id21"));
+                IWebElement listboxCitizen = myDriver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myApplication.myCitizen);
                 outsideClick.Click();
 
@@ -890,7 +930,7 @@ namespace MNsure_Regression_1
                 if (isFemale == "Yes")
                 {
                     IWebElement listboxPregnant;
-                    listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
+                    listboxPregnant = myDriver.FindElement(By.Id("__o3id2c"));
                     listboxPregnant.Clear();
                     listboxPregnant.SendKeys(myApplication.myIsPregnant);
                 }
@@ -912,9 +952,9 @@ namespace MNsure_Regression_1
                         dueDate = myHouseholdMembers.myDueDate;
                         pregnancyEnded = myHouseholdMembers.myPregnancyEnded;
                     }
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(children);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
+                    myDriver.FindElement(By.Id("__o3id20")).SendKeys(children);
+                    myDriver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
+                    myDriver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
                 }
 
                 string fosterCare = "No";
@@ -939,22 +979,22 @@ namespace MNsure_Regression_1
                     if (myApplication.myGender == "Female"
                         || (myApplication.myApplyYourself == "No" && myHouseholdMembers.myGender == "Female"))
                     {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
+                        listboxFosterCare = myDriver.FindElement(By.Id("__o3id30"));
                         listboxFosterCare.SendKeys(myApplication.myFosterCare);
                     }
                     if (myApplication.myGender == "Male"
                         || (myApplication.myApplyYourself == "No" && myHouseholdMembers.myGender == "Male"))
                     {
-                        listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
+                        listboxFosterCare = myDriver.FindElement(By.Id("__o3id2f"));
                         listboxFosterCare.SendKeys(myApplication.myFosterCare);
                     }
                 }
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next")));
-                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next"));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3btn.next")));
+                IWebElement buttonNext = myDriver.FindElement(By.Id("__o3btn.next"));
                 buttonNext.Click();
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -964,14 +1004,14 @@ namespace MNsure_Regression_1
             {
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail"; myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoMoreSSN(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoMoreSSN(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1028,8 +1068,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHouseholdAbout(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoHouseholdAbout(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             try
             {
@@ -1066,8 +1106,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHouseholdMembers(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoHouseholdMembers(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1121,8 +1161,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHouseholdMembersWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoHouseholdMembersWithoutDiscounts(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1176,8 +1216,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoTaxFiler(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoTaxFiler(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1248,8 +1288,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoTaxDependants(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoTaxDependants(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1385,8 +1425,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHouseholdSummary(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoHouseholdSummary(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1425,8 +1465,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIncomeAbout(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoIncomeAbout(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1467,8 +1507,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAnyIncome(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAnyIncome(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1565,8 +1605,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEnterIncomeDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoEnterIncomeDetails(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1674,8 +1714,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAdditionalIncomeDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAdditionalIncomeDetails(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1744,8 +1784,8 @@ namespace MNsure_Regression_1
         }
 
 
-        public int DoIncomeAdjustments(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoIncomeAdjustments(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1808,8 +1848,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAnnualIncome(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAnnualIncome(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1895,8 +1935,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAdditionalHouseholdInformation(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAdditionalHouseholdInformation(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1934,8 +1974,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoSupportingDocument(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSupportingDocument(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -1979,8 +2019,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAddInfoAPTC(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAddInfoAPTC(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2035,8 +2075,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEmployerSponsoredCoverage(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoEmployerSponsoredCoverage(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2089,8 +2129,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEmployerSponsoredCoverageMore(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoEmployerSponsoredCoverageMore(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2146,8 +2186,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoEmployerDetails(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoEmployerDetails(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2230,8 +2270,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAdditionalInfoUnassistedInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAdditionalInfoUnassistedInsurance(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2320,7 +2360,7 @@ namespace MNsure_Regression_1
                             listboxOutsideHome = driver.FindElement(By.Id("__o3ida"));
                             listboxOutsideHome.SendKeys("No");
                         }
-                    }                    
+                    }
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -2343,8 +2383,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoOtherInsurance(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoOtherInsurance(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2397,8 +2437,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAdditionalInformationForAll(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAdditionalInformationForAll(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -2990,8 +3030,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAddInfoIndian(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAddInfoIndian(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3100,8 +3140,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAddInfoMilitary(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAddInfoMilitary(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3153,8 +3193,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoSummary(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSummary(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3199,8 +3239,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoSummaryWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSummaryWithoutDiscounts(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3240,8 +3280,8 @@ namespace MNsure_Regression_1
         }
 
 
-        public int DoSignature(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSignature(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3334,8 +3374,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoSignatureWithoutDiscounts(IWebDriver driver, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers,
-                                    mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSignatureWithoutDiscounts(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -3648,6 +3688,67 @@ namespace MNsure_Regression_1
 
             }
         }
+
+        public int DoSaveExit(IWebDriver driver, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHouseholdMembers myHouseholdMembers, mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+
+            IWebDriver myDriver = driver;
+
+            try
+            {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
+                int appwait;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+
+                myDriver.SwitchTo().DefaultContent();
+                DoWaitForElement(myDriver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"), myHistoryInfo);
+                var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"));
+                myDriver.SwitchTo().Frame(iFrameElement);
+
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+
+                IWebElement buttonExit = myDriver.FindElement(By.Id("__o3btn.save_and_exit_label"));
+                buttonExit.Click();
+                System.Threading.Thread.Sleep(6000);
+                myHistoryInfo.myAssisterGenericCitizen = "No";
+
+                myDriver.SwitchTo().DefaultContent();
+                DoWaitForElement(myDriver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"), myHistoryInfo);
+                var iFrameElement2 = myDriver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"));
+                myDriver.SwitchTo().Frame(iFrameElement2);
+
+                myDriver.FindElement(By.XPath("/html/body/form/div/div[2]/div[3]/div/div/fieldset/div[1]/div[1]/input")).Click();
+                myDriver.FindElement(By.Id("__o3btn.PLAYER_NEXT_label")).Click();
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
 
     }
 }

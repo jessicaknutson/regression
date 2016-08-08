@@ -493,6 +493,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.label202 = new System.Windows.Forms.Label();
+            this.textBoxAssisterDOB = new System.Windows.Forms.TextBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -892,6 +894,8 @@
             // groupBoxAssister
             // 
             this.groupBoxAssister.BackColor = System.Drawing.Color.White;
+            this.groupBoxAssister.Controls.Add(this.textBoxAssisterDOB);
+            this.groupBoxAssister.Controls.Add(this.label202);
             this.groupBoxAssister.Controls.Add(this.textBoxAssisterLastName);
             this.groupBoxAssister.Controls.Add(this.label201);
             this.groupBoxAssister.Controls.Add(this.textBoxAssisterEmail);
@@ -954,15 +958,15 @@
             // 
             // textBoxAssisterEmail
             // 
-            this.textBoxAssisterEmail.Location = new System.Drawing.Point(130, 360);
+            this.textBoxAssisterEmail.Location = new System.Drawing.Point(130, 391);
             this.textBoxAssisterEmail.Name = "textBoxAssisterEmail";
             this.textBoxAssisterEmail.Size = new System.Drawing.Size(197, 20);
-            this.textBoxAssisterEmail.TabIndex = 11;
+            this.textBoxAssisterEmail.TabIndex = 12;
             // 
             // label200
             // 
             this.label200.AutoSize = true;
-            this.label200.Location = new System.Drawing.Point(89, 363);
+            this.label200.Location = new System.Drawing.Point(89, 394);
             this.label200.Name = "label200";
             this.label200.Size = new System.Drawing.Size(35, 13);
             this.label200.TabIndex = 0;
@@ -970,10 +974,10 @@
             // 
             // textBoxAssisterZip
             // 
-            this.textBoxAssisterZip.Location = new System.Drawing.Point(461, 225);
+            this.textBoxAssisterZip.Location = new System.Drawing.Point(461, 284);
             this.textBoxAssisterZip.Name = "textBoxAssisterZip";
             this.textBoxAssisterZip.Size = new System.Drawing.Size(91, 20);
-            this.textBoxAssisterZip.TabIndex = 18;
+            this.textBoxAssisterZip.TabIndex = 19;
             // 
             // comboBoxAssisterState
             // 
@@ -1038,10 +1042,10 @@
             "West Virginia",
             "Wisconsin",
             "Wyoming"});
-            this.comboBoxAssisterState.Location = new System.Drawing.Point(461, 198);
+            this.comboBoxAssisterState.Location = new System.Drawing.Point(461, 257);
             this.comboBoxAssisterState.Name = "comboBoxAssisterState";
             this.comboBoxAssisterState.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterState.TabIndex = 17;
+            this.comboBoxAssisterState.TabIndex = 18;
             // 
             // comboBoxAssisterCounty
             // 
@@ -1060,43 +1064,43 @@
             "Olmsted",
             "Ramsey",
             "Out Of State"});
-            this.comboBoxAssisterCounty.Location = new System.Drawing.Point(461, 171);
+            this.comboBoxAssisterCounty.Location = new System.Drawing.Point(461, 230);
             this.comboBoxAssisterCounty.Name = "comboBoxAssisterCounty";
             this.comboBoxAssisterCounty.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterCounty.TabIndex = 16;
+            this.comboBoxAssisterCounty.TabIndex = 17;
             // 
             // textBoxAssisterStreet1
             // 
-            this.textBoxAssisterStreet1.Location = new System.Drawing.Point(461, 93);
+            this.textBoxAssisterStreet1.Location = new System.Drawing.Point(461, 152);
             this.textBoxAssisterStreet1.Name = "textBoxAssisterStreet1";
             this.textBoxAssisterStreet1.Size = new System.Drawing.Size(137, 20);
-            this.textBoxAssisterStreet1.TabIndex = 13;
+            this.textBoxAssisterStreet1.TabIndex = 14;
             // 
             // textBoxAssisterStreet2
             // 
-            this.textBoxAssisterStreet2.Location = new System.Drawing.Point(461, 119);
+            this.textBoxAssisterStreet2.Location = new System.Drawing.Point(461, 178);
             this.textBoxAssisterStreet2.Name = "textBoxAssisterStreet2";
             this.textBoxAssisterStreet2.Size = new System.Drawing.Size(137, 20);
-            this.textBoxAssisterStreet2.TabIndex = 14;
+            this.textBoxAssisterStreet2.TabIndex = 15;
             // 
             // textBoxAssisterCity
             // 
-            this.textBoxAssisterCity.Location = new System.Drawing.Point(461, 145);
+            this.textBoxAssisterCity.Location = new System.Drawing.Point(461, 204);
             this.textBoxAssisterCity.Name = "textBoxAssisterCity";
             this.textBoxAssisterCity.Size = new System.Drawing.Size(137, 20);
-            this.textBoxAssisterCity.TabIndex = 15;
+            this.textBoxAssisterCity.TabIndex = 16;
             // 
             // textBoxAssisterAptSuite
             // 
-            this.textBoxAssisterAptSuite.Location = new System.Drawing.Point(461, 67);
+            this.textBoxAssisterAptSuite.Location = new System.Drawing.Point(461, 126);
             this.textBoxAssisterAptSuite.Name = "textBoxAssisterAptSuite";
             this.textBoxAssisterAptSuite.Size = new System.Drawing.Size(137, 20);
-            this.textBoxAssisterAptSuite.TabIndex = 12;
+            this.textBoxAssisterAptSuite.TabIndex = 13;
             // 
             // label199
             // 
             this.label199.AutoSize = true;
-            this.label199.Location = new System.Drawing.Point(412, 175);
+            this.label199.Location = new System.Drawing.Point(412, 234);
             this.label199.Name = "label199";
             this.label199.Size = new System.Drawing.Size(43, 13);
             this.label199.TabIndex = 0;
@@ -1105,7 +1109,7 @@
             // label198
             // 
             this.label198.AutoSize = true;
-            this.label198.Location = new System.Drawing.Point(430, 226);
+            this.label198.Location = new System.Drawing.Point(430, 285);
             this.label198.Name = "label198";
             this.label198.Size = new System.Drawing.Size(25, 13);
             this.label198.TabIndex = 0;
@@ -1114,7 +1118,7 @@
             // label197
             // 
             this.label197.AutoSize = true;
-            this.label197.Location = new System.Drawing.Point(420, 200);
+            this.label197.Location = new System.Drawing.Point(420, 259);
             this.label197.Name = "label197";
             this.label197.Size = new System.Drawing.Size(35, 13);
             this.label197.TabIndex = 0;
@@ -1123,7 +1127,7 @@
             // label196
             // 
             this.label196.AutoSize = true;
-            this.label196.Location = new System.Drawing.Point(428, 146);
+            this.label196.Location = new System.Drawing.Point(428, 205);
             this.label196.Name = "label196";
             this.label196.Size = new System.Drawing.Size(27, 13);
             this.label196.TabIndex = 0;
@@ -1132,7 +1136,7 @@
             // label195
             // 
             this.label195.AutoSize = true;
-            this.label195.Location = new System.Drawing.Point(408, 122);
+            this.label195.Location = new System.Drawing.Point(408, 181);
             this.label195.Name = "label195";
             this.label195.Size = new System.Drawing.Size(47, 13);
             this.label195.TabIndex = 0;
@@ -1141,7 +1145,7 @@
             // label194
             // 
             this.label194.AutoSize = true;
-            this.label194.Location = new System.Drawing.Point(408, 95);
+            this.label194.Location = new System.Drawing.Point(408, 154);
             this.label194.Name = "label194";
             this.label194.Size = new System.Drawing.Size(47, 13);
             this.label194.TabIndex = 0;
@@ -1150,7 +1154,7 @@
             // label193
             // 
             this.label193.AutoSize = true;
-            this.label193.Location = new System.Drawing.Point(400, 70);
+            this.label193.Location = new System.Drawing.Point(400, 129);
             this.label193.Name = "label193";
             this.label193.Size = new System.Drawing.Size(55, 13);
             this.label193.TabIndex = 0;
@@ -1159,7 +1163,7 @@
             // label192
             // 
             this.label192.AutoSize = true;
-            this.label192.Location = new System.Drawing.Point(372, 44);
+            this.label192.Location = new System.Drawing.Point(372, 103);
             this.label192.Name = "label192";
             this.label192.Size = new System.Drawing.Size(85, 13);
             this.label192.TabIndex = 0;
@@ -1170,10 +1174,10 @@
             this.comboBoxAssisterType.FormattingEnabled = true;
             this.comboBoxAssisterType.Items.AddRange(new object[] {
             "Broker"});
-            this.comboBoxAssisterType.Location = new System.Drawing.Point(130, 314);
+            this.comboBoxAssisterType.Location = new System.Drawing.Point(130, 345);
             this.comboBoxAssisterType.Name = "comboBoxAssisterType";
             this.comboBoxAssisterType.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterType.TabIndex = 10;
+            this.comboBoxAssisterType.TabIndex = 11;
             // 
             // comboBoxAssisterCategory
             // 
@@ -1182,17 +1186,17 @@
             "Broker",
             "Certified Application Counselor",
             "Navigator"});
-            this.comboBoxAssisterCategory.Location = new System.Drawing.Point(130, 287);
+            this.comboBoxAssisterCategory.Location = new System.Drawing.Point(130, 318);
             this.comboBoxAssisterCategory.Name = "comboBoxAssisterCategory";
             this.comboBoxAssisterCategory.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterCategory.TabIndex = 9;
+            this.comboBoxAssisterCategory.TabIndex = 10;
             // 
             // textBoxAssisterPhoneNumber
             // 
-            this.textBoxAssisterPhoneNumber.Location = new System.Drawing.Point(130, 245);
+            this.textBoxAssisterPhoneNumber.Location = new System.Drawing.Point(130, 276);
             this.textBoxAssisterPhoneNumber.Name = "textBoxAssisterPhoneNumber";
             this.textBoxAssisterPhoneNumber.Size = new System.Drawing.Size(137, 20);
-            this.textBoxAssisterPhoneNumber.TabIndex = 8;
+            this.textBoxAssisterPhoneNumber.TabIndex = 9;
             // 
             // comboBoxAssisterPhoneType
             // 
@@ -1204,17 +1208,17 @@
             "Mobile",
             "Other",
             "Pager"});
-            this.comboBoxAssisterPhoneType.Location = new System.Drawing.Point(130, 218);
+            this.comboBoxAssisterPhoneType.Location = new System.Drawing.Point(130, 249);
             this.comboBoxAssisterPhoneType.Name = "comboBoxAssisterPhoneType";
             this.comboBoxAssisterPhoneType.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterPhoneType.TabIndex = 7;
+            this.comboBoxAssisterPhoneType.TabIndex = 8;
             // 
             // textBoxAssisterId
             // 
-            this.textBoxAssisterId.Location = new System.Drawing.Point(130, 179);
+            this.textBoxAssisterId.Location = new System.Drawing.Point(130, 210);
             this.textBoxAssisterId.Name = "textBoxAssisterId";
             this.textBoxAssisterId.Size = new System.Drawing.Size(91, 20);
-            this.textBoxAssisterId.TabIndex = 6;
+            this.textBoxAssisterId.TabIndex = 7;
             // 
             // comboBoxAssisterMethod
             // 
@@ -1224,10 +1228,10 @@
             "Phone",
             "Post/Mail",
             "Web/Portal"});
-            this.comboBoxAssisterMethod.Location = new System.Drawing.Point(130, 152);
+            this.comboBoxAssisterMethod.Location = new System.Drawing.Point(130, 183);
             this.comboBoxAssisterMethod.Name = "comboBoxAssisterMethod";
             this.comboBoxAssisterMethod.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterMethod.TabIndex = 5;
+            this.comboBoxAssisterMethod.TabIndex = 6;
             // 
             // comboBoxAssisterLanguage
             // 
@@ -1235,10 +1239,10 @@
             this.comboBoxAssisterLanguage.Items.AddRange(new object[] {
             "English",
             "Spanish"});
-            this.comboBoxAssisterLanguage.Location = new System.Drawing.Point(130, 125);
+            this.comboBoxAssisterLanguage.Location = new System.Drawing.Point(130, 156);
             this.comboBoxAssisterLanguage.Name = "comboBoxAssisterLanguage";
             this.comboBoxAssisterLanguage.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterLanguage.TabIndex = 4;
+            this.comboBoxAssisterLanguage.TabIndex = 5;
             // 
             // comboBoxAssisterCommunication
             // 
@@ -1247,10 +1251,10 @@
             "Email",
             "Mail",
             "Phone"});
-            this.comboBoxAssisterCommunication.Location = new System.Drawing.Point(130, 98);
+            this.comboBoxAssisterCommunication.Location = new System.Drawing.Point(130, 129);
             this.comboBoxAssisterCommunication.Name = "comboBoxAssisterCommunication";
             this.comboBoxAssisterCommunication.Size = new System.Drawing.Size(91, 21);
-            this.comboBoxAssisterCommunication.TabIndex = 3;
+            this.comboBoxAssisterCommunication.TabIndex = 4;
             // 
             // textBoxAssisterFirstName
             // 
@@ -1262,7 +1266,7 @@
             // label191
             // 
             this.label191.AutoSize = true;
-            this.label191.Location = new System.Drawing.Point(43, 248);
+            this.label191.Location = new System.Drawing.Point(43, 279);
             this.label191.Name = "label191";
             this.label191.Size = new System.Drawing.Size(81, 13);
             this.label191.TabIndex = 0;
@@ -1271,7 +1275,7 @@
             // label190
             // 
             this.label190.AutoSize = true;
-            this.label190.Location = new System.Drawing.Point(30, 290);
+            this.label190.Location = new System.Drawing.Point(30, 321);
             this.label190.Name = "label190";
             this.label190.Size = new System.Drawing.Size(94, 13);
             this.label190.TabIndex = 0;
@@ -1280,7 +1284,7 @@
             // label189
             // 
             this.label189.AutoSize = true;
-            this.label189.Location = new System.Drawing.Point(48, 317);
+            this.label189.Location = new System.Drawing.Point(48, 348);
             this.label189.Name = "label189";
             this.label189.Size = new System.Drawing.Size(76, 13);
             this.label189.TabIndex = 0;
@@ -1289,7 +1293,7 @@
             // label188
             // 
             this.label188.AutoSize = true;
-            this.label188.Location = new System.Drawing.Point(42, 103);
+            this.label188.Location = new System.Drawing.Point(42, 134);
             this.label188.Name = "label188";
             this.label188.Size = new System.Drawing.Size(82, 13);
             this.label188.TabIndex = 0;
@@ -1298,7 +1302,7 @@
             // label187
             // 
             this.label187.AutoSize = true;
-            this.label187.Location = new System.Drawing.Point(66, 128);
+            this.label187.Location = new System.Drawing.Point(66, 159);
             this.label187.Name = "label187";
             this.label187.Size = new System.Drawing.Size(58, 13);
             this.label187.TabIndex = 0;
@@ -1307,7 +1311,7 @@
             // label186
             // 
             this.label186.AutoSize = true;
-            this.label186.Location = new System.Drawing.Point(78, 154);
+            this.label186.Location = new System.Drawing.Point(78, 185);
             this.label186.Name = "label186";
             this.label186.Size = new System.Drawing.Size(46, 13);
             this.label186.TabIndex = 0;
@@ -1316,7 +1320,7 @@
             // label185
             // 
             this.label185.AutoSize = true;
-            this.label185.Location = new System.Drawing.Point(66, 182);
+            this.label185.Location = new System.Drawing.Point(66, 213);
             this.label185.Name = "label185";
             this.label185.Size = new System.Drawing.Size(58, 13);
             this.label185.TabIndex = 0;
@@ -1325,7 +1329,7 @@
             // label165
             // 
             this.label165.AutoSize = true;
-            this.label165.Location = new System.Drawing.Point(56, 219);
+            this.label165.Location = new System.Drawing.Point(56, 250);
             this.label165.Name = "label165";
             this.label165.Size = new System.Drawing.Size(68, 13);
             this.label165.TabIndex = 0;
@@ -1720,7 +1724,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 600);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -5739,12 +5743,28 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // label202
+            // 
+            this.label202.AutoSize = true;
+            this.label202.Location = new System.Drawing.Point(55, 81);
+            this.label202.Name = "label202";
+            this.label202.Size = new System.Drawing.Size(69, 13);
+            this.label202.TabIndex = 0;
+            this.label202.Text = "Date of Birth:";
+            // 
+            // textBoxAssisterDOB
+            // 
+            this.textBoxAssisterDOB.Location = new System.Drawing.Point(130, 78);
+            this.textBoxAssisterDOB.Name = "textBoxAssisterDOB";
+            this.textBoxAssisterDOB.Size = new System.Drawing.Size(92, 20);
+            this.textBoxAssisterDOB.TabIndex = 3;
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1320, 637);
+            this.ClientSize = new System.Drawing.Size(1337, 654);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FormMain";
             this.Text = "MNsure Regression Automation1";
@@ -6271,6 +6291,8 @@
         private System.Windows.Forms.Label label200;
         private System.Windows.Forms.TextBox textBoxAssisterLastName;
         private System.Windows.Forms.Label label201;
+        private System.Windows.Forms.TextBox textBoxAssisterDOB;
+        private System.Windows.Forms.Label label202;
 
     }
 }

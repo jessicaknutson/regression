@@ -26,11 +26,11 @@ namespace MNsure_Regression_1
 
             string[] maleNames = { "Aaron", "Adrien", "Bob", "Chuck", "Charles", "Dean", "Eric", "Frank", "Gregory", "Harry", "Hank", "Indiana", "James", "Joseph", "Karl", "Larry", "Mark", "Martin", "Neal", "Nick", "Olie", "Patrick", "Robert", "Steven", "Stuart", "Ted", "Thomas", "Tim", "Ulrick", "Vern", "William", "Yary", "Zowie" };
             string[] femaleNames = { "Abby", "Barb", "Betty", "Cathy", "Darla", "Debby", "Ellen", "Francis", "Grace", "Helen", "Ilean", "Jean", "Martha", "Nancy", "Nena", "Nora", "Patty", "Reena", "Stephanie", "Tammy", "Teresa", "Tina", "Thelma", "Trinity", "Vickie" };
-            string[] maleMiddleNames = { "Joseph", "R", "Thomas", "Randy", "Rick" };
-            string[] femaleMiddleNames = { "A", "B", "Candy", "R", "Lisa", "Wendy", "Z" };
+            string[] maleMiddleNames = { "J", "K", "R", "S", "T" };
+            string[] femaleMiddleNames = { "A", "B", "C", "L", "R", "W", "Z" };
             string[] lastNames = { "Able", "Adams", "Andle", "Adkin", "Back", "Balk", "Belt", "Bing", "Bend", "Baker", "Burns", "Calk", "Chart", "Chang", "Chong", "Dallas", "Dalt", "Decks", "Dills", "Dons", "Els", "Frat", "Gets", "Hark", "Jans", "Jons", "Kipp", "Lark", "Lefs", "Mack", "Nell", "Olla", "Peck", "Rass", "Stark", "Sims", "Stend", "Seps", "Toll", "Wats", "Welch", "Wills", "Whit", "Zena" };
             //string[] suffix = { "JR", "SR", "2", "3", "4", "II", "III", "IV" };
-            string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };
+            //string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };//current bug, turn off for now
 
             Random rand = new Random();
 
@@ -42,7 +42,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
                     myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
-                    myAccountCreate.mySuffix = suffix[rand2.Next(1, 4)];
+                    myAccountCreate.mySuffix = null;//suffix[rand2.Next(1, 4)];
                     myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
                     myApplication.myGender = "Male";
 
@@ -54,7 +54,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myFirstName = femaleNames[rand3.Next(1, femaleNames.Count())];
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
-                    myAccountCreate.mySuffix = suffix[rand3.Next(1, 4)];
+                    myAccountCreate.mySuffix = null;//suffix[rand3.Next(1, 4)];
                     myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
                     myApplication.myGender = "Female";
 
@@ -72,7 +72,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myFirstName = maleNames[rand4.Next(1, maleNames.Count())];
                     myAccountCreate.myMiddleName = maleMiddleNames[rand4.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand4.Next(1, lastNames.Count())];
-                    myAccountCreate.mySuffix = suffix[rand4.Next(1, 4)];
+                    myAccountCreate.mySuffix = null;// suffix[rand4.Next(1, 4)];
                     myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
                     myApplication.myGender = "Male";
 
@@ -84,7 +84,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myFirstName = femaleNames[rand5.Next(1, femaleNames.Count())];
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand5.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand5.Next(1, lastNames.Count())];
-                    myAccountCreate.mySuffix = suffix[rand5.Next(1, 4)];
+                    myAccountCreate.mySuffix = null;// suffix[rand5.Next(1, 4)];
                     myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
                     myApplication.myGender = "Female";
 

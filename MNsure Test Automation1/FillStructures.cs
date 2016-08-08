@@ -257,7 +257,7 @@ namespace MNsure_Regression_1
                         SqlCeDataReader reader2 = com4.ExecuteReader();
                         if (reader2.Read())
                         {
-                            if (!reader2.IsDBNull(2)) { myAssister.AssisterId = reader2.GetString(2); }                            
+                            if (!reader2.IsDBNull(2)) { myAssister.AssisterId = reader2.GetString(2); }
                             if (!reader2.IsDBNull(3)) { myAssister.myCommunication = reader2.GetString(3); }
                             if (!reader2.IsDBNull(4)) { myAssister.myLanguage = reader2.GetString(4); }
                             if (!reader2.IsDBNull(5)) { myAssister.myMethod = reader2.GetString(5); }
@@ -265,9 +265,13 @@ namespace MNsure_Regression_1
                             if (!reader2.IsDBNull(7)) { myAssister.myPhoneNum = reader2.GetString(7); }
                             if (!reader2.IsDBNull(8)) { myAssister.myCategory = reader2.GetString(8); }
                             if (!reader2.IsDBNull(9)) { myAssister.myType = reader2.GetString(9); }
-                            if (!reader2.IsDBNull(10)) { myAssister.myEmail = reader2.GetString(10); }                            
+                            if (!reader2.IsDBNull(10)) { myAssister.myEmail = reader2.GetString(10); }
                             if (!reader2.IsDBNull(11)) { myAssister.myLastName = reader2.GetString(11); }
                             if (!reader2.IsDBNull(12)) { myAssister.myFirstName = reader2.GetString(12); }
+                            if (!reader2.IsDBNull(13)) { myAssister.myRefNumber = reader2.GetString(13); }
+                            if (!reader2.IsDBNull(14)) { myAssister.mySSN = reader2.GetString(14); }
+                            if (!reader2.IsDBNull(15)) { myAssister.myDOB = reader2.GetDateTime(15).ToShortDateString(); }
+                            if (!reader2.IsDBNull(16)) { myAssister.myRegNumber = reader2.GetString(16); }
                         }
                     }
 
@@ -521,12 +525,81 @@ namespace MNsure_Regression_1
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
                         com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
                         com3.Parameters.AddWithValue("LastName", myAccountCreate.myLastName);
-                        com3.Parameters.AddWithValue("Suffix", myAccountCreate.mySuffix);
+                        com3.Parameters.AddWithValue("Suffix", DBNull.Value);//myAccountCreate.mySuffix);
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
                         com3.Parameters.AddWithValue("Phone", myAccountCreate.myPhone);
                         if (myApplication.mySSN == "Yes")
                         {
                             com3.Parameters.AddWithValue("SSN", myAccountCreate.mySSN);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("SSN", DBNull.Value);
+                        }
+                        if (myApplication.myDOB == null)
+                        {
+                            com3.Parameters.AddWithValue("DOB", myAccountCreate.myDOB);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("DOB", myApplication.myDOB);
+                        }
+                        com3.Parameters.AddWithValue("Username", myAccountCreate.myUsername);
+
+                        com3.ExecuteNonQuery();
+                        com3.Dispose();
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Add New Account didn't work " + e);
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Get next Account_id didn't work " + e);
+            }
+
+            return 1;
+        }
+
+        public int doCreateAssisterAccount(ref mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            con = new SqlCeConnection(conString);
+            con.Open();
+
+            try
+            {
+                SqlCeCommand cmd2 = con.CreateCommand();
+                cmd2.CommandType = CommandType.Text;
+
+                cmd2.CommandText = "Delete from Account where TestId = " + mySelectedTest.myTestId + " and AccountId = 2;";
+                cmd2.ExecuteNonQuery();
+                myAccountCreate.myAccountID = 2;
+                int result;
+                AccountGeneration myAccountGeneration = new AccountGeneration();
+                result = myAccountGeneration.GenerateNames(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+
+                try
+                {
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    string myInsertString;
+                    myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
+                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username );";
+                    using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
+                    {
+                        com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
+                        com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
+                        com3.Parameters.AddWithValue("LastName", myAccountCreate.myLastName);
+                        com3.Parameters.AddWithValue("Suffix", DBNull.Value);//myAccountCreate.mySuffix);
+                        com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
+                        com3.Parameters.AddWithValue("Phone", myAccountCreate.myPhone);
+                        if (myApplication.mySSN == "Yes")
+                        {
+                            com3.Parameters.AddWithValue("SSN", Convert.ToString((Convert.ToInt32(myAccountCreate.mySSN) + 1)));
                         }
                         else
                         {
@@ -669,6 +742,47 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int doGetAccount(ref mystructAccountCreate myAccountCreate, ref mystructHistoryInfo myHistoryInfo, String myTestId, String myAccountId)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com2 = new SqlCeCommand
+                    ("SELECT * FROM Account where TestId = " + myTestId + " and AccountID = " +
+                    myAccountId + ";", con))
+                {
+                    SqlCeDataReader reader = com2.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myAccountCreate.myAccountID = reader.GetInt32(0);
+                        if (!reader.IsDBNull(2)) { myAccountCreate.myFirstName = reader.GetString(2); }
+                        if (!reader.IsDBNull(3)) { myAccountCreate.myMiddleName = reader.GetString(3); }
+                        if (!reader.IsDBNull(4)) { myAccountCreate.myLastName = reader.GetString(4); }
+                        if (!reader.IsDBNull(5)) { myAccountCreate.mySuffix = reader.GetString(5); }
+                        if (!reader.IsDBNull(6)) { myAccountCreate.myEmail = reader.GetString(6); }
+                        if (!reader.IsDBNull(7)) { myAccountCreate.myPhone = reader.GetString(7); }
+                        if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
+                        if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToString(reader.GetDateTime(9)); }
+                        if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }
+                    }
+
+                    com2.ExecuteNonQuery();
+                    com2.Dispose();
+                }
+
+                return 1;
+            }
+            catch
+            {
+                return 2;
+            }
+        }
+
         public int doUpdateHouseholdSSN(ref mystructHistoryInfo myHistoryInfo, string updateValue, string memberId)
         {
             SqlCeConnection con;
@@ -700,7 +814,43 @@ namespace MNsure_Regression_1
             }
             catch
             {
-                MessageBox.Show("Update SaveExit didn't work");
+                MessageBox.Show("Update Household SSN didn't work");
+            }
+            return 1;
+        }
+
+        public int doUpdateAssisterSSN(ref mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand(
+                    "SELECT * FROM Assister where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Assister set SSN = @mySSN where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("mySSN", updateValue);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update Assister SSN didn't work");
             }
             return 1;
         }

@@ -21,8 +21,8 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoPrivacy(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoPrivacy(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication, 
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -33,19 +33,37 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
+                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
                 myDriver.Manage().Window.Maximize();
                 int appwait;
-                if (myHistoryInfo.myInTimeTravel == "Yes")
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;//was 0
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -72,13 +90,19 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoIdentityInformation(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoIdentityInformation(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -90,75 +114,75 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"), myHistoryInfo);
 
-                IWebElement myselectFirstName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"));
+                IWebElement myselectFirstName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[1]"));
                 myselectFirstName.SendKeys(myAccountCreate.myFirstName);
 
-                IWebElement myselectMiddleName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[2]"));
+                IWebElement myselectMiddleName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[1]/div/input[2]"));
                 if (myAccountCreate.myMiddleName != null)
                 {
                     myselectMiddleName.SendKeys(myAccountCreate.myMiddleName);
                 }
-                IWebElement myselectLasteName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
+                IWebElement myselectLasteName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
                 myselectLasteName.SendKeys(myAccountCreate.myLastName);
 
-                IWebElement myselectSuffix = driver.FindElement(By.XPath("//html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/select"));
+                IWebElement myselectSuffix = myDriver.FindElement(By.XPath("//html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/select"));
                 if (myAccountCreate.mySuffix != null)
                 {
                     myselectSuffix.SendKeys(myAccountCreate.mySuffix);
                 }
 
-                IWebElement myselectAddress1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
+                IWebElement myselectAddress1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
                 myselectAddress1.SendKeys(myApplication.myHomeAddress1);
 
-                IWebElement myselectAddress2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
+                IWebElement myselectAddress2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
                 if (myApplication.myHomeAddress2 != null)
                 {
                     myselectAddress2.SendKeys(myApplication.myHomeAddress2);
                 }
 
-                IWebElement myselectCity = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/input"));
+                IWebElement myselectCity = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/input"));
                 myselectCity.SendKeys(myApplication.myHomeCity);
 
                 //need another outside click, won't move forward
-                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
+                IWebElement outsideClick = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[4]/input"));
                 outsideClick.Click();
 
-                IWebElement myselectState = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/select"));
+                IWebElement myselectState = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[5]/div/select"));
                 myselectState.SendKeys(myApplication.myHomeState);
 
-                IWebElement myselectZip = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[1]"));
+                IWebElement myselectZip = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[1]"));
                 myselectZip.SendKeys(myApplication.myHomeZip);
 
-                IWebElement myselectZip4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[2]"));
+                IWebElement myselectZip4 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[6]/div/input[2]"));
                 if (myApplication.myHomeZip4 != null)
                 {
                     myselectZip4.SendKeys(myApplication.myHomeZip4);
                 }
 
-                IWebElement myselectEmail = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[1]"));
+                IWebElement myselectEmail = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[1]"));
                 myselectEmail.SendKeys(myAccountCreate.myEmail);
 
-                IWebElement myselectEmail2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[2]"));
+                IWebElement myselectEmail2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[7]/div/input[2]"));
                 myselectEmail2.SendKeys(myAccountCreate.myEmail);
 
-                IWebElement myselectPhone = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[1]"));
+                IWebElement myselectPhone = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[1]"));
                 myselectPhone.SendKeys(myAccountCreate.myPhone);
 
                 string mysSSN1 = myAccountCreate.mySSN.Substring(0, 3);
                 string mysSSN2 = myAccountCreate.mySSN.Substring(3, 2);
                 string mysSSN3 = myAccountCreate.mySSN.Substring(5, 4);
-                IWebElement myselectSSN1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[2]"));
+                IWebElement myselectSSN1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[2]"));
                 myselectSSN1.SendKeys(mysSSN1);
 
-                IWebElement myselectSSN2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[3]"));
+                IWebElement myselectSSN2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[3]"));
                 myselectSSN2.SendKeys(mysSSN2);
 
-                IWebElement myselectSSN3 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[4]"));
+                IWebElement myselectSSN3 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[4]"));
                 myselectSSN3.SendKeys(mysSSN3);
 
-                IWebElement myselectDOB = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[5]"));
+                IWebElement myselectDOB = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[5]"));
                 if (myApplication.myDOB != "01/01/2011")
                 {
                     myselectDOB.SendKeys(myApplication.myDOB);
@@ -168,12 +192,12 @@ namespace MNsure_Regression_1
                     myselectDOB.SendKeys(myAccountCreate.myDOB);
                 }
 
-                IWebElement myselectCaptcha = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
+                IWebElement myselectCaptcha = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
                 myselectCaptcha.SendKeys("Google");
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement clickNextButton = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/button"));
+                IWebElement clickNextButton = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/button"));
                 clickNextButton.Click();
 
                 CaseWorker myCW = new CaseWorker();
@@ -188,19 +212,25 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoAccountCreate(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAccountCreate(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -212,60 +242,60 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"), myHistoryInfo);
 
-                IWebElement myselectUserName = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"));
+                IWebElement myselectUserName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"));
                 myselectUserName.SendKeys(myAccountCreate.myUsername);
 
-                IWebElement myselectPassword = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[4]/div/input"));
+                IWebElement myselectPassword = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[4]/div/input"));
                 myselectPassword.SendKeys(myAccountCreate.myPassword);
 
-                IWebElement myselectPassword2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[5]/div/input"));
+                IWebElement myselectPassword2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[5]/div/input"));
                 myselectPassword2.SendKeys(myAccountCreate.myPassword);
 
-                IWebElement myselectSecret = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[8]/div/input"));
+                IWebElement myselectSecret = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[8]/div/input"));
                 myselectSecret.SendKeys(myAccountCreate.mySecret);
 
                 string temp1;
                 temp1 = myAccountCreate.myQuestion1;
-                IWebElement myselectQuestion1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/select"));
+                IWebElement myselectQuestion1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/select"));
                 var selectQuestion1 = new SelectElement(myselectQuestion1);
                 selectQuestion1.SelectByValue(myAccountCreate.myQuestion1);
 
-                IWebElement myselectAnswer1 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/input"));
+                IWebElement myselectAnswer1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/input"));
                 myselectAnswer1.SendKeys(myAccountCreate.myAnswer1);
 
-                IWebElement myselectQuestion2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/select"));
+                IWebElement myselectQuestion2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/select"));
                 var selectQuestion2 = new SelectElement(myselectQuestion2);
                 selectQuestion2.SelectByValue(myAccountCreate.myQuestion2);
 
-                IWebElement myselectAnswer2 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/input"));
+                IWebElement myselectAnswer2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/input"));
                 myselectAnswer2.SendKeys(myAccountCreate.myAnswer2);
 
-                IWebElement myselectQuestion3 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/select"));
+                IWebElement myselectQuestion3 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/select"));
                 var selectQuestion3 = new SelectElement(myselectQuestion3);
                 selectQuestion3.SelectByValue(myAccountCreate.myQuestion3);
 
-                IWebElement myselectAnswer3 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/input"));
+                IWebElement myselectAnswer3 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/input"));
                 myselectAnswer3.SendKeys(myAccountCreate.myAnswer3);
 
-                IWebElement myselectQuestion4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/select"));
+                IWebElement myselectQuestion4 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/select"));
                 var selectQuestion4 = new SelectElement(myselectQuestion4);
                 selectQuestion4.SelectByValue(myAccountCreate.myQuestion4);
 
-                IWebElement myselectAnswer4 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/input"));
+                IWebElement myselectAnswer4 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/input"));
                 myselectAnswer4.SendKeys(myAccountCreate.myAnswer4);
 
-                IWebElement myselectQuestion5 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/select"));
+                IWebElement myselectQuestion5 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/select"));
                 var selectQuestion5 = new SelectElement(myselectQuestion5);
                 selectQuestion5.SelectByValue(myAccountCreate.myQuestion5);
 
-                IWebElement myselectAnswer5 = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/input"));
+                IWebElement myselectAnswer5 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/input"));
                 myselectAnswer5.SendKeys(myAccountCreate.myAnswer5);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement myclickNext = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[2]/button"));
+                IWebElement myclickNext = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[2]/button"));
                 myclickNext.Click();
 
                 returnStatus = "Pass";
@@ -277,19 +307,25 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoProofing(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoProofing(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
+                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
+                }
+
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -301,11 +337,11 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"), myHistoryInfo);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement myclickNext = driver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"));
+                IWebElement myclickNext = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/a/button"));
                 myclickNext.Click();
 
                 returnStatus = "Pass";
@@ -317,14 +353,14 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoAccountLogin(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoAccountLogin(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -334,6 +370,10 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myRelogin == "Yes")
                 {
                     myDriver = driver3;
+                }
+                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
                 }
                 myDriver.Manage().Window.Maximize();
 
@@ -380,8 +420,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoSignin(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoSignin(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCaseWorkerWait;
             IWebDriver myDriver = driver;
@@ -404,7 +444,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 myDriver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();
@@ -423,8 +463,8 @@ namespace MNsure_Regression_1
                 return 2;
             }
         }
-        public int DoApplyWithDiscounts(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplyWithDiscounts(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -463,8 +503,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoApplyWithoutDiscounts(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoApplyWithoutDiscounts(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -503,8 +543,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoMyAccount(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoMyAccount(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -527,7 +567,7 @@ namespace MNsure_Regression_1
                     }
                     System.Threading.Thread.Sleep(appwait);
 
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
 
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[2]/ul/li/a"));
                     myAccount.Click();
@@ -545,7 +585,7 @@ namespace MNsure_Regression_1
                     }
                     System.Threading.Thread.Sleep(appwait);
 
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"), myHistoryInfo);
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"), myHistoryInfo);
 
                     IWebElement myAccount = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li/a"));
                     myAccount.Click();
@@ -559,7 +599,7 @@ namespace MNsure_Regression_1
                         appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                     }
                     System.Threading.Thread.Sleep(appwait);
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a"), myHistoryInfo);
 
                     IWebElement myAccount2 = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div[2]/div/div/div[1]/div/div/h1[2]/ul/li/a"));
                     myAccount2.Click();
@@ -574,7 +614,7 @@ namespace MNsure_Regression_1
                     appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-                myApp.DoWaitForElement(driver, By.TagName("iFrame"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.TagName("iFrame"), myHistoryInfo);
 
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement);
@@ -600,8 +640,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoHomePage(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoHomePage(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -611,6 +651,10 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myRelogin == "Yes")
                 {
                     myDriver = driver3;
+                }
+                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                {
+                    myDriver = driver5;
                 }
 
                 int appwait;
@@ -624,7 +668,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[3]/a/button"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[3]/a/button"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
@@ -646,13 +690,14 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoLoginTimeTravel(IWebDriver driver, IWebDriver driver3, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHistoryInfo myHistoryInfo,
-               ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoLoginTimeTravel(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
             try
             {
+                driver.Manage().Window.Maximize();
                 driver.SwitchTo().DefaultContent();
 
                 int appwait;

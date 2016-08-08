@@ -665,7 +665,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]"), myHistoryInfo);
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]"), myHistoryInfo);
 
                 myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[3]/div/div[1]/div/div/div[2]/span/a[2]")).Click();
                 System.Threading.Thread.Sleep(1000);
@@ -1215,7 +1215,7 @@ namespace MNsure_Regression_1
                 IWebElement buttonViewDropdown = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/div[1]"));
                 buttonViewDropdown.Click();
 
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(myDriver);
                 action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 
@@ -1464,8 +1464,8 @@ namespace MNsure_Regression_1
                 IList<IWebElement> elements = elems2;
                 if (elements != null && elements.Count > 0)
                 {
-                    var iFrameElement = driver.FindElement(selector);
-                    driver.SwitchTo().Frame(iFrameElement);
+                    var iFrameElement = myDriver.FindElement(selector);
+                    myDriver.SwitchTo().Frame(iFrameElement);
 
                     System.Threading.Thread.Sleep(2000);
                     var elems3 = myDriver.FindElements(By.XPath("//h3[contains(text(), 'Estimator')]"));

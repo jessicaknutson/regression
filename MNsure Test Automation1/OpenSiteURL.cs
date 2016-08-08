@@ -26,8 +26,8 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoOpenMNsure(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoOpenMNsure(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -44,6 +44,8 @@ namespace MNsure_Regression_1
                     driver.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
 
+                assisterGeneric = "No";
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -59,8 +61,43 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoOpenMNsureRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoGenericCitizenURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver5.Navigate().GoToUrl("https://auth.stst.mnsure.org/login/Login.jsp");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver5.Navigate().GoToUrl("https://auth.stst2.mnsure.org/login/Login.jsp");
+                }
+                else
+                {
+                    driver5.Navigate().GoToUrl("https://auth.atst.mnsure.org/login/Login.jsp");
+                }
+
+                assisterGeneric = "Yes";
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver5, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoOpenMNsureRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -94,8 +131,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoOpenMNsureReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoOpenMNsureReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -129,8 +166,8 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCaseWorkerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoCaseWorkerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -152,7 +189,7 @@ namespace MNsure_Regression_1
                 }
 
                 // This checks for the Sign In button
-                IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+                IWebElement signin = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -169,98 +206,26 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoAssisterURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoAssisterURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Individual");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver2.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Individual");
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Individual");
                 }
                 else
                 {
-                    driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Individual");
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Individual");
                 }
 
                 // This checks for the Sign In button
-                IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
-
-                returnStatus = "Pass";
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 1;
-            }
-            catch (Exception e)
-            {
-                returnException = Convert.ToString(e);
-                returnStatus = "Fail";
-                myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 2;
-            }
-        }               
-
-        public int DoBrokerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
-        {
-            try
-            {               
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    driver2.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Broker");
-                }
-                else if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    driver2.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Broker");
-                }
-                else
-                {
-                    driver2.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Broker");
-                }
-
-                // This checks for the Sign In button
-                IWebElement myfield = driver2.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
-
-                returnStatus = "Pass";
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 1;
-            }
-            catch (Exception e)
-            {
-                returnException = Convert.ToString(e);
-                returnStatus = "Fail";
-                myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
-                returnScreenshot = myHistoryInfo.myScreenShot;
-                return 2;
-            }
-        }
-
-        public int DoBrokerRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
-        {
-            try
-            {
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/?account_type=Broker");
-                }
-                else if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/NORIDP/?account_type=Broker");
-                }
-                else
-                {
-                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/?account_type=Broker");
-                }
-
-                // This checks for the Sign In button
-                IWebElement myfield = driver3.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+                IWebElement signin = driver3.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -277,8 +242,188 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoCaseWorkerURLOpenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-            ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoAssisterTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/Curam");
+                }
+
+                // This checks for the Sign In button
+                IWebElement signin = driver3.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoAssisterReloginURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver4.Navigate().GoToUrl("https://people.stst.mnsure.org/NavigatorS/application.do");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver4.Navigate().GoToUrl("https://people.stst2.mnsure.org/NavigatorS/application.do");
+                }
+                else
+                {
+                    driver4.Navigate().GoToUrl("https://people.atst.mnsure.org/NavigatorS/application.do");
+                }
+
+                // This checks for the Sign In button
+                IWebElement signin = driver4.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver4, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoAssisterReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {                    
+                    driver4.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/NavigatorS");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver4.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/NavigatorS");
+                }
+                else
+                {
+                    driver4.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/NavigatorS");
+                }
+
+                // This checks for the Sign In button
+                IWebElement signin = driver4.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver4, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoBrokerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {               
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/RIDP/?account_type=Broker");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/RIDP/?account_type=Broker");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/RIDP/?account_type=Broker");
+                }
+
+                // This checks for the Sign In button
+                IWebElement signin = driver3.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoBrokerTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/RIDP/?account_type=Broker");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver3.Navigate().GoToUrl("https://auth.stst2.mnsure.org/RIDP/?account_type=Broker");
+                }
+                else
+                {
+                    driver3.Navigate().GoToUrl("https://auth.atst.mnsure.org/RIDP/?account_type=Broker");
+                }
+
+                // This checks for the Sign In button
+                IWebElement signin = driver3.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver3, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+        
+        public int DoCaseWorkerURLOpenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -308,14 +453,14 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(driver2, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
         }
 
-        public int DoOpenMNsureTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, ref mystructHistoryInfo myHistoryInfo,
-           ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin)
+        public int DoOpenMNsureTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
         {
             try
             {
@@ -332,6 +477,8 @@ namespace MNsure_Regression_1
                     driver.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
                 }
 
+                assisterGeneric = "No";
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -342,6 +489,41 @@ namespace MNsure_Regression_1
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
+        public int DoGenericCitizenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver5.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver5.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                }
+                else
+                {
+                    driver5.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
+                }
+
+                assisterGeneric = "Yes";
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver5, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }

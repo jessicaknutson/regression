@@ -47,6 +47,7 @@ struct mystructHistoryInfo
     public string myExecutedBy;
     public string myRelogin;
     public string myEnvironment;
+    public string myAssisterGenericCitizen;
 }
 
 struct mystructSelectedTest
@@ -294,7 +295,11 @@ struct mystructSelectedTest
         public string myState;
         public string myZip;
         public string myCounty; 
-        public string myEmail;    
+        public string myEmail;
+        public string myRefNumber;
+        public string mySSN;
+        public string myDOB;
+        public string myRegNumber;
     }
 
     struct mystructEditKey

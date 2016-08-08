@@ -87,24 +87,6 @@ namespace MNsure_Regression_1
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
-                //must clear cache first
-                FirefoxProfile profile = new FirefoxProfile();
-                profile.SetPreference("browser.cache.disk.enable", false);
-                profile.SetPreference("browser.cache.memory.enable", false);
-                profile.SetPreference("browser.cache.offline.enable", false);
-                profile.SetPreference("network.http.use-cache", false);
-
-                //create separate driver for logout and relogin to citizen portal
-                FirefoxDriver driver3 = new FirefoxDriver(profile);
-                driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-
-                //create separate driver for case worker
-                FirefoxDriver driver2 = new FirefoxDriver(profile);
-                driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-
-                FirefoxDriver driver = new FirefoxDriver();
-                driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-
                 myHistoryInfo.myTestStepStatus = "none";
                 mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
                 mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
@@ -122,8 +104,35 @@ namespace MNsure_Regression_1
                 }
                 con.Close();
 
+                //must clear cache first
+                FirefoxProfile profile3 = new FirefoxProfile();
+                profile3.SetPreference("browser.cache.disk.enable", false);
+                profile3.SetPreference("browser.cache.memory.enable", false);
+                profile3.SetPreference("browser.cache.offline.enable", false);
+                profile3.SetPreference("network.http.use-cache", false);
+
+                //create separate driver for logout and relogin to citizen portal, also assister manager
+                FirefoxDriver driver3 = new FirefoxDriver(profile3);
+                driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+
+                FirefoxProfile profile2 = new FirefoxProfile();
+                profile2.SetPreference("browser.cache.disk.enable", false);
+                profile2.SetPreference("browser.cache.memory.enable", false);
+                profile2.SetPreference("browser.cache.offline.enable", false);
+                profile2.SetPreference("network.http.use-cache", false);
+
+                //create separate driver for case worker
+                FirefoxDriver driver2 = new FirefoxDriver(profile2);
+                driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+
+                FirefoxDriver driver = new FirefoxDriver();
+                driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+
                 result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
                 result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
+
+                FirefoxDriver driver4 = null;
+                FirefoxDriver driver5 = null;
 
                 try
                 {
@@ -147,6 +156,7 @@ namespace MNsure_Regression_1
 
                     FillStructures myFillStructures = new FillStructures();
                     result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                    
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     AccountGeneration myAccountGeneration = new AccountGeneration();
@@ -159,6 +169,12 @@ namespace MNsure_Regression_1
                         result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
                     }
                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                    
+                    if (myAssister.myFirstName!= null)//must create a second account for assister
+                    {
+                        result = myFillStructures.doCreateAssisterAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                    }
+
                     result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
 
                     if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
@@ -198,16 +214,33 @@ namespace MNsure_Regression_1
                             }
                         }
                     }
+                    else if (myAssister.myFirstName != null) //for assister
+                    {
+                        int temp2 = temp1 + 1;
+                        myAssister.mySSN = Convert.ToString(temp2);
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            myAssister.mySSN = myAssister.mySSN.Remove(0, 3).Insert(0, "444");
+                        }
+                        if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = myAssister.mySSN.Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                myAssister.mySSN = myAssister.mySSN.Remove(0, 3).Insert(0, "144");
+                            }
+                        }
+                        myLastSSN.myLastSSN = myAssister.mySSN;
+
+                        result = myFillStructures.doUpdateAssisterSSN(ref myHistoryInfo, myAssister.mySSN);
+                    }
                     else
                     {
                         myLastSSN.myLastSSN = myAccountCreate.mySSN;
                     }
 
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    //if (myHistoryInfo.myEnvironment != "STST2")
-                    //{
-                        result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
-                    //}
+                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myClass;
@@ -236,19 +269,56 @@ namespace MNsure_Regression_1
                             string returnScreenshot = "";
                             string returnICNumber = "";
                             string relogin = "";
+                            string assisterGeneric = "";
 
                             switch (myClass)
                             {
                                 case "OpenSiteURL":
-                                    object[] parms = new object[8];
+
+                                    if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
+                                    {
+                                        //driver3.Dispose();
+
+                                        //must clear cache first
+                                        FirefoxProfile profile4 = new FirefoxProfile();
+                                        profile4.SetPreference("browser.cache.disk.enable", false);
+                                        profile4.SetPreference("browser.cache.memory.enable", false);
+                                        profile4.SetPreference("browser.cache.offline.enable", false);
+                                        profile4.SetPreference("network.http.use-cache", false);
+
+                                        //create separate driver for logout and relogin to citizen portal, also assister manager
+                                        driver4 = new FirefoxDriver(profile4);
+                                        driver4.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                    }
+                                    else if (myMethod == "DoGenericCitizenURLOpen" || myMethod == "DoGenericCitizenTimeTravel")
+                                    {
+                                        //driver4.Dispose();
+                                        //must clear cache first
+                                        FirefoxProfile profile5 = new FirefoxProfile();
+                                        profile5.SetPreference("browser.cache.disk.enable", false);
+                                        profile5.SetPreference("browser.cache.memory.enable", false);
+                                        profile5.SetPreference("browser.cache.offline.enable", false);
+                                        profile5.SetPreference("network.http.use-cache", false);
+
+                                        //create separate driver for logout and relogin to citizen portal, also assister manager
+                                        driver5 = new FirefoxDriver(profile5);
+                                        driver5.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+
+                                        myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
+                                    }
+                                    
+                                    object[] parms = new object[11];
                                     parms[0] = driver;
                                     parms[1] = driver2;
                                     parms[2] = driver3;
-                                    parms[3] = myHistoryInfo;
-                                    parms[4] = returnStatus;
-                                    parms[5] = returnException;
-                                    parms[6] = returnScreenshot;
-                                    parms[7] = relogin;
+                                    parms[3] = driver4;
+                                    parms[4] = driver5;
+                                    parms[5] = myHistoryInfo;
+                                    parms[6] = returnStatus;
+                                    parms[7] = returnException;
+                                    parms[8] = returnScreenshot;
+                                    parms[9] = relogin;
+                                    parms[10] = assisterGeneric;
 
                                     OpenSiteURL newOpenSiteURL = new OpenSiteURL();
                                     Type reflectTestType = typeof(OpenSiteURL);
@@ -256,23 +326,26 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParameters = reflectMethodToInvoke.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResult = reflectMethodToInvoke.Invoke(new OpenSiteURL(), parms);
-                                    myHistoryInfo.myTestStepStatus = parms[4].ToString();
-                                    myHistoryInfo.myStepException = parms[5].ToString();
-                                    myHistoryInfo.myScreenShot = parms[6].ToString();
-                                    myHistoryInfo.myRelogin = parms[7].ToString();
+                                    myHistoryInfo.myTestStepStatus = parms[6].ToString();
+                                    myHistoryInfo.myStepException = parms[7].ToString();
+                                    myHistoryInfo.myScreenShot = parms[8].ToString();
+                                    myHistoryInfo.myRelogin = parms[9].ToString();
+                                    myHistoryInfo.myAssisterGenericCitizen = parms[10].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
                                 case "AccountCreation":
-                                    object[] parmsac = new object[8];
+                                    //driver5 = null;
+                                    object[] parmsac = new object[9];
                                     parmsac[0] = driver;
                                     parmsac[1] = driver3;
-                                    parmsac[2] = myAccountCreate;
-                                    parmsac[3] = myApplication;
-                                    parmsac[4] = myHistoryInfo;
-                                    parmsac[5] = returnStatus;
-                                    parmsac[6] = returnException;
-                                    parmsac[7] = returnScreenshot;
+                                    parmsac[2] = driver5;
+                                    parmsac[3] = myAccountCreate;
+                                    parmsac[4] = myApplication;
+                                    parmsac[5] = myHistoryInfo;
+                                    parmsac[6] = returnStatus;
+                                    parmsac[7] = returnException;
+                                    parmsac[8] = returnScreenshot;
 
                                     AccountCreation newAccount = new AccountCreation();
                                     Type reflectTestTypeac = typeof(AccountCreation);
@@ -280,22 +353,28 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametersac = reflectMethodToInvokeac.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResultac = reflectMethodToInvokeac.Invoke(newAccount, parmsac);
-                                    myHistoryInfo.myTestStepStatus = parmsac[5].ToString();
-                                    myHistoryInfo.myStepException = parmsac[6].ToString();
-                                    myHistoryInfo.myScreenShot = parmsac[7].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmsac[6].ToString();
+                                    myHistoryInfo.myStepException = parmsac[7].ToString();
+                                    myHistoryInfo.myScreenShot = parmsac[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                    if (myAssister.myFirstName != null) //for assister only
+                                    {
+                                        myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
+                                    }
                                     break;
 
                                 case "ApplicationDo":
-                                    object[] parmsad = new object[8];
+                                    //driver5 = null;
+                                    object[] parmsad = new object[9];
                                     parmsad[0] = driver;
-                                    parmsad[1] = myAccountCreate;
-                                    parmsad[2] = myApplication;
-                                    parmsad[3] = myHouseholdMembers;
-                                    parmsad[4] = myHistoryInfo;
-                                    parmsad[5] = returnStatus;
-                                    parmsad[6] = returnException;
-                                    parmsad[7] = returnScreenshot;
+                                    parmsad[1] = driver5;
+                                    parmsad[2] = myAccountCreate;
+                                    parmsad[3] = myApplication;
+                                    parmsad[4] = myHouseholdMembers;
+                                    parmsad[5] = myHistoryInfo;
+                                    parmsad[6] = returnStatus;
+                                    parmsad[7] = returnException;
+                                    parmsad[8] = returnScreenshot;
 
                                     ApplicationDo myApplicationDo = new ApplicationDo();
                                     Type reflectTestTypead = typeof(ApplicationDo);
@@ -303,9 +382,9 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametersad = reflectMethodToInvokead.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResultad = reflectMethodToInvokead.Invoke(myApplicationDo, parmsad);
-                                    myHistoryInfo.myTestStepStatus = parmsad[5].ToString();
-                                    myHistoryInfo.myStepException = parmsad[6].ToString();
-                                    myHistoryInfo.myScreenShot = parmsad[7].ToString();
+                                    myHistoryInfo.myTestStepStatus = parmsad[6].ToString();
+                                    myHistoryInfo.myStepException = parmsad[7].ToString();
+                                    myHistoryInfo.myScreenShot = parmsad[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
                                     result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
@@ -442,18 +521,22 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "Assister":
-                                    object[] parmsa = new object[11];
+                                    //driver5 = null;
+                                    //driver4 = null;
+                                    object[] parmsa = new object[13];
                                     parmsa[0] = driver;
                                     parmsa[1] = driver2;
                                     parmsa[2] = driver3;
-                                    parmsa[3] = myAccountCreate;
-                                    parmsa[4] = myApplication;
-                                    parmsa[5] = myAssister;
-                                    parmsa[6] = myHistoryInfo;
-                                    parmsa[7] = returnStatus;
-                                    parmsa[8] = returnException;
-                                    parmsa[9] = returnScreenshot;
-                                    parmsa[10] = returnICNumber;
+                                    parmsa[3] = driver4;
+                                    parmsa[4] = driver5;
+                                    parmsa[5] = myAccountCreate;
+                                    parmsa[6] = myApplication;
+                                    parmsa[7] = myAssister;
+                                    parmsa[8] = myHistoryInfo;
+                                    parmsa[9] = returnStatus;
+                                    parmsa[10] = returnException;
+                                    parmsa[11] = returnScreenshot;
+                                    parmsa[12] = returnICNumber;
 
                                     AssisterDo myAssisterDo = new AssisterDo();
                                     Type reflectTestTypea = typeof(AssisterDo);
@@ -461,16 +544,19 @@ namespace MNsure_Regression_1
                                     ParameterInfo[] reflectMethodParametersa = reflectMethodToInvokea.GetParameters();
                                     result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
                                     reflectResulta = reflectMethodToInvokea.Invoke(new AssisterDo(), parmsa);
-                                    myHistoryInfo.myTestStepStatus = parmsa[7].ToString();
-                                    myHistoryInfo.myStepException = parmsa[8].ToString();
-                                    myHistoryInfo.myScreenShot = parmsa[9].ToString();
-                                    if (parmsa[10].ToString() != String.Empty)
+                                    myHistoryInfo.myTestStepStatus = parmsa[9].ToString();
+                                    myHistoryInfo.myStepException = parmsa[10].ToString();
+                                    myHistoryInfo.myScreenShot = parmsa[11].ToString();
+                                    if (parmsa[12].ToString() != String.Empty)
                                     {
-                                        myHistoryInfo.myIcnumber = parmsa[10].ToString();
+                                        myHistoryInfo.myIcnumber = parmsa[12].ToString();
                                     }
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+
+                                    myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
+
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    //result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 default:
@@ -612,7 +698,10 @@ namespace MNsure_Regression_1
                             myApplication.myFirstName = reader.GetString(2);
                             myApplication.myMiddleName = reader.GetString(3);
                             myApplication.myLastName = reader.GetString(4);
-                            myApplication.mySuffix = reader.GetString(5);
+                            if (!reader.IsDBNull(5))
+                            {
+                                myApplication.mySuffix = reader.GetString(5);
+                            }
                             myApplication.myGender = reader.GetString(6);
                             myApplication.myMaritalStatus = reader.GetString(7);
                             if (!reader.IsDBNull(8))
@@ -803,6 +892,45 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myMailZip = "";
                         myHouseholdMembers.myMailCounty = "";
                     }
+                    myAssister.myAddress1 = "";
+                    myAssister.myAddress2 = "";
+                    myAssister.myAptSuite = "";
+                    myAssister.myCity = "";
+                    myAssister.myState = "";
+                    myAssister.myZip = "";
+                    myAssister.myCounty = "";
+
+                    myApplication.myHomeAddress1 = "";
+                    myApplication.myHomeAddress2 = "";
+                    myApplication.myHomeCity = "";
+                    myApplication.myHomeState = "";
+                    myApplication.myHomeZip = "";
+                    myApplication.myHomeZip4 = "";
+                    myApplication.myHomeCounty = "";
+                    myApplication.myHomeAptSuite = "";
+
+                    myApplication.myMailAddress1 = "";
+                    myApplication.myMailAddress2 = "";
+                    myApplication.myMailCity = "";
+                    myApplication.myMailState = "";
+                    myApplication.myMailZip = "";
+                    myApplication.myMailZip4 = "";
+                    myApplication.myMailCounty = "";
+                    myApplication.myMailAptSuite = "";
+
+                    //reset assister values before continuing
+                    myAssister.myFirstName = "";
+                    myAssister.myLastName = "";
+                    myAssister.myCommunication = "";
+                    myAssister.myLanguage = "";
+                    myAssister.myMethod = "";
+                    myAssister.AssisterId = "";
+                    myAssister.myPhoneType = "";
+                    myAssister.myPhoneNum = "";
+                    myAssister.myCategory = "";
+                    myAssister.myType = "";
+                    myAssister.myEmail = "";
+
                     SqlCeCommand cmd3 = con.CreateCommand();
                     cmd3.CommandType = CommandType.Text;
 
@@ -911,6 +1039,7 @@ namespace MNsure_Regression_1
                             myApplication.myMailCounty = "";
                             myApplication.myMailAptSuite = "";
                         }
+
                         com4.ExecuteNonQuery();
                         com4.Dispose();
                     }
@@ -1039,7 +1168,7 @@ namespace MNsure_Regression_1
                         SqlCeDataReader reader = com6.ExecuteReader();
                         while (reader.Read())
                         {
-                            myAssister.AssisterId = reader.GetString(2);                            
+                            myAssister.AssisterId = reader.GetString(2);
                             myAssister.myCommunication = reader.GetString(3);
                             myAssister.myLanguage = reader.GetString(4);
                             myAssister.myMethod = reader.GetString(5);
@@ -1064,6 +1193,22 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(12))
                             {
                                 myAssister.myFirstName = reader.GetString(12);
+                            }
+                            if (!reader.IsDBNull(13))
+                            {
+                                myAssister.myRefNumber = reader.GetString(13);
+                            }
+                            if (!reader.IsDBNull(14))
+                            {
+                                myAssister.mySSN = reader.GetString(14);
+                            }
+                            if (!reader.IsDBNull(15))
+                            {
+                                myAssister.myDOB = reader.GetDateTime(15).ToShortDateString();
+                            }
+                            if (!reader.IsDBNull(16))
+                            {
+                                myAssister.myRegNumber = reader.GetString(16);
                             }
                         }
                         com6.ExecuteNonQuery();
@@ -1246,7 +1391,7 @@ namespace MNsure_Regression_1
 
                 if (myApplication.myHouseholdOther == "Yes")
                 {
-                    if (checkBoxHMRandom.Checked == false)            
+                    if (checkBoxHMRandom.Checked == false)
                     {
                         textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
                         textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
@@ -1454,8 +1599,9 @@ namespace MNsure_Regression_1
 
                 if (myAssister.myLastName != null)
                 {
-                    textBoxAssisterFirstName.Text = myAssister.myFirstName; 
-                    textBoxAssisterLastName.Text = myAssister.myLastName;                    
+                    textBoxAssisterFirstName.Text = myAssister.myFirstName;
+                    textBoxAssisterLastName.Text = myAssister.myLastName;
+                    textBoxAssisterDOB.Text = myAssister.myDOB;
                     comboBoxAssisterCommunication.Text = myAssister.myCommunication;
                     comboBoxAssisterLanguage.Text = myAssister.myLanguage;
                     comboBoxAssisterMethod.Text = myAssister.myMethod;
@@ -1798,7 +1944,7 @@ namespace MNsure_Regression_1
                 cmd4.CommandType = CommandType.Text;
                 try
                 {
-                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + " and (Type = 'Home' or Type = 'Mailing')" + ";";
+                    cmd4.CommandText = "Delete from Address where TestId = " + mysTestId + " and (Type = 'Home' or Type = 'Mailing' or Type = 'Assister')" + ";";
                     cmd4.ExecuteNonQuery();
                 }
                 catch
@@ -1898,6 +2044,7 @@ namespace MNsure_Regression_1
                 {
                     myAssister.myFirstName = textBoxAssisterFirstName.Text;
                     myAssister.myLastName = textBoxAssisterLastName.Text;
+                    myAssister.myDOB = textBoxAssisterDOB.Text;
                     myAssister.myCommunication = comboBoxAssisterCommunication.Text;
                     myAssister.myLanguage = comboBoxAssisterLanguage.Text;
                     myAssister.myMethod = comboBoxAssisterMethod.Text;
@@ -1943,11 +2090,11 @@ namespace MNsure_Regression_1
 
                     string myInsertString4;
                     myInsertString4 = "Insert into Assister values (@Id," + mysTestId +
-                                    ", @AssisterId, @Communication, @Language, @Method, @PhoneType, @PhoneNum, @Category, @Type, @Email, @LastName, @FirstName );";
+                                    ", @AssisterId, @Communication, @Language, @Method, @PhoneType, @PhoneNum, @Category, @Type, @Email, @LastName, @FirstName, @RefNumber, @SSN, @DOB, @RegNumber );";
                     using (SqlCeCommand com10 = new SqlCeCommand(myInsertString4, con))
                     {
                         com10.Parameters.AddWithValue("Id", myEditKey.myNextAssisterId);
-                        com10.Parameters.AddWithValue("AssisterId", myAssister.AssisterId);                        
+                        com10.Parameters.AddWithValue("AssisterId", myAssister.AssisterId);
                         com10.Parameters.AddWithValue("Communication", myAssister.myCommunication);
                         com10.Parameters.AddWithValue("Language", myAssister.myLanguage);
                         com10.Parameters.AddWithValue("Method", myAssister.myMethod);
@@ -1971,7 +2118,11 @@ namespace MNsure_Regression_1
                         com10.Parameters.AddWithValue("Type", myAssister.myType);
                         com10.Parameters.AddWithValue("Email", myAssister.myEmail);
                         com10.Parameters.AddWithValue("LastName", myAssister.myLastName);
-                        com10.Parameters.AddWithValue("FirstName", myAssister.myFirstName);                        
+                        com10.Parameters.AddWithValue("FirstName", myAssister.myFirstName);
+                        com10.Parameters.AddWithValue("RefNumber", DBNull.Value);
+                        com10.Parameters.AddWithValue("SSN", DBNull.Value);
+                        com10.Parameters.AddWithValue("DOB", myAssister.myDOB);
+                        com10.Parameters.AddWithValue("RegNumber", DBNull.Value);
 
                         com10.ExecuteNonQuery();
                         com10.Dispose();
@@ -2390,7 +2541,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
-            textBoxMNSureBuild.Text = "16.2";
+            textBoxMNSureBuild.Text = "16.3";
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
@@ -3637,7 +3788,7 @@ namespace MNsure_Regression_1
 
         private void buttonAddTestStep_Click(object sender, EventArgs e)
         {
-            int rowindex;// 
+            int rowindex;
             string mysTestId;
             string myWindow;
             string myWindowId;
@@ -3658,12 +3809,48 @@ namespace MNsure_Regression_1
 
             int myTestId;
             int myiTestStepId;
-            myTestId = Convert.ToInt32(mysTestId);
-            // mysMethodId
+            myTestId = Convert.ToInt32(mysTestId);             
 
             SqlCeConnection con;
             // Retrieve the connection string from the settings file.
             string conString = Properties.Settings.Default.Database1ConnectionString;
+
+           /* if (Convert.ToString(myTestId) == "1")
+            {
+                string myTestType;
+                string myDescription;
+                string myURL;
+                string myIsSelected;
+                string myNotes;
+
+                myName = Convert.ToString(textBoxTestName.Text);
+                myTestType = Convert.ToString(textBoxTestType.Text);
+                myDescription = Convert.ToString(textBoxTestDescription.Text);
+                myURL = Convert.ToString(textBoxTestURL.Text);
+                myIsSelected = Convert.ToString(textBoxTestIsSelected.Text);
+                myNotes = Convert.ToString(textBoxTestNotes.Text);
+
+                con = new SqlCeConnection(conString);
+                con.Open();
+
+                string myInsertString;
+                DateTime now = DateTime.Now;
+                myInsertString = "Insert into Test Values (" + myTestId +
+                    ",   @Name, @Type, @Description, @Notes, @URL" +
+                    ",   @IsSelected   );";
+                using (SqlCeCommand com33 = new SqlCeCommand(myInsertString, con))
+                {
+                    com33.Parameters.AddWithValue("TestId", myTestId);
+                    com33.Parameters.AddWithValue("Name", myName);
+                    com33.Parameters.AddWithValue("Type", myTestType);
+                    com33.Parameters.AddWithValue("Description", myDescription);
+                    com33.Parameters.AddWithValue("URL", myURL);
+                    com33.Parameters.AddWithValue("IsSelected", myIsSelected);
+                    com33.Parameters.AddWithValue("Notes", myNotes);
+                    com33.ExecuteNonQuery();
+                    com33.Dispose();
+                }
+            }*/
 
             int countSelectedTestSteps;
             countSelectedTestSteps = dataGridViewTestSteps.Rows.Count;
@@ -6548,7 +6735,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myEnvironment = comboBoxEnvironment.Text;
         }
 
-      
+
 
     }
 }

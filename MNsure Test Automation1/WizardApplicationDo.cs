@@ -1181,12 +1181,13 @@ namespace MNsure_Regression_1
                 }
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id4"));
                 textboxLastName.SendKeys(myHouseholdMembers.myLastName);
-
+                
                 IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id7"));
                 if (myHouseholdMembers.mySuffix != null && myHouseholdMembers.mySuffix != "")
                 {
                     textboxSuffix.SendKeys(myHouseholdMembers.mySuffix);
                 }
+
                 if (myHouseholdMembers.myGender == "Female")
                 {
                     IWebElement textboxGender = driver.FindElement(By.Id("__o3ida"));
