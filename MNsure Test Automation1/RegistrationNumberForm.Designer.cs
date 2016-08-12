@@ -1,6 +1,6 @@
 ﻿namespace MNsure_Regression_1
 {
-    partial class RegistrationNumber
+    partial class RegistrationNumberForm
     {
         /// <summary>
         /// Required designer variable.
@@ -51,14 +51,16 @@
             // 
             // buttonOK
             // 
+            this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.buttonOK.Location = new System.Drawing.Point(100, 115);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 2;
             this.buttonOK.Text = "OK";
             this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
-            // RegistrationNumber
+            // RegistrationNumberForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -69,8 +71,10 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "RegistrationNumber";
+            this.Name = "RegistrationNumberForm";
             this.Text = "Registration Number";
+            this.TopMost = true;
+            this.Activated += new System.EventHandler(this.RegistrationNumberForm_Activated);
             this.ResumeLayout(false);
             this.PerformLayout();
 

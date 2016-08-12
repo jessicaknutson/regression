@@ -21,8 +21,8 @@ namespace MNsure_Regression_1
     {
         WriteLogs writeLogs = new WriteLogs();
 
-        public int DoPrivacy(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication, 
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+        public int DoPrivacy(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -33,13 +33,13 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                else if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
                 myDriver.Manage().Window.Maximize();
                 int appwait;
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
@@ -91,14 +91,14 @@ namespace MNsure_Regression_1
         }
 
         public int DoIdentityInformation(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -185,7 +185,11 @@ namespace MNsure_Regression_1
                 IWebElement myselectDOB = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[5]"));
                 if (myApplication.myDOB != "01/01/2011")
                 {
-                    myselectDOB.SendKeys(myApplication.myDOB);
+                    myselectDOB.Click();
+                    string tempDOB;
+                    tempDOB = Convert.ToString(myApplication.myDOB);
+                    tempDOB = DateTime.Parse(tempDOB).ToString("MM/dd/yyyy");
+                    myselectDOB.SendKeys(tempDOB);
                 }
                 else
                 {
@@ -219,14 +223,14 @@ namespace MNsure_Regression_1
         }
 
         public int DoAccountCreate(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -314,14 +318,14 @@ namespace MNsure_Regression_1
         }
 
         public int DoProofing(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -360,7 +364,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoAccountLogin(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -371,7 +375,7 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                else if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -421,7 +425,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoSignin(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCaseWorkerWait;
             IWebDriver myDriver = driver;
@@ -464,7 +468,7 @@ namespace MNsure_Regression_1
             }
         }
         public int DoApplyWithDiscounts(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -504,7 +508,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoApplyWithoutDiscounts(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
 
@@ -544,7 +548,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoMyAccount(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -559,11 +563,11 @@ namespace MNsure_Regression_1
 
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                     }
                     System.Threading.Thread.Sleep(appwait);
 
@@ -607,19 +611,27 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 myApp.DoWaitForElement(myDriver, By.TagName("iFrame"), myHistoryInfo);
 
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement);
-
-                IWebElement myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));//sometimes view results doesn't show right away
+                   
+                IWebElement myViewResults;
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/div/div[1]/div/div/a"));
+                }
+                else
+                {
+                    myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));//sometimes view results doesn't show right away
+                }
                 myViewResults.Click();
 
                 System.Threading.Thread.Sleep(2000);
@@ -640,8 +652,55 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoResumeApp(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
+        {
+            int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
+
+            try
+            {
+                int appwait;
+                ApplicationDo myApp = new ApplicationDo();               
+
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                }
+                System.Threading.Thread.Sleep(appwait);
+                myDriver.SwitchTo().DefaultContent();
+                myApp.DoWaitForElement(myDriver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/StandardUser_homePage.do')]"), myHistoryInfo);
+                var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/StandardUser_homePage.do')]"));
+                myDriver.SwitchTo().Frame(iFrameElement);
+
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+
+                myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/a")).Click();
+                System.Threading.Thread.Sleep(2000);
+
+                resume = "Yes";
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
         public int DoHomePage(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
             IWebDriver myDriver = driver;
@@ -652,7 +711,7 @@ namespace MNsure_Regression_1
                 {
                     myDriver = driver3;
                 }
-                else if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                else if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -691,14 +750,19 @@ namespace MNsure_Regression_1
         }
 
         public int DoLoginTimeTravel(IWebDriver driver, IWebDriver driver3, IWebDriver driver5, mystructAccountCreate myAccountCreate, mystructApplication myApplication,
-            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot)
+            mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string resume)
         {
             int timeOut = myHistoryInfo.myCitizenWait;
+            IWebDriver myDriver = driver;
 
             try
             {
-                driver.Manage().Window.Maximize();
-                driver.SwitchTo().DefaultContent();
+                if (myHistoryInfo.myRelogin == "Yes")
+                {
+                    myDriver = driver3;
+                }
+                myDriver.Manage().Window.Maximize();
+                myDriver.SwitchTo().DefaultContent();
 
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -715,13 +779,13 @@ namespace MNsure_Regression_1
                 IWebElement textboxLogin;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
-                    textboxLogin = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
+                    textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
                 }
                 else
                 {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
-                    textboxLogin = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
+                    textboxLogin = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
                 }
 
                 textboxLogin.SendKeys(myAccountCreate.myUsername);
@@ -729,24 +793,24 @@ namespace MNsure_Regression_1
                 IWebElement textboxPW;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    textboxPW = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
+                    textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
                 }
                 else
                 {
-                    textboxPW = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input"));
+                    textboxPW = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input"));
                 }
                 textboxPW.SendKeys(myAccountCreate.myPassword);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 IWebElement buttonSignIn;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    buttonSignIn = driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
+                    buttonSignIn = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
                 }
                 else
                 {
-                    buttonSignIn = driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
+                    buttonSignIn = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
                 }
                 buttonSignIn.Click();
 
@@ -759,7 +823,7 @@ namespace MNsure_Regression_1
                 returnException = Convert.ToString(e);
                 returnStatus = "Fail";
                 myHistoryInfo.myTestStepStatus = "Fail";
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
 

@@ -1224,7 +1224,18 @@ namespace MNsure_Regression_1
 
                 myHouseholdMembers.myReEnroll = "Yes"; //update reenroll to do the screens another time
                 DoUpdateReEnroll(myHistoryInfo, myHouseholdMembers.myReEnroll);
-                myHouseholdMembers.myPassCount = "1";//update count to 1 to do the screens another time
+                if (myHouseholdMembers.myPassCount == "4")
+                {
+                    myHouseholdMembers.myPassCount = "3";//update count to current for hitting these screens another time
+                }
+                else if (myHouseholdMembers.myPassCount == "3")
+                {
+                    myHouseholdMembers.myPassCount = "2";
+                }
+                else
+                {
+                    myHouseholdMembers.myPassCount = "1";
+                }
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoUpdateHMPassCount(myHistoryInfo, myHouseholdMembers.myPassCount);
 

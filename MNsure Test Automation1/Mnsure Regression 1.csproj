@@ -121,11 +121,11 @@
     <Compile Include="AccountCreate.cs" />
     <Compile Include="AccountGeneration.cs" />
     <Compile Include="AssisterDo.cs" />
-    <Compile Include="RegistrationNumber.cs">
+    <Compile Include="RegistrationNumberForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegistrationNumber.Designer.cs">
-      <DependentUpon>RegistrationNumber.cs</DependentUpon>
+    <Compile Include="RegistrationNumberForm.Designer.cs">
+      <DependentUpon>RegistrationNumberForm.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardApplicationDo.cs" />
     <Compile Include="CWApplicationDo.cs" />
@@ -158,8 +158,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RegistrationNumber.resx">
-      <DependentUpon>RegistrationNumber.cs</DependentUpon>
+    <EmbeddedResource Include="RegistrationNumberForm.resx">
+      <DependentUpon>RegistrationNumberForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Mnsure Regression 1_TemporaryKey.pfx" />

@@ -164,11 +164,11 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -193,8 +193,9 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div")).Click(); //shortcuts tab                    
                 }
-
-                driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches             
+                System.Threading.Thread.Sleep(1000);
+                driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches   
+                System.Threading.Thread.Sleep(1000);
                 driver.FindElement(By.LinkText("Person…")).Click();
 
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[1]"), myHistoryInfo);
@@ -320,8 +321,9 @@ namespace MNsure_Regression_1
 
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[1]/div[1]/div")).Click(); //shortcuts tab
-
+                System.Threading.Thread.Sleep(1000);
                 driver.FindElement(By.Id("dijit_layout_AccordionPane_1_button")).Click();//searches
+                System.Threading.Thread.Sleep(1000);
                 driver.FindElement(By.LinkText("Person…")).Click();
                 System.Threading.Thread.Sleep(1000);
                 IWebElement personSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[1]"));

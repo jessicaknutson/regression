@@ -12,6 +12,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Chrome;
+//using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -104,35 +105,35 @@ namespace MNsure_Regression_1
                 }
                 con.Close();
 
+                FirefoxDriver driver = null;
+                FirefoxDriver driver2 = null;
+                FirefoxDriver driver3 = null;
+                FirefoxDriver driver4 = null;
+                FirefoxDriver driver5 = null;               
+                IWebDriver driver6 = null;
+                IWebDriver driver7 = null;
+                IWebDriver driver8 = null;
+                IWebDriver driver9 = null;
+                IWebDriver driver10 = null;
+
                 //must clear cache first
-                FirefoxProfile profile3 = new FirefoxProfile();
-                profile3.SetPreference("browser.cache.disk.enable", false);
-                profile3.SetPreference("browser.cache.memory.enable", false);
-                profile3.SetPreference("browser.cache.offline.enable", false);
-                profile3.SetPreference("network.http.use-cache", false);
+                if (myHistoryInfo.myBrowser == "Firefox")
+                {             
+                    //main driver for citizen portal
+                    driver = new FirefoxDriver();
+                    driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));                    
+                } 
+                else
+                {
+                    ChromeOptions options = new ChromeOptions();
+                    options.AddArguments("-incognito");
 
-                //create separate driver for logout and relogin to citizen portal, also assister manager
-                FirefoxDriver driver3 = new FirefoxDriver(profile3);
-                driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-
-                FirefoxProfile profile2 = new FirefoxProfile();
-                profile2.SetPreference("browser.cache.disk.enable", false);
-                profile2.SetPreference("browser.cache.memory.enable", false);
-                profile2.SetPreference("browser.cache.offline.enable", false);
-                profile2.SetPreference("network.http.use-cache", false);
-
-                //create separate driver for case worker
-                FirefoxDriver driver2 = new FirefoxDriver(profile2);
-                driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-
-                FirefoxDriver driver = new FirefoxDriver();
-                driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                    driver6 = new ChromeDriver("C:\\MNsure Regression 1", options);//chrome version must be 51
+                    driver6.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));                    
+                }               
 
                 result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
-                result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
-
-                FirefoxDriver driver4 = null;
-                FirefoxDriver driver5 = null;
+                result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);                
 
                 try
                 {
@@ -269,56 +270,134 @@ namespace MNsure_Regression_1
                             string returnScreenshot = "";
                             string returnICNumber = "";
                             string relogin = "";
-                            string assisterGeneric = "";
+                            string resume = "";
+                            string assisterNavigator = "";                            
 
                             switch (myClass)
                             {
                                 case "OpenSiteURL":
 
-                                    if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
-                                    {
-                                        //driver3.Dispose();
+                                    if (myMethod == "DoCaseWorkerURLOpen" || myMethod == "DoCaseWorkerURLOpenTimeTravel")
+                                    {                                        
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            driver.Dispose();
 
-                                        //must clear cache first
-                                        FirefoxProfile profile4 = new FirefoxProfile();
-                                        profile4.SetPreference("browser.cache.disk.enable", false);
-                                        profile4.SetPreference("browser.cache.memory.enable", false);
-                                        profile4.SetPreference("browser.cache.offline.enable", false);
-                                        profile4.SetPreference("network.http.use-cache", false);
+                                            FirefoxProfile profile2 = new FirefoxProfile();
 
-                                        //create separate driver for logout and relogin to citizen portal, also assister manager
-                                        driver4 = new FirefoxDriver(profile4);
-                                        driver4.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            profile2.SetPreference("browser.cache.disk.enable", false);
+                                            profile2.SetPreference("browser.cache.memory.enable", false);
+                                            profile2.SetPreference("browser.cache.offline.enable", false);
+                                            profile2.SetPreference("network.http.use-cache", false);
+
+                                            //create separate driver for case worker
+                                            driver2 = new FirefoxDriver(profile2);
+                                            driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                        else
+                                        {
+                                            driver6.Quit();
+
+                                            ChromeOptions options = new ChromeOptions();
+                                            options.AddArguments("-incognito");
+
+                                            //create separate driver for case worker
+                                            driver7 = new ChromeDriver("C:\\MNsure Regression 1", options);
+                                            driver7.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
                                     }
-                                    else if (myMethod == "DoGenericCitizenURLOpen" || myMethod == "DoGenericCitizenTimeTravel")
+
+                                    else if (myMethod == "DoOpenMNsureRelogin" || myMethod == "DoOpenMNsureReloginTimeTravel" || myMethod == "DoAssisterURLOpen" || myMethod == "DoAssisterTimeTravel")
+                                    {                                        
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {                                                                                    
+                                            //must clear cache first
+                                            FirefoxProfile profile3 = new FirefoxProfile();
+                                            profile3.SetPreference("browser.cache.disk.enable", false);
+                                            profile3.SetPreference("browser.cache.memory.enable", false);
+                                            profile3.SetPreference("browser.cache.offline.enable", false);
+                                            profile3.SetPreference("network.http.use-cache", false);
+
+                                            //create separate driver for logout and relogin to citizen portal, also assister manager
+                                            driver3 = new FirefoxDriver(profile3);
+                                            driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                        else
+                                        {
+                                            driver8 = new ChromeDriver("C:\\MNsure Regression 1");
+                                            driver8.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                    }
+                                    else if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
+                                    {
+                                        driver3.Dispose();
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {                                                                                 
+                                            //must clear cache first
+                                            FirefoxProfile profile4 = new FirefoxProfile();
+                                            profile4.SetPreference("browser.cache.disk.enable", false);
+                                            profile4.SetPreference("browser.cache.memory.enable", false);
+                                            profile4.SetPreference("browser.cache.offline.enable", false);
+                                            profile4.SetPreference("network.http.use-cache", false);
+
+                                            //create separate driver for logout and relogin to citizen portal, also assister manager
+                                            driver4 = new FirefoxDriver(profile4);
+                                            driver4.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                        else
+                                        {
+                                            driver9 = new ChromeDriver("C:\\MNsure Regression 1");
+                                            driver9.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                    }
+                                    else if (myMethod == "DoNavigatorURLOpen" || myMethod == "DoNavigatorTimeTravel")
                                     {
                                         //driver4.Dispose();
-                                        //must clear cache first
-                                        FirefoxProfile profile5 = new FirefoxProfile();
-                                        profile5.SetPreference("browser.cache.disk.enable", false);
-                                        profile5.SetPreference("browser.cache.memory.enable", false);
-                                        profile5.SetPreference("browser.cache.offline.enable", false);
-                                        profile5.SetPreference("network.http.use-cache", false);
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            //must clear cache first
+                                            FirefoxProfile profile5 = new FirefoxProfile();
+                                            profile5.SetPreference("browser.cache.disk.enable", false);
+                                            profile5.SetPreference("browser.cache.memory.enable", false);
+                                            profile5.SetPreference("browser.cache.offline.enable", false);
+                                            profile5.SetPreference("network.http.use-cache", false);
 
-                                        //create separate driver for logout and relogin to citizen portal, also assister manager
-                                        driver5 = new FirefoxDriver(profile5);
-                                        driver5.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            //create separate driver for logout and relogin to citizen portal, also assister manager
+                                            driver5 = new FirefoxDriver(profile5);
+                                            driver5.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
+                                        else
+                                        {
+                                            driver10 = new ChromeDriver("C:\\MNsure Regression 1");
+                                            driver10.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                        }
 
                                         myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
                                     }
                                     
                                     object[] parms = new object[11];
-                                    parms[0] = driver;
-                                    parms[1] = driver2;
-                                    parms[2] = driver3;
-                                    parms[3] = driver4;
-                                    parms[4] = driver5;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parms[0] = driver;
+                                        parms[1] = driver2;
+                                        parms[2] = driver3;
+                                        parms[3] = driver4;
+                                        parms[4] = driver5;
+                                    }
+                                    else
+                                    {
+                                        parms[0] = driver6;
+                                        parms[1] = driver7;
+                                        parms[2] = driver8;
+                                        parms[3] = driver9;
+                                        parms[4] = driver10;
+                                    }
                                     parms[5] = myHistoryInfo;
                                     parms[6] = returnStatus;
                                     parms[7] = returnException;
                                     parms[8] = returnScreenshot;
                                     parms[9] = relogin;
-                                    parms[10] = assisterGeneric;
+                                    parms[10] = assisterNavigator;
 
                                     OpenSiteURL newOpenSiteURL = new OpenSiteURL();
                                     Type reflectTestType = typeof(OpenSiteURL);
@@ -330,22 +409,31 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myStepException = parms[7].ToString();
                                     myHistoryInfo.myScreenShot = parms[8].ToString();
                                     myHistoryInfo.myRelogin = parms[9].ToString();
-                                    myHistoryInfo.myAssisterGenericCitizen = parms[10].ToString();
+                                    myHistoryInfo.myAssisterNavigator = parms[10].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
-                                case "AccountCreation":
-                                    //driver5 = null;
-                                    object[] parmsac = new object[9];
-                                    parmsac[0] = driver;
-                                    parmsac[1] = driver3;
-                                    parmsac[2] = driver5;
+                                case "AccountCreation":                                    
+                                    object[] parmsac = new object[10];
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmsac[0] = driver;
+                                        parmsac[1] = driver3;
+                                        parmsac[2] = driver5;
+                                    }
+                                    else
+                                    {
+                                        parmsac[0] = driver6;
+                                        parmsac[1] = driver8;
+                                        parmsac[2] = driver10;
+                                    }
                                     parmsac[3] = myAccountCreate;
                                     parmsac[4] = myApplication;
                                     parmsac[5] = myHistoryInfo;
                                     parmsac[6] = returnStatus;
                                     parmsac[7] = returnException;
                                     parmsac[8] = returnScreenshot;
+                                    parmsac[9] = resume;
 
                                     AccountCreation newAccount = new AccountCreation();
                                     Type reflectTestTypeac = typeof(AccountCreation);
@@ -356,6 +444,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myTestStepStatus = parmsac[6].ToString();
                                     myHistoryInfo.myStepException = parmsac[7].ToString();
                                     myHistoryInfo.myScreenShot = parmsac[8].ToString();
+                                    myHistoryInfo.myResume = parmsac[9].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     if (myAssister.myFirstName != null) //for assister only
                                     {
@@ -364,10 +453,18 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "ApplicationDo":
-                                    //driver5 = null;
+                                    
                                     object[] parmsad = new object[9];
-                                    parmsad[0] = driver;
-                                    parmsad[1] = driver5;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmsad[0] = driver;
+                                        parmsad[1] = driver5;
+                                    }
+                                    else
+                                    {
+                                        parmsad[0] = driver6;
+                                        parmsad[1] = driver10;
+                                    }
                                     parmsad[2] = myAccountCreate;
                                     parmsad[3] = myApplication;
                                     parmsad[4] = myHouseholdMembers;
@@ -392,7 +489,14 @@ namespace MNsure_Regression_1
 
                                 case "CWApplicationDo":
                                     object[] parmscwad = new object[8];
-                                    parmscwad[0] = driver2;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmscwad[0] = driver2;
+                                    }
+                                    else
+                                    {
+                                        parmscwad[0] = driver7;
+                                    }
                                     parmscwad[1] = myAccountCreate;
                                     parmscwad[2] = myApplication;
                                     parmscwad[3] = myHouseholdMembers;
@@ -417,7 +521,14 @@ namespace MNsure_Regression_1
 
                                 case "WizardApplicationDo":
                                     object[] parmswad = new object[8];
-                                    parmswad[0] = driver2;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmswad[0] = driver2;
+                                    }
+                                    else
+                                    {
+                                        parmswad[0] = driver7;
+                                    }
                                     parmswad[1] = myAccountCreate;
                                     parmswad[2] = myApplication;
                                     parmswad[3] = myHouseholdMembers;
@@ -442,8 +553,16 @@ namespace MNsure_Regression_1
 
                                 case "HouseholdMembersDo":
                                     object[] parmshm = new object[9];
-                                    parmshm[0] = driver;
-                                    parmshm[1] = driver2;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmshm[0] = driver;
+                                        parmshm[1] = driver2;
+                                    }
+                                    else
+                                    {
+                                        parmshm[0] = driver6;
+                                        parmshm[1] = driver7;
+                                    }
                                     parmshm[2] = myAccountCreate;
                                     parmshm[3] = myApplication;
                                     parmshm[4] = myHouseholdMembers;
@@ -468,8 +587,16 @@ namespace MNsure_Regression_1
 
                                 case "Enrollments":
                                     object[] parmsen = new object[8];
-                                    parmsen[0] = driver;
-                                    parmsen[1] = driver3;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmsen[0] = driver;
+                                        parmsen[1] = driver3;
+                                    }
+                                    else
+                                    {
+                                        parmsen[0] = driver6;
+                                        parmsen[1] = driver8;
+                                    }
                                     parmsen[2] = myApplication;
                                     parmsen[3] = myHistoryInfo;
                                     parmsen[4] = returnStatus;
@@ -493,7 +620,14 @@ namespace MNsure_Regression_1
 
                                 case "CaseWorker":
                                     object[] parmscw = new object[8];
-                                    parmscw[0] = driver2;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmscw[0] = driver2;
+                                    }
+                                    else
+                                    {
+                                        parmscw[0] = driver7;
+                                    }
                                     parmscw[1] = myAccountCreate;
                                     parmscw[2] = myApplication;
                                     parmscw[3] = myHistoryInfo;
@@ -521,14 +655,24 @@ namespace MNsure_Regression_1
                                     break;
 
                                 case "Assister":
-                                    //driver5 = null;
-                                    //driver4 = null;
+                                    
                                     object[] parmsa = new object[13];
-                                    parmsa[0] = driver;
-                                    parmsa[1] = driver2;
-                                    parmsa[2] = driver3;
-                                    parmsa[3] = driver4;
-                                    parmsa[4] = driver5;
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmsa[0] = driver;
+                                        parmsa[1] = driver2;
+                                        parmsa[2] = driver3;
+                                        parmsa[3] = driver4;
+                                        parmsa[4] = driver5;
+                                    }
+                                    else
+                                    {
+                                        parmsa[0] = driver6;
+                                        parmsa[1] = driver7;
+                                        parmsa[2] = driver8;
+                                        parmsa[3] = driver9;
+                                        parmsa[4] = driver10;
+                                    }
                                     parmsa[5] = myAccountCreate;
                                     parmsa[6] = myApplication;
                                     parmsa[7] = myAssister;
@@ -556,7 +700,7 @@ namespace MNsure_Regression_1
                                     myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
 
                                     //must fill structures again after updating pass count
-                                    //result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 default:
@@ -2550,6 +2694,8 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppWait = Convert.ToInt32(comboBoxAppWait.Text);
             myHistoryInfo.myEnvironment = "STST";
             comboBoxEnvironment.Text = "STST";
+            myHistoryInfo.myBrowser = "Firefox";
+            comboBoxBrowser.Text = "Firefox";
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -6733,6 +6879,11 @@ namespace MNsure_Regression_1
         private void comboBoxEnvironment_SelectedValueChanged(object sender, EventArgs e)
         {
             myHistoryInfo.myEnvironment = comboBoxEnvironment.Text;
+        }
+
+        private void comboBoxBrowser_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myBrowser = comboBoxBrowser.Text;
         }
 
 

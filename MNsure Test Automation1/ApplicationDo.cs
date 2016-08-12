@@ -36,7 +36,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -107,7 +107,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -153,7 +153,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -790,7 +790,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -1083,14 +1083,23 @@ namespace MNsure_Regression_1
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);
+                if (myHistoryInfo.myResume == "Yes")
+                {
+                    driver.SwitchTo().DefaultContent();
+                    DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/CitizenWorkspace_resumeMotivationPage.do')]"), myHistoryInfo);                  
+                    var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/CitizenWorkspace_resumeMotivationPage.do')]"));
+                    driver.SwitchTo().Frame(iFrameElement);                    
+                }
+                else
+                {
+                    DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);  
+                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"));
                 buttonNext.Click();
-
+                                
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
@@ -1171,7 +1180,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (12 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
@@ -1521,7 +1530,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -1748,11 +1757,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3249,11 +3258,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;//norm 12
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;//norm 12
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3290,11 +3299,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (15 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (15 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3698,7 +3707,7 @@ namespace MNsure_Regression_1
 
             try
             {
-                if (myHistoryInfo.myAssisterGenericCitizen == "Yes")
+                if (myHistoryInfo.myAssisterNavigator == "Yes")
                 {
                     myDriver = driver5;
                 }
@@ -3724,7 +3733,7 @@ namespace MNsure_Regression_1
                 IWebElement buttonExit = myDriver.FindElement(By.Id("__o3btn.save_and_exit_label"));
                 buttonExit.Click();
                 System.Threading.Thread.Sleep(6000);
-                myHistoryInfo.myAssisterGenericCitizen = "No";
+                myHistoryInfo.myAssisterNavigator = "No";
 
                 myDriver.SwitchTo().DefaultContent();
                 DoWaitForElement(myDriver, By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"), myHistoryInfo);

@@ -60,6 +60,8 @@
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageConfigureEnrollment = new System.Windows.Forms.TabPage();
             this.groupBoxAssister = new System.Windows.Forms.GroupBox();
+            this.textBoxAssisterDOB = new System.Windows.Forms.TextBox();
+            this.label202 = new System.Windows.Forms.Label();
             this.textBoxAssisterLastName = new System.Windows.Forms.TextBox();
             this.label201 = new System.Windows.Forms.Label();
             this.textBoxAssisterEmail = new System.Windows.Forms.TextBox();
@@ -493,8 +495,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label202 = new System.Windows.Forms.Label();
-            this.textBoxAssisterDOB = new System.Windows.Forms.TextBox();
+            this.label203 = new System.Windows.Forms.Label();
+            this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -605,6 +607,8 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.comboBoxBrowser);
+            this.groupBox8.Controls.Add(this.label203);
             this.groupBox8.Controls.Add(this.comboBoxEnvironment);
             this.groupBox8.Controls.Add(this.label180);
             this.groupBox8.Controls.Add(this.label139);
@@ -939,6 +943,22 @@
             this.groupBoxAssister.TabIndex = 1;
             this.groupBoxAssister.TabStop = false;
             this.groupBoxAssister.Text = "Assister";
+            // 
+            // textBoxAssisterDOB
+            // 
+            this.textBoxAssisterDOB.Location = new System.Drawing.Point(130, 78);
+            this.textBoxAssisterDOB.Name = "textBoxAssisterDOB";
+            this.textBoxAssisterDOB.Size = new System.Drawing.Size(92, 20);
+            this.textBoxAssisterDOB.TabIndex = 3;
+            // 
+            // label202
+            // 
+            this.label202.AutoSize = true;
+            this.label202.Location = new System.Drawing.Point(55, 81);
+            this.label202.Name = "label202";
+            this.label202.Size = new System.Drawing.Size(69, 13);
+            this.label202.TabIndex = 0;
+            this.label202.Text = "Date of Birth:";
             // 
             // textBoxAssisterLastName
             // 
@@ -5743,21 +5763,26 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label202
+            // label203
             // 
-            this.label202.AutoSize = true;
-            this.label202.Location = new System.Drawing.Point(55, 81);
-            this.label202.Name = "label202";
-            this.label202.Size = new System.Drawing.Size(69, 13);
-            this.label202.TabIndex = 0;
-            this.label202.Text = "Date of Birth:";
+            this.label203.AutoSize = true;
+            this.label203.Location = new System.Drawing.Point(432, 138);
+            this.label203.Name = "label203";
+            this.label203.Size = new System.Drawing.Size(48, 13);
+            this.label203.TabIndex = 26;
+            this.label203.Text = "Browser:";
             // 
-            // textBoxAssisterDOB
+            // comboBoxBrowser
             // 
-            this.textBoxAssisterDOB.Location = new System.Drawing.Point(130, 78);
-            this.textBoxAssisterDOB.Name = "textBoxAssisterDOB";
-            this.textBoxAssisterDOB.Size = new System.Drawing.Size(92, 20);
-            this.textBoxAssisterDOB.TabIndex = 3;
+            this.comboBoxBrowser.FormattingEnabled = true;
+            this.comboBoxBrowser.Items.AddRange(new object[] {
+            "Chrome",
+            "Firefox"});
+            this.comboBoxBrowser.Location = new System.Drawing.Point(486, 135);
+            this.comboBoxBrowser.Name = "comboBoxBrowser";
+            this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxBrowser.TabIndex = 27;
+            this.comboBoxBrowser.SelectedValueChanged += new System.EventHandler(this.comboBoxBrowser_SelectedValueChanged);
             // 
             // FormMain
             // 
@@ -6293,6 +6318,8 @@
         private System.Windows.Forms.Label label201;
         private System.Windows.Forms.TextBox textBoxAssisterDOB;
         private System.Windows.Forms.Label label202;
+        private System.Windows.Forms.ComboBox comboBoxBrowser;
+        private System.Windows.Forms.Label label203;
 
     }
 }

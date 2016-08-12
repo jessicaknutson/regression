@@ -47,7 +47,9 @@ struct mystructHistoryInfo
     public string myExecutedBy;
     public string myRelogin;
     public string myEnvironment;
-    public string myAssisterGenericCitizen;
+    public string myAssisterNavigator;
+    public string myBrowser;
+    public string myResume;
 }
 
 struct mystructSelectedTest

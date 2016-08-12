@@ -578,7 +578,7 @@ namespace MNsure_Regression_1
                     {
                         if (myHistoryInfo.myRequiredStepStatus[i] == null && myHistoryInfo.myRequiredScreenshots[i] != null)
                         {
-                            driver.Manage().Window.Maximize();
+                            driver.Manage().Window.Maximize();//crashes here due to driver being null, why?
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
 
                             if (myHistoryInfo.myRequiredScreenshotFile[i] == null)

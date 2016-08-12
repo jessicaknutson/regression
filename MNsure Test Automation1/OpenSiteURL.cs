@@ -27,7 +27,7 @@ namespace MNsure_Regression_1
         WriteLogs writeLogs = new WriteLogs();
 
         public int DoOpenMNsure(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace MNsure_Regression_1
                     driver.Navigate().GoToUrl("https://auth.atst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
                 }
 
-                assisterGeneric = "No";
+                assisterNavigator = "No";
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -61,25 +61,25 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoGenericCitizenURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        public int DoNavigatorURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver5.Navigate().GoToUrl("https://auth.stst.mnsure.org/login/Login.jsp");
+                    driver5.Navigate().GoToUrl("https://people.stst.mnsure.org/NavigatorS/application.do");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver5.Navigate().GoToUrl("https://auth.stst2.mnsure.org/login/Login.jsp");
+                    driver5.Navigate().GoToUrl("https://people.stst2.mnsure.org/NavigatorS/application.do");
                 }
                 else
                 {
-                    driver5.Navigate().GoToUrl("https://auth.atst.mnsure.org/login/Login.jsp");
+                    driver5.Navigate().GoToUrl("https://people.atst.mnsure.org/NavigatorS/application.do");
                 }
 
-                assisterGeneric = "Yes";
+                assisterNavigator = "Yes";
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -97,7 +97,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoOpenMNsureRelogin(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -132,7 +132,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoOpenMNsureReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -167,13 +167,13 @@ namespace MNsure_Regression_1
         }
 
         public int DoCaseWorkerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 // the driver is disposed when done with
-                driver.Close();
-                driver3.Close();
+                //driver.Close();
+                //driver3.Close();
 
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -207,7 +207,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoAssisterURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -243,7 +243,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoAssisterTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -253,7 +253,7 @@ namespace MNsure_Regression_1
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver3.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                    driver3.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/Curam");
                 }
                 else
                 {
@@ -279,21 +279,21 @@ namespace MNsure_Regression_1
         }
 
         public int DoAssisterReloginURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver4.Navigate().GoToUrl("https://people.stst.mnsure.org/NavigatorS/application.do");
+                    driver4.Navigate().GoToUrl("https://auth.stst.mnsure.org/RIDP/?account_type=Broker");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver4.Navigate().GoToUrl("https://people.stst2.mnsure.org/NavigatorS/application.do");
+                    driver4.Navigate().GoToUrl("https://auth.stst2.mnsure.org/RIDP/?account_type=Broker");
                 }
                 else
                 {
-                    driver4.Navigate().GoToUrl("https://people.atst.mnsure.org/NavigatorS/application.do");
+                    driver4.Navigate().GoToUrl("https://auth.atst.mnsure.org/RIDP/?account_type=Broker");
                 }
 
                 // This checks for the Sign In button
@@ -315,25 +315,27 @@ namespace MNsure_Regression_1
         }
 
         public int DoAssisterReloginTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 if (myHistoryInfo.myEnvironment == "STST")
-                {                    
-                    driver4.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/NavigatorS");
+                {
+                    //driver4.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/NavigatorS");
+                    driver4.Navigate().GoToUrl("https://auth.stst.mnsure.org/RIDP/?account_type=Broker");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver4.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/NavigatorS");
+                    driver4.Navigate().GoToUrl("https://auth.stst2.mnsure.org/RIDP/?account_type=Broker");
                 }
                 else
                 {
-                    driver4.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/NavigatorS");
+                    driver4.Navigate().GoToUrl("https://auth.atst.mnsure.org/RIDP/?account_type=Broker");
                 }
 
-                // This checks for the Sign In button
-                IWebElement signin = driver4.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
+                // This checks for the Sign In button              
+                //IWebElement signin = driver4.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
+                IWebElement signin = driver4.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"));
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -351,10 +353,10 @@ namespace MNsure_Regression_1
         }
 
         public int DoBrokerURLOpen(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
-            {               
+            {
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/RIDP/?account_type=Broker");
@@ -387,7 +389,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoBrokerTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -423,13 +425,13 @@ namespace MNsure_Regression_1
         }
         
         public int DoCaseWorkerURLOpenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 // the driver is disposed when done with
-                driver.Close();
-                driver3.Close();
+                //driver.Close();
+                //driver3.Close();
 
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -437,7 +439,7 @@ namespace MNsure_Regression_1
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver2.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                    driver2.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/Curam");
                 }
                 else
                 {
@@ -460,7 +462,7 @@ namespace MNsure_Regression_1
         }
 
         public int DoOpenMNsureTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
@@ -470,14 +472,14 @@ namespace MNsure_Regression_1
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                    driver.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/CitizenPortal/application.do");
                 }
                 else
                 {
                     driver.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
                 }
 
-                assisterGeneric = "No";
+                assisterNavigator = "No";
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -494,25 +496,25 @@ namespace MNsure_Regression_1
             }
         }
 
-        public int DoGenericCitizenTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterGeneric)
+        public int DoNavigatorTimeTravel(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
         {
             try
             {
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver5.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                    driver5.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/NavigatorS");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver5.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                    driver5.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/NavigatorS");
                 }
                 else
                 {
-                    driver5.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
+                    driver5.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/NavigatorS");
                 }
 
-                assisterGeneric = "Yes";
+                assisterNavigator = "Yes";
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
