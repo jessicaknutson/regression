@@ -661,11 +661,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
@@ -844,7 +844,15 @@ namespace MNsure_Regression_1
                 if (myApplication.mySSN == "Yes")
                 {
                     IWebElement listboxSSNNum = myDriver.FindElement(By.Id("__o3id1d"));
-                    listboxSSNNum.SendKeys(myApplication.mySSNNum);
+                    if (myApplication.myApplyYourself == "No")
+                    {
+                        int temp = Convert.ToInt32(myApplication.mySSNNum) + 1;
+                        listboxSSNNum.SendKeys(Convert.ToString(temp));
+                    }
+                    else
+                    {
+                        listboxSSNNum.SendKeys(myApplication.mySSNNum);
+                    }
                 }
                 else
                 {
@@ -982,7 +990,7 @@ namespace MNsure_Regression_1
                         listboxFosterCare = myDriver.FindElement(By.Id("__o3id30"));
                         listboxFosterCare.SendKeys(myApplication.myFosterCare);
                     }
-                    if (myApplication.myGender == "Male"
+                    else if (myApplication.myGender == "Male"
                         || (myApplication.myApplyYourself == "No" && myHouseholdMembers.myGender == "Male"))
                     {
                         listboxFosterCare = myDriver.FindElement(By.Id("__o3id2f"));
@@ -1180,7 +1188,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {

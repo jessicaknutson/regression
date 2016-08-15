@@ -174,6 +174,17 @@ namespace MNsure_Regression_1
                 string mysSSN2 = myAccountCreate.mySSN.Substring(3, 2);
                 string mysSSN3 = myAccountCreate.mySSN.Substring(5, 4);
                 IWebElement myselectSSN1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[2]"));
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    mysSSN1 = "444";
+                }
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    if (mysSSN1 == "444")
+                    {
+                        mysSSN1 = "144";
+                    }
+                }
                 myselectSSN1.SendKeys(mysSSN1);
 
                 IWebElement myselectSSN2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[3]"));
@@ -775,43 +786,18 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-
-                IWebElement textboxLogin;
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
-                    textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
-                }
-                else
-                {
-                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
-                    textboxLogin = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"));
-                }
-
+                
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
+                IWebElement textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
+               
                 textboxLogin.SendKeys(myAccountCreate.myUsername);
 
-                IWebElement textboxPW;
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
-                }
-                else
-                {
-                    textboxPW = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input"));
-                }
+                IWebElement textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));                
                 textboxPW.SendKeys(myAccountCreate.myPassword);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonSignIn;
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    buttonSignIn = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
-                }
-                else
-                {
-                    buttonSignIn = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
-                }
+                IWebElement buttonSignIn = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
                 buttonSignIn.Click();
 
                 returnStatus = "Pass";

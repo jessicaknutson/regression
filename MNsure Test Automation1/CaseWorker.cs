@@ -118,14 +118,7 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();
-                }
-                else
-                {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();
-                }
+                driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();                
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -225,9 +218,17 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                        //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
-                        //textboxSSN.SendKeys("344688097"); 
+                        if (myEnrollment.myApplyYourself == "No")
+                        {
+                            int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            textboxSSN.SendKeys(Convert.ToString(temp));
+                        }
+                        else
+                        {
+                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+                            //textboxSSN.SendKeys("344688097"); 
+                        }
                     }
                 }
                 else
@@ -4441,9 +4442,17 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                        //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
-                        //textboxSSN.SendKeys("344688097"); 
+                        if (myEnrollment.myApplyYourself == "No")
+                        {
+                            int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            textboxSSN.SendKeys(Convert.ToString(temp));
+                        }
+                        else
+                        {
+                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+                            //textboxSSN.SendKeys("344688097"); 
+                        }
                     }
                 }
                 else
@@ -4703,9 +4712,17 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                        //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
-                        //textboxSSN.SendKeys("344688097"); 
+                        if (myEnrollment.myApplyYourself == "No")
+                        {
+                            int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            textboxSSN.SendKeys(Convert.ToString(temp));
+                        }
+                        else
+                        {
+                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+                            //textboxSSN.SendKeys("344688097"); 
+                        }
                     }
                 }
                 else
@@ -4802,9 +4819,17 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                        //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
-                        //textboxSSN.SendKeys("344688097"); 
+                        if (myEnrollment.myApplyYourself == "No")
+                        {
+                            int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            textboxSSN.SendKeys(Convert.ToString(temp));
+                        }
+                        else
+                        {
+                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+                            //textboxSSN.SendKeys("344688097"); 
+                        }
                     }
                 }
                 else
@@ -4899,9 +4924,17 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        textboxSSN.SendKeys(myEnrollment.mySSNNum);
-                        //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
-                        //textboxSSN.SendKeys("344688097"); 
+                        if (myEnrollment.myApplyYourself == "No")
+                        {
+                            int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            textboxSSN.SendKeys(Convert.ToString(temp));
+                        }
+                        else
+                        {
+                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
+                            //textboxSSN.SendKeys("344688097"); 
+                        }
                     }
                 }
                 else

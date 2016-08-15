@@ -181,19 +181,7 @@ namespace MNsure_Regression_1
                     if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
                     {
                         int temp2 = temp1 + 1;
-                        myHouseholdMembers.mySSN = Convert.ToString(temp2);
-                        if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "444");
-                        }
-                        if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = myHouseholdMembers.mySSN.Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                myHouseholdMembers.mySSN = myHouseholdMembers.mySSN.Remove(0, 3).Insert(0, "144");
-                            }
-                        }
+                        myHouseholdMembers.mySSN = Convert.ToString(temp2);                        
                         myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
 
                         result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
@@ -201,36 +189,12 @@ namespace MNsure_Regression_1
                     else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
                     {
                         int temp3 = temp1 + 2;
-                        myLastSSN.myLastSSN = Convert.ToString(temp3);
-                        if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            myLastSSN.myLastSSN = myLastSSN.myLastSSN.Remove(0, 3).Insert(0, "444");
-                        }
-                        if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = myLastSSN.myLastSSN.Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                myLastSSN.myLastSSN = myLastSSN.myLastSSN.Remove(0, 3).Insert(0, "144");
-                            }
-                        }
+                        myLastSSN.myLastSSN = Convert.ToString(temp3);                        
                     }
                     else if (myAssister.myFirstName != null) //for assister
                     {
                         int temp2 = temp1 + 1;
-                        myAssister.mySSN = Convert.ToString(temp2);
-                        if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            myAssister.mySSN = myAssister.mySSN.Remove(0, 3).Insert(0, "444");
-                        }
-                        if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = myAssister.mySSN.Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                myAssister.mySSN = myAssister.mySSN.Remove(0, 3).Insert(0, "144");
-                            }
-                        }
+                        myAssister.mySSN = Convert.ToString(temp2);                        
                         myLastSSN.myLastSSN = myAssister.mySSN;
 
                         result = myFillStructures.doUpdateAssisterSSN(ref myHistoryInfo, myAssister.mySSN);
@@ -241,7 +205,8 @@ namespace MNsure_Regression_1
                     }
 
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
+                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);                    
+
                     con = new SqlCeConnection(conString);
                     con.Open();
                     string myClass;
@@ -281,7 +246,7 @@ namespace MNsure_Regression_1
                                     {                                        
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
-                                            driver.Dispose();
+                                            //driver.Dispose();
 
                                             FirefoxProfile profile2 = new FirefoxProfile();
 
@@ -330,7 +295,7 @@ namespace MNsure_Regression_1
                                     }
                                     else if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
                                     {
-                                        driver3.Dispose();
+                                        //driver3.Dispose();
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {                                                                                 
                                             //must clear cache first
