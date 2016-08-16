@@ -1386,7 +1386,14 @@ namespace MNsure_Regression_1
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
-            appwait = (45 + myHistoryInfo.myAppWait) * 1000;
+            if (myHistoryInfo.myBrowser == "Chrome")
+            {
+                appwait = (20 + myHistoryInfo.myAppWait) * 1000;
+            }
+            else
+            {
+                appwait = (45 + myHistoryInfo.myAppWait) * 1000;
+            }
             System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
             if (myHistoryInfo.myRelogin == "Yes")
@@ -1439,7 +1446,14 @@ namespace MNsure_Regression_1
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (householdCount == 1)
                 {
-                    appwait = (45 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (20 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (45 + myHistoryInfo.myAppWait) * 1000;
+                    }
                     System.Threading.Thread.Sleep(appwait);
                 }
 
@@ -1465,7 +1479,14 @@ namespace MNsure_Regression_1
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
-            appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+            if (myHistoryInfo.myBrowser == "Chrome")
+            {
+                appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+            }
+            else
+            {
+                appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+            }
             System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
 
@@ -1499,15 +1520,31 @@ namespace MNsure_Regression_1
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (householdCount == 1)
                 {
-                    appwait = (30 + myHistoryInfo.myAppWait) * 1000;
-                    System.Threading.Thread.Sleep(appwait);
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        System.Threading.Thread.Sleep(appwait);
+                    }
                 }
-
                 if (householdCount > 1)
                 {
                     DoSelectPrimary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
-                    appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+                    }
                     System.Threading.Thread.Sleep(appwait);
                 }
 
@@ -1525,7 +1562,14 @@ namespace MNsure_Regression_1
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
-            appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+            if (myHistoryInfo.myBrowser == "Chrome")
+            {
+                appwait = (15 + myHistoryInfo.myAppWait) * 1000;
+            }
+            else
+            {
+                appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+            }
             System.Threading.Thread.Sleep(appwait);
             IWebDriver myDriver = driver;
             if (myHistoryInfo.myRelogin == "Yes")
@@ -1581,7 +1625,14 @@ namespace MNsure_Regression_1
                     myHouseholdMembers);
                 DoDentalPlanDetails(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
-                appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+                if (myHistoryInfo.myBrowser == "Chrome")
+                {
+                    appwait = (15 + myHistoryInfo.myAppWait) * 1000;
+                }
+                else
+                {
+                    appwait = (30 + myHistoryInfo.myAppWait) * 1000;
+                }
                 System.Threading.Thread.Sleep(appwait);
             }
             return "false";

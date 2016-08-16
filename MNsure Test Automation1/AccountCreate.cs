@@ -730,11 +730,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
@@ -778,11 +778,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();

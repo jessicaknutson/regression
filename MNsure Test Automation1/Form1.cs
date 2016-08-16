@@ -142,7 +142,7 @@ namespace MNsure_Regression_1
                     result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                     int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                     myAccountCreate.mySSN = Convert.ToString(temp1);
-                    if (myHistoryInfo.myEnvironment == "STST2")
+                    /*if (myHistoryInfo.myEnvironment == "STST2")
                     {
                         myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "444");
                     }
@@ -153,7 +153,7 @@ namespace MNsure_Regression_1
                         {
                             myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "144");
                         }
-                    }
+                    }*/
 
                     FillStructures myFillStructures = new FillStructures();
                     result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
@@ -261,7 +261,14 @@ namespace MNsure_Regression_1
                                         }
                                         else
                                         {
-                                            driver6.Quit();
+                                            if (driver6 != null)
+                                            {
+                                                driver6.Quit();
+                                            }
+                                            else
+                                            {
+                                                driver8.Quit();
+                                            }
 
                                             ChromeOptions options = new ChromeOptions();
                                             options.AddArguments("-incognito");
@@ -289,6 +296,7 @@ namespace MNsure_Regression_1
                                         }
                                         else
                                         {
+                                            driver6.Quit();
                                             driver8 = new ChromeDriver("C:\\MNsure Regression 1");
                                             driver8.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                         }
@@ -311,6 +319,7 @@ namespace MNsure_Regression_1
                                         }
                                         else
                                         {
+                                            driver8.Quit();
                                             driver9 = new ChromeDriver("C:\\MNsure Regression 1");
                                             driver9.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                         }
@@ -333,6 +342,7 @@ namespace MNsure_Regression_1
                                         }
                                         else
                                         {
+                                            driver9.Quit();
                                             driver10 = new ChromeDriver("C:\\MNsure Regression 1");
                                             driver10.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                         }

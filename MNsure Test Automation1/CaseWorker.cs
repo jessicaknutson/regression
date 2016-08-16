@@ -146,22 +146,50 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                     else
                     {
-                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                 }
                 else
                 {
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                     else
                     {
-                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -494,11 +522,25 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -4026,11 +4068,25 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -4239,11 +4295,25 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
@@ -4384,11 +4454,25 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]")).Click();//select save
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                     else
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        if (myHistoryInfo.myBrowser == "Chrome")
+                        {
+                            appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                        }
+                        else
+                        {
+                            appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        }
                     }
                     System.Threading.Thread.Sleep(appwait);
                 }
@@ -5003,11 +5087,25 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -5028,11 +5126,25 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    if (myHistoryInfo.myBrowser == "Chrome")
+                    {
+                        appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    }
                 }
                 System.Threading.Thread.Sleep(appwait);
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/DefaultICProduct_resolveDeterminationCurrentPage.do')]"), myHistoryInfo);
