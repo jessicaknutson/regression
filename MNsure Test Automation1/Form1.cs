@@ -85,6 +85,7 @@ namespace MNsure_Regression_1
             object reflectResulthm = null;
             object reflectResultwad = null;
             object reflectResulta = null;
+            object reflectResultf = null;
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
@@ -109,7 +110,7 @@ namespace MNsure_Regression_1
                 FirefoxDriver driver2 = null;
                 FirefoxDriver driver3 = null;
                 FirefoxDriver driver4 = null;
-                FirefoxDriver driver5 = null;               
+                FirefoxDriver driver5 = null;
                 IWebDriver driver6 = null;
                 IWebDriver driver7 = null;
                 IWebDriver driver8 = null;
@@ -118,22 +119,22 @@ namespace MNsure_Regression_1
 
                 //must clear cache first
                 if (myHistoryInfo.myBrowser == "Firefox")
-                {             
+                {
                     //main driver for citizen portal
                     driver = new FirefoxDriver();
-                    driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));                    
-                } 
+                    driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                }
                 else
                 {
                     ChromeOptions options = new ChromeOptions();
                     options.AddArguments("-incognito");
 
                     driver6 = new ChromeDriver("C:\\MNsure Regression 1", options);//chrome version must be 51
-                    driver6.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));                    
-                }               
+                    driver6.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                }
 
                 result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
-                result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);                
+                result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
 
                 try
                 {
@@ -157,7 +158,7 @@ namespace MNsure_Regression_1
 
                     FillStructures myFillStructures = new FillStructures();
                     result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
-                    
+
                     HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                     int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                     AccountGeneration myAccountGeneration = new AccountGeneration();
@@ -169,9 +170,9 @@ namespace MNsure_Regression_1
                     {
                         result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
                     }
-                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                    
-                    if (myAssister.myFirstName!= null)//must create a second account for assister
+                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+
+                    if (myAssister.myFirstName != null)//must create a second account for assister
                     {
                         result = myFillStructures.doCreateAssisterAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
                     }
@@ -181,7 +182,7 @@ namespace MNsure_Regression_1
                     if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
                     {
                         int temp2 = temp1 + 1;
-                        myHouseholdMembers.mySSN = Convert.ToString(temp2);                        
+                        myHouseholdMembers.mySSN = Convert.ToString(temp2);
                         myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
 
                         result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
@@ -189,12 +190,12 @@ namespace MNsure_Regression_1
                     else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
                     {
                         int temp3 = temp1 + 2;
-                        myLastSSN.myLastSSN = Convert.ToString(temp3);                        
+                        myLastSSN.myLastSSN = Convert.ToString(temp3);
                     }
                     else if (myAssister.myFirstName != null) //for assister
                     {
                         int temp2 = temp1 + 1;
-                        myAssister.mySSN = Convert.ToString(temp2);                        
+                        myAssister.mySSN = Convert.ToString(temp2);
                         myLastSSN.myLastSSN = myAssister.mySSN;
 
                         result = myFillStructures.doUpdateAssisterSSN(ref myHistoryInfo, myAssister.mySSN);
@@ -205,7 +206,59 @@ namespace MNsure_Regression_1
                     }
 
                     InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);                    
+                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
+
+                    string hhssn = myAccountCreate.mySSN;
+                    if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                    }
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        string beginning = hhssn.Substring(0, 3);
+                        if (beginning == "444")
+                        {
+                            hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                        }
+                    }
+                    result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
+                    result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
+
+                    if (myApplication.myHouseholdOther == "Yes" && householdCount < 4) //for 2 household
+                    {
+                        int temp = Convert.ToInt32(myAccountCreate.mySSN) + 1;
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                        }
+                        else if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = Convert.ToString(temp).Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                            }
+                        }
+                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
+                    }
+                    if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3 household
+                    {
+                        int temp2 = Convert.ToInt32(myAccountCreate.mySSN) + 2;
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "444"));
+                        }
+                        else if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = Convert.ToString(temp2).Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "144"));
+                            }
+                        }
+                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
+                    }
+
 
                     con = new SqlCeConnection(conString);
                     con.Open();
@@ -236,14 +289,14 @@ namespace MNsure_Regression_1
                             string returnICNumber = "";
                             string relogin = "";
                             string resume = "";
-                            string assisterNavigator = "";                            
+                            string assisterNavigator = "";
 
                             switch (myClass)
                             {
                                 case "OpenSiteURL":
 
                                     if (myMethod == "DoCaseWorkerURLOpen" || myMethod == "DoCaseWorkerURLOpenTimeTravel")
-                                    {                                        
+                                    {
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
                                             //driver.Dispose();
@@ -280,9 +333,9 @@ namespace MNsure_Regression_1
                                     }
 
                                     else if (myMethod == "DoOpenMNsureRelogin" || myMethod == "DoOpenMNsureReloginTimeTravel" || myMethod == "DoAssisterURLOpen" || myMethod == "DoAssisterTimeTravel")
-                                    {                                        
+                                    {
                                         if (myHistoryInfo.myBrowser == "Firefox")
-                                        {                                                                                    
+                                        {
                                             //must clear cache first
                                             FirefoxProfile profile3 = new FirefoxProfile();
                                             profile3.SetPreference("browser.cache.disk.enable", false);
@@ -305,7 +358,7 @@ namespace MNsure_Regression_1
                                     {
                                         //driver3.Dispose();
                                         if (myHistoryInfo.myBrowser == "Firefox")
-                                        {                                                                                 
+                                        {
                                             //must clear cache first
                                             FirefoxProfile profile4 = new FirefoxProfile();
                                             profile4.SetPreference("browser.cache.disk.enable", false);
@@ -349,7 +402,7 @@ namespace MNsure_Regression_1
 
                                         myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
                                     }
-                                    
+
                                     object[] parms = new object[11];
                                     if (myHistoryInfo.myBrowser == "Firefox")
                                     {
@@ -388,7 +441,7 @@ namespace MNsure_Regression_1
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     break;
 
-                                case "AccountCreation":                                    
+                                case "AccountCreation":
                                     object[] parmsac = new object[10];
                                     if (myHistoryInfo.myBrowser == "Firefox")
                                     {
@@ -425,10 +478,13 @@ namespace MNsure_Regression_1
                                     {
                                         myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
                                     }
+                                    //must fill structures again after updating ssn
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+
                                     break;
 
                                 case "ApplicationDo":
-                                    
+
                                     object[] parmsad = new object[9];
                                     if (myHistoryInfo.myBrowser == "Firefox")
                                     {
@@ -459,7 +515,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsad[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "CWApplicationDo":
@@ -491,7 +547,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmscwad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "WizardApplicationDo":
@@ -523,7 +579,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmswad[7].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "HouseholdMembersDo":
@@ -557,7 +613,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmshm[8].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "Enrollments":
@@ -590,7 +646,7 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myScreenShot = parmsen[6].ToString();
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "CaseWorker":
@@ -626,11 +682,11 @@ namespace MNsure_Regression_1
                                     }
                                     result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 case "Assister":
-                                    
+
                                     object[] parmsa = new object[13];
                                     if (myHistoryInfo.myBrowser == "Firefox")
                                     {
@@ -675,7 +731,56 @@ namespace MNsure_Regression_1
                                     myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
 
                                     //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                    break;
+
+                                case "FileNetDo":
+
+                                    object[] parmsf = new object[13];
+                                    if (myHistoryInfo.myBrowser == "Firefox")
+                                    {
+                                        parmsf[0] = driver;
+                                        parmsf[1] = driver2;
+                                        parmsf[2] = driver3;
+                                        parmsf[3] = driver4;
+                                        parmsf[4] = driver5;
+                                    }
+                                    else
+                                    {
+                                        parmsf[0] = driver6;
+                                        parmsf[1] = driver7;
+                                        parmsf[2] = driver8;
+                                        parmsf[3] = driver9;
+                                        parmsf[4] = driver10;
+                                    }
+                                    parmsf[5] = myAccountCreate;
+                                    parmsf[6] = myApplication;
+                                    parmsf[7] = myAssister;
+                                    parmsf[8] = myHistoryInfo;
+                                    parmsf[9] = returnStatus;
+                                    parmsf[10] = returnException;
+                                    parmsf[11] = returnScreenshot;
+                                    parmsf[12] = returnICNumber;
+
+                                    FileNetDo myFileNetDo = new FileNetDo();
+                                    Type reflectTestTypef = typeof(FileNetDo);
+                                    MethodInfo reflectMethodToInvokef = reflectTestTypef.GetMethod(myMethod);
+                                    ParameterInfo[] reflectMethodParametersf = reflectMethodToInvokef.GetParameters();
+                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                    reflectResultf = reflectMethodToInvokef.Invoke(new FileNetDo(), parmsf);
+                                    myHistoryInfo.myTestStepStatus = parmsf[9].ToString();
+                                    myHistoryInfo.myStepException = parmsf[10].ToString();
+                                    myHistoryInfo.myScreenShot = parmsf[11].ToString();
+                                    if (parmsf[12].ToString() != String.Empty)
+                                    {
+                                        myHistoryInfo.myIcnumber = parmsf[12].ToString();
+                                    }
+                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+
+                                    //myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
+
+                                    //must fill structures again after updating pass count
+                                    //result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
                                     break;
 
                                 default:
@@ -1927,7 +2032,14 @@ namespace MNsure_Regression_1
                     com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
                     com6.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
                     com6.Parameters.AddWithValue("LastName", myApplication.myLastName);
-                    com6.Parameters.AddWithValue("Suffix", myApplication.mySuffix);
+                    if (myApplication.mySuffix != "")
+                    {
+                        com6.Parameters.AddWithValue("Suffix", myApplication.mySuffix);
+                    }
+                    else
+                    {
+                        com6.Parameters.AddWithValue("Suffix", DBNull.Value);
+                    }
                     com6.Parameters.AddWithValue("Gender", myApplication.myGender);
                     com6.Parameters.AddWithValue("MaritalStatus", myApplication.myMaritalStatus);
                     if (myApplication.myDOB != "")
@@ -3930,48 +4042,48 @@ namespace MNsure_Regression_1
 
             int myTestId;
             int myiTestStepId;
-            myTestId = Convert.ToInt32(mysTestId);             
+            myTestId = Convert.ToInt32(mysTestId);
 
             SqlCeConnection con;
             // Retrieve the connection string from the settings file.
             string conString = Properties.Settings.Default.Database1ConnectionString;
 
-           /* if (Convert.ToString(myTestId) == "1")
-            {
-                string myTestType;
-                string myDescription;
-                string myURL;
-                string myIsSelected;
-                string myNotes;
+            /* if (Convert.ToString(myTestId) == "1")
+             {
+                 string myTestType;
+                 string myDescription;
+                 string myURL;
+                 string myIsSelected;
+                 string myNotes;
 
-                myName = Convert.ToString(textBoxTestName.Text);
-                myTestType = Convert.ToString(textBoxTestType.Text);
-                myDescription = Convert.ToString(textBoxTestDescription.Text);
-                myURL = Convert.ToString(textBoxTestURL.Text);
-                myIsSelected = Convert.ToString(textBoxTestIsSelected.Text);
-                myNotes = Convert.ToString(textBoxTestNotes.Text);
+                 myName = Convert.ToString(textBoxTestName.Text);
+                 myTestType = Convert.ToString(textBoxTestType.Text);
+                 myDescription = Convert.ToString(textBoxTestDescription.Text);
+                 myURL = Convert.ToString(textBoxTestURL.Text);
+                 myIsSelected = Convert.ToString(textBoxTestIsSelected.Text);
+                 myNotes = Convert.ToString(textBoxTestNotes.Text);
 
-                con = new SqlCeConnection(conString);
-                con.Open();
+                 con = new SqlCeConnection(conString);
+                 con.Open();
 
-                string myInsertString;
-                DateTime now = DateTime.Now;
-                myInsertString = "Insert into Test Values (" + myTestId +
-                    ",   @Name, @Type, @Description, @Notes, @URL" +
-                    ",   @IsSelected   );";
-                using (SqlCeCommand com33 = new SqlCeCommand(myInsertString, con))
-                {
-                    com33.Parameters.AddWithValue("TestId", myTestId);
-                    com33.Parameters.AddWithValue("Name", myName);
-                    com33.Parameters.AddWithValue("Type", myTestType);
-                    com33.Parameters.AddWithValue("Description", myDescription);
-                    com33.Parameters.AddWithValue("URL", myURL);
-                    com33.Parameters.AddWithValue("IsSelected", myIsSelected);
-                    com33.Parameters.AddWithValue("Notes", myNotes);
-                    com33.ExecuteNonQuery();
-                    com33.Dispose();
-                }
-            }*/
+                 string myInsertString;
+                 DateTime now = DateTime.Now;
+                 myInsertString = "Insert into Test Values (" + myTestId +
+                     ",   @Name, @Type, @Description, @Notes, @URL" +
+                     ",   @IsSelected   );";
+                 using (SqlCeCommand com33 = new SqlCeCommand(myInsertString, con))
+                 {
+                     com33.Parameters.AddWithValue("TestId", myTestId);
+                     com33.Parameters.AddWithValue("Name", myName);
+                     com33.Parameters.AddWithValue("Type", myTestType);
+                     com33.Parameters.AddWithValue("Description", myDescription);
+                     com33.Parameters.AddWithValue("URL", myURL);
+                     com33.Parameters.AddWithValue("IsSelected", myIsSelected);
+                     com33.Parameters.AddWithValue("Notes", myNotes);
+                     com33.ExecuteNonQuery();
+                     com33.Dispose();
+                 }
+             }*/
 
             int countSelectedTestSteps;
             countSelectedTestSteps = dataGridViewTestSteps.Rows.Count;
@@ -4710,7 +4822,14 @@ namespace MNsure_Regression_1
                             com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
                             com54.Parameters.AddWithValue("MiddleName", reader.GetString(3));
                             com54.Parameters.AddWithValue("LastName", reader.GetString(4));
-                            com54.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            if (!reader.IsDBNull(5))
+                            {
+                                com54.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("Suffix", DBNull.Value);
+                            }
                             com54.Parameters.AddWithValue("Gender", reader.GetString(6));
                             com54.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
                             if (!reader.IsDBNull(8))
@@ -5074,7 +5193,14 @@ namespace MNsure_Regression_1
                             com65.Parameters.AddWithValue("FirstName", reader.GetString(2));
                             com65.Parameters.AddWithValue("MiddleName", reader.GetString(3));
                             com65.Parameters.AddWithValue("LastName", reader.GetString(4));
-                            com65.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            if (!reader.IsDBNull(5))
+                            {
+                                com65.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("Suffix", DBNull.Value);
+                            }
                             com65.Parameters.AddWithValue("Gender", reader.GetString(6));
                             com65.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
                             com65.Parameters.AddWithValue("DOB", reader.GetString(8));
@@ -5199,7 +5325,14 @@ namespace MNsure_Regression_1
                             com67.Parameters.AddWithValue("FirstName", reader.GetString(2));
                             com67.Parameters.AddWithValue("MiddleName", reader.GetString(3));
                             com67.Parameters.AddWithValue("LastName", reader.GetString(4));
-                            com67.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            if (!reader.IsDBNull(5))
+                            {
+                                com67.Parameters.AddWithValue("Suffix", reader.GetString(5));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("Suffix", DBNull.Value);
+                            }
                             com67.Parameters.AddWithValue("Gender", reader.GetString(6));
                             com67.Parameters.AddWithValue("MaritalStatus", reader.GetString(7));
                             com67.Parameters.AddWithValue("DOB", reader.GetString(8));
@@ -6590,7 +6723,14 @@ namespace MNsure_Regression_1
                     com71.Parameters.AddWithValue("FirstName", myHouseholdMembers.myFirstName);
                     com71.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
                     com71.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
-                    com71.Parameters.AddWithValue("Suffix", myHouseholdMembers.mySuffix);
+                    if (myHouseholdMembers.mySuffix != "" && myHouseholdMembers.mySuffix != null)
+                    {
+                        com71.Parameters.AddWithValue("Suffix", myHouseholdMembers.mySuffix);
+                    }
+                    else
+                    {
+                        com71.Parameters.AddWithValue("Suffix", DBNull.Value);
+                    }
                     com71.Parameters.AddWithValue("Gender", myHouseholdMembers.myGender);
                     com71.Parameters.AddWithValue("MaritalStatus", myHouseholdMembers.myMaritalStatus);
                     com71.Parameters.AddWithValue("DOB", myHouseholdMembers.myDOB);

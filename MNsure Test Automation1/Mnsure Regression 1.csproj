@@ -121,6 +121,7 @@
     <Compile Include="AccountCreate.cs" />
     <Compile Include="AccountGeneration.cs" />
     <Compile Include="AssisterDo.cs" />
+    <Compile Include="FileNet.cs" />
     <Compile Include="RegistrationNumberForm.cs">
       <SubType>Form</SubType>
     </Compile>

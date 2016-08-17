@@ -35,6 +35,8 @@
             this.dataGridViewTestRunHistory = new System.Windows.Forms.DataGridView();
             this.tabPageRun = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
+            this.label203 = new System.Windows.Forms.Label();
             this.comboBoxEnvironment = new System.Windows.Forms.ComboBox();
             this.label180 = new System.Windows.Forms.Label();
             this.label139 = new System.Windows.Forms.Label();
@@ -495,8 +497,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label203 = new System.Windows.Forms.Label();
-            this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -630,6 +630,27 @@
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
             // 
+            // comboBoxBrowser
+            // 
+            this.comboBoxBrowser.FormattingEnabled = true;
+            this.comboBoxBrowser.Items.AddRange(new object[] {
+            "Chrome",
+            "Firefox"});
+            this.comboBoxBrowser.Location = new System.Drawing.Point(486, 135);
+            this.comboBoxBrowser.Name = "comboBoxBrowser";
+            this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxBrowser.TabIndex = 27;
+            this.comboBoxBrowser.SelectedValueChanged += new System.EventHandler(this.comboBoxBrowser_SelectedValueChanged);
+            // 
+            // label203
+            // 
+            this.label203.AutoSize = true;
+            this.label203.Location = new System.Drawing.Point(432, 138);
+            this.label203.Name = "label203";
+            this.label203.Size = new System.Drawing.Size(48, 13);
+            this.label203.TabIndex = 26;
+            this.label203.Text = "Browser:";
+            // 
             // comboBoxEnvironment
             // 
             this.comboBoxEnvironment.FormattingEnabled = true;
@@ -676,7 +697,10 @@
             this.comboBoxAppWait.FormattingEnabled = true;
             this.comboBoxAppWait.Items.AddRange(new object[] {
             "0",
-            "5",
+            "2",
+            "4",
+            "6",
+            "8",
             "10",
             "15",
             "20",
@@ -5763,33 +5787,12 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // label203
-            // 
-            this.label203.AutoSize = true;
-            this.label203.Location = new System.Drawing.Point(432, 138);
-            this.label203.Name = "label203";
-            this.label203.Size = new System.Drawing.Size(48, 13);
-            this.label203.TabIndex = 26;
-            this.label203.Text = "Browser:";
-            // 
-            // comboBoxBrowser
-            // 
-            this.comboBoxBrowser.FormattingEnabled = true;
-            this.comboBoxBrowser.Items.AddRange(new object[] {
-            "Chrome",
-            "Firefox"});
-            this.comboBoxBrowser.Location = new System.Drawing.Point(486, 135);
-            this.comboBoxBrowser.Name = "comboBoxBrowser";
-            this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
-            this.comboBoxBrowser.TabIndex = 27;
-            this.comboBoxBrowser.SelectedValueChanged += new System.EventHandler(this.comboBoxBrowser_SelectedValueChanged);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1337, 654);
+            this.ClientSize = new System.Drawing.Size(1354, 671);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FormMain";
             this.Text = "MNsure Regression Automation1";

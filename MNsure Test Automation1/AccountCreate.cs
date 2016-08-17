@@ -174,7 +174,7 @@ namespace MNsure_Regression_1
                 string mysSSN2 = myAccountCreate.mySSN.Substring(3, 2);
                 string mysSSN3 = myAccountCreate.mySSN.Substring(5, 4);
                 IWebElement myselectSSN1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[2]"));
-                if (myHistoryInfo.myEnvironment == "STST2")
+                /*if (myHistoryInfo.myEnvironment == "STST2")
                 {
                     mysSSN1 = "444";
                 }
@@ -184,7 +184,7 @@ namespace MNsure_Regression_1
                     {
                         mysSSN1 = "144";
                     }
-                }
+                }*/
                 myselectSSN1.SendKeys(mysSSN1);
 
                 IWebElement myselectSSN2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[8]/div/input[3]"));

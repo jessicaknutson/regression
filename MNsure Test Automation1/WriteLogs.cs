@@ -183,7 +183,20 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph(" ");
                 doc.InsertParagraph("Account Created, User Name: " + myAccountCreate.myUsername);
                 doc.InsertParagraph("Account Created, Name: " + myApplication.myFirstName + " " + myApplication.myLastName);
-                doc.InsertParagraph("Account Created, SSN: " + myApplication.mySSNNum);
+                string hhssn = myApplication.mySSNNum;
+                /*if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                }
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    string beginning = hhssn.Substring(0, 3);
+                    if (beginning == "444")
+                    {
+                        hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                    }
+                }*/
+                doc.InsertParagraph("Account Created, SSN: " + hhssn);
                 doc.InsertParagraph("Enrollment, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType);
                 doc.InsertParagraph("Case Worker Login Id: " + myAccountCreate.myCaseWorkerLoginId);
                 doc.InsertParagraph("IC Number: " + myHistoryInfo.myIcnumber);
@@ -285,7 +298,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Hispanic: " + myApplication.myHispanic);
                 doc.InsertParagraph("Application Data, Race: " + myApplication.myRace);
                 doc.InsertParagraph("Application Data, Have an SSN: " + myApplication.mySSN);
-                doc.InsertParagraph("Application Data, SSN Number: " + myApplication.mySSNNum).Bold();
+                doc.InsertParagraph("Application Data, SSN Number: " + hhssn).Bold();
                 doc.InsertParagraph("Application Data, Applied for SSN: " + myApplication.myAppliedSSN);
                 doc.InsertParagraph("Application Data, Why No SSN: " + myApplication.myWhyNoSSN);
                 doc.InsertParagraph("Application Data, Asssistance with SSN: " + myApplication.myAssistSSN);
@@ -344,7 +357,7 @@ namespace MNsure_Regression_1
                 excelWorksheet.Cells[3, 7] = mystringExecutionDate;
                 excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
                     + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
-                    + ", SSN: " + myApplication.mySSNNum + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
+                    + ", SSN: " + hhssn + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
                     + ", App Build: " + myHistoryInfo.myAppBuild + ", Environment: " + myHistoryInfo.myEnvironment
                     + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
 

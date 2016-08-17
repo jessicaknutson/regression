@@ -249,11 +249,38 @@ namespace MNsure_Regression_1
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }    */                       
+                            
                             textboxSSN.SendKeys(Convert.ToString(temp));
                         }
                         else
                         {
-                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            string hhssn = myEnrollment.mySSNNum;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            }
+                            if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = hhssn.Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                }
+                            }*/
+                            textboxSSN.SendKeys(hhssn);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
                         }
@@ -2407,7 +2434,20 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(1000);
                 myApp.DoWaitForElement(driver, By.Id("__o3id6"), myHistoryInfo);
                 IWebElement textboxSSN = driver.FindElement(By.Id("__o3id6"));
-                textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                string hhssn = myEnrollment.mySSNNum;
+                /*if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                }
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    string beginning = hhssn.Substring(0, 3);
+                    if (beginning == "444")
+                    {
+                        hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                    }
+                }*/
+                textboxSSN.SendKeys(hhssn);
 
                 System.Threading.Thread.Sleep(1000);
                 myApp.DoWaitForElement(driver, By.Id("__o3id9"), myHistoryInfo);
@@ -2429,7 +2469,7 @@ namespace MNsure_Regression_1
                     textboxParticipant.SendKeys(fullName);
 
                     System.Threading.Thread.Sleep(1000);
-                    textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                    textboxSSN.SendKeys(hhssn);
 
                     System.Threading.Thread.Sleep(1000);
                     textboxAppDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
@@ -4529,11 +4569,36 @@ namespace MNsure_Regression_1
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }*/
                             textboxSSN.SendKeys(Convert.ToString(temp));
                         }
                         else
                         {
-                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            string hhssn = myEnrollment.mySSNNum;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            }
+                            if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = hhssn.Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                }
+                            }*/
+                            textboxSSN.SendKeys(hhssn);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
                         }
@@ -4799,11 +4864,36 @@ namespace MNsure_Regression_1
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }*/
                             textboxSSN.SendKeys(Convert.ToString(temp));
                         }
                         else
                         {
-                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            string hhssn = myEnrollment.mySSNNum;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            }
+                            if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = hhssn.Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                }
+                            }*/
+                            textboxSSN.SendKeys(hhssn);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
                         }
@@ -4906,11 +4996,36 @@ namespace MNsure_Regression_1
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }*/
                             textboxSSN.SendKeys(Convert.ToString(temp));
                         }
                         else
                         {
-                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            string hhssn = myEnrollment.mySSNNum;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            }
+                            if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = hhssn.Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                }
+                            }*/
+                            textboxSSN.SendKeys(hhssn);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
                         }
@@ -5011,11 +5126,36 @@ namespace MNsure_Regression_1
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }*/
                             textboxSSN.SendKeys(Convert.ToString(temp));
                         }
                         else
                         {
-                            textboxSSN.SendKeys(myEnrollment.mySSNNum);
+                            string hhssn = myEnrollment.mySSNNum;
+                            /*if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            }
+                            if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = hhssn.Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                }
+                            }*/
+                            textboxSSN.SendKeys(hhssn);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
                         }

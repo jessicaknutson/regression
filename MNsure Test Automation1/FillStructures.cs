@@ -11,7 +11,7 @@ namespace MNsure_Regression_1
 {
     class FillStructures
     {
-        public int doFillStructures(mystructSelectedTest mySelectedTest, mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructAssister myAssister, ref mystructHistoryInfo myHistoryInfo)
+        public int doFillStructures(mystructSelectedTest mySelectedTest, ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructHouseholdMembers myHouseholdMembers, ref mystructAssister myAssister, ref mystructHistoryInfo myHistoryInfo)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -120,6 +120,28 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(65)) { myApplication.myRegDate = Convert.ToDateTime(reader.GetDateTime(65)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
                         if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
+                    }
+                }
+
+                SqlCeCommand cmd6 = con.CreateCommand();
+                cmd6.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Account where TestID = " + mySelectedTest.myTestId, con))
+                {
+                    SqlCeDataReader reader = com6.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myAccountCreate.myAccountID = reader.GetInt32(0);
+                        if (!reader.IsDBNull(2)) { myAccountCreate.myFirstName = reader.GetString(2); }
+                        if (!reader.IsDBNull(3)) { myAccountCreate.myMiddleName = reader.GetString(3); }
+                        if (!reader.IsDBNull(4)) { myAccountCreate.myLastName = reader.GetString(4); }
+                        if (!reader.IsDBNull(5)) { myAccountCreate.mySuffix = reader.GetString(5); }
+                        if (!reader.IsDBNull(6)) { myAccountCreate.myEmail = reader.GetString(6); }
+                        if (!reader.IsDBNull(7)) { myAccountCreate.myPhone = reader.GetString(7); }
+                        if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
+                        if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToDateTime(reader.GetDateTime(9)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }                  
                     }
                 }
 
@@ -815,6 +837,78 @@ namespace MNsure_Regression_1
             catch
             {
                 MessageBox.Show("Update Household SSN didn't work");
+            }
+            return 1;
+        }
+
+        public int doUpdateApplicationSSN(ref mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand(
+                    "SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Application set SSNNum = @mySSNNum where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("mySSNNum", updateValue);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update Application SSN didn't work");
+            }
+            return 1;
+        }
+
+        public int doUpdateAccountSSN(ref mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand(
+                    "SELECT * FROM Account where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Account set SSN = @mySSN where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("mySSN", updateValue);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update Account SSN didn't work");
             }
             return 1;
         }

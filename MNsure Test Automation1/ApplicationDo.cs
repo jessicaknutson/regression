@@ -556,7 +556,20 @@ namespace MNsure_Regression_1
                 if (myApplication.mySSN == "Yes")
                 {
                     IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id3a"));
-                    listboxSSNNum.SendKeys(myApplication.mySSNNum);
+                    string hhssn = myApplication.mySSNNum;
+                    /*if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                    }
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        string beginning = hhssn.Substring(0, 3);
+                        if (beginning == "444")
+                        {
+                            hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                        }
+                    }*/
+                    listboxSSNNum.SendKeys(hhssn);
                     listboxSSNNum.Click();
                 }
                 else
@@ -860,12 +873,37 @@ namespace MNsure_Regression_1
                     IWebElement listboxSSNNum = myDriver.FindElement(By.Id("__o3id1d"));
                     if (myApplication.myApplyYourself == "No")
                     {
-                        int temp = Convert.ToInt32(myApplication.mySSNNum) + 1;
+                        int temp = Convert.ToInt32(myApplication.mySSNNum) + 1;                        
+                        /*if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                        }
+                        else if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = Convert.ToString(temp).Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                            }
+                        }*/
                         listboxSSNNum.SendKeys(Convert.ToString(temp));
                     }
                     else
                     {
-                        listboxSSNNum.SendKeys(myApplication.mySSNNum);
+                        string hhssn = myApplication.mySSNNum;
+                        /*if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                        }
+                        if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = hhssn.Substring(0, 3);
+                            if (beginning == "444")
+                            {
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                            }
+                        }*/
+                        listboxSSNNum.SendKeys(hhssn);
                     }
                 }
                 else
@@ -1053,7 +1091,20 @@ namespace MNsure_Regression_1
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
 
                 IWebElement textboxSSN = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div/input"));
-                textboxSSN.SendKeys(myApplication.mySSNNum);
+                string hhssn = myApplication.mySSNNum;
+                /*if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                }
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    string beginning = hhssn.Substring(0, 3);
+                    if (beginning == "444")
+                    {
+                        hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                    }
+                }*/
+                textboxSSN.SendKeys(hhssn);
 
                 string isFemale = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
@@ -1100,7 +1151,7 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (5 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
@@ -1111,11 +1162,11 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -1216,7 +1267,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (32 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
@@ -3296,7 +3347,7 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (32 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
@@ -3339,7 +3390,7 @@ namespace MNsure_Regression_1
                 {                   
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (5 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
@@ -3350,7 +3401,7 @@ namespace MNsure_Regression_1
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (5 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {

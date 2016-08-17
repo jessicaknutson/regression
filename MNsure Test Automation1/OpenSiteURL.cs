@@ -531,6 +531,39 @@ namespace MNsure_Regression_1
             }
         }
 
+        public int DoOpenFileNet(IWebDriver driver, IWebDriver driver2, IWebDriver driver3, IWebDriver driver4, IWebDriver driver5,
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string relogin, ref string assisterNavigator)
+        {
+            try
+            {
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.Navigate().GoToUrl("http://mmis-hix-stst-fnet-v03.hix.int.state.mn.us:9082/WorkplaceXT");
+                }
+                else if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    driver.Navigate().GoToUrl("http://mmis-hix-stst2-fnet-v03.hix.int.state.mn.us:9082/WorkplaceXT");
+                }
+                else
+                {
+                    driver.Navigate().GoToUrl("http://mmis-hix-atst-fnet-v03.hix.int.state.mn.us:9082/WorkplaceXT");
+                }
+
+                returnStatus = "Pass";
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 1;
+            }
+            catch (Exception e)
+            {
+                returnException = Convert.ToString(e);
+                returnStatus = "Fail";
+                myHistoryInfo.myTestStepStatus = "Fail";
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                returnScreenshot = myHistoryInfo.myScreenShot;
+                return 2;
+            }
+        }
+
 
     }
 }
