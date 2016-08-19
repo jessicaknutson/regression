@@ -207,14 +207,6 @@ namespace MNsure_Regression_1
                 IWebElement textboxMaritalStatus = myDriver.FindElement(By.Id("__o3idb"));
                 textboxMaritalStatus.SendKeys(myApplication.myMaritalStatus);
 
-                /*string tempDOB;
-                int tempDOBLength;
-                tempDOB = Convert.ToString(myApplication.myDOB);
-                tempDOBLength = tempDOB.Length;
-                tempDOB = tempDOB.Substring(0, tempDOBLength);
-                IWebElement textboxDOB = myDriver.FindElement(By.Id("__o3idc"));
-                textboxDOB.SendKeys(tempDOB);*/
-
                 IWebElement textboxDOB = myDriver.FindElement(By.Id("__o3idc"));
                 textboxDOB.Click();
                 string tempDOB;
@@ -556,19 +548,7 @@ namespace MNsure_Regression_1
                 if (myApplication.mySSN == "Yes")
                 {
                     IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id3a"));
-                    string hhssn = myApplication.mySSNNum;
-                    /*if (myHistoryInfo.myEnvironment == "STST2")
-                    {
-                        hhssn = hhssn.Remove(0, 3).Insert(0, "444");
-                    }
-                    if (myHistoryInfo.myEnvironment == "STST")
-                    {
-                        string beginning = hhssn.Substring(0, 3);
-                        if (beginning == "444")
-                        {
-                            hhssn = hhssn.Remove(0, 3).Insert(0, "144");
-                        }
-                    }*/
+                    string hhssn = myApplication.mySSNNum;                   
                     listboxSSNNum.SendKeys(hhssn);
                     listboxSSNNum.Click();
                 }
@@ -873,36 +853,12 @@ namespace MNsure_Regression_1
                     IWebElement listboxSSNNum = myDriver.FindElement(By.Id("__o3id1d"));
                     if (myApplication.myApplyYourself == "No")
                     {
-                        int temp = Convert.ToInt32(myApplication.mySSNNum) + 1;                        
-                        /*if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
-                        }
-                        else if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = Convert.ToString(temp).Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
-                            }
-                        }*/
+                        int temp = Convert.ToInt32(myApplication.mySSNNum) + 1;                     
                         listboxSSNNum.SendKeys(Convert.ToString(temp));
                     }
                     else
                     {
                         string hhssn = myApplication.mySSNNum;
-                        /*if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            hhssn = hhssn.Remove(0, 3).Insert(0, "444");
-                        }
-                        if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = hhssn.Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                hhssn = hhssn.Remove(0, 3).Insert(0, "144");
-                            }
-                        }*/
                         listboxSSNNum.SendKeys(hhssn);
                     }
                 }
@@ -1092,18 +1048,6 @@ namespace MNsure_Regression_1
 
                 IWebElement textboxSSN = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div/input"));
                 string hhssn = myApplication.mySSNNum;
-                /*if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    hhssn = hhssn.Remove(0, 3).Insert(0, "444");
-                }
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    string beginning = hhssn.Substring(0, 3);
-                    if (beginning == "444")
-                    {
-                        hhssn = hhssn.Remove(0, 3).Insert(0, "144");
-                    }
-                }*/
                 textboxSSN.SendKeys(hhssn);
 
                 string isFemale = "No";

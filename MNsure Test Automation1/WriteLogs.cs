@@ -50,7 +50,7 @@ namespace MNsure_Regression_1
                 }
 
                 string myInsertString;
-                if (myHistoryInfo.myFirstTime == "Yes")
+                if (myHistoryInfo.myFirstTime == "Yes" || myHistoryInfo.myMultiples > 1)
                 {
                     myHistoryInfo.myRunId = myHistoryInfo.myRunId + 1;
                     myHistoryInfo.myFirstTime = "No";
@@ -182,20 +182,8 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Result: " + myHistoryInfo.myTestStepStatus).Bold().FontSize(14);
                 doc.InsertParagraph(" ");
                 doc.InsertParagraph("Account Created, User Name: " + myAccountCreate.myUsername);
-                doc.InsertParagraph("Account Created, Name: " + myApplication.myFirstName + " " + myApplication.myLastName);
+                doc.InsertParagraph("Account Created, Name: " + myApplication.myFirstName + " " + myApplication.myMiddleName + " " + myApplication.myLastName);
                 string hhssn = myApplication.mySSNNum;
-                /*if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    hhssn = hhssn.Remove(0, 3).Insert(0, "444");
-                }
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
-                    string beginning = hhssn.Substring(0, 3);
-                    if (beginning == "444")
-                    {
-                        hhssn = hhssn.Remove(0, 3).Insert(0, "144");
-                    }
-                }*/
                 doc.InsertParagraph("Account Created, SSN: " + hhssn);
                 doc.InsertParagraph("Enrollment, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType);
                 doc.InsertParagraph("Case Worker Login Id: " + myAccountCreate.myCaseWorkerLoginId);
@@ -203,6 +191,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("App Build: " + myHistoryInfo.myAppBuild);
                 doc.InsertParagraph("MNsure Build: " + myHistoryInfo.myMnsureBuild);
                 doc.InsertParagraph("Environment: " + myHistoryInfo.myEnvironment);
+                doc.InsertParagraph("Browser: " + myHistoryInfo.myBrowser);
                 doc.InsertParagraph("Additional Wait Time: " + myHistoryInfo.myAppWait);
                 doc.InsertParagraph(" ");
                 doc.InsertParagraph("Start Time: " + myHistoryInfo.myTestStartTime);
@@ -355,11 +344,10 @@ namespace MNsure_Regression_1
                 excelWorksheet.Cells[4, 2] = myHistoryInfo.myIcnumber;
                 excelWorksheet.Cells[3, 5] = myHistoryInfo.myExecutedBy;
                 excelWorksheet.Cells[3, 7] = mystringExecutionDate;
-                excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:"
-                    + myAccountCreate.myPassword + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName
-                    + ", SSN: " + hhssn + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
-                    + ", App Build: " + myHistoryInfo.myAppBuild + ", Environment: " + myHistoryInfo.myEnvironment
-                    + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
+                excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:" + myAccountCreate.myPassword 
+                    + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName + ", SSN: " + hhssn 
+                    + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType + ", App Build: " + myHistoryInfo.myAppBuild 
+                    + ", Browser: " + myHistoryInfo.myBrowser + ", Environment: " + myHistoryInfo.myEnvironment + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
 
                 int i = 0; //offset for header rows
                 foreach (string s in myHistoryInfo.myRequiredScreenshots)
@@ -567,6 +555,7 @@ namespace MNsure_Regression_1
                         {
                             driver.Manage().Window.Maximize();
                             Screenshot ss = ((ITakesScreenshot)driver).GetScreenshot();
+                            //Bitmap ss = GetEntireScreenshot(driver);
                             myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                             //you can hit the same window multiple times so capture all screenshots
                             if (myHistoryInfo.myRequiredScreenshotFile[i] == null || myHistoryInfo.myTestStepWindow == "Plan") //plan is currently production bug so do not capture 3 images for this
@@ -613,11 +602,11 @@ namespace MNsure_Regression_1
                                     myHistoryInfo.myRequiredStepStatus[i] = myHistoryInfo.myTestStepStatus;
                                     myHistoryInfo.myRequiredScreenshotFile[i] = myHistoryInfo.myScreenShot;
                                     break;
-                                }                               
+                                }
                                 i = i + 1;
                             }
                             break;
-                        }                       
+                        }
                         else if (i == 29)//all required steps are populated, populate failure in first
                         {
                             driver.Manage().Window.Maximize();
@@ -695,7 +684,7 @@ namespace MNsure_Regression_1
             string myWindow;
             int i = 0;
             for (int row = 6; row < worksheet.UsedRange.Rows.Count; ++row)
-            {                
+            {
                 //access each cell
                 myWindow = Convert.ToString(valueArray[row, 8]);
                 if (myWindow != "")
@@ -713,8 +702,104 @@ namespace MNsure_Regression_1
             Marshal.ReleaseComObject(_excelApp);
 
             return 1;
-
         }
+
+        //private IWebDriver _driver = new ChromeDriver(CHROME_DRIVER_PATH);
+        //screenshot.SaveAsFile(saveFileName, ImageFormat.Jpeg);
+
+        public Bitmap GetEntireScreenshot(IWebDriver driver)
+        {
+
+            Bitmap stitchedImage = null;
+            try
+            {
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/MNHIXCitizenWorkspace_setupMotivationResolverPage.do')]"));
+               //var iFrameElement2 = driver.FindElement(By.Id("curamUAIframe"));
+                driver.SwitchTo().Frame(iFrameElement2);
+                int h = iFrameElement2.Size.Height;
+                int w = iFrameElement2.Size.Width;
+
+                var totalWidth = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return document.body.offsetWidth"); //we need the iframe width/height not the web page
+                var totalHeight = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return  document.body.parentNode.scrollHeight");
+                // Get the size of the viewport
+                var viewportWidth = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return document.body.clientWidth"); //documentElement.scrollWidth");
+                var viewportHeight = (int)(long)((IJavaScriptExecutor)driver).ExecuteScript("return window.innerHeight"); //documentElement.scrollWidth");
+               
+                // Split the Screen in multiple Rectangles
+                List<System.Drawing.Rectangle> rectangles = new List<System.Drawing.Rectangle>();
+                // Loop until the Total Height is reached
+                for (int i = 0; i < totalHeight; i += viewportHeight)
+                {
+                    int newHeight = viewportHeight;
+                    // Fix if the Height of the Element is too big
+                    if (i + viewportHeight > totalHeight)
+                    {
+                        newHeight = totalHeight - i;
+                    }
+                    // Loop until the Total Width is reached
+                    for (int ii = 0; ii < totalWidth; ii += viewportWidth)
+                    {
+                        int newWidth = viewportWidth;
+                        // Fix if the Width of the Element is too big
+                        if (ii + viewportWidth > totalWidth)
+                        {
+                            newWidth = totalWidth - ii;
+                        }
+
+                        // Create and add the Rectangle
+                        System.Drawing.Rectangle currRect = new System.Drawing.Rectangle(ii, i, newWidth, newHeight);
+                        rectangles.Add(currRect);
+                    }
+                }
+
+                // Build the Image
+                stitchedImage = new Bitmap(totalWidth, totalHeight);
+                // Get all Screenshots and stitch them together
+                System.Drawing.Rectangle previous = System.Drawing.Rectangle.Empty;
+                foreach (var rectangle in rectangles)
+                {
+                    // Calculate the Scrolling (if needed)
+                    if (previous != System.Drawing.Rectangle.Empty)
+                    {
+                        int xDiff = rectangle.Right - previous.Right;
+                        int yDiff = rectangle.Bottom - previous.Bottom;
+                        // Scroll
+                        //selenium.RunScript(String.Format("window.scrollBy({0}, {1})", xDiff, yDiff));
+                        ((IJavaScriptExecutor)driver).ExecuteScript(String.Format("window.scrollBy({0}, {1})", xDiff, yDiff));
+                        System.Threading.Thread.Sleep(200);
+                    }
+
+                    // Take Screenshot
+                    var screenshot = ((ITakesScreenshot)driver).GetScreenshot();
+
+                    // Build an Image out of the Screenshot
+                    System.Drawing.Image screenshotImage;
+                    using (MemoryStream memStream = new MemoryStream(screenshot.AsByteArray))
+                    {
+                        screenshotImage = System.Drawing.Image.FromStream(memStream);
+                    }
+
+                    // Calculate the Source Rectangle
+                    System.Drawing.Rectangle sourceRectangle = new System.Drawing.Rectangle(viewportWidth - rectangle.Width, viewportHeight - rectangle.Height, rectangle.Width, rectangle.Height);
+
+                    // Copy the Image
+                    using (Graphics g = Graphics.FromImage(stitchedImage))
+                    {
+                        g.DrawImage(screenshotImage, rectangle, sourceRectangle, GraphicsUnit.Pixel);
+                    }
+
+                    // Set the Previous Rectangle
+                    previous = rectangle;
+                }
+            }
+            catch (Exception ex)
+            {
+                // handle
+            }
+            return stitchedImage;
+        }
+
 
     }
 }

@@ -35,6 +35,9 @@
             this.dataGridViewTestRunHistory = new System.Windows.Forms.DataGridView();
             this.tabPageRun = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.dateTimeRun = new System.Windows.Forms.DateTimePicker();
+            this.comboBoxMultiples = new System.Windows.Forms.ComboBox();
+            this.label204 = new System.Windows.Forms.Label();
             this.comboBoxBrowser = new System.Windows.Forms.ComboBox();
             this.label203 = new System.Windows.Forms.Label();
             this.comboBoxEnvironment = new System.Windows.Forms.ComboBox();
@@ -497,6 +500,8 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.buttonStartScheduledRun = new System.Windows.Forms.Button();
+            this.label205 = new System.Windows.Forms.Label();
             this.tabPageHistory.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
@@ -607,6 +612,11 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.label205);
+            this.groupBox8.Controls.Add(this.buttonStartScheduledRun);
+            this.groupBox8.Controls.Add(this.dateTimeRun);
+            this.groupBox8.Controls.Add(this.comboBoxMultiples);
+            this.groupBox8.Controls.Add(this.label204);
             this.groupBox8.Controls.Add(this.comboBoxBrowser);
             this.groupBox8.Controls.Add(this.label203);
             this.groupBox8.Controls.Add(this.comboBoxEnvironment);
@@ -630,25 +640,67 @@
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
             // 
+            // dateTimeRun
+            // 
+            this.dateTimeRun.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimeRun.Location = new System.Drawing.Point(491, 146);
+            this.dateTimeRun.Name = "dateTimeRun";
+            this.dateTimeRun.ShowUpDown = true;
+            this.dateTimeRun.Size = new System.Drawing.Size(75, 20);
+            this.dateTimeRun.TabIndex = 13;
+            this.dateTimeRun.Value = new System.DateTime(2016, 8, 18, 18, 0, 0, 0);
+            this.dateTimeRun.ValueChanged += new System.EventHandler(this.dateTimeRun_ValueChanged);
+            // 
+            // comboBoxMultiples
+            // 
+            this.comboBoxMultiples.FormattingEnabled = true;
+            this.comboBoxMultiples.Items.AddRange(new object[] {
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10",
+            "15",
+            "20"});
+            this.comboBoxMultiples.Location = new System.Drawing.Point(206, 50);
+            this.comboBoxMultiples.Name = "comboBoxMultiples";
+            this.comboBoxMultiples.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxMultiples.TabIndex = 4;
+            this.comboBoxMultiples.SelectedValueChanged += new System.EventHandler(this.comboBoxMultiples_SelectedValueChanged);
+            // 
+            // label204
+            // 
+            this.label204.AutoSize = true;
+            this.label204.Location = new System.Drawing.Point(35, 52);
+            this.label204.Name = "label204";
+            this.label204.Size = new System.Drawing.Size(165, 13);
+            this.label204.TabIndex = 0;
+            this.label204.Text = "Run Each Test This Many Times:";
+            // 
             // comboBoxBrowser
             // 
             this.comboBoxBrowser.FormattingEnabled = true;
             this.comboBoxBrowser.Items.AddRange(new object[] {
             "Chrome",
             "Firefox"});
-            this.comboBoxBrowser.Location = new System.Drawing.Point(486, 135);
+            this.comboBoxBrowser.Location = new System.Drawing.Point(492, 114);
             this.comboBoxBrowser.Name = "comboBoxBrowser";
             this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
-            this.comboBoxBrowser.TabIndex = 27;
+            this.comboBoxBrowser.TabIndex = 11;
             this.comboBoxBrowser.SelectedValueChanged += new System.EventHandler(this.comboBoxBrowser_SelectedValueChanged);
             // 
             // label203
             // 
             this.label203.AutoSize = true;
-            this.label203.Location = new System.Drawing.Point(432, 138);
+            this.label203.Location = new System.Drawing.Point(438, 116);
             this.label203.Name = "label203";
             this.label203.Size = new System.Drawing.Size(48, 13);
-            this.label203.TabIndex = 26;
+            this.label203.TabIndex = 0;
             this.label203.Text = "Browser:";
             // 
             // comboBoxEnvironment
@@ -658,38 +710,38 @@
             "ATST",
             "STST",
             "STST2"});
-            this.comboBoxEnvironment.Location = new System.Drawing.Point(486, 102);
+            this.comboBoxEnvironment.Location = new System.Drawing.Point(492, 82);
             this.comboBoxEnvironment.Name = "comboBoxEnvironment";
             this.comboBoxEnvironment.Size = new System.Drawing.Size(65, 21);
-            this.comboBoxEnvironment.TabIndex = 25;
+            this.comboBoxEnvironment.TabIndex = 10;
             this.comboBoxEnvironment.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             this.comboBoxEnvironment.SelectedValueChanged += new System.EventHandler(this.comboBoxEnvironment_SelectedValueChanged);
             // 
             // label180
             // 
             this.label180.AutoSize = true;
-            this.label180.Location = new System.Drawing.Point(417, 105);
+            this.label180.Location = new System.Drawing.Point(417, 84);
             this.label180.Name = "label180";
             this.label180.Size = new System.Drawing.Size(69, 13);
-            this.label180.TabIndex = 24;
+            this.label180.TabIndex = 0;
             this.label180.Text = "Environment:";
             // 
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(234, 141);
+            this.label139.Location = new System.Drawing.Point(237, 148);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(49, 13);
-            this.label139.TabIndex = 21;
+            this.label139.TabIndex = 0;
             this.label139.Text = "Seconds";
             // 
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(34, 141);
+            this.label138.Location = new System.Drawing.Point(35, 148);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(135, 13);
-            this.label138.TabIndex = 20;
+            this.label138.TabIndex = 0;
             this.label138.Text = "Add Application Wait Time:";
             // 
             // comboBoxAppWait
@@ -698,52 +750,46 @@
             this.comboBoxAppWait.Items.AddRange(new object[] {
             "0",
             "2",
-            "4",
-            "6",
+            "5",
             "8",
             "10",
             "15",
             "20",
             "25",
             "30",
-            "35",
             "40",
-            "45",
             "50",
-            "55",
             "60",
             "90",
-            "120",
-            "150",
-            "180"});
-            this.comboBoxAppWait.Location = new System.Drawing.Point(175, 138);
+            "120"});
+            this.comboBoxAppWait.Location = new System.Drawing.Point(176, 146);
             this.comboBoxAppWait.Name = "comboBoxAppWait";
             this.comboBoxAppWait.Size = new System.Drawing.Size(55, 21);
-            this.comboBoxAppWait.TabIndex = 19;
+            this.comboBoxAppWait.TabIndex = 8;
             this.comboBoxAppWait.SelectedIndexChanged += new System.EventHandler(this.comboBoxAppWait_SelectedIndexChanged);
             this.comboBoxAppWait.SelectedValueChanged += new System.EventHandler(this.comboBoxAppWait_SelectedValueChanged);
             // 
             // textBoxExecutedBy
             // 
-            this.textBoxExecutedBy.Location = new System.Drawing.Point(110, 57);
+            this.textBoxExecutedBy.Location = new System.Drawing.Point(111, 82);
             this.textBoxExecutedBy.Name = "textBoxExecutedBy";
             this.textBoxExecutedBy.Size = new System.Drawing.Size(156, 20);
-            this.textBoxExecutedBy.TabIndex = 18;
+            this.textBoxExecutedBy.TabIndex = 5;
             this.textBoxExecutedBy.TextChanged += new System.EventHandler(this.textBoxExecutedBy_TextChanged);
             // 
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(34, 60);
+            this.label118.Location = new System.Drawing.Point(35, 84);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(70, 13);
-            this.label118.TabIndex = 17;
+            this.label118.TabIndex = 0;
             this.label118.Text = "Executed By:";
             // 
             // checkBoxTimeTravel
             // 
             this.checkBoxTimeTravel.AutoSize = true;
-            this.checkBoxTimeTravel.Location = new System.Drawing.Point(37, 97);
+            this.checkBoxTimeTravel.Location = new System.Drawing.Point(41, 116);
             this.checkBoxTimeTravel.Name = "checkBoxTimeTravel";
             this.checkBoxTimeTravel.Size = new System.Drawing.Size(104, 17);
             this.checkBoxTimeTravel.TabIndex = 6;
@@ -753,7 +799,7 @@
             // 
             // dateTimePickerTimeTravel
             // 
-            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(209, 97);
+            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(217, 114);
             this.dateTimePickerTimeTravel.Name = "dateTimePickerTimeTravel";
             this.dateTimePickerTimeTravel.Size = new System.Drawing.Size(97, 20);
             this.dateTimePickerTimeTravel.TabIndex = 7;
@@ -762,50 +808,50 @@
             // label104
             // 
             this.label104.AutoSize = true;
-            this.label104.Location = new System.Drawing.Point(401, 65);
+            this.label104.Location = new System.Drawing.Point(401, 52);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(85, 13);
-            this.label104.TabIndex = 16;
+            this.label104.TabIndex = 0;
             this.label104.Text = "MNSure Build #:";
             // 
             // textBoxMNSureBuild
             // 
-            this.textBoxMNSureBuild.Location = new System.Drawing.Point(486, 62);
+            this.textBoxMNSureBuild.Location = new System.Drawing.Point(492, 50);
             this.textBoxMNSureBuild.Name = "textBoxMNSureBuild";
             this.textBoxMNSureBuild.Size = new System.Drawing.Size(65, 20);
-            this.textBoxMNSureBuild.TabIndex = 8;
+            this.textBoxMNSureBuild.TabIndex = 9;
             this.textBoxMNSureBuild.TextChanged += new System.EventHandler(this.textBoxMNSureBuild_TextChanged);
             // 
             // labelAppBuild
             // 
             this.labelAppBuild.AutoSize = true;
-            this.labelAppBuild.Location = new System.Drawing.Point(388, 27);
+            this.labelAppBuild.Location = new System.Drawing.Point(388, 20);
             this.labelAppBuild.Name = "labelAppBuild";
             this.labelAppBuild.Size = new System.Drawing.Size(98, 13);
-            this.labelAppBuild.TabIndex = 13;
+            this.labelAppBuild.TabIndex = 0;
             this.labelAppBuild.Text = "Application Build #:";
             // 
             // labelTimeTravel
             // 
             this.labelTimeTravel.AutoSize = true;
-            this.labelTimeTravel.Location = new System.Drawing.Point(153, 97);
+            this.labelTimeTravel.Location = new System.Drawing.Point(161, 116);
             this.labelTimeTravel.Name = "labelTimeTravel";
             this.labelTimeTravel.Size = new System.Drawing.Size(50, 13);
-            this.labelTimeTravel.TabIndex = 6;
+            this.labelTimeTravel.TabIndex = 0;
             this.labelTimeTravel.Text = "TT Date:";
             // 
             // label105
             // 
             this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(34, 22);
+            this.label105.Location = new System.Drawing.Point(35, 20);
             this.label105.Name = "label105";
             this.label105.Size = new System.Drawing.Size(110, 13);
-            this.label105.TabIndex = 3;
+            this.label105.TabIndex = 0;
             this.label105.Text = "Configure Application:";
             // 
             // buttonConfigureApplication
             // 
-            this.buttonConfigureApplication.Location = new System.Drawing.Point(155, 17);
+            this.buttonConfigureApplication.Location = new System.Drawing.Point(151, 15);
             this.buttonConfigureApplication.Name = "buttonConfigureApplication";
             this.buttonConfigureApplication.Size = new System.Drawing.Size(75, 23);
             this.buttonConfigureApplication.TabIndex = 3;
@@ -5787,12 +5833,31 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // buttonStartScheduledRun
+            // 
+            this.buttonStartScheduledRun.Location = new System.Drawing.Point(404, 171);
+            this.buttonStartScheduledRun.Name = "buttonStartScheduledRun";
+            this.buttonStartScheduledRun.Size = new System.Drawing.Size(135, 23);
+            this.buttonStartScheduledRun.TabIndex = 15;
+            this.buttonStartScheduledRun.Text = "Start Scheduled Run";
+            this.buttonStartScheduledRun.UseVisualStyleBackColor = true;
+            this.buttonStartScheduledRun.Click += new System.EventHandler(this.buttonStartScheduledRun_Click);
+            // 
+            // label205
+            // 
+            this.label205.AutoSize = true;
+            this.label205.Location = new System.Drawing.Point(394, 148);
+            this.label205.Name = "label205";
+            this.label205.Size = new System.Drawing.Size(91, 13);
+            this.label205.TabIndex = 16;
+            this.label205.Text = "Schedule Run At:";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1354, 671);
+            this.ClientSize = new System.Drawing.Size(1371, 688);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FormMain";
             this.Text = "MNsure Regression Automation1";
@@ -6323,6 +6388,11 @@
         private System.Windows.Forms.Label label202;
         private System.Windows.Forms.ComboBox comboBoxBrowser;
         private System.Windows.Forms.Label label203;
+        private System.Windows.Forms.ComboBox comboBoxMultiples;
+        private System.Windows.Forms.Label label204;
+        private System.Windows.Forms.DateTimePicker dateTimeRun;
+        private System.Windows.Forms.Button buttonStartScheduledRun;
+        private System.Windows.Forms.Label label205;
 
     }
 }

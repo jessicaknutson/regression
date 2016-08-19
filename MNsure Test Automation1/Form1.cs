@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using System.IO;
 using OpenQA.Selenium;
@@ -48,10 +49,10 @@ namespace MNsure_Regression_1
         private void buttonGo_Click(object sender, EventArgs e)
         {
 
-            myHistoryInfo.myRequiredScreenshots = new string[30];
-            myHistoryInfo.myRequiredStep = new int[30];
-            myHistoryInfo.myRequiredStepStatus = new string[30];
-            myHistoryInfo.myRequiredScreenshotFile = new string[30];
+            myHistoryInfo.myRequiredScreenshots = new string[50];
+            myHistoryInfo.myRequiredStep = new int[50];
+            myHistoryInfo.myRequiredStepStatus = new string[50];
+            myHistoryInfo.myRequiredScreenshotFile = new string[50];
             myHistoryInfo.myIcnumber = null;
             myApplication.myDay2TestId = null;
             myHistoryInfo.myTestStartTime = DateTime.Now;
@@ -73,7 +74,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";
 
             int iloop = 1;
-
+            
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             object reflectResult = null;
@@ -89,717 +90,710 @@ namespace MNsure_Regression_1
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
             {
-                myHistoryInfo.myTestStepStatus = "none";
-                mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
-                mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
-                myHistoryInfo.myTestId = mysTestId;
-
-                con = new SqlCeConnection(conString);
-                con.Open();
-                using (SqlCeCommand com = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
+                int iloop2 = 1;
+                for (iloop2 = 1; iloop2 <= myHistoryInfo.myMultiples; iloop2++)//loops through the multiples count
                 {
-                    SqlCeDataReader reader2 = com.ExecuteReader();
-                    if (reader2.Read())
-                    {
-                        myHistoryInfo.myTemplate = reader2.GetString(0);
-                    }
-                }
-                con.Close();
 
-                FirefoxDriver driver = null;
-                FirefoxDriver driver2 = null;
-                FirefoxDriver driver3 = null;
-                FirefoxDriver driver4 = null;
-                FirefoxDriver driver5 = null;
-                IWebDriver driver6 = null;
-                IWebDriver driver7 = null;
-                IWebDriver driver8 = null;
-                IWebDriver driver9 = null;
-                IWebDriver driver10 = null;
-
-                //must clear cache first
-                if (myHistoryInfo.myBrowser == "Firefox")
-                {
-                    //main driver for citizen portal
-                    driver = new FirefoxDriver();
-                    driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-                }
-                else
-                {
-                    ChromeOptions options = new ChromeOptions();
-                    options.AddArguments("-incognito");
-
-                    driver6 = new ChromeDriver("C:\\MNsure Regression 1", options);//chrome version must be 51
-                    driver6.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
-                }
-
-                result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
-                result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
-
-                try
-                {
-                    //Fill structures for Test
-                    InitializeSSN myInitializeSSN = new InitializeSSN();
-                    result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
-                    int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
-                    myAccountCreate.mySSN = Convert.ToString(temp1);
-                    /*if (myHistoryInfo.myEnvironment == "STST2")
-                    {
-                        myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "444");
-                    }
-                    if (myHistoryInfo.myEnvironment == "STST")
-                    {
-                        string beginning = myAccountCreate.mySSN.Substring(0, 3);
-                        if (beginning == "444")
-                        {
-                            myAccountCreate.mySSN = myAccountCreate.mySSN.Remove(0, 3).Insert(0, "144");
-                        }
-                    }*/
-
-                    FillStructures myFillStructures = new FillStructures();
-                    result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
-
-                    HouseholdMembersDo myHousehold = new HouseholdMembersDo();
-                    int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                    AccountGeneration myAccountGeneration = new AccountGeneration();
-                    if (householdCount > 1)
-                    {
-                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myHistoryInfo);
-                    }
-                    if (householdCount == 3)
-                    {
-                        result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
-                    }
-                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-
-                    if (myAssister.myFirstName != null)//must create a second account for assister
-                    {
-                        result = myFillStructures.doCreateAssisterAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
-                    }
-
-                    result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
-
-                    if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
-                    {
-                        int temp2 = temp1 + 1;
-                        myHouseholdMembers.mySSN = Convert.ToString(temp2);
-                        myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
-
-                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
-                    }
-                    else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
-                    {
-                        int temp3 = temp1 + 2;
-                        myLastSSN.myLastSSN = Convert.ToString(temp3);
-                    }
-                    else if (myAssister.myFirstName != null) //for assister
-                    {
-                        int temp2 = temp1 + 1;
-                        myAssister.mySSN = Convert.ToString(temp2);
-                        myLastSSN.myLastSSN = myAssister.mySSN;
-
-                        result = myFillStructures.doUpdateAssisterSSN(ref myHistoryInfo, myAssister.mySSN);
-                    }
-                    else
-                    {
-                        myLastSSN.myLastSSN = myAccountCreate.mySSN;
-                    }
-
-                    InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                    result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
-
-                    string hhssn = myAccountCreate.mySSN;
-                    if (myHistoryInfo.myEnvironment == "STST2")
-                    {
-                        hhssn = hhssn.Remove(0, 3).Insert(0, "444");
-                    }
-                    if (myHistoryInfo.myEnvironment == "STST")
-                    {
-                        string beginning = hhssn.Substring(0, 3);
-                        if (beginning == "444")
-                        {
-                            hhssn = hhssn.Remove(0, 3).Insert(0, "144");
-                        }
-                    }
-                    result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
-                    result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
-
-                    if (myApplication.myHouseholdOther == "Yes" && householdCount < 4) //for 2 household
-                    {
-                        int temp = Convert.ToInt32(myAccountCreate.mySSN) + 1;
-                        if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
-                        }
-                        else if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = Convert.ToString(temp).Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
-                            }
-                        }
-                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
-                    }
-                    if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3 household
-                    {
-                        int temp2 = Convert.ToInt32(myAccountCreate.mySSN) + 2;
-                        if (myHistoryInfo.myEnvironment == "STST2")
-                        {
-                            temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "444"));
-                        }
-                        else if (myHistoryInfo.myEnvironment == "STST")
-                        {
-                            string beginning = Convert.ToString(temp2).Substring(0, 3);
-                            if (beginning == "444")
-                            {
-                                temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "144"));
-                            }
-                        }
-                        result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
-                    }
-
+                    myHistoryInfo.myTestStepStatus = "none";
+                    mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
+                    mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
+                    myHistoryInfo.myTestId = mysTestId;
 
                     con = new SqlCeConnection(conString);
                     con.Open();
-                    string myClass;
-                    string myMethod;
-                    int myiTestStepId;
-                    myiTestStepId = 1;
-                    string myWindow;
-
-                    using (SqlCeCommand com2 = new SqlCeCommand("SELECT TestStepId, Class, Method, Window FROM TestSteps where TestId = " + mysTestId, con))
+                    using (SqlCeCommand com = new SqlCeCommand("SELECT TemplateName FROM TestTemplates where TestId = " + mySelectedTest.myTestId, con))
                     {
-                        myiTestStepId = myiTestStepId + 1;
-                        SqlCeDataReader reader = com2.ExecuteReader();
-                        while (reader.Read() && myHistoryInfo.myTestStepStatus != "Fail")
+                        SqlCeDataReader reader2 = com.ExecuteReader();
+                        if (reader2.Read())
                         {
-                            myiTestStepId = reader.GetInt32(0);
-                            myClass = reader.GetString(1);
-                            myMethod = reader.GetString(2);
-                            myWindow = reader.GetString(3);
-                            myHistoryInfo.myTestStepId = Convert.ToString(myiTestStepId);
-                            myHistoryInfo.myTestStepClass = myClass;
-                            myHistoryInfo.myTestStepMethod = myMethod;
-                            myHistoryInfo.myTestStepWindow = myWindow;
-                            myHistoryInfo.myScreenShot = "";
-                            string returnStatus = "";
-                            string returnException = "";
-                            string returnScreenshot = "";
-                            string returnICNumber = "";
-                            string relogin = "";
-                            string resume = "";
-                            string assisterNavigator = "";
+                            myHistoryInfo.myTemplate = reader2.GetString(0);
+                        }
+                    }
+                    con.Close();
 
-                            switch (myClass)
+                    FirefoxDriver driver = null;
+                    FirefoxDriver driver2 = null;
+                    FirefoxDriver driver3 = null;
+                    FirefoxDriver driver4 = null;
+                    FirefoxDriver driver5 = null;
+                    IWebDriver driver6 = null;
+                    IWebDriver driver7 = null;
+                    IWebDriver driver8 = null;
+                    IWebDriver driver9 = null;
+                    IWebDriver driver10 = null;
+
+                    //must clear cache first
+                    if (myHistoryInfo.myBrowser == "Firefox")
+                    {
+                        //main driver for citizen portal
+                        driver = new FirefoxDriver();
+                        driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                    }
+                    else
+                    {
+                        ChromeOptions options = new ChromeOptions();
+                        options.AddArguments("-incognito");
+
+                        driver6 = new ChromeDriver("C:\\MNsure Regression 1", options);//chrome version must be 51
+                        driver6.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                    }
+
+                    result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
+                    result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
+
+                    try
+                    {
+                        //Fill structures for Test
+                        InitializeSSN myInitializeSSN = new InitializeSSN();
+                        result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
+                        int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
+                        myAccountCreate.mySSN = Convert.ToString(temp1);
+
+                        FillStructures myFillStructures = new FillStructures();
+                        result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+
+                        HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                        int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                        AccountGeneration myAccountGeneration = new AccountGeneration();
+                        if (householdCount > 1)
+                        {
+                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myHistoryInfo);
+                        }
+                        if (householdCount == 3)
+                        {
+                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
+                        }
+                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+
+                        if (myAssister.myFirstName != null)//must create a second account for assister
+                        {
+                            result = myFillStructures.doCreateAssisterAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                        }
+
+                        result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
+
+                        if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
+                        {
+                            int temp2 = temp1 + 1;
+                            myHouseholdMembers.mySSN = Convert.ToString(temp2);
+                            myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
+
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
+                        }
+                        else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
+                        {
+                            int temp3 = temp1 + 2;
+                            myLastSSN.myLastSSN = Convert.ToString(temp3);
+                        }
+                        else if (myAssister.myFirstName != null) //for assister
+                        {
+                            int temp2 = temp1 + 1;
+                            myAssister.mySSN = Convert.ToString(temp2);
+                            myLastSSN.myLastSSN = myAssister.mySSN;
+
+                            result = myFillStructures.doUpdateAssisterSSN(ref myHistoryInfo, myAssister.mySSN);
+                        }
+                        else
+                        {
+                            myLastSSN.myLastSSN = myAccountCreate.mySSN;
+                        }
+
+                        InitializeSSN myInitializeSSN2 = new InitializeSSN();
+                        result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
+
+                        string hhssn = myAccountCreate.mySSN;
+                        if (myHistoryInfo.myEnvironment == "STST2")
+                        {
+                            hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                        }
+                        if (myHistoryInfo.myEnvironment == "STST")
+                        {
+                            string beginning = hhssn.Substring(0, 3);
+                            if (beginning == "444")
                             {
-                                case "OpenSiteURL":
+                                hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                            }
+                        }
+                        result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
+                        result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
 
-                                    if (myMethod == "DoCaseWorkerURLOpen" || myMethod == "DoCaseWorkerURLOpenTimeTravel")
-                                    {
-                                        if (myHistoryInfo.myBrowser == "Firefox")
+                        if (myApplication.myHouseholdOther == "Yes" && householdCount < 4) //for 2 household
+                        {
+                            int temp = Convert.ToInt32(myAccountCreate.mySSN) + 1;
+                            if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
+                        }
+                        if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3 household
+                        {
+                            int temp2 = Convert.ToInt32(myAccountCreate.mySSN) + 2;
+                            if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "444"));
+                            }
+                            else if (myHistoryInfo.myEnvironment == "STST")
+                            {
+                                string beginning = Convert.ToString(temp2).Substring(0, 3);
+                                if (beginning == "444")
+                                {
+                                    temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "144"));
+                                }
+                            }
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
+                        }
+
+
+                        con = new SqlCeConnection(conString);
+                        con.Open();
+                        string myClass;
+                        string myMethod;
+                        int myiTestStepId;
+                        myiTestStepId = 1;
+                        string myWindow;
+
+                        using (SqlCeCommand com2 = new SqlCeCommand("SELECT TestStepId, Class, Method, Window FROM TestSteps where TestId = " + mysTestId, con))
+                        {
+                            myiTestStepId = myiTestStepId + 1;
+                            SqlCeDataReader reader = com2.ExecuteReader();
+                            while (reader.Read() && myHistoryInfo.myTestStepStatus != "Fail")
+                            {
+                                myiTestStepId = reader.GetInt32(0);
+                                myClass = reader.GetString(1);
+                                myMethod = reader.GetString(2);
+                                myWindow = reader.GetString(3);
+                                myHistoryInfo.myTestStepId = Convert.ToString(myiTestStepId);
+                                myHistoryInfo.myTestStepClass = myClass;
+                                myHistoryInfo.myTestStepMethod = myMethod;
+                                myHistoryInfo.myTestStepWindow = myWindow;
+                                myHistoryInfo.myScreenShot = "";
+                                string returnStatus = "";
+                                string returnException = "";
+                                string returnScreenshot = "";
+                                string returnICNumber = "";
+                                string relogin = "";
+                                string resume = "";
+                                string assisterNavigator = "";
+
+                                switch (myClass)
+                                {
+                                    case "OpenSiteURL":
+
+                                        if (myMethod == "DoCaseWorkerURLOpen" || myMethod == "DoCaseWorkerURLOpenTimeTravel")
                                         {
-                                            //driver.Dispose();
+                                            if (myHistoryInfo.myBrowser == "Firefox")
+                                            {
+                                                //driver.Dispose();
 
-                                            FirefoxProfile profile2 = new FirefoxProfile();
+                                                FirefoxProfile profile2 = new FirefoxProfile();
 
-                                            profile2.SetPreference("browser.cache.disk.enable", false);
-                                            profile2.SetPreference("browser.cache.memory.enable", false);
-                                            profile2.SetPreference("browser.cache.offline.enable", false);
-                                            profile2.SetPreference("network.http.use-cache", false);
+                                                profile2.SetPreference("browser.cache.disk.enable", false);
+                                                profile2.SetPreference("browser.cache.memory.enable", false);
+                                                profile2.SetPreference("browser.cache.offline.enable", false);
+                                                profile2.SetPreference("network.http.use-cache", false);
 
-                                            //create separate driver for case worker
-                                            driver2 = new FirefoxDriver(profile2);
-                                            driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                                //create separate driver for case worker
+                                                driver2 = new FirefoxDriver(profile2);
+                                                driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
+                                            else
+                                            {
+                                                if (driver6 != null)
+                                                {
+                                                    driver6.Quit();
+                                                }
+                                                else
+                                                {
+                                                    driver8.Quit();
+                                                }
+
+                                                ChromeOptions options = new ChromeOptions();
+                                                options.AddArguments("-incognito");
+
+                                                //create separate driver for case worker
+                                                driver7 = new ChromeDriver("C:\\MNsure Regression 1", options);
+                                                driver7.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
                                         }
-                                        else
+
+                                        else if (myMethod == "DoOpenMNsureRelogin" || myMethod == "DoOpenMNsureReloginTimeTravel" || myMethod == "DoAssisterURLOpen" || myMethod == "DoAssisterTimeTravel")
                                         {
-                                            if (driver6 != null)
+                                            if (myHistoryInfo.myBrowser == "Firefox")
+                                            {
+                                                //must clear cache first
+                                                FirefoxProfile profile3 = new FirefoxProfile();
+                                                profile3.SetPreference("browser.cache.disk.enable", false);
+                                                profile3.SetPreference("browser.cache.memory.enable", false);
+                                                profile3.SetPreference("browser.cache.offline.enable", false);
+                                                profile3.SetPreference("network.http.use-cache", false);
+
+                                                //create separate driver for logout and relogin to citizen portal, also assister manager
+                                                driver3 = new FirefoxDriver(profile3);
+                                                driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
+                                            else
                                             {
                                                 driver6.Quit();
+                                                driver8 = new ChromeDriver("C:\\MNsure Regression 1");
+                                                driver8.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
+                                        }
+                                        else if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
+                                        {
+                                            //driver3.Dispose();
+                                            if (myHistoryInfo.myBrowser == "Firefox")
+                                            {
+                                                //must clear cache first
+                                                FirefoxProfile profile4 = new FirefoxProfile();
+                                                profile4.SetPreference("browser.cache.disk.enable", false);
+                                                profile4.SetPreference("browser.cache.memory.enable", false);
+                                                profile4.SetPreference("browser.cache.offline.enable", false);
+                                                profile4.SetPreference("network.http.use-cache", false);
+
+                                                //create separate driver for logout and relogin to citizen portal, also assister manager
+                                                driver4 = new FirefoxDriver(profile4);
+                                                driver4.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                             }
                                             else
                                             {
                                                 driver8.Quit();
+                                                driver9 = new ChromeDriver("C:\\MNsure Regression 1");
+                                                driver9.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
+                                        }
+                                        else if (myMethod == "DoNavigatorURLOpen" || myMethod == "DoNavigatorTimeTravel")
+                                        {
+                                            //driver4.Dispose();
+                                            if (myHistoryInfo.myBrowser == "Firefox")
+                                            {
+                                                //must clear cache first
+                                                FirefoxProfile profile5 = new FirefoxProfile();
+                                                profile5.SetPreference("browser.cache.disk.enable", false);
+                                                profile5.SetPreference("browser.cache.memory.enable", false);
+                                                profile5.SetPreference("browser.cache.offline.enable", false);
+                                                profile5.SetPreference("network.http.use-cache", false);
+
+                                                //create separate driver for logout and relogin to citizen portal, also assister manager
+                                                driver5 = new FirefoxDriver(profile5);
+                                                driver5.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            }
+                                            else
+                                            {
+                                                driver9.Quit();
+                                                driver10 = new ChromeDriver("C:\\MNsure Regression 1");
+                                                driver10.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                             }
 
-                                            ChromeOptions options = new ChromeOptions();
-                                            options.AddArguments("-incognito");
-
-                                            //create separate driver for case worker
-                                            driver7 = new ChromeDriver("C:\\MNsure Regression 1", options);
-                                            driver7.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
                                         }
-                                    }
 
-                                    else if (myMethod == "DoOpenMNsureRelogin" || myMethod == "DoOpenMNsureReloginTimeTravel" || myMethod == "DoAssisterURLOpen" || myMethod == "DoAssisterTimeTravel")
-                                    {
+                                        object[] parms = new object[11];
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
-                                            //must clear cache first
-                                            FirefoxProfile profile3 = new FirefoxProfile();
-                                            profile3.SetPreference("browser.cache.disk.enable", false);
-                                            profile3.SetPreference("browser.cache.memory.enable", false);
-                                            profile3.SetPreference("browser.cache.offline.enable", false);
-                                            profile3.SetPreference("network.http.use-cache", false);
-
-                                            //create separate driver for logout and relogin to citizen portal, also assister manager
-                                            driver3 = new FirefoxDriver(profile3);
-                                            driver3.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parms[0] = driver;
+                                            parms[1] = driver2;
+                                            parms[2] = driver3;
+                                            parms[3] = driver4;
+                                            parms[4] = driver5;
                                         }
                                         else
                                         {
-                                            driver6.Quit();
-                                            driver8 = new ChromeDriver("C:\\MNsure Regression 1");
-                                            driver8.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parms[0] = driver6;
+                                            parms[1] = driver7;
+                                            parms[2] = driver8;
+                                            parms[3] = driver9;
+                                            parms[4] = driver10;
                                         }
-                                    }
-                                    else if (myMethod == "DoAssisterReloginURLOpen" || myMethod == "DoAssisterReloginTimeTravel")
-                                    {
-                                        //driver3.Dispose();
+                                        parms[5] = myHistoryInfo;
+                                        parms[6] = returnStatus;
+                                        parms[7] = returnException;
+                                        parms[8] = returnScreenshot;
+                                        parms[9] = relogin;
+                                        parms[10] = assisterNavigator;
+
+                                        OpenSiteURL newOpenSiteURL = new OpenSiteURL();
+                                        Type reflectTestType = typeof(OpenSiteURL);
+                                        MethodInfo reflectMethodToInvoke = reflectTestType.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParameters = reflectMethodToInvoke.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResult = reflectMethodToInvoke.Invoke(new OpenSiteURL(), parms);
+                                        myHistoryInfo.myTestStepStatus = parms[6].ToString();
+                                        myHistoryInfo.myStepException = parms[7].ToString();
+                                        myHistoryInfo.myScreenShot = parms[8].ToString();
+                                        myHistoryInfo.myRelogin = parms[9].ToString();
+                                        myHistoryInfo.myAssisterNavigator = parms[10].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        break;
+
+                                    case "AccountCreation":
+                                        object[] parmsac = new object[10];
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
-                                            //must clear cache first
-                                            FirefoxProfile profile4 = new FirefoxProfile();
-                                            profile4.SetPreference("browser.cache.disk.enable", false);
-                                            profile4.SetPreference("browser.cache.memory.enable", false);
-                                            profile4.SetPreference("browser.cache.offline.enable", false);
-                                            profile4.SetPreference("network.http.use-cache", false);
-
-                                            //create separate driver for logout and relogin to citizen portal, also assister manager
-                                            driver4 = new FirefoxDriver(profile4);
-                                            driver4.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parmsac[0] = driver;
+                                            parmsac[1] = driver3;
+                                            parmsac[2] = driver5;
                                         }
                                         else
                                         {
-                                            driver8.Quit();
-                                            driver9 = new ChromeDriver("C:\\MNsure Regression 1");
-                                            driver9.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parmsac[0] = driver6;
+                                            parmsac[1] = driver8;
+                                            parmsac[2] = driver10;
                                         }
-                                    }
-                                    else if (myMethod == "DoNavigatorURLOpen" || myMethod == "DoNavigatorTimeTravel")
-                                    {
-                                        //driver4.Dispose();
+                                        parmsac[3] = myAccountCreate;
+                                        parmsac[4] = myApplication;
+                                        parmsac[5] = myHistoryInfo;
+                                        parmsac[6] = returnStatus;
+                                        parmsac[7] = returnException;
+                                        parmsac[8] = returnScreenshot;
+                                        parmsac[9] = resume;
+
+                                        AccountCreation newAccount = new AccountCreation();
+                                        Type reflectTestTypeac = typeof(AccountCreation);
+                                        MethodInfo reflectMethodToInvokeac = reflectTestTypeac.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametersac = reflectMethodToInvokeac.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultac = reflectMethodToInvokeac.Invoke(newAccount, parmsac);
+                                        myHistoryInfo.myTestStepStatus = parmsac[6].ToString();
+                                        myHistoryInfo.myStepException = parmsac[7].ToString();
+                                        myHistoryInfo.myScreenShot = parmsac[8].ToString();
+                                        myHistoryInfo.myResume = parmsac[9].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        if (myAssister.myFirstName != null) //for assister only
+                                        {
+                                            myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
+                                        }
+                                        //must fill structures again after updating ssn
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+
+                                        break;
+
+                                    case "ApplicationDo":
+
+                                        object[] parmsad = new object[9];
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
-                                            //must clear cache first
-                                            FirefoxProfile profile5 = new FirefoxProfile();
-                                            profile5.SetPreference("browser.cache.disk.enable", false);
-                                            profile5.SetPreference("browser.cache.memory.enable", false);
-                                            profile5.SetPreference("browser.cache.offline.enable", false);
-                                            profile5.SetPreference("network.http.use-cache", false);
-
-                                            //create separate driver for logout and relogin to citizen portal, also assister manager
-                                            driver5 = new FirefoxDriver(profile5);
-                                            driver5.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parmsad[0] = driver;
+                                            parmsad[1] = driver5;
                                         }
                                         else
                                         {
-                                            driver9.Quit();
-                                            driver10 = new ChromeDriver("C:\\MNsure Regression 1");
-                                            driver10.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                                            parmsad[0] = driver6;
+                                            parmsad[1] = driver10;
                                         }
+                                        parmsad[2] = myAccountCreate;
+                                        parmsad[3] = myApplication;
+                                        parmsad[4] = myHouseholdMembers;
+                                        parmsad[5] = myHistoryInfo;
+                                        parmsad[6] = returnStatus;
+                                        parmsad[7] = returnException;
+                                        parmsad[8] = returnScreenshot;
 
-                                        myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
-                                    }
+                                        ApplicationDo myApplicationDo = new ApplicationDo();
+                                        Type reflectTestTypead = typeof(ApplicationDo);
+                                        MethodInfo reflectMethodToInvokead = reflectTestTypead.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametersad = reflectMethodToInvokead.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultad = reflectMethodToInvokead.Invoke(myApplicationDo, parmsad);
+                                        myHistoryInfo.myTestStepStatus = parmsad[6].ToString();
+                                        myHistoryInfo.myStepException = parmsad[7].ToString();
+                                        myHistoryInfo.myScreenShot = parmsad[8].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                    object[] parms = new object[11];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parms[0] = driver;
-                                        parms[1] = driver2;
-                                        parms[2] = driver3;
-                                        parms[3] = driver4;
-                                        parms[4] = driver5;
-                                    }
-                                    else
-                                    {
-                                        parms[0] = driver6;
-                                        parms[1] = driver7;
-                                        parms[2] = driver8;
-                                        parms[3] = driver9;
-                                        parms[4] = driver10;
-                                    }
-                                    parms[5] = myHistoryInfo;
-                                    parms[6] = returnStatus;
-                                    parms[7] = returnException;
-                                    parms[8] = returnScreenshot;
-                                    parms[9] = relogin;
-                                    parms[10] = assisterNavigator;
+                                    case "CWApplicationDo":
+                                        object[] parmscwad = new object[8];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmscwad[0] = driver2;
+                                        }
+                                        else
+                                        {
+                                            parmscwad[0] = driver7;
+                                        }
+                                        parmscwad[1] = myAccountCreate;
+                                        parmscwad[2] = myApplication;
+                                        parmscwad[3] = myHouseholdMembers;
+                                        parmscwad[4] = myHistoryInfo;
+                                        parmscwad[5] = returnStatus;
+                                        parmscwad[6] = returnException;
+                                        parmscwad[7] = returnScreenshot;
 
-                                    OpenSiteURL newOpenSiteURL = new OpenSiteURL();
-                                    Type reflectTestType = typeof(OpenSiteURL);
-                                    MethodInfo reflectMethodToInvoke = reflectTestType.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParameters = reflectMethodToInvoke.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResult = reflectMethodToInvoke.Invoke(new OpenSiteURL(), parms);
-                                    myHistoryInfo.myTestStepStatus = parms[6].ToString();
-                                    myHistoryInfo.myStepException = parms[7].ToString();
-                                    myHistoryInfo.myScreenShot = parms[8].ToString();
-                                    myHistoryInfo.myRelogin = parms[9].ToString();
-                                    myHistoryInfo.myAssisterNavigator = parms[10].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    break;
+                                        CWApplicationDo myCWApplicationDo = new CWApplicationDo();
+                                        Type reflectTestTypecwad = typeof(CWApplicationDo);
+                                        MethodInfo reflectMethodToInvokecwad = reflectTestTypecwad.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParameterscwad = reflectMethodToInvokecwad.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultcwad = reflectMethodToInvokecwad.Invoke(myCWApplicationDo, parmscwad);
+                                        myHistoryInfo.myTestStepStatus = parmscwad[5].ToString();
+                                        myHistoryInfo.myStepException = parmscwad[6].ToString();
+                                        myHistoryInfo.myScreenShot = parmscwad[7].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                case "AccountCreation":
-                                    object[] parmsac = new object[10];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmsac[0] = driver;
-                                        parmsac[1] = driver3;
-                                        parmsac[2] = driver5;
-                                    }
-                                    else
-                                    {
-                                        parmsac[0] = driver6;
-                                        parmsac[1] = driver8;
-                                        parmsac[2] = driver10;
-                                    }
-                                    parmsac[3] = myAccountCreate;
-                                    parmsac[4] = myApplication;
-                                    parmsac[5] = myHistoryInfo;
-                                    parmsac[6] = returnStatus;
-                                    parmsac[7] = returnException;
-                                    parmsac[8] = returnScreenshot;
-                                    parmsac[9] = resume;
+                                    case "WizardApplicationDo":
+                                        object[] parmswad = new object[8];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmswad[0] = driver2;
+                                        }
+                                        else
+                                        {
+                                            parmswad[0] = driver7;
+                                        }
+                                        parmswad[1] = myAccountCreate;
+                                        parmswad[2] = myApplication;
+                                        parmswad[3] = myHouseholdMembers;
+                                        parmswad[4] = myHistoryInfo;
+                                        parmswad[5] = returnStatus;
+                                        parmswad[6] = returnException;
+                                        parmswad[7] = returnScreenshot;
 
-                                    AccountCreation newAccount = new AccountCreation();
-                                    Type reflectTestTypeac = typeof(AccountCreation);
-                                    MethodInfo reflectMethodToInvokeac = reflectTestTypeac.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametersac = reflectMethodToInvokeac.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultac = reflectMethodToInvokeac.Invoke(newAccount, parmsac);
-                                    myHistoryInfo.myTestStepStatus = parmsac[6].ToString();
-                                    myHistoryInfo.myStepException = parmsac[7].ToString();
-                                    myHistoryInfo.myScreenShot = parmsac[8].ToString();
-                                    myHistoryInfo.myResume = parmsac[9].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    if (myAssister.myFirstName != null) //for assister only
-                                    {
-                                        myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "1");
-                                    }
-                                    //must fill structures again after updating ssn
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        WizardApplicationDo myWizardApplicationDo = new WizardApplicationDo();
+                                        Type reflectTestTypewad = typeof(WizardApplicationDo);
+                                        MethodInfo reflectMethodToInvokewad = reflectTestTypewad.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParameterswad = reflectMethodToInvokewad.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultwad = reflectMethodToInvokewad.Invoke(myWizardApplicationDo, parmswad);
+                                        myHistoryInfo.myTestStepStatus = parmswad[5].ToString();
+                                        myHistoryInfo.myStepException = parmswad[6].ToString();
+                                        myHistoryInfo.myScreenShot = parmswad[7].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                    break;
+                                    case "HouseholdMembersDo":
+                                        object[] parmshm = new object[9];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmshm[0] = driver;
+                                            parmshm[1] = driver2;
+                                        }
+                                        else
+                                        {
+                                            parmshm[0] = driver6;
+                                            parmshm[1] = driver7;
+                                        }
+                                        parmshm[2] = myAccountCreate;
+                                        parmshm[3] = myApplication;
+                                        parmshm[4] = myHouseholdMembers;
+                                        parmshm[5] = myHistoryInfo;
+                                        parmshm[6] = returnStatus;
+                                        parmshm[7] = returnException;
+                                        parmshm[8] = returnScreenshot;
 
-                                case "ApplicationDo":
+                                        HouseholdMembersDo myHouseholdMembersDo = new HouseholdMembersDo();
+                                        Type reflectTestTypehm = typeof(HouseholdMembersDo);
+                                        MethodInfo reflectMethodToInvokehm = reflectTestTypehm.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametershm = reflectMethodToInvokehm.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResulthm = reflectMethodToInvokehm.Invoke(myHouseholdMembersDo, parmshm);
+                                        myHistoryInfo.myTestStepStatus = parmshm[6].ToString();
+                                        myHistoryInfo.myStepException = parmshm[7].ToString();
+                                        myHistoryInfo.myScreenShot = parmshm[8].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                    object[] parmsad = new object[9];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmsad[0] = driver;
-                                        parmsad[1] = driver5;
-                                    }
-                                    else
-                                    {
-                                        parmsad[0] = driver6;
-                                        parmsad[1] = driver10;
-                                    }
-                                    parmsad[2] = myAccountCreate;
-                                    parmsad[3] = myApplication;
-                                    parmsad[4] = myHouseholdMembers;
-                                    parmsad[5] = myHistoryInfo;
-                                    parmsad[6] = returnStatus;
-                                    parmsad[7] = returnException;
-                                    parmsad[8] = returnScreenshot;
+                                    case "Enrollments":
+                                        object[] parmsen = new object[8];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmsen[0] = driver;
+                                            parmsen[1] = driver3;
+                                        }
+                                        else
+                                        {
+                                            parmsen[0] = driver6;
+                                            parmsen[1] = driver8;
+                                        }
+                                        parmsen[2] = myApplication;
+                                        parmsen[3] = myHistoryInfo;
+                                        parmsen[4] = returnStatus;
+                                        parmsen[5] = returnException;
+                                        parmsen[6] = returnScreenshot;
+                                        parmsen[7] = myHouseholdMembers;
 
-                                    ApplicationDo myApplicationDo = new ApplicationDo();
-                                    Type reflectTestTypead = typeof(ApplicationDo);
-                                    MethodInfo reflectMethodToInvokead = reflectTestTypead.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametersad = reflectMethodToInvokead.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultad = reflectMethodToInvokead.Invoke(myApplicationDo, parmsad);
-                                    myHistoryInfo.myTestStepStatus = parmsad[6].ToString();
-                                    myHistoryInfo.myStepException = parmsad[7].ToString();
-                                    myHistoryInfo.myScreenShot = parmsad[8].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                        Enrollments myEnrollments = new Enrollments();
+                                        Type reflectTestTypeen = typeof(Enrollments);
+                                        MethodInfo reflectMethodToInvokeen = reflectTestTypeen.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametersen = reflectMethodToInvokeen.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResulten = reflectMethodToInvokeen.Invoke(myEnrollments, parmsen);
+                                        myHistoryInfo.myTestStepStatus = parmsen[4].ToString();
+                                        myHistoryInfo.myStepException = parmsen[5].ToString();
+                                        myHistoryInfo.myScreenShot = parmsen[6].ToString();
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                case "CWApplicationDo":
-                                    object[] parmscwad = new object[8];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmscwad[0] = driver2;
-                                    }
-                                    else
-                                    {
-                                        parmscwad[0] = driver7;
-                                    }
-                                    parmscwad[1] = myAccountCreate;
-                                    parmscwad[2] = myApplication;
-                                    parmscwad[3] = myHouseholdMembers;
-                                    parmscwad[4] = myHistoryInfo;
-                                    parmscwad[5] = returnStatus;
-                                    parmscwad[6] = returnException;
-                                    parmscwad[7] = returnScreenshot;
+                                    case "CaseWorker":
+                                        object[] parmscw = new object[8];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmscw[0] = driver2;
+                                        }
+                                        else
+                                        {
+                                            parmscw[0] = driver7;
+                                        }
+                                        parmscw[1] = myAccountCreate;
+                                        parmscw[2] = myApplication;
+                                        parmscw[3] = myHistoryInfo;
+                                        parmscw[4] = returnStatus;
+                                        parmscw[5] = returnException;
+                                        parmscw[6] = returnScreenshot;
+                                        parmscw[7] = returnICNumber;
 
-                                    CWApplicationDo myCWApplicationDo = new CWApplicationDo();
-                                    Type reflectTestTypecwad = typeof(CWApplicationDo);
-                                    MethodInfo reflectMethodToInvokecwad = reflectTestTypecwad.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParameterscwad = reflectMethodToInvokecwad.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultcwad = reflectMethodToInvokecwad.Invoke(myCWApplicationDo, parmscwad);
-                                    myHistoryInfo.myTestStepStatus = parmscwad[5].ToString();
-                                    myHistoryInfo.myStepException = parmscwad[6].ToString();
-                                    myHistoryInfo.myScreenShot = parmscwad[7].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                        CaseWorker myCaseWorker = new CaseWorker();
+                                        Type reflectTestTypecw = typeof(CaseWorker);
+                                        MethodInfo reflectMethodToInvokecw = reflectTestTypecw.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParameterscw = reflectMethodToInvokecw.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultcw = reflectMethodToInvokecw.Invoke(new CaseWorker(), parmscw);
+                                        myHistoryInfo.myTestStepStatus = parmscw[4].ToString();
+                                        myHistoryInfo.myStepException = parmscw[5].ToString();
+                                        myHistoryInfo.myScreenShot = parmscw[6].ToString();
+                                        if (parmscw[7].ToString() != String.Empty)
+                                        {
+                                            myHistoryInfo.myIcnumber = parmscw[7].ToString();
+                                        }
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                case "WizardApplicationDo":
-                                    object[] parmswad = new object[8];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmswad[0] = driver2;
-                                    }
-                                    else
-                                    {
-                                        parmswad[0] = driver7;
-                                    }
-                                    parmswad[1] = myAccountCreate;
-                                    parmswad[2] = myApplication;
-                                    parmswad[3] = myHouseholdMembers;
-                                    parmswad[4] = myHistoryInfo;
-                                    parmswad[5] = returnStatus;
-                                    parmswad[6] = returnException;
-                                    parmswad[7] = returnScreenshot;
+                                    case "Assister":
 
-                                    WizardApplicationDo myWizardApplicationDo = new WizardApplicationDo();
-                                    Type reflectTestTypewad = typeof(WizardApplicationDo);
-                                    MethodInfo reflectMethodToInvokewad = reflectTestTypewad.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParameterswad = reflectMethodToInvokewad.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultwad = reflectMethodToInvokewad.Invoke(myWizardApplicationDo, parmswad);
-                                    myHistoryInfo.myTestStepStatus = parmswad[5].ToString();
-                                    myHistoryInfo.myStepException = parmswad[6].ToString();
-                                    myHistoryInfo.myScreenShot = parmswad[7].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                        object[] parmsa = new object[13];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmsa[0] = driver;
+                                            parmsa[1] = driver2;
+                                            parmsa[2] = driver3;
+                                            parmsa[3] = driver4;
+                                            parmsa[4] = driver5;
+                                        }
+                                        else
+                                        {
+                                            parmsa[0] = driver6;
+                                            parmsa[1] = driver7;
+                                            parmsa[2] = driver8;
+                                            parmsa[3] = driver9;
+                                            parmsa[4] = driver10;
+                                        }
+                                        parmsa[5] = myAccountCreate;
+                                        parmsa[6] = myApplication;
+                                        parmsa[7] = myAssister;
+                                        parmsa[8] = myHistoryInfo;
+                                        parmsa[9] = returnStatus;
+                                        parmsa[10] = returnException;
+                                        parmsa[11] = returnScreenshot;
+                                        parmsa[12] = returnICNumber;
 
-                                case "HouseholdMembersDo":
-                                    object[] parmshm = new object[9];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmshm[0] = driver;
-                                        parmshm[1] = driver2;
-                                    }
-                                    else
-                                    {
-                                        parmshm[0] = driver6;
-                                        parmshm[1] = driver7;
-                                    }
-                                    parmshm[2] = myAccountCreate;
-                                    parmshm[3] = myApplication;
-                                    parmshm[4] = myHouseholdMembers;
-                                    parmshm[5] = myHistoryInfo;
-                                    parmshm[6] = returnStatus;
-                                    parmshm[7] = returnException;
-                                    parmshm[8] = returnScreenshot;
+                                        AssisterDo myAssisterDo = new AssisterDo();
+                                        Type reflectTestTypea = typeof(AssisterDo);
+                                        MethodInfo reflectMethodToInvokea = reflectTestTypea.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametersa = reflectMethodToInvokea.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResulta = reflectMethodToInvokea.Invoke(new AssisterDo(), parmsa);
+                                        myHistoryInfo.myTestStepStatus = parmsa[9].ToString();
+                                        myHistoryInfo.myStepException = parmsa[10].ToString();
+                                        myHistoryInfo.myScreenShot = parmsa[11].ToString();
+                                        if (parmsa[12].ToString() != String.Empty)
+                                        {
+                                            myHistoryInfo.myIcnumber = parmsa[12].ToString();
+                                        }
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
 
-                                    HouseholdMembersDo myHouseholdMembersDo = new HouseholdMembersDo();
-                                    Type reflectTestTypehm = typeof(HouseholdMembersDo);
-                                    MethodInfo reflectMethodToInvokehm = reflectTestTypehm.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametershm = reflectMethodToInvokehm.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResulthm = reflectMethodToInvokehm.Invoke(myHouseholdMembersDo, parmshm);
-                                    myHistoryInfo.myTestStepStatus = parmshm[6].ToString();
-                                    myHistoryInfo.myStepException = parmshm[7].ToString();
-                                    myHistoryInfo.myScreenShot = parmshm[8].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                        myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
 
-                                case "Enrollments":
-                                    object[] parmsen = new object[8];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmsen[0] = driver;
-                                        parmsen[1] = driver3;
-                                    }
-                                    else
-                                    {
-                                        parmsen[0] = driver6;
-                                        parmsen[1] = driver8;
-                                    }
-                                    parmsen[2] = myApplication;
-                                    parmsen[3] = myHistoryInfo;
-                                    parmsen[4] = returnStatus;
-                                    parmsen[5] = returnException;
-                                    parmsen[6] = returnScreenshot;
-                                    parmsen[7] = myHouseholdMembers;
+                                        //must fill structures again after updating pass count
+                                        result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                    Enrollments myEnrollments = new Enrollments();
-                                    Type reflectTestTypeen = typeof(Enrollments);
-                                    MethodInfo reflectMethodToInvokeen = reflectTestTypeen.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametersen = reflectMethodToInvokeen.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResulten = reflectMethodToInvokeen.Invoke(myEnrollments, parmsen);
-                                    myHistoryInfo.myTestStepStatus = parmsen[4].ToString();
-                                    myHistoryInfo.myStepException = parmsen[5].ToString();
-                                    myHistoryInfo.myScreenShot = parmsen[6].ToString();
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                    case "FileNetDo":
 
-                                case "CaseWorker":
-                                    object[] parmscw = new object[8];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmscw[0] = driver2;
-                                    }
-                                    else
-                                    {
-                                        parmscw[0] = driver7;
-                                    }
-                                    parmscw[1] = myAccountCreate;
-                                    parmscw[2] = myApplication;
-                                    parmscw[3] = myHistoryInfo;
-                                    parmscw[4] = returnStatus;
-                                    parmscw[5] = returnException;
-                                    parmscw[6] = returnScreenshot;
-                                    parmscw[7] = returnICNumber;
+                                        object[] parmsf = new object[13];
+                                        if (myHistoryInfo.myBrowser == "Firefox")
+                                        {
+                                            parmsf[0] = driver;
+                                            parmsf[1] = driver2;
+                                            parmsf[2] = driver3;
+                                            parmsf[3] = driver4;
+                                            parmsf[4] = driver5;
+                                        }
+                                        else
+                                        {
+                                            parmsf[0] = driver6;
+                                            parmsf[1] = driver7;
+                                            parmsf[2] = driver8;
+                                            parmsf[3] = driver9;
+                                            parmsf[4] = driver10;
+                                        }
+                                        parmsf[5] = myAccountCreate;
+                                        parmsf[6] = myApplication;
+                                        parmsf[7] = myAssister;
+                                        parmsf[8] = myHistoryInfo;
+                                        parmsf[9] = returnStatus;
+                                        parmsf[10] = returnException;
+                                        parmsf[11] = returnScreenshot;
+                                        parmsf[12] = returnICNumber;
 
-                                    CaseWorker myCaseWorker = new CaseWorker();
-                                    Type reflectTestTypecw = typeof(CaseWorker);
-                                    MethodInfo reflectMethodToInvokecw = reflectTestTypecw.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParameterscw = reflectMethodToInvokecw.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultcw = reflectMethodToInvokecw.Invoke(new CaseWorker(), parmscw);
-                                    myHistoryInfo.myTestStepStatus = parmscw[4].ToString();
-                                    myHistoryInfo.myStepException = parmscw[5].ToString();
-                                    myHistoryInfo.myScreenShot = parmscw[6].ToString();
-                                    if (parmscw[7].ToString() != String.Empty)
-                                    {
-                                        myHistoryInfo.myIcnumber = parmscw[7].ToString();
-                                    }
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
+                                        FileNetDo myFileNetDo = new FileNetDo();
+                                        Type reflectTestTypef = typeof(FileNetDo);
+                                        MethodInfo reflectMethodToInvokef = reflectTestTypef.GetMethod(myMethod);
+                                        ParameterInfo[] reflectMethodParametersf = reflectMethodToInvokef.GetParameters();
+                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
+                                        reflectResultf = reflectMethodToInvokef.Invoke(new FileNetDo(), parmsf);
+                                        myHistoryInfo.myTestStepStatus = parmsf[9].ToString();
+                                        myHistoryInfo.myStepException = parmsf[10].ToString();
+                                        myHistoryInfo.myScreenShot = parmsf[11].ToString();
+                                        if (parmsf[12].ToString() != String.Empty)
+                                        {
+                                            myHistoryInfo.myIcnumber = parmsf[12].ToString();
+                                        }
+                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
 
-                                case "Assister":
+                                        //myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
 
-                                    object[] parmsa = new object[13];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmsa[0] = driver;
-                                        parmsa[1] = driver2;
-                                        parmsa[2] = driver3;
-                                        parmsa[3] = driver4;
-                                        parmsa[4] = driver5;
-                                    }
-                                    else
-                                    {
-                                        parmsa[0] = driver6;
-                                        parmsa[1] = driver7;
-                                        parmsa[2] = driver8;
-                                        parmsa[3] = driver9;
-                                        parmsa[4] = driver10;
-                                    }
-                                    parmsa[5] = myAccountCreate;
-                                    parmsa[6] = myApplication;
-                                    parmsa[7] = myAssister;
-                                    parmsa[8] = myHistoryInfo;
-                                    parmsa[9] = returnStatus;
-                                    parmsa[10] = returnException;
-                                    parmsa[11] = returnScreenshot;
-                                    parmsa[12] = returnICNumber;
+                                        //must fill structures again after updating pass count
+                                        //result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
+                                        break;
 
-                                    AssisterDo myAssisterDo = new AssisterDo();
-                                    Type reflectTestTypea = typeof(AssisterDo);
-                                    MethodInfo reflectMethodToInvokea = reflectTestTypea.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametersa = reflectMethodToInvokea.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResulta = reflectMethodToInvokea.Invoke(new AssisterDo(), parmsa);
-                                    myHistoryInfo.myTestStepStatus = parmsa[9].ToString();
-                                    myHistoryInfo.myStepException = parmsa[10].ToString();
-                                    myHistoryInfo.myScreenShot = parmsa[11].ToString();
-                                    if (parmsa[12].ToString() != String.Empty)
-                                    {
-                                        myHistoryInfo.myIcnumber = parmsa[12].ToString();
-                                    }
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-
-                                    myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
-
-                                    //must fill structures again after updating pass count
-                                    result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
-
-                                case "FileNetDo":
-
-                                    object[] parmsf = new object[13];
-                                    if (myHistoryInfo.myBrowser == "Firefox")
-                                    {
-                                        parmsf[0] = driver;
-                                        parmsf[1] = driver2;
-                                        parmsf[2] = driver3;
-                                        parmsf[3] = driver4;
-                                        parmsf[4] = driver5;
-                                    }
-                                    else
-                                    {
-                                        parmsf[0] = driver6;
-                                        parmsf[1] = driver7;
-                                        parmsf[2] = driver8;
-                                        parmsf[3] = driver9;
-                                        parmsf[4] = driver10;
-                                    }
-                                    parmsf[5] = myAccountCreate;
-                                    parmsf[6] = myApplication;
-                                    parmsf[7] = myAssister;
-                                    parmsf[8] = myHistoryInfo;
-                                    parmsf[9] = returnStatus;
-                                    parmsf[10] = returnException;
-                                    parmsf[11] = returnScreenshot;
-                                    parmsf[12] = returnICNumber;
-
-                                    FileNetDo myFileNetDo = new FileNetDo();
-                                    Type reflectTestTypef = typeof(FileNetDo);
-                                    MethodInfo reflectMethodToInvokef = reflectTestTypef.GetMethod(myMethod);
-                                    ParameterInfo[] reflectMethodParametersf = reflectMethodToInvokef.GetParameters();
-                                    result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                    reflectResultf = reflectMethodToInvokef.Invoke(new FileNetDo(), parmsf);
-                                    myHistoryInfo.myTestStepStatus = parmsf[9].ToString();
-                                    myHistoryInfo.myStepException = parmsf[10].ToString();
-                                    myHistoryInfo.myScreenShot = parmsf[11].ToString();
-                                    if (parmsf[12].ToString() != String.Empty)
-                                    {
-                                        myHistoryInfo.myIcnumber = parmsf[12].ToString();
-                                    }
-                                    result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-
-                                    //myFillStructures.doGetAccount(ref myAccountCreate, ref myHistoryInfo, mysTestId, "2");
-
-                                    //must fill structures again after updating pass count
-                                    //result = myFillStructures.doFillStructures(mySelectedTest, myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                    break;
-
-                                default:
-                                    MessageBox.Show("End of cases");
-                                    break;
+                                    default:
+                                        MessageBox.Show("End of cases");
+                                        break;
+                                }
                             }
                         }
+                        result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication);
+                        con.Close();
                     }
-                    result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication);
-                    con.Close();
-                }
-                catch (Exception a)
-                {
-                    MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
-                }
+                    catch (Exception a)
+                    {
+                        MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
+                    }
 
-                //driver.Dispose();
-                //driver2.Dispose();
-                //driver3.Dispose();
+                    //driver.Dispose();
+                    //driver2.Dispose();
+                    //driver3.Dispose();
+                }
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
@@ -2769,6 +2763,11 @@ namespace MNsure_Regression_1
                 myHistoryInfo.myTestId = dataGridViewSelectedTests.CurrentCell.Value.ToString();
             }
 
+                dateTimeRun.Enabled = true;
+                dateTimeRun.Format = DateTimePickerFormat.Custom;
+                dateTimeRun.CustomFormat = "hh:mm tt"; // Only use hours, minutes, am            
+            
+
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
@@ -2783,6 +2782,8 @@ namespace MNsure_Regression_1
             comboBoxEnvironment.Text = "STST";
             myHistoryInfo.myBrowser = "Firefox";
             comboBoxBrowser.Text = "Firefox";
+            myHistoryInfo.myMultiples = 1;
+            comboBoxMultiples.Text = "1";
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -4031,7 +4032,8 @@ namespace MNsure_Regression_1
             string mysMethodId;
 
             rowindex = dataGridViewTestsPick.CurrentCell.RowIndex;
-            mysTestId = dataGridViewTestsPick.Rows[rowindex].Cells[0].Value.ToString();
+            //mysTestId = dataGridViewTestsPick.Rows[rowindex].Cells[0].Value.ToString();
+            mysTestId = textBoxTestTestId.Text;
 
             rowindexMethod = dataGridViewAvailableMethods.CurrentCell.RowIndex;
             myWindow = dataGridViewAvailableMethods.Rows[rowindexMethod].Cells[0].Value.ToString();
@@ -4047,43 +4049,6 @@ namespace MNsure_Regression_1
             SqlCeConnection con;
             // Retrieve the connection string from the settings file.
             string conString = Properties.Settings.Default.Database1ConnectionString;
-
-            /* if (Convert.ToString(myTestId) == "1")
-             {
-                 string myTestType;
-                 string myDescription;
-                 string myURL;
-                 string myIsSelected;
-                 string myNotes;
-
-                 myName = Convert.ToString(textBoxTestName.Text);
-                 myTestType = Convert.ToString(textBoxTestType.Text);
-                 myDescription = Convert.ToString(textBoxTestDescription.Text);
-                 myURL = Convert.ToString(textBoxTestURL.Text);
-                 myIsSelected = Convert.ToString(textBoxTestIsSelected.Text);
-                 myNotes = Convert.ToString(textBoxTestNotes.Text);
-
-                 con = new SqlCeConnection(conString);
-                 con.Open();
-
-                 string myInsertString;
-                 DateTime now = DateTime.Now;
-                 myInsertString = "Insert into Test Values (" + myTestId +
-                     ",   @Name, @Type, @Description, @Notes, @URL" +
-                     ",   @IsSelected   );";
-                 using (SqlCeCommand com33 = new SqlCeCommand(myInsertString, con))
-                 {
-                     com33.Parameters.AddWithValue("TestId", myTestId);
-                     com33.Parameters.AddWithValue("Name", myName);
-                     com33.Parameters.AddWithValue("Type", myTestType);
-                     com33.Parameters.AddWithValue("Description", myDescription);
-                     com33.Parameters.AddWithValue("URL", myURL);
-                     com33.Parameters.AddWithValue("IsSelected", myIsSelected);
-                     com33.Parameters.AddWithValue("Notes", myNotes);
-                     com33.ExecuteNonQuery();
-                     com33.Dispose();
-                 }
-             }*/
 
             int countSelectedTestSteps;
             countSelectedTestSteps = dataGridViewTestSteps.Rows.Count;
@@ -5288,11 +5253,6 @@ namespace MNsure_Regression_1
                             com65.ExecuteNonQuery();
                             com65.Dispose();
                         }
-                        /*using (SqlCeCommand com65 = new SqlCeCommand(myInsertString, con))
-                        {
-                            com65.ExecuteNonQuery();
-                            com65.Dispose();
-                        }*/
                     }
                 }
                 con.Close();
@@ -6895,10 +6855,6 @@ namespace MNsure_Regression_1
             {
                 buttonNextMember.Enabled = false;
             }
-            /*int result;
-            myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
-            InitializeSSN myInitializeSSN = new InitializeSSN();
-            result = myInitializeSSN.DoWriteLines(ref myLastSSN, myReadFileValues);*/
         }
 
         private void comboBoxHMMilitary_SelectedValueChanged(object sender, EventArgs e)
@@ -6999,6 +6955,39 @@ namespace MNsure_Regression_1
         private void comboBoxBrowser_SelectedValueChanged(object sender, EventArgs e)
         {
             myHistoryInfo.myBrowser = comboBoxBrowser.Text;
+        }
+
+        private void comboBoxMultiples_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myMultiples = Convert.ToInt32(comboBoxMultiples.Text);
+        }
+
+        private void checkBoxScheduleRun_CheckedChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void dateTimeRun_ValueChanged(object sender, EventArgs e)
+        {
+            //myHistoryInfo.myScheduleRunTime = dateTimeRun.Value;
+        }
+
+        private void buttonStartScheduledRun_Click(object sender, EventArgs e)
+        {
+            //timer event is triggered
+            TimeSpan day = new TimeSpan(24, 00, 00);    // 24 hours in a day.
+            TimeSpan now = TimeSpan.Parse(DateTime.Now.ToString("HH:mm"));     // The current time in 24 hour format
+            int hour = dateTimeRun.Value.Hour;
+            int minute = dateTimeRun.Value.Minute;
+            TimeSpan activationTime = new TimeSpan(hour, minute, 0);
+
+            TimeSpan timeLeftUntilFirstRun = ((day - now) + activationTime);
+            if (timeLeftUntilFirstRun.TotalHours > 24)
+                timeLeftUntilFirstRun -= new TimeSpan(24, 0, 0);    // Deducts a day from the schedule so it will run today.
+            System.Windows.Forms.Timer execute = new System.Windows.Forms.Timer();
+            execute.Interval = Convert.ToInt32(timeLeftUntilFirstRun.TotalMilliseconds);
+            execute.Tick += new EventHandler(buttonGo_Click);
+            execute.Start();
         }
 
 

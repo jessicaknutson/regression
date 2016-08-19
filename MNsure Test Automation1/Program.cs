@@ -50,6 +50,8 @@ struct mystructHistoryInfo
     public string myAssisterNavigator;
     public string myBrowser;
     public string myResume;
+    public int myMultiples;
+    public DateTime myScheduleRunTime;
 }
 
 struct mystructSelectedTest
