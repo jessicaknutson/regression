@@ -5325,9 +5325,9 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(2000);
                 driver.SwitchTo().DefaultContent();
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[2]/div/div/div/span[1]")).Click(); //select evidence tab
-                System.Threading.Thread.Sleep(6000);
+                System.Threading.Thread.Sleep(2000);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[4]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //select determinations tab
-                System.Threading.Thread.Sleep(4000);
+                System.Threading.Thread.Sleep(2000);
             }
             return "false";
         }

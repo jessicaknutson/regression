@@ -5411,7 +5411,7 @@ namespace MNsure_Regression_1
 
         private void dateTimePickerTimeTravel_ValueChanged(object sender, EventArgs e)
         {
-            labelTimeTravel.BackColor = Color.Beige;
+            //labelTimeTravel.BackColor = Color.Beige;
             myHistoryInfo.myTimeTravelDate = dateTimePickerTimeTravel.Value;
         }
 
@@ -5432,7 +5432,8 @@ namespace MNsure_Regression_1
             }
             else
             {
-                labelTimeTravel.Visible = false;
+                labelTimeTravel.Visible = true;
+                labelTimeTravel.BackColor = Color.White;
                 myHistoryInfo.myInTimeTravel = "No";
                 cmd.CommandText = "Select * from Test where IsSelected = 'No'" + ";";
             }
@@ -6974,6 +6975,7 @@ namespace MNsure_Regression_1
 
         private void buttonStartScheduledRun_Click(object sender, EventArgs e)
         {
+            buttonStartScheduledRun.BackColor = Color.LightGreen;
             //timer event is triggered
             TimeSpan day = new TimeSpan(24, 00, 00);    // 24 hours in a day.
             TimeSpan now = TimeSpan.Parse(DateTime.Now.ToString("HH:mm"));     // The current time in 24 hour format

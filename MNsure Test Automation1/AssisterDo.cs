@@ -741,7 +741,7 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
