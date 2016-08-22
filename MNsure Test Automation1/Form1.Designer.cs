@@ -707,7 +707,7 @@
             this.comboBoxBrowser.FormattingEnabled = true;
             this.comboBoxBrowser.Items.AddRange(new object[] {
             "Chrome",
-            "Firefox 47"});
+            "Firefox"});
             this.comboBoxBrowser.Location = new System.Drawing.Point(492, 139);
             this.comboBoxBrowser.Name = "comboBoxBrowser";
             this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
