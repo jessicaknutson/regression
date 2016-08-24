@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.tabPageHistory = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.buttonHistoryDelete = new System.Windows.Forms.Button();
+            this.dateTimePickerRunHistory = new System.Windows.Forms.DateTimePicker();
+            this.label211 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.dataGridViewTestHistory = new System.Windows.Forms.DataGridView();
@@ -503,7 +507,17 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.label207 = new System.Windows.Forms.Label();
+            this.dateTimePickerLogs = new System.Windows.Forms.DateTimePicker();
+            this.buttonLogsDelete = new System.Windows.Forms.Button();
+            this.buttonTemplatesRunDelete = new System.Windows.Forms.Button();
+            this.dateTimePickerTemplates = new System.Windows.Forms.DateTimePicker();
+            this.label208 = new System.Windows.Forms.Label();
+            this.dateTimePickerTemp = new System.Windows.Forms.DateTimePicker();
+            this.label212 = new System.Windows.Forms.Label();
+            this.buttonTempDelete = new System.Windows.Forms.Button();
             this.tabPageHistory.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).BeginInit();
             this.tabPageRun.SuspendLayout();
@@ -541,6 +555,7 @@
             // 
             // tabPageHistory
             // 
+            this.tabPageHistory.Controls.Add(this.groupBox3);
             this.tabPageHistory.Controls.Add(this.label28);
             this.tabPageHistory.Controls.Add(this.label27);
             this.tabPageHistory.Controls.Add(this.dataGridViewTestHistory);
@@ -552,6 +567,54 @@
             this.tabPageHistory.Text = "Run History";
             this.tabPageHistory.UseVisualStyleBackColor = true;
             this.tabPageHistory.Enter += new System.EventHandler(this.tabPageHistory_Enter);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.buttonTemplatesRunDelete);
+            this.groupBox3.Controls.Add(this.buttonTempDelete);
+            this.groupBox3.Controls.Add(this.dateTimePickerTemp);
+            this.groupBox3.Controls.Add(this.label212);
+            this.groupBox3.Controls.Add(this.dateTimePickerTemplates);
+            this.groupBox3.Controls.Add(this.label208);
+            this.groupBox3.Controls.Add(this.buttonLogsDelete);
+            this.groupBox3.Controls.Add(this.dateTimePickerLogs);
+            this.groupBox3.Controls.Add(this.label207);
+            this.groupBox3.Controls.Add(this.buttonHistoryDelete);
+            this.groupBox3.Controls.Add(this.dateTimePickerRunHistory);
+            this.groupBox3.Controls.Add(this.label211);
+            this.groupBox3.Location = new System.Drawing.Point(832, 31);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(325, 513);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Maintenance";
+            // 
+            // buttonHistoryDelete
+            // 
+            this.buttonHistoryDelete.Location = new System.Drawing.Point(267, 36);
+            this.buttonHistoryDelete.Name = "buttonHistoryDelete";
+            this.buttonHistoryDelete.Size = new System.Drawing.Size(51, 23);
+            this.buttonHistoryDelete.TabIndex = 2;
+            this.buttonHistoryDelete.Text = "Delete";
+            this.buttonHistoryDelete.UseVisualStyleBackColor = true;
+            this.buttonHistoryDelete.Click += new System.EventHandler(this.buttonHistoryDelete_Click);
+            // 
+            // dateTimePickerRunHistory
+            // 
+            this.dateTimePickerRunHistory.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerRunHistory.Location = new System.Drawing.Point(172, 40);
+            this.dateTimePickerRunHistory.Name = "dateTimePickerRunHistory";
+            this.dateTimePickerRunHistory.Size = new System.Drawing.Size(89, 20);
+            this.dateTimePickerRunHistory.TabIndex = 1;
+            // 
+            // label211
+            // 
+            this.label211.AutoSize = true;
+            this.label211.Location = new System.Drawing.Point(6, 46);
+            this.label211.Name = "label211";
+            this.label211.Size = new System.Drawing.Size(160, 13);
+            this.label211.TabIndex = 0;
+            this.label211.Text = "Remove run history data prior to:";
             // 
             // label28
             // 
@@ -710,7 +773,7 @@
             "Firefox"});
             this.comboBoxBrowser.Location = new System.Drawing.Point(492, 139);
             this.comboBoxBrowser.Name = "comboBoxBrowser";
-            this.comboBoxBrowser.Size = new System.Drawing.Size(65, 21);
+            this.comboBoxBrowser.Size = new System.Drawing.Size(125, 21);
             this.comboBoxBrowser.TabIndex = 11;
             this.comboBoxBrowser.SelectedValueChanged += new System.EventHandler(this.comboBoxBrowser_SelectedValueChanged);
             // 
@@ -2572,7 +2635,7 @@
             // label153
             // 
             this.label153.AutoSize = true;
-            this.label153.Location = new System.Drawing.Point(44, 385);
+            this.label153.Location = new System.Drawing.Point(1, 385);
             this.label153.Name = "label153";
             this.label153.Size = new System.Drawing.Size(46, 13);
             this.label153.TabIndex = 0;
@@ -3466,7 +3529,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -5863,6 +5926,87 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // label207
+            // 
+            this.label207.AutoSize = true;
+            this.label207.Location = new System.Drawing.Point(6, 95);
+            this.label207.Name = "label207";
+            this.label207.Size = new System.Drawing.Size(155, 13);
+            this.label207.TabIndex = 3;
+            this.label207.Text = "Remove C:\\Logs\\ data prior to:";
+            // 
+            // dateTimePickerLogs
+            // 
+            this.dateTimePickerLogs.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerLogs.Location = new System.Drawing.Point(167, 89);
+            this.dateTimePickerLogs.Name = "dateTimePickerLogs";
+            this.dateTimePickerLogs.Size = new System.Drawing.Size(89, 20);
+            this.dateTimePickerLogs.TabIndex = 4;
+            // 
+            // buttonLogsDelete
+            // 
+            this.buttonLogsDelete.Location = new System.Drawing.Point(262, 89);
+            this.buttonLogsDelete.Name = "buttonLogsDelete";
+            this.buttonLogsDelete.Size = new System.Drawing.Size(51, 23);
+            this.buttonLogsDelete.TabIndex = 5;
+            this.buttonLogsDelete.Text = "Delete";
+            this.buttonLogsDelete.UseVisualStyleBackColor = true;
+            this.buttonLogsDelete.Click += new System.EventHandler(this.buttonLogsDelete_Click);
+            // 
+            // buttonTemplatesRunDelete
+            // 
+            this.buttonTemplatesRunDelete.Location = new System.Drawing.Point(148, 177);
+            this.buttonTemplatesRunDelete.Name = "buttonTemplatesRunDelete";
+            this.buttonTemplatesRunDelete.Size = new System.Drawing.Size(51, 23);
+            this.buttonTemplatesRunDelete.TabIndex = 8;
+            this.buttonTemplatesRunDelete.Text = "Delete";
+            this.buttonTemplatesRunDelete.UseVisualStyleBackColor = true;
+            this.buttonTemplatesRunDelete.Click += new System.EventHandler(this.buttonTemplatesRunDelete_Click);
+            // 
+            // dateTimePickerTemplates
+            // 
+            this.dateTimePickerTemplates.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerTemplates.Location = new System.Drawing.Point(53, 177);
+            this.dateTimePickerTemplates.Name = "dateTimePickerTemplates";
+            this.dateTimePickerTemplates.Size = new System.Drawing.Size(89, 20);
+            this.dateTimePickerTemplates.TabIndex = 7;
+            // 
+            // label208
+            // 
+            this.label208.AutoSize = true;
+            this.label208.Location = new System.Drawing.Point(6, 151);
+            this.label208.Name = "label208";
+            this.label208.Size = new System.Drawing.Size(201, 13);
+            this.label208.TabIndex = 6;
+            this.label208.Text = "Remove C:\\TemplatesRun\\ data prior to:";
+            // 
+            // dateTimePickerTemp
+            // 
+            this.dateTimePickerTemp.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTimePickerTemp.Location = new System.Drawing.Point(53, 266);
+            this.dateTimePickerTemp.Name = "dateTimePickerTemp";
+            this.dateTimePickerTemp.Size = new System.Drawing.Size(89, 20);
+            this.dateTimePickerTemp.TabIndex = 9;
+            // 
+            // label212
+            // 
+            this.label212.AutoSize = true;
+            this.label212.Location = new System.Drawing.Point(6, 239);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(302, 13);
+            this.label212.TabIndex = 8;
+            this.label212.Text = "Remove C:\\Users\\PWxx\\AppData\\Local\\Temp\\ data prior to:";
+            // 
+            // buttonTempDelete
+            // 
+            this.buttonTempDelete.Location = new System.Drawing.Point(148, 263);
+            this.buttonTempDelete.Name = "buttonTempDelete";
+            this.buttonTempDelete.Size = new System.Drawing.Size(51, 23);
+            this.buttonTempDelete.TabIndex = 9;
+            this.buttonTempDelete.Text = "Delete";
+            this.buttonTempDelete.UseVisualStyleBackColor = true;
+            this.buttonTempDelete.Click += new System.EventHandler(this.buttonTempDelete_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -5875,6 +6019,8 @@
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.tabPageHistory.ResumeLayout(false);
             this.tabPageHistory.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestRunHistory)).EndInit();
             this.tabPageRun.ResumeLayout(false);
@@ -6405,6 +6551,19 @@
         private System.Windows.Forms.Button buttonStartScheduledRun;
         private System.Windows.Forms.Label label205;
         private System.Windows.Forms.Label label206;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label211;
+        private System.Windows.Forms.DateTimePicker dateTimePickerRunHistory;
+        private System.Windows.Forms.Button buttonHistoryDelete;
+        private System.Windows.Forms.Button buttonLogsDelete;
+        private System.Windows.Forms.DateTimePicker dateTimePickerLogs;
+        private System.Windows.Forms.Label label207;
+        private System.Windows.Forms.Button buttonTemplatesRunDelete;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTemplates;
+        private System.Windows.Forms.Label label208;
+        private System.Windows.Forms.Button buttonTempDelete;
+        private System.Windows.Forms.DateTimePicker dateTimePickerTemp;
+        private System.Windows.Forms.Label label212;
 
     }
 }

@@ -45,7 +45,7 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
-                    {
+                    {                        
                         appwait = (1 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
@@ -1091,29 +1091,34 @@ namespace MNsure_Regression_1
             try
             {
                 int appwait;
+                //Cursor.Current = Cursors.WaitCursor;
+                //System.Windows.Forms.Application.UseWaitCursor = true;
+                //System.Windows.Forms.Application.DoEvents();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (5 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 else
                 {
                     if (myHistoryInfo.myBrowser == "Chrome")
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
+                //Cursor.Current = Cursors.Default;
+                //System.Windows.Forms.Application.UseWaitCursor = false;
                 if (myHistoryInfo.myResume == "Yes")
                 {
                     driver.SwitchTo().DefaultContent();
@@ -2321,11 +2326,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.Id("__o3btn.next"), myHistoryInfo);

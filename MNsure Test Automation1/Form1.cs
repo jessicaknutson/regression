@@ -13,7 +13,8 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Chrome;
-//using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Remote;
+//org.openqa.selenium.remote.DesiredCapabilities
 using OpenQA.Selenium.Support;
 using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
@@ -74,7 +75,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";
 
             int iloop = 1;
-            
+
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             object reflectResult = null;
@@ -123,7 +124,7 @@ namespace MNsure_Regression_1
                     IWebDriver driver10 = null;
 
                     //must clear cache first
-                    if (myHistoryInfo.myBrowser == "Firefox")
+                    if (myHistoryInfo.myBrowser == "Firefox") //firefox version must be 47.0.1
                     {
                         //main driver for citizen portal
                         driver = new FirefoxDriver();
@@ -343,7 +344,11 @@ namespace MNsure_Regression_1
                                             else
                                             {
                                                 driver6.Quit();
-                                                driver8 = new ChromeDriver("C:\\MNsure Regression 1");
+
+                                                ChromeOptions options = new ChromeOptions();
+                                                options.AddArguments("-incognito");
+
+                                                driver8 = new ChromeDriver("C:\\MNsure Regression 1", options);
                                                 driver8.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                             }
                                         }
@@ -366,7 +371,11 @@ namespace MNsure_Regression_1
                                             else
                                             {
                                                 driver8.Quit();
-                                                driver9 = new ChromeDriver("C:\\MNsure Regression 1");
+
+                                                ChromeOptions options = new ChromeOptions();
+                                                options.AddArguments("-incognito");
+
+                                                driver9 = new ChromeDriver("C:\\MNsure Regression 1", options);
                                                 driver9.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                             }
                                         }
@@ -389,7 +398,11 @@ namespace MNsure_Regression_1
                                             else
                                             {
                                                 driver9.Quit();
-                                                driver10 = new ChromeDriver("C:\\MNsure Regression 1");
+
+                                                ChromeOptions options = new ChromeOptions();
+                                                options.AddArguments("-incognito");
+
+                                                driver10 = new ChromeDriver("C:\\MNsure Regression 1", options);
                                                 driver10.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
                                             }
 
@@ -413,6 +426,7 @@ namespace MNsure_Regression_1
                                             parms[3] = driver9;
                                             parms[4] = driver10;
                                         }
+
                                         parms[5] = myHistoryInfo;
                                         parms[6] = returnStatus;
                                         parms[7] = returnException;
@@ -448,6 +462,7 @@ namespace MNsure_Regression_1
                                             parmsac[1] = driver8;
                                             parmsac[2] = driver10;
                                         }
+
                                         parmsac[3] = myAccountCreate;
                                         parmsac[4] = myApplication;
                                         parmsac[5] = myHistoryInfo;
@@ -489,6 +504,7 @@ namespace MNsure_Regression_1
                                             parmsad[0] = driver6;
                                             parmsad[1] = driver10;
                                         }
+
                                         parmsad[2] = myAccountCreate;
                                         parmsad[3] = myApplication;
                                         parmsad[4] = myHouseholdMembers;
@@ -521,6 +537,7 @@ namespace MNsure_Regression_1
                                         {
                                             parmscwad[0] = driver7;
                                         }
+
                                         parmscwad[1] = myAccountCreate;
                                         parmscwad[2] = myApplication;
                                         parmscwad[3] = myHouseholdMembers;
@@ -553,6 +570,7 @@ namespace MNsure_Regression_1
                                         {
                                             parmswad[0] = driver7;
                                         }
+
                                         parmswad[1] = myAccountCreate;
                                         parmswad[2] = myApplication;
                                         parmswad[3] = myHouseholdMembers;
@@ -587,6 +605,7 @@ namespace MNsure_Regression_1
                                             parmshm[0] = driver6;
                                             parmshm[1] = driver7;
                                         }
+
                                         parmshm[2] = myAccountCreate;
                                         parmshm[3] = myApplication;
                                         parmshm[4] = myHouseholdMembers;
@@ -621,6 +640,7 @@ namespace MNsure_Regression_1
                                             parmsen[0] = driver6;
                                             parmsen[1] = driver8;
                                         }
+
                                         parmsen[2] = myApplication;
                                         parmsen[3] = myHistoryInfo;
                                         parmsen[4] = returnStatus;
@@ -652,6 +672,7 @@ namespace MNsure_Regression_1
                                         {
                                             parmscw[0] = driver7;
                                         }
+
                                         parmscw[1] = myAccountCreate;
                                         parmscw[2] = myApplication;
                                         parmscw[3] = myHistoryInfo;
@@ -697,6 +718,7 @@ namespace MNsure_Regression_1
                                             parmsa[3] = driver9;
                                             parmsa[4] = driver10;
                                         }
+
                                         parmsa[5] = myAccountCreate;
                                         parmsa[6] = myApplication;
                                         parmsa[7] = myAssister;
@@ -746,6 +768,7 @@ namespace MNsure_Regression_1
                                             parmsf[3] = driver9;
                                             parmsf[4] = driver10;
                                         }
+
                                         parmsf[5] = myAccountCreate;
                                         parmsf[6] = myApplication;
                                         parmsf[7] = myAssister;
@@ -782,7 +805,7 @@ namespace MNsure_Regression_1
                                 }
                             }
                         }
-                        result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication);
+                        result = writeLogs.DoWriteTestHistoryEnd(ref myHistoryInfo, myAccountCreate, myApplication, myHouseholdMembers);
                         con.Close();
                     }
                     catch (Exception a)
@@ -790,9 +813,46 @@ namespace MNsure_Regression_1
                         MessageBox.Show("Write New Suite Test didn't work, Exception: " + a);
                     }
 
-                    //driver.Dispose();
-                    //driver2.Dispose();
-                    //driver3.Dispose();
+                    /*if (myHistoryInfo.myBrowser == "Firefox" && driver != null)
+                    {
+                        driver.Dispose();
+                    }
+                    if (myHistoryInfo.myBrowser == "Firefox" && driver2 != null)
+                    {
+                        driver2.Dispose();
+                    }
+                    if (myHistoryInfo.myBrowser == "Firefox" && driver3 != null)
+                    {
+                        driver3.Dispose();
+                    }
+                    if (myHistoryInfo.myBrowser == "Firefox" && driver4 != null)
+                    {
+                        driver4.Dispose();
+                    }
+                    if (myHistoryInfo.myBrowser == "Firefox" && driver5 != null)
+                    {
+                        driver5.Dispose();
+                    }*/
+                    if (myHistoryInfo.myBrowser == "Chrome" && driver6 != null)
+                    {
+                        driver6.Quit();
+                    }
+                    if (myHistoryInfo.myBrowser == "Chrome" && driver7 != null)
+                    {
+                        driver7.Quit();
+                    }
+                    if (myHistoryInfo.myBrowser == "Chrome" && driver8 != null)
+                    {
+                        driver8.Quit();
+                    }
+                    if (myHistoryInfo.myBrowser == "Chrome" && driver9 != null)
+                    {
+                        driver9.Quit();
+                    }
+                    if (myHistoryInfo.myBrowser == "Chrome" && driver10 != null)
+                    {
+                        driver10.Quit();
+                    }
                 }
             }
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
@@ -864,22 +924,49 @@ namespace MNsure_Regression_1
 
         private void dataGridViewSuiteHistory_SelectionChanged(object sender, EventArgs e)
         {
-            int rowindex = dataGridViewTestRunHistory.CurrentCell.RowIndex;
-            String mysRunid = dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value.ToString();
-            String mysTestid = dataGridViewTestRunHistory.Rows[rowindex].Cells[1].Value.ToString();
+            int rowindex;
+
+            if (dataGridViewTestRunHistory.CurrentCell == null)
+            {
+                rowindex = 0;
+            }
+            else
+            {
+                rowindex = dataGridViewTestRunHistory.CurrentCell.RowIndex;
+            }
+
+            String mysRunid;
+            if (dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value == null)
+            {
+                mysRunid = "1";
+            }
+            else
+            {
+                mysRunid = dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value.ToString();
+            }
+            
+            String mysTestId;
+            if (dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value == null)
+            {
+                mysTestId = "1";
+            }
+            else
+            {
+                mysTestId = dataGridViewTestRunHistory.Rows[rowindex].Cells[1].Value.ToString();
+            }
+
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
             con = new SqlCeConnection(conString);
             con.Open();
             SqlCeCommand cmd = con.CreateCommand();
             cmd.CommandType = CommandType.Text;
-            cmd.CommandText = "Select * from TestHistory where RunId = " + mysRunid + " and TestId = " + mysTestid + ";";
+            cmd.CommandText = "Select * from TestHistory where RunId = " + mysRunid + " and TestId = " + mysTestId + ";";
             cmd.ExecuteNonQuery();
             System.Data.DataTable dt = new System.Data.DataTable();
             SqlCeDataAdapter da = new SqlCeDataAdapter(cmd);
             da.Fill(dt);
             dataGridViewTestHistory.DataSource = dt;
-
         }
 
         private void tabPageConfigureEnrollment_Enter(object sender, EventArgs e)
@@ -2763,10 +2850,10 @@ namespace MNsure_Regression_1
                 myHistoryInfo.myTestId = dataGridViewSelectedTests.CurrentCell.Value.ToString();
             }
 
-                dateTimeRun.Enabled = true;
-                dateTimeRun.Format = DateTimePickerFormat.Custom;
-                dateTimeRun.CustomFormat = "hh:mm tt"; // Only use hours, minutes, am            
-            
+            dateTimeRun.Enabled = true;
+            dateTimeRun.Format = DateTimePickerFormat.Custom;
+            dateTimeRun.CustomFormat = "hh:mm tt"; // Only use hours, minutes, am            
+
 
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
@@ -2784,6 +2871,10 @@ namespace MNsure_Regression_1
             comboBoxBrowser.Text = "Firefox";
             myHistoryInfo.myMultiples = 1;
             comboBoxMultiples.Text = "1";
+            dateTimePickerRunHistory.Value = DateTime.Now.AddMonths(-1);
+            dateTimePickerLogs.Value = DateTime.Now.AddMonths(-1);
+            dateTimePickerTemp.Value = DateTime.Now;
+            dateTimePickerTemplates.Value = DateTime.Now.AddMonths(-1);
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -6965,12 +7056,12 @@ namespace MNsure_Regression_1
 
         private void checkBoxScheduleRun_CheckedChanged(object sender, EventArgs e)
         {
-            
+
         }
 
         private void dateTimeRun_ValueChanged(object sender, EventArgs e)
         {
-            //myHistoryInfo.myScheduleRunTime = dateTimeRun.Value;
+
         }
 
         private void buttonStartScheduledRun_Click(object sender, EventArgs e)
@@ -6990,6 +7081,97 @@ namespace MNsure_Regression_1
             execute.Interval = Convert.ToInt32(timeLeftUntilFirstRun.TotalMilliseconds);
             execute.Tick += new EventHandler(buttonGo_Click);
             execute.Start();
+        }
+
+        private void dateTimePickerRunHistory_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonHistoryDelete_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            con = new SqlCeConnection(conString);
+            con.Open();
+
+            SqlCeCommand cmd = con.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            try
+            {
+                cmd.CommandText = "Delete from TestHistory where starttime < '" + Convert.ToString(dateTimePickerRunHistory.Value) + "';";
+                cmd.ExecuteNonQuery();
+            }
+            catch
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Delete test history failed.");
+            }
+
+            SqlCeCommand cmd2 = con.CreateCommand();
+            cmd2.CommandType = CommandType.Text;
+            try
+            {
+                cmd2.CommandText = "Delete from RunHistory where teststarttime < '" + Convert.ToString(dateTimePickerRunHistory.Value) + "';";
+                cmd2.ExecuteNonQuery();
+            }
+            catch
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("Delete run history failed.");
+            }
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Delete run history is complete.");
+        }
+
+        private void buttonLogsDelete_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            string[] files = Directory.GetFiles("C:\\Logs\\");
+
+            foreach (string file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                if (fi.LastAccessTime < dateTimePickerLogs.Value && fi.Name != "SSN.txt")
+                    fi.Delete();
+            }
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Delete Logs is complete.");
+        }
+
+        private void buttonTemplatesRunDelete_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            string[] files = Directory.GetFiles("C:\\TemplatesRun\\");
+
+            foreach (string file in files)
+            {
+                FileInfo fi = new FileInfo(file);
+                if (fi.LastAccessTime < dateTimePickerTemplates.Value)
+                    fi.Delete();
+            }
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Delete TemplatesRun is complete.");
+        }
+
+        private void buttonTempDelete_Click(object sender, EventArgs e)
+        {
+            this.Cursor = Cursors.WaitCursor;
+            string userPWid = Environment.UserName.ToUpper();
+            string tempPath = "C:\\Users\\" + userPWid + "\\AppData\\Local\\Temp\\";
+
+            try
+            {
+                Directory.Delete(tempPath, true);
+            }
+            catch
+            {
+                //silent catch and continue
+            }
+
+            this.Cursor = Cursors.Default;
+            MessageBox.Show("Delete Temp is complete.");
         }
 
 

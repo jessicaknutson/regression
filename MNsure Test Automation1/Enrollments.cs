@@ -1382,7 +1382,7 @@ namespace MNsure_Regression_1
         public String DoWaitForFindProvider(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers, By selector)
         {
-            int wait = 500000;
+            int wait = 100000;
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
@@ -1475,7 +1475,7 @@ namespace MNsure_Regression_1
         public String DoWaitForEstimator(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers, By selector)
         {
-            int wait = 500000;
+            int wait = 70000;
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
@@ -1558,7 +1558,7 @@ namespace MNsure_Regression_1
         public String DoWaitForPlanSummary(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers, By selector)
         {
-            int wait = 500000;
+            int wait = 70000;
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;

@@ -101,6 +101,12 @@ namespace MNsure_Regression_1
         {
             try
             {
+                // the driver is disposed when done with
+                /*if (driver != null && myHistoryInfo.myBrowser == "Firefox")
+                {
+                    driver.Close();
+                }
+                */
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
@@ -136,6 +142,12 @@ namespace MNsure_Regression_1
         {
             try
             {
+                // the driver is disposed when done with
+                /*if (driver != null && myHistoryInfo.myBrowser == "Firefox")
+                {
+                    driver.Close();
+                }*/
+
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver3.Navigate().GoToUrl("https://auth.stst.mnsure.org/NORIDP/privacy-policy-a.jsp?account_type=Individual");
@@ -172,8 +184,11 @@ namespace MNsure_Regression_1
             try
             {
                 // the driver is disposed when done with
-                //driver.Close();
-                //driver3.Close();
+                /*if (driver != null && myHistoryInfo.myBrowser == "Firefox")
+                {
+                    driver.Close();
+                }
+                driver3.Close();*/
 
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
@@ -429,10 +444,16 @@ namespace MNsure_Regression_1
         {
             try
             {
-                // the driver is disposed when done with
-                //driver.Close();
-                //driver3.Close();
-
+                // the driver is disposed when done with                
+                /*if(myHistoryInfo.myBrowser == "Firefox" && !String.IsNullOrEmpty(driver.CurrentWindowHandle))
+                {
+                    driver.Close();
+                }
+                else if (myHistoryInfo.myBrowser == "Firefox" && !String.IsNullOrEmpty(driver3.CurrentWindowHandle))
+                {
+                    driver3.Close();
+                }
+                */
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver2.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");

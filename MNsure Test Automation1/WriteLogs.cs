@@ -104,7 +104,7 @@ namespace MNsure_Regression_1
             return 1;
         }
 
-        public int DoWriteTestHistoryEnd(ref mystructHistoryInfo myHistoryInfo, mystructAccountCreate myAccountCreate, mystructApplication myApplication)
+        public int DoWriteTestHistoryEnd(ref mystructHistoryInfo myHistoryInfo, mystructAccountCreate myAccountCreate, mystructApplication myApplication, mystructHouseholdMembers myHouseholdMembers)
         {
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -176,7 +176,7 @@ namespace MNsure_Regression_1
 
                 doc.InsertParagraph("Test Results:").Bold().FontSize(18);
                 doc.InsertParagraph(" ");
-                myLogSuiteName = "Test Name: " + myHistoryInfo.myTestName;
+                myLogSuiteName = "Test Name: " + DoGetTestName(myHistoryInfo.myTestId);
                 doc.InsertParagraph(myLogSuiteName).Bold().FontSize(14);
                 doc.InsertParagraph(mystringExecutionDate).Bold().FontSize(14);
                 doc.InsertParagraph("Result: " + myHistoryInfo.myTestStepStatus).Bold().FontSize(14);
@@ -305,6 +305,164 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("Application Data, Income Adjusted: " + myApplication.myIncomeAdjusted);
                 doc.InsertParagraph("Application Data, Income Expected: " + myApplication.myIncomeExpected);
                 doc.InsertParagraph("Application Data, Enrollment Plan Type: " + myApplication.myEnrollmentPlanType).Bold();
+                doc.InsertParagraph("Application Data, Children: " + myApplication.myChildren);
+                doc.InsertParagraph("Application Data, Pregnant: " + myApplication.myIsPregnant);
+                doc.InsertParagraph("Application Data, Due Date: " + myApplication.myDueDate);
+                doc.InsertParagraph("Application Data, Pregnancy Ended: " + myApplication.myPregnancyEnded);
+                doc.InsertParagraph("Application Data, Foster Care: " + myApplication.myFosterCare);
+                doc.InsertParagraph("Application Data, Tribe Name: " + myApplication.myTribeName);
+                doc.InsertParagraph("Application Data, Live on Reservation: " + myApplication.myLiveRes);
+                doc.InsertParagraph("Application Data, Tribe ID: " + myApplication.myTribeId);
+                doc.InsertParagraph("Application Data, Federal Tribe: " + myApplication.myFederalTribe);
+                doc.InsertParagraph("Application Data, Military: " + myApplication.myMilitary);
+                doc.InsertParagraph("Application Data, Military Ended: " + myApplication.myMilitaryDate);
+                doc.InsertParagraph("Application Data, Other Insurance: " + myApplication.myOtherIns);
+                doc.InsertParagraph("Application Data, What kind of Insurance: " + myApplication.myKindIns);
+                doc.InsertParagraph("Application Data, Coverage Ending: " + myApplication.myCoverageEnd);
+                doc.InsertParagraph("Application Data, Additional Insurance: " + myApplication.myAddIns);
+                doc.InsertParagraph("Application Data, ESC: " + myApplication.myESC);
+                doc.InsertParagraph("Application Data, Renewal Coverage: " + myApplication.myRenewalCov);
+                doc.InsertParagraph("Application Data, Apply With Discounts: " + myApplication.myWithDiscounts);
+                doc.InsertParagraph("Application Data, Day 2 Test ID: " + myApplication.myDay2TestId);
+
+                if (myApplication.myHouseholdOther == "Yes")
+                {
+                    FillStructures myFillStructures = new FillStructures();
+                    int result = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "2");
+
+                    doc.InsertParagraph(" ");
+                    doc.InsertParagraph("Household Data - Member 2, First Name: " + myHouseholdMembers.myFirstName);
+                    doc.InsertParagraph("Household Data - Member 2, Middle Name: " + myHouseholdMembers.myMiddleName);
+                    doc.InsertParagraph("Household Data - Member 2, Last Name: " + myHouseholdMembers.myLastName);
+                    doc.InsertParagraph("Household Data - Member 2, Suffix: " + myHouseholdMembers.mySuffix);
+                    doc.InsertParagraph("Household Data - Member 2, Gender: " + myHouseholdMembers.myGender);
+                    doc.InsertParagraph("Household Data - Member 2, Marital Status: " + myHouseholdMembers.myMaritalStatus);
+                    doc.InsertParagraph("Household Data - Member 2, DOB: " + myHouseholdMembers.myDOB);
+                    doc.InsertParagraph("Household Data - Member 2, Live With You:  " + myHouseholdMembers.myLiveWithYou);
+                    doc.InsertParagraph("Household Data - Member 2, Live in MN:  " + myHouseholdMembers.myLiveInMN);
+                    doc.InsertParagraph("Household Data - Member 2, Plan to Live in MN: " + myHouseholdMembers.myPlanMakeMNHome);
+                    doc.InsertParagraph("Household Data - Member 2, Temp Absent: " + myHouseholdMembers.myTempAbsentMN);
+                    doc.InsertParagraph("Household Data - Member 2, Seek Employment: " + myHouseholdMembers.mySeekEmplMN);
+                    doc.InsertParagraph("Household Data - Member 2, Apply for this person: " + myHouseholdMembers.myPersonHighlighted);
+                    doc.InsertParagraph("Household Data - Member 2, Preferred Contact: " + myHouseholdMembers.myPrefContact);
+                    doc.InsertParagraph("Household Data - Member 2, Phone Number: " + myHouseholdMembers.myPhoneNum);
+                    doc.InsertParagraph("Household Data - Member 2, Phone Type: " + myHouseholdMembers.myPhoneType);
+                    doc.InsertParagraph("Household Data - Member 2, Alt Humber: " + myHouseholdMembers.myAltNum);
+                    doc.InsertParagraph("Household Data - Member 2, Alt Num Type: " + myHouseholdMembers.myAltNumType);
+                    doc.InsertParagraph("Household Data - Member 2, Email: " + myHouseholdMembers.myEmail);
+                    doc.InsertParagraph("Household Data - Member 2, Voter Card: " + myHouseholdMembers.myVoterCard);
+                    doc.InsertParagraph("Household Data - Member 2, Notices: " + myHouseholdMembers.myNotices);
+                    doc.InsertParagraph("Household Data - Member 2, Authorized Representative: " + myHouseholdMembers.myAuthRep);
+                    doc.InsertParagraph("Household Data - Member 2, Are you homeless: " + myHouseholdMembers.myHomeless);
+                    doc.InsertParagraph("Household Data - Member 2, Mailing Address line 1: " + myHouseholdMembers.myMailAddress1);
+                    doc.InsertParagraph("Household Data - Member 2, Address line 2: " + myHouseholdMembers.myMailAddress2);
+                    doc.InsertParagraph("Household Data - Member 2, City: " + myHouseholdMembers.myMailCity);
+                    doc.InsertParagraph("Household Data - Member 2, State: " + myHouseholdMembers.myMailState);
+                    doc.InsertParagraph("Household Data - Member 2, Zip: " + myHouseholdMembers.myMailZip);
+                    doc.InsertParagraph("Household Data - Member 2, County: " + myHouseholdMembers.myMailCounty);
+                    doc.InsertParagraph("Household Data - Member 2, Hispanic: " + myHouseholdMembers.myHispanic);
+                    doc.InsertParagraph("Household Data - Member 2, Race: " + myHouseholdMembers.myRace);
+                    doc.InsertParagraph("Household Data - Member 2, Have an SSN: " + myHouseholdMembers.myHaveSSN);
+                    doc.InsertParagraph("Household Data - Member 2, SSN Number: " + myHouseholdMembers.mySSN).Bold(); 
+                    doc.InsertParagraph("Household Data - Member 2, Citizen: " + myHouseholdMembers.myUSCitizen);
+                    doc.InsertParagraph("Household Data - Member 2, US National: " + myHouseholdMembers.myUSNational);
+                    doc.InsertParagraph("Household Data - Member 2, Children: " + myHouseholdMembers.myChildren);
+                    doc.InsertParagraph("Household Data - Member 2, Pregnant: " + myHouseholdMembers.myIsPregnant);
+                    doc.InsertParagraph("Household Data - Member 2, Due Date: " + myHouseholdMembers.myDueDate);
+                    doc.InsertParagraph("Household Data - Member 2, Pregnancy Ended: " + myHouseholdMembers.myPregnancyEnded);
+                    doc.InsertParagraph("Household Data - Member 2, Foster Care: " + myHouseholdMembers.myBeenInFosterCare);
+                    doc.InsertParagraph("Household Data - Member 2, Primary Relationship to Member 2: " + myHouseholdMembers.myRelationship);
+                    doc.InsertParagraph("Household Data - Member 2, Tribe Name: " + myHouseholdMembers.myTribeName);
+                    doc.InsertParagraph("Household Data - Member 2, Live on Reservation: " + myHouseholdMembers.myLiveRes);
+                    doc.InsertParagraph("Household Data - Member 2, Tribe ID: " + myHouseholdMembers.myTribeId);
+                    doc.InsertParagraph("Household Data - Member 2, Federal Tribe: " + myHouseholdMembers.myFederalTribe);
+                    doc.InsertParagraph("Household Data - Member 2, File Jointly: " + myHouseholdMembers.myFileJointly);
+                    doc.InsertParagraph("Household Data - Member 2, Military: " + myHouseholdMembers.myMilitary);
+                    doc.InsertParagraph("Household Data - Member 2, Military Ended: " + myHouseholdMembers.myMilitaryDate);
+                    doc.InsertParagraph("Household Data - Member 2, Tax Dependant: " + myHouseholdMembers.myDependants);
+                    doc.InsertParagraph("Household Data - Member 2, Tax Filer: " + myHouseholdMembers.myTaxFiler);                 
+                    doc.InsertParagraph("Household Data - Member 2, Have Income: " + myHouseholdMembers.myHasIncome);
+                    doc.InsertParagraph("Household Data - Member 2, Income Type: " + myHouseholdMembers.myIncomeType);
+                    doc.InsertParagraph("Household Data - Member 2, Income Amount: " + myHouseholdMembers.myIncomeAmount);
+                    doc.InsertParagraph("Household Data - Member 2, Income Frequency: " + myHouseholdMembers.myIncomeFrequency);
+                    doc.InsertParagraph("Household Data - Member 2, More Income: " + myHouseholdMembers.myIncomeMore);
+                    doc.InsertParagraph("Household Data - Member 2, Employer: " + myHouseholdMembers.myIncomeEmployer);
+                    doc.InsertParagraph("Household Data - Member 2, Income Seasonal: " + myHouseholdMembers.myIncomeSeasonal);
+                    doc.InsertParagraph("Household Data - Member 2, Reduced Income: " + myHouseholdMembers.myIncomeReduced);
+                    doc.InsertParagraph("Household Data - Member 2, Income Adjusted: " + myHouseholdMembers.myIncomeAdjusted);
+                    doc.InsertParagraph("Household Data - Member 2, Income Expected: " + myHouseholdMembers.myIncomeExpected);
+                }
+                HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+
+                if (myApplication.myHouseholdOther == "Yes" && householdCount == 3)
+                {
+                    FillStructures myFillStructures = new FillStructures();
+                    int result = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "3");
+
+                    doc.InsertParagraph(" ");
+                    doc.InsertParagraph("Household Data - Member 3, First Name: " + myHouseholdMembers.myFirstName);
+                    doc.InsertParagraph("Household Data - Member 3, Middle Name: " + myHouseholdMembers.myMiddleName);
+                    doc.InsertParagraph("Household Data - Member 3, Last Name: " + myHouseholdMembers.myLastName);
+                    doc.InsertParagraph("Household Data - Member 3, Suffix: " + myHouseholdMembers.mySuffix);
+                    doc.InsertParagraph("Household Data - Member 3, Gender: " + myHouseholdMembers.myGender);
+                    doc.InsertParagraph("Household Data - Member 3, Marital Status: " + myHouseholdMembers.myMaritalStatus);
+                    doc.InsertParagraph("Household Data - Member 3, DOB: " + myHouseholdMembers.myDOB);
+                    doc.InsertParagraph("Household Data - Member 3, Live With You:  " + myHouseholdMembers.myLiveWithYou);
+                    doc.InsertParagraph("Household Data - Member 3, Live in MN:  " + myHouseholdMembers.myLiveInMN);
+                    doc.InsertParagraph("Household Data - Member 3, Plan to Live in MN: " + myHouseholdMembers.myPlanMakeMNHome);
+                    doc.InsertParagraph("Household Data - Member 3, Temp Absent: " + myHouseholdMembers.myTempAbsentMN);
+                    doc.InsertParagraph("Household Data - Member 3, Seek Employment: " + myHouseholdMembers.mySeekEmplMN);
+                    doc.InsertParagraph("Household Data - Member 3, Apply for this person: " + myHouseholdMembers.myPersonHighlighted);
+                    doc.InsertParagraph("Household Data - Member 3, Preferred Contact: " + myHouseholdMembers.myPrefContact);
+                    doc.InsertParagraph("Household Data - Member 3, Phone Number: " + myHouseholdMembers.myPhoneNum);
+                    doc.InsertParagraph("Household Data - Member 3, Phone Type: " + myHouseholdMembers.myPhoneType);
+                    doc.InsertParagraph("Household Data - Member 3, Alt Humber: " + myHouseholdMembers.myAltNum);
+                    doc.InsertParagraph("Household Data - Member 3, Alt Num Type: " + myHouseholdMembers.myAltNumType);
+                    doc.InsertParagraph("Household Data - Member 3, Email: " + myHouseholdMembers.myEmail);
+                    doc.InsertParagraph("Household Data - Member 3, Voter Card: " + myHouseholdMembers.myVoterCard);
+                    doc.InsertParagraph("Household Data - Member 3, Notices: " + myHouseholdMembers.myNotices);
+                    doc.InsertParagraph("Household Data - Member 3, Authorized Representative: " + myHouseholdMembers.myAuthRep);
+                    doc.InsertParagraph("Household Data - Member 3, Are you homeless: " + myHouseholdMembers.myHomeless);
+                    doc.InsertParagraph("Household Data - Member 3, Mailing Address line 1: " + myHouseholdMembers.myMailAddress1);
+                    doc.InsertParagraph("Household Data - Member 3, Address line 2: " + myHouseholdMembers.myMailAddress2);
+                    doc.InsertParagraph("Household Data - Member 3, City: " + myHouseholdMembers.myMailCity);
+                    doc.InsertParagraph("Household Data - Member 3, State: " + myHouseholdMembers.myMailState);
+                    doc.InsertParagraph("Household Data - Member 3, Zip: " + myHouseholdMembers.myMailZip);
+                    doc.InsertParagraph("Household Data - Member 3, County: " + myHouseholdMembers.myMailCounty);
+                    doc.InsertParagraph("Household Data - Member 3, Hispanic: " + myHouseholdMembers.myHispanic);
+                    doc.InsertParagraph("Household Data - Member 3, Race: " + myHouseholdMembers.myRace);
+                    doc.InsertParagraph("Household Data - Member 3, Have an SSN: " + myHouseholdMembers.myHaveSSN);
+                    doc.InsertParagraph("Household Data - Member 3, SSN Number: " + myHouseholdMembers.mySSN).Bold(); 
+                    doc.InsertParagraph("Household Data - Member 3, Citizen: " + myHouseholdMembers.myUSCitizen);
+                    doc.InsertParagraph("Household Data - Member 3, US National: " + myHouseholdMembers.myUSNational);
+                    doc.InsertParagraph("Household Data - Member 3, Children: " + myHouseholdMembers.myChildren);
+                    doc.InsertParagraph("Household Data - Member 3, Pregnant: " + myHouseholdMembers.myIsPregnant);
+                    doc.InsertParagraph("Household Data - Member 3, Due Date: " + myHouseholdMembers.myDueDate);
+                    doc.InsertParagraph("Household Data - Member 3, Pregnancy Ended: " + myHouseholdMembers.myPregnancyEnded);
+                    doc.InsertParagraph("Household Data - Member 3, Foster Care: " + myHouseholdMembers.myBeenInFosterCare);
+                    doc.InsertParagraph("Household Data - Member 3, Primary Relationship to Member 3: " + myHouseholdMembers.myRelationship);
+                    doc.InsertParagraph("Household Data - Member 3, Member 2 Relationship to Member 3: " + myHouseholdMembers.myRelationshiptoNextHM);
+                    doc.InsertParagraph("Household Data - Member 3, Tribe Name: " + myHouseholdMembers.myTribeName);
+                    doc.InsertParagraph("Household Data - Member 3, Live on Reservation: " + myHouseholdMembers.myLiveRes);
+                    doc.InsertParagraph("Household Data - Member 3, Tribe ID: " + myHouseholdMembers.myTribeId);
+                    doc.InsertParagraph("Household Data - Member 3, Federal Tribe: " + myHouseholdMembers.myFederalTribe);
+                    doc.InsertParagraph("Household Data - Member 3, File Jointly: " + myHouseholdMembers.myFileJointly);
+                    doc.InsertParagraph("Household Data - Member 3, Military: " + myHouseholdMembers.myMilitary);
+                    doc.InsertParagraph("Household Data - Member 3, Military Ended: " + myHouseholdMembers.myMilitaryDate);
+                    doc.InsertParagraph("Household Data - Member 3, Tax Dependant: " + myHouseholdMembers.myDependants);
+                    doc.InsertParagraph("Household Data - Member 3, Tax Filer: " + myHouseholdMembers.myTaxFiler);
+                    doc.InsertParagraph("Household Data - Member 3, Have Income: " + myHouseholdMembers.myHasIncome);
+                    doc.InsertParagraph("Household Data - Member 3, Income Type: " + myHouseholdMembers.myIncomeType);
+                    doc.InsertParagraph("Household Data - Member 3, Income Amount: " + myHouseholdMembers.myIncomeAmount);
+                    doc.InsertParagraph("Household Data - Member 3, Income Frequency: " + myHouseholdMembers.myIncomeFrequency);
+                    doc.InsertParagraph("Household Data - Member 3, More Income: " + myHouseholdMembers.myIncomeMore);
+                    doc.InsertParagraph("Household Data - Member 3, Employer: " + myHouseholdMembers.myIncomeEmployer);
+                    doc.InsertParagraph("Household Data - Member 3, Income Seasonal: " + myHouseholdMembers.myIncomeSeasonal);
+                    doc.InsertParagraph("Household Data - Member 3, Reduced Income: " + myHouseholdMembers.myIncomeReduced);
+                    doc.InsertParagraph("Household Data - Member 3, Income Adjusted: " + myHouseholdMembers.myIncomeAdjusted);
+                    doc.InsertParagraph("Household Data - Member 3, Income Expected: " + myHouseholdMembers.myIncomeExpected);
+                }
 
                 // Save to the output directory:
                 doc.Save();
@@ -798,6 +956,34 @@ namespace MNsure_Regression_1
                 // handle
             }
             return stitchedImage;
+        }
+
+        public string DoGetTestName(string testId)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Test where TestId = " + "'" + testId + "'", con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return reader.GetString(1);
+                    }
+                    else
+                    {
+                        return "Error locating test name";
+                    }
+                }
+            }
+            catch
+            {
+                return "Error locating test name";
+            }
         }
 
 
