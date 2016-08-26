@@ -124,7 +124,7 @@ namespace MNsure_Regression_1
                     IWebDriver driver10 = null;
 
                     //must clear cache first
-                    if (myHistoryInfo.myBrowser == "Firefox") //firefox version must be 47.0.1
+                    if (myHistoryInfo.myBrowser == "Firefox") //firefox version must be 47
                     {
                         //main driver for citizen portal
                         driver = new FirefoxDriver();

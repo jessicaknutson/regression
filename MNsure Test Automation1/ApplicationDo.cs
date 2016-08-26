@@ -1767,6 +1767,8 @@ namespace MNsure_Regression_1
 
             try
             {
+                driver.FindElement(By.XPath("/html/body/form")).Click();//added for curam upgrade 8/25/16
+                
                 String incomeReduced = "";
                 if (myApplication.myHouseholdOther == "No" || (myApplication.myHouseholdOther == "Yes" && myHouseholdMembers.myPassCount == "1"))
                 {
