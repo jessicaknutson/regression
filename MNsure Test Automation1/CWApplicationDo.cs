@@ -105,7 +105,7 @@ namespace MNsure_Regression_1
                 }
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id4"));
                 textboxLastName.SendKeys(myEnrollment.myLastName);
-                
+
                 IWebElement textboxSuffix = driver.FindElement(By.Id("__o3id7"));
                 if (myEnrollment.mySuffix != null && myEnrollment.mySuffix != "")
                 {
@@ -212,9 +212,16 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
+                }
                 driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -779,52 +786,6 @@ namespace MNsure_Regression_1
                 IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myEnrollment.myCitizen);
 
-                string isPregnant = "No";
-                string isFemale = "No";
-                string householdMember = "1";
-                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
-                {
-                    /*if (myHouseholdMembers.myGender == "Female")
-                    {
-                        isFemale = "Yes";
-                        if (myHouseholdMembers.myIsPregnant == "Yes")
-                        {
-                            isPregnant = "Yes";
-                            householdMember = "2";
-                        }
-                    }*/
-                }
-                else
-                {
-                    if (myEnrollment.myGender == "Female")
-                    {
-                        isFemale = "Yes";
-                        if (myEnrollment.myIsPregnant == "Yes")
-                        {
-                            isPregnant = "Yes";
-                        }
-                    }
-                }
-
-                if (isFemale == "Yes")// && myEnrollment.myEnrollmentPlanType != "MN Care QHP")//what is the rule here??
-                {
-                    IWebElement listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
-                    listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
-                }
-
-                if (isPregnant == "Yes")
-                {
-                    string children;
-                    string dueDate;
-                    string pregnancyEnded;
-                    children = myEnrollment.myChildren;
-                    dueDate = myEnrollment.myDueDate;
-                    pregnancyEnded = myEnrollment.myPregnancyEnded;
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(children);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
-                    driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
-                }
-
                 //This will only appear if age 18-27
                 DateTime birth = Convert.ToDateTime(myEnrollment.myDOB);
                 TimeSpan span;
@@ -839,34 +800,109 @@ namespace MNsure_Regression_1
                 DateTime age = DateTime.MinValue + span;
 
                 DateTime age2 = DateTime.MinValue;
+                if (myEnrollment.myHouseholdOther == "Yes")
+                {
+                    DateTime birth2 = Convert.ToDateTime(myHouseholdMembers.myDOB);
+                    TimeSpan span2;
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        span2 = Convert.ToDateTime(myHistoryInfo.myTimeTravelDate) - birth2;
+                    }
+                    else
+                    {
+                        span2 = DateTime.Now - birth2;
+                    }
+                    age2 = DateTime.MinValue + span2;
+                }
+
+                string isPregnant = "No";
+                string isFemale = "No";
+                string householdMember = "1";
+                if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
+                {
+                    if (myHouseholdMembers.myGender == "Female")
+                    {
+                        isFemale = "Yes";
+                        if (myHouseholdMembers.myIsPregnant == "Yes")
+                        {
+                            isPregnant = "Yes";
+                            householdMember = "2";
+                        }
+                    }
+                }
+                else
+                {
+                    if (myEnrollment.myGender == "Female" && age.Year - 1 < 65)
+                    {
+                        isFemale = "Yes";
+                        if (myEnrollment.myIsPregnant == "Yes")
+                        {
+                            isPregnant = "Yes";
+                        }
+                    }
+                }
+
+                if (isFemale == "Yes")
+                {
+                    IWebElement listboxPregnant;
+                    listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
+                    listboxPregnant.Clear();
+                    listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
+                }
+
+                if (isPregnant == "Yes")
+                {
+                    string children;
+                    string dueDate;
+                    string pregnancyEnded;
+                    if (householdMember == "1")
+                    {
+                        children = myEnrollment.myChildren;
+                        dueDate = myEnrollment.myDueDate;
+                        pregnancyEnded = myEnrollment.myPregnancyEnded;
+                    }
+                    else
+                    {
+                        children = myHouseholdMembers.myChildren;
+                        dueDate = myHouseholdMembers.myDueDate;
+                        pregnancyEnded = myHouseholdMembers.myPregnancyEnded;
+                    }
+                    driver.FindElement(By.Id("__o3id20")).SendKeys(children);
+                    driver.FindElement(By.Id("__o3id20")).SendKeys(dueDate);
+                    driver.FindElement(By.Id("__o3id20")).SendKeys(pregnancyEnded);
+                }
 
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
+
                 if (fosterCare == "Yes")
                 {
                     IWebElement listboxFosterCare;
-                    if (myEnrollment.myGender == "Female")
+                    if ((myEnrollment.myApplyYourself == "Yes" && myEnrollment.myGender == "Female")
+                        || (myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myGender == "Female"))
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id30"));
+                        listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
                     }
-                    else
+                    else if ((myEnrollment.myApplyYourself == "Yes" && myEnrollment.myGender == "Male")
+                        || (myEnrollment.myApplyYourself == "No" && myHouseholdMembers.myGender == "Male"))
                     {
                         listboxFosterCare = driver.FindElement(By.Id("__o3id2f"));
+                        listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
                     }
-                    listboxFosterCare.SendKeys(myEnrollment.myFosterCare);
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -2691,9 +2727,16 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
-
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[4]/div/div/div/span[1]"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[4]/div/div/div/span[1]")).Click(); //participants tab
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
+                }
                 System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
