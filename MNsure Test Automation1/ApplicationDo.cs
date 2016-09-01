@@ -438,10 +438,10 @@ namespace MNsure_Regression_1
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3idd")));
                 IWebElement listboxLiveMN = driver.FindElement(By.Id("__o3idd"));
                 listboxLiveMN.SendKeys(myApplication.myLiveMN);
-                listboxLiveMN.Click();
+                //listboxLiveMN.Click();
 
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input")));
-                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"));
+                //new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input")));
+                IWebElement outsideClick = driver.FindElement(By.Id("__o3idc"));
                 outsideClick.Click();
 
                 if (myApplication.myLiveMN == "Yes")
@@ -2403,11 +2403,11 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        if (householdCount == 1 || (householdCount == 3 && age3.Year - 1 < 21 && myHouseholdMembers.myHasIncome == "No"))
-                        {
+                        //if (householdCount == 1 || (householdCount == 2 && age2.Year - 1 < 21) || (householdCount == 3 && age3.Year - 1 < 21 && myHouseholdMembers.myHasIncome == "No") )
+                        //{
                             listboxOutsideHome = driver.FindElement(By.Id("__o3ida"));
                             listboxOutsideHome.SendKeys("No");
-                        }
+                        //}
                     }
                 }
 

@@ -484,7 +484,9 @@ namespace MNsure_Regression_1
                     myHouseholdMembers, By.CssSelector("a.buttonNext._startPA"));
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-
+                /*driver.SwitchTo().DefaultContent();
+                var iFrameElement = myDriver.FindElement(By.TagName("iFrame")); //needed for qhp
+                myDriver.SwitchTo().Frame(iFrameElement);*/
                 IWebElement buttonStart = myDriver.FindElement(By.CssSelector("a.buttonNext._startPA"));
                 buttonStart.Click();
 
@@ -1382,7 +1384,7 @@ namespace MNsure_Regression_1
         public String DoWaitForFindProvider(IWebDriver driver, IWebDriver driver3, mystructApplication myEnrollment, mystructHistoryInfo myHistoryInfo,
             ref string returnStatus, ref string returnException, ref string returnScreenshot, mystructHouseholdMembers myHouseholdMembers, By selector)
         {
-            int wait = 100000;
+            int wait = 200000;
             int iterations = (wait / 1000);
             long startmilliSec = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             int appwait;
@@ -1461,7 +1463,7 @@ namespace MNsure_Regression_1
                 {
                     DoSelectPrimary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (45 + myHistoryInfo.myAppWait) * 1000;
                     System.Threading.Thread.Sleep(appwait);
                 }
 
