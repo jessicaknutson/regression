@@ -846,7 +846,10 @@ namespace MNsure_Regression_1
                 {
                     IWebElement listboxPregnant;
                     listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
-                    listboxPregnant.Clear();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        listboxPregnant.Clear();
+                    }
                     listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
                 }
 
@@ -2771,6 +2774,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
+                driver.SwitchTo().DefaultContent();
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/DefaultIC_listCaseMemberPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 

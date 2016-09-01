@@ -2531,7 +2531,7 @@ namespace MNsure_Regression_1
                 listboxCondition.SendKeys("No");
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]")));
-                IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]"));
+                //IWebElement outsideClick = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]"));
 
                 IWebElement listboxNative;
                 if (myApplication.myHouseholdOther == "No" || (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
@@ -2591,8 +2591,7 @@ namespace MNsure_Regression_1
                 if (indian == "Yes")
                 {
                     listboxNative.SendKeys("Yes");
-                    listboxNative.Click();
-                    outsideClick.Click();
+                    listboxCondition.Click();
                     System.Threading.Thread.Sleep(1000);
                     IWebElement listboxNativePerson;
                     if (myApplication.myHouseholdOther == "No" || (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No"))
@@ -2805,7 +2804,7 @@ namespace MNsure_Regression_1
                 }
 
                 listboxHaveMedicare.SendKeys(myApplication.myOtherIns);
-                outsideClick.Click();
+                listboxResidentialTreatment.Click();
                 System.Threading.Thread.Sleep(1000);
 
                 if (myApplication.myOtherIns == "Yes")
