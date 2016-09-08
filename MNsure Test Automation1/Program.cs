@@ -52,6 +52,7 @@ struct mystructHistoryInfo
     public string myResume;
     public int myMultiples;
     public DateTime myScheduleRunTime;
+    public string myMNSureID;
 }
 
 struct mystructSelectedTest

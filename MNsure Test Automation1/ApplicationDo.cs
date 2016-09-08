@@ -449,7 +449,7 @@ namespace MNsure_Regression_1
                     new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("__o3ide")));
                     IWebElement listboxHomeless = driver.FindElement(By.Id("__o3ide"));
                     listboxHomeless.SendKeys(myApplication.myHomeless);
-                    outsideClick.Click();
+                    driver.FindElement(By.Id("__o3idd")).Click();
                 }
 
                 if (myApplication.myHomeless == "No")
@@ -528,7 +528,7 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxHispanic = driver.FindElement(By.Id("__o3id23"));
                 listboxHispanic.SendKeys(myApplication.myHispanic);
-                outsideClick.Click();
+                driver.FindElement(By.Id("__o3id21")).Click();
 
                 if (myApplication.myRace == "Indian")
                 {
@@ -543,43 +543,43 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxSSN = driver.FindElement(By.Id("__o3id39"));
                 listboxSSN.SendKeys(myApplication.mySSN);
-                listboxHispanic.Click();
+                driver.FindElement(By.Id("__o3id38")).Click();
 
                 if (myApplication.mySSN == "Yes")
                 {
                     IWebElement listboxSSNNum = driver.FindElement(By.Id("__o3id3a"));
                     string hhssn = myApplication.mySSNNum;                   
                     listboxSSNNum.SendKeys(hhssn);
-                    listboxSSNNum.Click();
+                    driver.FindElement(By.Id("__o3id39")).Click();
                 }
                 else
                 {
                     IWebElement listboxAppliedSSN = driver.FindElement(By.Id("__o3id3b"));
                     listboxAppliedSSN.SendKeys(myApplication.myAppliedSSN);
-                    listboxSSN.Click();
+                    driver.FindElement(By.Id("__o3id39")).Click();
                     if (myApplication.myAppliedSSN == "No")
                     {
                         IWebElement listboxWhyNoSSN = driver.FindElement(By.Id("__o3id3c"));
                         listboxWhyNoSSN.SendKeys(myApplication.myWhyNoSSN);
-                        listboxSSN.Click();
+                        driver.FindElement(By.Id("__o3id39")).Click();
                     }
 
                     if (myApplication.myWhyNoSSN == "Other")
                     {
                         IWebElement listboxAssistSSN = driver.FindElement(By.Id("__o3id3d"));
                         listboxAssistSSN.SendKeys(myApplication.myAssistSSN);
-                        listboxSSN.Click();
+                        driver.FindElement(By.Id("__o3id39")).Click();
                     }
 
                 }
 
                 IWebElement listboxApplyYouself = driver.FindElement(By.Id("__o3id3e"));
                 listboxApplyYouself.SendKeys(myApplication.myApplyYourself);
-                listboxSSN.Click();
+                driver.FindElement(By.Id("__o3id39")).Click();
 
                 IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id3f"));
                 listboxCitizen.SendKeys(myApplication.myCitizen);
-                listboxApplyYouself.Click();
+                driver.FindElement(By.Id("__o3id39")).Click();
 
                 IWebElement listboxInJail = driver.FindElement(By.Id("__o3id45"));
                 listboxInJail.SendKeys("No");
@@ -830,7 +830,7 @@ namespace MNsure_Regression_1
                 }
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 
-                IWebElement outsideClick = myDriver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[6]/table/tbody/tr/td[1]"));
+                IWebElement outsideClick = myDriver.FindElement(By.Id("__o3id6"));
                 outsideClick.Click();
 
                 if (myApplication.myRace == "Indian")
@@ -846,7 +846,7 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxSSN = myDriver.FindElement(By.Id("__o3id1c"));
                 listboxSSN.SendKeys(myApplication.mySSN);
-                outsideClick.Click();
+                myDriver.FindElement(By.Id("__o3id1b")).Click();
 
                 if (myApplication.mySSN == "Yes")
                 {
@@ -881,11 +881,11 @@ namespace MNsure_Regression_1
                         outsideClick.Click();
                     }
                 }
-                outsideClick.Click();
+                myDriver.FindElement(By.Id("__o3id1c")).Click();
 
                 IWebElement listboxCitizen = myDriver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myApplication.myCitizen);
-                outsideClick.Click();
+                myDriver.FindElement(By.Id("__o3id1b")).Click();
 
                 //This will only appear if age 18-27
                 DateTime birth = Convert.ToDateTime(myApplication.myDOB);
@@ -1351,6 +1351,7 @@ namespace MNsure_Regression_1
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
+                driver.FindElement(By.XPath("/html/body/form")).Click();
 
                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
@@ -1802,7 +1803,7 @@ namespace MNsure_Regression_1
                     appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-                driver.FindElement(By.XPath("/html/body/form")).Click();//added for curam upgrade 8/25/16
+                driver.FindElement(By.XPath("/html/body/form")).Click();
 
                 DoWaitForElement(driver, By.Id("__o3btn.next"), myHistoryInfo);
 

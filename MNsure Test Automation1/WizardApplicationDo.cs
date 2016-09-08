@@ -241,6 +241,7 @@ namespace MNsure_Regression_1
                 textboxHaveSSN.SendKeys(myHouseholdMembers.myHaveSSN);
 
                 IWebElement textboxSSN = driver.FindElement(By.Id("__o3id7"));
+                textboxSSN.Clear();
                 textboxSSN.SendKeys(myHouseholdMembers.mySSN);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -361,8 +362,8 @@ namespace MNsure_Regression_1
                 IWebElement textboxAlien = driver.FindElement(By.Id("__o3id6"));
                 textboxAlien.SendKeys("A1234567");
 
-                IWebElement textboxCard = driver.FindElement(By.Id("__o3id7"));
-                textboxCard.SendKeys("ABC7778889991");
+                //IWebElement textboxCard = driver.FindElement(By.Id("__o3id7"));
+                //textboxCard.SendKeys("ABC7778889991");
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 

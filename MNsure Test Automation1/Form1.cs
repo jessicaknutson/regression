@@ -281,6 +281,7 @@ namespace MNsure_Regression_1
                                 string returnException = "";
                                 string returnScreenshot = "";
                                 string returnICNumber = "";
+                                string returnMNSureID = "";
                                 string relogin = "";
                                 string resume = "";
                                 string assisterNavigator = "";
@@ -663,7 +664,7 @@ namespace MNsure_Regression_1
                                         break;
 
                                     case "CaseWorker":
-                                        object[] parmscw = new object[8];
+                                        object[] parmscw = new object[9];
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
                                             parmscw[0] = driver2;
@@ -680,6 +681,7 @@ namespace MNsure_Regression_1
                                         parmscw[5] = returnException;
                                         parmscw[6] = returnScreenshot;
                                         parmscw[7] = returnICNumber;
+                                        parmscw[8] = returnMNSureID;
 
                                         CaseWorker myCaseWorker = new CaseWorker();
                                         Type reflectTestTypecw = typeof(CaseWorker);
@@ -693,6 +695,10 @@ namespace MNsure_Regression_1
                                         if (parmscw[7].ToString() != String.Empty)
                                         {
                                             myHistoryInfo.myIcnumber = parmscw[7].ToString();
+                                        }
+                                        if (parmscw[8].ToString() != String.Empty)
+                                        {
+                                            myHistoryInfo.myMNSureID = parmscw[8].ToString();
                                         }
                                         result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
                                         //must fill structures again after updating pass count
@@ -1001,7 +1007,10 @@ namespace MNsure_Regression_1
                         if (reader.Read())
                         {
                             myApplication.myFirstName = reader.GetString(2);
-                            myApplication.myMiddleName = reader.GetString(3);
+                            if (!reader.IsDBNull(3))
+                            {
+                                myApplication.myMiddleName = reader.GetString(3);
+                            }
                             myApplication.myLastName = reader.GetString(4);
                             if (!reader.IsDBNull(5))
                             {
@@ -2111,7 +2120,10 @@ namespace MNsure_Regression_1
                 using (SqlCeCommand com6 = new SqlCeCommand(myInsertString, con))
                 {
                     com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
-                    com6.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
+                    if (myApplication.myMiddleName != "")
+                    {
+                        com6.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
+                    }
                     com6.Parameters.AddWithValue("LastName", myApplication.myLastName);
                     if (myApplication.mySuffix != "")
                     {
@@ -4876,7 +4888,10 @@ namespace MNsure_Regression_1
                         using (SqlCeCommand com54 = new SqlCeCommand(myInsertString, con))
                         {
                             com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
-                            com54.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            if (!reader.IsDBNull(3))
+                            {
+                                com54.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            }
                             com54.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
                             {
@@ -5247,7 +5262,10 @@ namespace MNsure_Regression_1
                         using (SqlCeCommand com65 = new SqlCeCommand(myInsertString, con))
                         {
                             com65.Parameters.AddWithValue("FirstName", reader.GetString(2));
-                            com65.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            if (!reader.IsDBNull(3))
+                            {
+                                com65.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            }
                             com65.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
                             {
@@ -5374,7 +5392,10 @@ namespace MNsure_Regression_1
                         using (SqlCeCommand com67 = new SqlCeCommand(myInsertString, con))
                         {
                             com67.Parameters.AddWithValue("FirstName", reader.GetString(2));
-                            com67.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            if (!reader.IsDBNull(3))
+                            {
+                                com67.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            }
                             com67.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
                             {
@@ -6773,7 +6794,10 @@ namespace MNsure_Regression_1
                 using (SqlCeCommand com71 = new SqlCeCommand(myInsertString, con))
                 {
                     com71.Parameters.AddWithValue("FirstName", myHouseholdMembers.myFirstName);
-                    com71.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
+                    if (myHouseholdMembers.myMiddleName != "" && myHouseholdMembers.myMiddleName != null)
+                    {
+                        com71.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
+                    }
                     com71.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
                     if (myHouseholdMembers.mySuffix != "" && myHouseholdMembers.mySuffix != null)
                     {
