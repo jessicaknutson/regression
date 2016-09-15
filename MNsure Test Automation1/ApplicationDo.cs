@@ -2141,20 +2141,26 @@ namespace MNsure_Regression_1
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span[2]/span/span"), myHistoryInfo);
 
                 if (myApplication.myESC == "Yes")
                 {
                     IWebElement listboxESC;
-                    if (myApplication.myHouseholdOther == "No")
-                    {
-                        listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td/div[2]/div/div[1]/input"));
-                    }
+                    //if (myHistoryInfo.myEnvironment == "STST2")
+                    //{
+                        listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/div/table/tbody/tr/td/div[2]/div/div[1]/input"));
+                    /*}
                     else
                     {
-                        listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td[1]/div[2]/div/div[1]/input"));
-                    }
+                        if (myApplication.myHouseholdOther == "No")
+                        {
+                            listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td/div[2]/div/div[1]/input"));
+                        }
+                        else
+                        {
+                            listboxESC = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[1]/table/tbody/tr/td/fieldset/table/tbody/tr/td[1]/div[2]/div/div[1]/input"));
+                        }
+                    }*/
                     listboxESC.Click();
                 }
 
@@ -2196,9 +2202,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
-
                 driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input")).Click();
-
                 System.Threading.Thread.Sleep(1000);
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
 
@@ -2449,6 +2453,9 @@ namespace MNsure_Regression_1
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
+                
+                driver.FindElement(By.XPath("/html/body/form")).Click();
+
                 DoWaitForElement(driver, By.Id("__o3btn.next"), myHistoryInfo);
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]")));
@@ -3095,11 +3102,18 @@ namespace MNsure_Regression_1
                 {
                     appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
+                IWebElement listboxFederalTribe;
                 System.Threading.Thread.Sleep(appwait);
-
-                DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"), myHistoryInfo);
-                IWebElement listboxFederalTribe = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"));
-
+                //if (myHistoryInfo.myEnvironment == "STST2")
+                //{
+                    DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[3]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"), myHistoryInfo);
+                    listboxFederalTribe = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[3]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[2]/input[1]"));
+                /*}
+                else
+                {
+                    DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"), myHistoryInfo);
+                    listboxFederalTribe = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div[2]/div/div/div[2]/table/tbody/tr/td[2]/div/div[2]/div[1]/div[2]/input[1]"));
+                }*/
                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 string federalTribe = "No";
@@ -3153,9 +3167,9 @@ namespace MNsure_Regression_1
 
                 listboxFederalTribe.SendKeys(federalTribe);
                 listboxFederalTribe.Click();
-
                 IWebElement outsideClick = driver.FindElement(By.Id("__o3ida"));
                 outsideClick.Click();
+                listboxFederalTribe.Click();
 
                 if (federalTribe == "Yes")
                 {
@@ -3345,7 +3359,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                     }                    
                 }
                 else
@@ -3356,7 +3370,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -3413,7 +3427,10 @@ namespace MNsure_Regression_1
                 textboxFirstName.SendKeys(myApplication.myFirstName);
 
                 IWebElement textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
-                textboxMiddleName.SendKeys(myApplication.myMiddleName);
+                if (myApplication.myMiddleName != null)
+                {
+                    textboxMiddleName.SendKeys(myApplication.myMiddleName);
+                }
 
                 IWebElement textboxLastName = driver.FindElement(By.Id("__o3id10"));
                 textboxLastName.SendKeys(myApplication.myLastName);

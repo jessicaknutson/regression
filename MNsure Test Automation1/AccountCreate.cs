@@ -630,7 +630,9 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));//sometimes view results doesn't show right away
+                    myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/div/div[1]/div/div/a")); //works for qhp16
+
+                    //myViewResults = myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div[2]/div/div[1]/div/div/a"));//sometimes view results doesn't show right away
                 }
                 myViewResults.Click();
 

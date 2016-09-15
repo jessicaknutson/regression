@@ -212,16 +212,16 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                if (myHistoryInfo.myEnvironment == "STST2")
-                {
+                //if (myHistoryInfo.myEnvironment == "STST2")
+                //{
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-                }
+                /*}
                 else
                 {
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-                }
+                }*/
                 driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -846,10 +846,10 @@ namespace MNsure_Regression_1
                 {
                     IWebElement listboxPregnant;
                     listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
-                    if (myHistoryInfo.myEnvironment == "STST")
+                    /*if (myHistoryInfo.myEnvironment == "STST")
                     {
                         listboxPregnant.Clear();
-                    }
+                    }*/
                     listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
                 }
 
@@ -2730,16 +2730,16 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                if (myHistoryInfo.myEnvironment == "STST2")
-                {
+                //if (myHistoryInfo.myEnvironment == "STST2")
+                //{
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[4]/div/div/div/span[1]"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[4]/div/div/div/span[1]")).Click(); //participants tab
-                }
+                /*}
                 else
                 {
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[3]/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //participants tab
-                }
+                }*/
                 System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 

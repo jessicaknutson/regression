@@ -75,6 +75,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myTemplateFolder = "C:\\Mnsure Regression 1\\Templates\\";
 
             int iloop = 1;
+            int iloop2 = 1;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -90,11 +91,9 @@ namespace MNsure_Regression_1
             object reflectResultf = null;
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
-            {
-                int iloop2 = 1;
+            {                
                 for (iloop2 = 1; iloop2 <= myHistoryInfo.myMultiples; iloop2++)//loops through the multiples count
                 {
-
                     myHistoryInfo.myTestStepStatus = "none";
                     mysTestId = dataGridViewSelectedTests.Rows[iloop - 1].Cells[0].Value.ToString();
                     mySelectedTest.myTestId = Convert.ToInt32(mysTestId);
@@ -861,8 +860,10 @@ namespace MNsure_Regression_1
                     }
                 }
             }
+            //System.Windows.Forms.Timer execute = new System.Windows.Forms.Timer();//timer is not stopping
+            //execute.Stop();
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
-                MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST
+                MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST            
             return;  //exit now
         }
 
@@ -1011,10 +1012,18 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myMiddleName = reader.GetString(3);
                             }
+                            else
+                            {
+                                myApplication.myMiddleName = "";
+                            }
                             myApplication.myLastName = reader.GetString(4);
                             if (!reader.IsDBNull(5))
                             {
                                 myApplication.mySuffix = reader.GetString(5);
+                            }
+                            else
+                            {
+                                myApplication.mySuffix = "";
                             }
                             myApplication.myGender = reader.GetString(6);
                             myApplication.myMaritalStatus = reader.GetString(7);
@@ -1031,6 +1040,10 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myDOB = myAccountCreate.myDOB;
                                 }
+                            }
+                            else
+                            {
+                                myApplication.myDOB = null;
                             }
                             myApplication.myLiveMN = reader.GetString(9);
                             myApplication.myPlanLiveMN = reader.GetString(10);
@@ -1056,6 +1069,10 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.mySSNNum = reader.GetString(29);
                             }
+                            else
+                            {
+                                myApplication.mySSNNum = "";
+                            }
                             myApplication.myHouseholdOther = reader.GetString(30);
                             myApplication.myDependants = reader.GetString(31);
                             myApplication.myIncomeYN = reader.GetString(32);
@@ -1075,21 +1092,41 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myTribeName = reader.GetString(45);
                             }
+                            else
+                            {
+                                myApplication.myTribeName = "";
+                            }
                             if (!reader.IsDBNull(46))
                             {
                                 myApplication.myLiveRes = reader.GetString(46);
+                            }
+                            else
+                            {
+                                myApplication.myLiveRes = "";
                             }
                             if (!reader.IsDBNull(47))
                             {
                                 myApplication.myTribeId = reader.GetString(47);
                             }
+                            else
+                            {
+                                myApplication.myTribeId = "";
+                            }
                             if (!reader.IsDBNull(48))
                             {
                                 myApplication.myFederalTribe = reader.GetString(48);
                             }
+                            else
+                            {
+                                myApplication.myFederalTribe = "";
+                            }
                             if (!reader.IsDBNull(49))
                             {
                                 myApplication.myMilitary = reader.GetString(49);
+                            }
+                            else
+                            {
+                                myApplication.myMilitary = "";
                             }
                             if (!reader.IsDBNull(50))
                             {
@@ -1104,11 +1141,19 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myWhyNoSSN = reader.GetString(52);
                             }
+                            else
+                            {
+                                myApplication.myWhyNoSSN = "";
+                            }
                             myApplication.myAssistSSN = reader.GetString(53);
                             myApplication.myOtherIns = reader.GetString(54);
                             if (!reader.IsDBNull(55))
                             {
                                 myApplication.myKindIns = reader.GetString(55);
+                            }
+                            else
+                            {
+                                myApplication.myKindIns = "";
                             }
                             myApplication.myCoverageEnd = reader.GetString(56);
                             myApplication.myAddIns = reader.GetString(57);
@@ -1116,9 +1161,30 @@ namespace MNsure_Regression_1
                             myApplication.myRenewalCov = reader.GetString(59);
                             myApplication.myWithDiscounts = reader.GetString(60);
                             myApplication.myIsPregnant = reader.GetString(61);
-                            if (!reader.IsDBNull(62)) { myApplication.myChildren = reader.GetString(62); }
-                            if (!reader.IsDBNull(63)) { myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63)); }
-                            if (!reader.IsDBNull(64)) { myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64)); }
+                            if (!reader.IsDBNull(62)) 
+                            { 
+                                myApplication.myChildren = reader.GetString(62); 
+                            }
+                            else
+                            {
+                                myApplication.myChildren = "";
+                            }
+                            if (!reader.IsDBNull(63)) 
+                            { 
+                                myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63)); 
+                            }
+                            else
+                            {
+                                myApplication.myDueDate = null;
+                            }
+                            if (!reader.IsDBNull(64)) 
+                            { 
+                                myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64)); 
+                            }
+                            else
+                            {
+                                myApplication.myPregnancyEnded = null;
+                            }
                             if (!reader.IsDBNull(65))
                             {
                                 myApplication.myRegDate = Convert.ToString(reader.GetDateTime(65));
@@ -1128,8 +1194,22 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myRegDate = null;
                             }
-                            if (!reader.IsDBNull(66)) { myApplication.myDay2TestId = reader.GetString(66); }
-                            if (!reader.IsDBNull(67)) { myApplication.myPassCount = reader.GetString(67); }
+                            if (!reader.IsDBNull(66)) 
+                            { 
+                                myApplication.myDay2TestId = reader.GetString(66); 
+                            }
+                            else
+                            {
+                                myApplication.myDay2TestId = "";
+                            }
+                            if (!reader.IsDBNull(67)) 
+                            { 
+                                myApplication.myPassCount = reader.GetString(67); 
+                            }
+                            else
+                            {
+                                myApplication.myPassCount = "";
+                            }
                         }
                         else
                         {
@@ -1262,6 +1342,10 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myHomeAddress2 = reader.GetString(4);
                                 }
+                                else
+                                {
+                                    myApplication.myHomeAddress2 = "";
+                                }
                                 myApplication.myHomeCity = reader.GetString(5);
                                 myApplication.myHomeState = reader.GetString(6);
                                 myApplication.myHomeZip = reader.GetString(7);
@@ -1270,11 +1354,19 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myHomeZip4 = reader.GetString(8);
                                 }
+                                else
+                                {
+                                    myApplication.myHomeZip4 = "";
+                                }
                                 myApplication.myHomeCounty = reader.GetString(10);
                                 index = reader.GetOrdinal("AptSuite");
                                 if (!reader.IsDBNull(index))
                                 {
                                     myApplication.myHomeAptSuite = reader.GetString(11);
+                                }
+                                else
+                                {
+                                    myApplication.myHomeAptSuite = "";
                                 }
                             }
                             else if (reader.GetString(9) == "Household 2")
@@ -1284,6 +1376,10 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myMailAddress2 = reader.GetString(4);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myMailAddress2 = "";
+                                }
                                 myHouseholdMembers.myMailCity = reader.GetString(5);
                                 myHouseholdMembers.myMailState = reader.GetString(6);
                                 myHouseholdMembers.myMailZip = reader.GetString(7);
@@ -1291,6 +1387,10 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(11))
                                 {
                                     myHouseholdMembers.myMailAptSuite = reader.GetString(11);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myMailAptSuite = "";
                                 }
                             }
                             else if (reader.GetString(9) == "Assister")
@@ -1300,6 +1400,10 @@ namespace MNsure_Regression_1
                                 {
                                     myAssister.myAddress2 = reader.GetString(4);
                                 }
+                                else
+                                {
+                                    myAssister.myAddress2 = "";
+                                }
                                 myAssister.myCity = reader.GetString(5);
                                 myAssister.myState = reader.GetString(6);
                                 myAssister.myZip = reader.GetString(7);
@@ -1307,6 +1411,10 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(11))
                                 {
                                     myAssister.myAptSuite = reader.GetString(11);
+                                }
+                                else
+                                {
+                                    myAssister.myAptSuite = "";
                                 }
                             }
                             else
@@ -1317,6 +1425,10 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myMailAddress2 = reader.GetString(4);
                                 }
+                                else
+                                {
+                                    myApplication.myMailAddress2 = "";
+                                }
                                 myApplication.myMailCity = reader.GetString(5);
                                 myApplication.myMailState = reader.GetString(6);
                                 myApplication.myMailZip = reader.GetString(7);
@@ -1325,11 +1437,19 @@ namespace MNsure_Regression_1
                                 {
                                     myApplication.myMailZip4 = reader.GetString(8);
                                 }
+                                else
+                                {
+                                    myApplication.myMailZip4 = "";
+                                }
                                 myApplication.myMailCounty = reader.GetString(10);
                                 index = reader.GetOrdinal("AptSuite");
                                 if (!reader.IsDBNull(index))
                                 {
                                     myApplication.myMailAptSuite = reader.GetString(11);
+                                }
+                                else
+                                {
+                                    myApplication.myMailAptSuite = "";
                                 }
                             }
                         }
@@ -1374,10 +1494,18 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myMiddleName = reader.GetString(3);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myMiddleName = "";
+                                }
                                 myHouseholdMembers.myLastName = reader.GetString(4);
                                 if (!reader.IsDBNull(5))
                                 {
                                     myHouseholdMembers.mySuffix = reader.GetString(5);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.mySuffix = "";
                                 }
                                 myHouseholdMembers.myGender = reader.GetString(6);
                                 myHouseholdMembers.myMaritalStatus = reader.GetString(7);
@@ -1404,14 +1532,26 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myRelationshiptoNextHM = "";
+                                }
                                 if (!reader.IsDBNull(28))
                                 {
                                     myHouseholdMembers.myTribeName = reader.GetString(28);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myTribeName = "";
                                 }
                                 myHouseholdMembers.myLiveRes = reader.GetString(29);
                                 if (!reader.IsDBNull(30))
                                 {
                                     myHouseholdMembers.myTribeId = reader.GetString(30);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myTribeId = "";
                                 }
                                 myHouseholdMembers.myFederalTribe = reader.GetString(31);
                                 myHouseholdMembers.myFileJointly = reader.GetString(32);
@@ -1419,30 +1559,58 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeType = reader.GetString(33);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeType = "";
+                                }
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeEmployer = "";
                                 }
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeSeasonal = "";
+                                }
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeAmount = reader.GetString(36);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeAmount = "";
                                 }
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
                                 }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeFrequency = "";
+                                }
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeMore = reader.GetString(38);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeMore = "";
                                 }
                                 myHouseholdMembers.myIncomeReduced = reader.GetString(39);
                                 if (!reader.IsDBNull(3))
                                 {
                                     myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myIncomeAdjusted = "";
                                 }
                                 myHouseholdMembers.myIncomeExpected = reader.GetString(41);
                                 myHouseholdMembers.myPassCount = reader.GetString(42);
@@ -1450,6 +1618,10 @@ namespace MNsure_Regression_1
                                 if (!reader.IsDBNull(44))
                                 {
                                     myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44));
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myMilitaryDate = null;
                                 }
                                 myHouseholdMembers.myPrefContact = reader.GetString(45);
                                 myHouseholdMembers.myPhoneNum = reader.GetString(46);
@@ -1462,11 +1634,46 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myAuthRep = reader.GetString(53);
                                 myHouseholdMembers.myDependants = reader.GetString(54);
                                 myHouseholdMembers.myTaxFiler = reader.GetString(55);
-                                if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
-                                if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); }
-                                if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); }
-                                if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
-                                if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); }
+                                if (!reader.IsDBNull(56)) 
+                                { 
+                                    myHouseholdMembers.myChildren = reader.GetString(56); 
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myChildren = "";
+                                }
+                                if (!reader.IsDBNull(57)) 
+                                { 
+                                    myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); 
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myDueDate = null;
+                                }
+                                if (!reader.IsDBNull(58)) 
+                                { 
+                                    myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); 
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myPregnancyEnded = null;
+                                }
+                                if (!reader.IsDBNull(59)) 
+                                { 
+                                    myHouseholdMembers.myReEnroll = reader.GetString(59); 
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.myReEnroll = "";
+                                }
+                                if (!reader.IsDBNull(60)) 
+                                { 
+                                    myHouseholdMembers.mySaveExit = reader.GetString(60); 
+                                }
+                                else
+                                {
+                                    myHouseholdMembers.mySaveExit = "";
+                                }
                             }
                             com5.ExecuteNonQuery();
                             com5.Dispose();
@@ -1490,9 +1697,17 @@ namespace MNsure_Regression_1
                             {
                                 myAssister.myPhoneType = reader.GetString(6);
                             }
+                            else
+                            {
+                                myAssister.myPhoneType = "";
+                            }
                             if (!reader.IsDBNull(7))
                             {
                                 myAssister.myPhoneNum = reader.GetString(7);
+                            }
+                            else
+                            {
+                                myAssister.myPhoneNum = "";
                             }
                             myAssister.myCategory = reader.GetString(8);
                             myAssister.myType = reader.GetString(9);
@@ -1500,29 +1715,57 @@ namespace MNsure_Regression_1
                             {
                                 myAssister.myEmail = reader.GetString(10);
                             }
+                            else
+                            {
+                                myAssister.myEmail = "";
+                            }
                             if (!reader.IsDBNull(11))
                             {
                                 myAssister.myLastName = reader.GetString(11);
+                            }
+                            else
+                            {
+                                myAssister.myLastName = "";
                             }
                             if (!reader.IsDBNull(12))
                             {
                                 myAssister.myFirstName = reader.GetString(12);
                             }
+                            else
+                            {
+                                myAssister.myFirstName = "";
+                            }
                             if (!reader.IsDBNull(13))
                             {
                                 myAssister.myRefNumber = reader.GetString(13);
+                            }
+                            else
+                            {
+                                myAssister.myRefNumber = "";
                             }
                             if (!reader.IsDBNull(14))
                             {
                                 myAssister.mySSN = reader.GetString(14);
                             }
+                            else
+                            {
+                                myAssister.mySSN = "";
+                            }
                             if (!reader.IsDBNull(15))
                             {
                                 myAssister.myDOB = reader.GetDateTime(15).ToShortDateString();
                             }
+                            else
+                            {
+                                myAssister.myDOB = null;
+                            }
                             if (!reader.IsDBNull(16))
                             {
                                 myAssister.myRegNumber = reader.GetString(16);
+                            }
+                            else
+                            {
+                                myAssister.myRegNumber = "";
                             }
                         }
                         com6.ExecuteNonQuery();
@@ -2123,6 +2366,10 @@ namespace MNsure_Regression_1
                     if (myApplication.myMiddleName != "")
                     {
                         com6.Parameters.AddWithValue("MiddleName", myApplication.myMiddleName);
+                    }
+                    else
+                    {
+                        com6.Parameters.AddWithValue("MiddleName", DBNull.Value);
                     }
                     com6.Parameters.AddWithValue("LastName", myApplication.myLastName);
                     if (myApplication.mySuffix != "")
@@ -6798,6 +7045,10 @@ namespace MNsure_Regression_1
                     {
                         com71.Parameters.AddWithValue("MiddleName", myHouseholdMembers.myMiddleName);
                     }
+                    else
+                    {
+                        com71.Parameters.AddWithValue("MiddleName", DBNull.Value);
+                    }
                     com71.Parameters.AddWithValue("LastName", myHouseholdMembers.myLastName);
                     if (myHouseholdMembers.mySuffix != "" && myHouseholdMembers.mySuffix != null)
                     {
@@ -7104,7 +7355,7 @@ namespace MNsure_Regression_1
             System.Windows.Forms.Timer execute = new System.Windows.Forms.Timer();
             execute.Interval = Convert.ToInt32(timeLeftUntilFirstRun.TotalMilliseconds);
             execute.Tick += new EventHandler(buttonGo_Click);
-            execute.Start();
+            //execute.Start(); turned off, can't figure out how to stop it
         }
 
         private void dateTimePickerRunHistory_ValueChanged(object sender, EventArgs e)

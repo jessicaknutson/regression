@@ -1155,35 +1155,18 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);                
-               
-                if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    myDriver.SwitchTo().DefaultContent();
-                    //driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]")).Click();
-                    //driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[1]/div/div[2]")).Click();
-                    //driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[1]/div/div[2]/div[1]/div")).Click();                
-                    //driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[1]/div/div[2]/div[1]/div/ul[2]/li[1]/a")).Click();
-                    driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[1]/div/div[2]/div[1]/div/ul[2]/li[1]/a")).Click();
-                    OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
-                    action.SendKeys(OpenQA.Selenium.Keys.Tab).Build().Perform();
-                    action.SendKeys(OpenQA.Selenium.Keys.PageUp).Build().Perform();
-
-                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/CitizenAccount_homePage.do')]")));
-                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'/CitizenPortal/en_US/CitizenAccount_homePage.do')]"));
-                    myDriver.SwitchTo().Frame(iFrameElement);
-                    myDriver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/div/div[1]/div/div/a")).Click();   
-                }
+                               
                 myDriver.SwitchTo().DefaultContent();
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[1]/div/div[2]")));
-                IWebElement buttonSubmit = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[1]/div/div[2]"));
-                buttonSubmit.Click();              
+                IWebElement buttonView = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[1]/div/div[2]"));
+                buttonView.Click();              
                     
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -1239,10 +1222,11 @@ namespace MNsure_Regression_1
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/div[1]")));
                 IWebElement buttonViewDropdown = myDriver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div[2]/div/div/div[2]/div/div[2]/div[2]/div/table/tbody/tr/td[2]/div[1]"));
                 buttonViewDropdown.Click();
-
-                OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(myDriver);
-                action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                //System.Threading.Thread.Sleep(1000);
+                /*OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(myDriver);
+                action.SendKeys(OpenQA.Selenium.Keys.ArrowUp).Build().Perform();
+                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();*/
+                myDriver.FindElement(By.XPath("/html/body/div[8]/table/tbody/tr[2]/td[2]")).Click();//enroll
 
                 System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
