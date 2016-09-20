@@ -34,7 +34,18 @@ namespace MNsure_Regression_1
 
             Random rand = new Random();
 
-            if (myApplication.myGender != null && myApplication.myGender != "")
+            if (myApplication.myFirstName != null && myApplication.myFirstName != "" && myApplication.myDOB != null && myApplication.myDOB != ""
+                && myApplication.myGender != null && myApplication.myGender != "")//none random
+            {
+                myAccountCreate.myFirstName = myApplication.myFirstName;
+                myAccountCreate.myMiddleName = myApplication.myMiddleName;
+                myAccountCreate.myLastName = myApplication.myLastName;
+                myAccountCreate.mySuffix = null;
+                myAccountCreate.myDOB = myApplication.myDOB;
+
+                result = 1;
+            }
+            else if (myApplication.myGender != null && myApplication.myGender != "" && myApplication.myDOB == null)//all random but gender
             {
                 if (myApplication.myGender == "Male")
                 {
@@ -63,7 +74,66 @@ namespace MNsure_Regression_1
                     result = 1;
                 }
             }
-            else
+            else if (myApplication.myDOB != null && myApplication.myDOB != "" && myApplication.myGender == null)//all random but dob
+            {
+                //<65 and >18 years old, otherwise need logic to handle other scenarios
+                if (rand.Next(1, 3) == 1)
+                {
+                    Random rand4 = new Random();
+                    myAccountCreate.myFirstName = maleNames[rand4.Next(1, maleNames.Count())];
+                    myAccountCreate.myMiddleName = maleMiddleNames[rand4.Next(1, maleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand4.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = null;// suffix[rand4.Next(1, 4)];
+                    myAccountCreate.myDOB = myApplication.myDOB;
+                    myApplication.myGender = "Male";
+
+                    result = 1;
+                }
+                else
+                {
+                    Random rand5 = new Random();
+                    myAccountCreate.myFirstName = femaleNames[rand5.Next(1, femaleNames.Count())];
+                    myAccountCreate.myMiddleName = femaleMiddleNames[rand5.Next(1, femaleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand5.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = null;// suffix[rand5.Next(1, 4)];
+                    myAccountCreate.myDOB = myApplication.myDOB;
+                    myApplication.myGender = "Female";
+
+                    string temp1;
+                    temp1 = myAccountCreate.myDOB;
+                    result = 1;
+                }
+            }
+            else if (myApplication.myDOB != null && myApplication.myDOB != "" && myApplication.myGender != null && myApplication.myGender != "")//all random but gender, dob
+            {
+                if (myApplication.myGender == "Male")
+                {
+                    Random rand2 = new Random();
+                    myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
+                    myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = null;//suffix[rand2.Next(1, 4)];
+                    myAccountCreate.myDOB = myApplication.myDOB;
+                    myApplication.myGender = "Male";
+
+                    result = 1;
+                }
+                else
+                {
+                    Random rand3 = new Random();
+                    myAccountCreate.myFirstName = femaleNames[rand3.Next(1, femaleNames.Count())];
+                    myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
+                    myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
+                    myAccountCreate.mySuffix = null;//suffix[rand3.Next(1, 4)];
+                    myAccountCreate.myDOB = myApplication.myDOB;
+                    myApplication.myGender = "Female";
+
+                    string temp1;
+                    temp1 = myAccountCreate.myDOB;
+                    result = 1;
+                }
+            }   
+            else //all random
             {
                 //<65 and >18 years old, otherwise need logic to handle other scenarios
                 if (rand.Next(1, 3) == 1)
@@ -167,7 +237,12 @@ namespace MNsure_Regression_1
             Random rand6 = new Random();
             if (householdMember == "2")
             {
-                if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")
+                if (myHouseholdMembers.myFirstName != null && myHouseholdMembers.myFirstName != "" && myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//none random
+                {
+                    //do nothing
+                    result = 1;
+                }
+                else if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "") //all random but gender
                 {
                     if (myHouseholdMembers.myGender == "Male")
                     {
@@ -186,7 +261,7 @@ namespace MNsure_Regression_1
                         result = 1;
                     }
                 }
-                else
+                else //all random
                 {
                     if (rand6.Next(1, 3) == 1)
                     {
@@ -208,7 +283,12 @@ namespace MNsure_Regression_1
             }
             else
             {
-                if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")
+                if (myHouseholdMembers.myFirstName != null && myHouseholdMembers.myFirstName != "" && myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//none random
+                {
+                    //do nothing
+                    result = 1;
+                }
+                else if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//all random but gender
                 {
                     if (myHouseholdMembers.myGender == "Male")
                     {
@@ -227,7 +307,7 @@ namespace MNsure_Regression_1
                         result = 1;
                     }
                 }
-                else
+                else //all random
                 {
                     if (rand6.Next(1, 3) == 1)
                     {

@@ -1024,14 +1024,18 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_workspaceTypeListPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                //if (myEnrollment.myHomeState == "Minnesota")
-                //{
+                IWebElement changeDate = driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[6]"));                
+                DateTime today = DateTime.Today; // As DateTime
+                string s_today = today.ToString("M/d/yyyy"); // As String
+                string strDate = changeDate.Text.Substring(0, changeDate.Text.Length - 2);
+                if (strDate != s_today)
+                {
                     driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle
-                /*}
+                }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[3]/td[1]/a")).Click();//toggle, cw24 only?
-                }*/
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[3]/td[1]/a")).Click();//toggle, cw24, 20
+                }
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -1060,19 +1064,19 @@ namespace MNsure_Regression_1
                 }*/
 
                 IWebElement textboxOriginal;
-                //if (myEnrollment.myHomeState == "Minnesota")
-                //{
-                    textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[3]/td[9]/span/span/span"));//toggle
-                /*}
+                if (strDate != s_today)
+                {
+                    textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[3]/td[9]/span/span/span"));
+                }
                 else
                 {
-                    textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span"));//toggle, cw24 only?
-                }*/
+                    textboxOriginal = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span"));//cw24, 20
+                }
                 textboxOriginal.Click();//action menu
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 //action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
-                action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-                //driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                //action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1864,40 +1868,54 @@ namespace MNsure_Regression_1
                 textboxStateRes.Click();
 
                 IWebElement textboxCounty;
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
                     textboxCounty = driver.FindElement(By.Id("__o3ide"));
-                /*}
+                }
                 else
                 {
                     textboxCounty = driver.FindElement(By.Id("__o3idf"));
-                }*/
-                textboxCounty.Clear();
+                }
+                if (myEnrollment.myHomeState == "Minnesota")
+                {
+                    textboxCounty.Clear();//need for 21 but not 20
+                }
                 textboxCounty.SendKeys(myEnrollment.myHomeCounty);
 
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
-                    IWebElement textboxHomeless = driver.FindElement(By.Id("__o3idf"));
-                    textboxHomeless.Clear();
-                    textboxHomeless.SendKeys(myEnrollment.myHomeless);
-                //}
+                IWebElement textboxHomeless;
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    textboxHomeless = driver.FindElement(By.Id("__o3idf"));                    
+                }
+                else
+                {
+                    textboxHomeless = driver.FindElement(By.Id("__o3id10"));
+                }
+
+                textboxHomeless.Clear();
+                textboxHomeless.SendKeys(myEnrollment.myHomeless);
 
                 IWebElement textboxMNHome;
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
                     textboxMNHome = driver.FindElement(By.Id("__o3id10"));
-                /*}
+                }
                 else
                 {
                     textboxMNHome = driver.FindElement(By.Id("__o3id11"));
-                }*/
+                }
                 textboxMNHome.Clear();
                 textboxMNHome.SendKeys(myEnrollment.myLiveMN);
 
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
-                buttonSave.Click();
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+               
+                IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]"));
+                buttonSave.Click();//why is this not working all of a sudden, after build from 9/14
+                System.Threading.Thread.Sleep(3000);               
+                IWebElement buttonSave2 = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]"));
+                buttonSave2.Click();
+
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -3005,11 +3023,11 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
-               /* ApplicationDo myApp = new ApplicationDo();
+                ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[78]/td[3]/span/span/span")).Click();//pregnancy actions button
+                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[68]/td[3]/span/span/span")).Click();//pregnancy actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -3056,7 +3074,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonSave = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonSave.Click();
-                */
+                
                 /*driver.SwitchTo().DefaultContent();
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
@@ -4489,12 +4507,15 @@ namespace MNsure_Regression_1
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//toggle2
 
+                System.Threading.Thread.Sleep(3000);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+
                 driver.SwitchTo().DefaultContent();
                 IWebElement fourthSearchTab;
                 //if (myHistoryInfo.myEnvironment == "STST2")
                 //{
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
-                    fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"));
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
+                fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"));
                 /*}
                 else
                 {
@@ -4504,10 +4525,7 @@ namespace MNsure_Regression_1
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
                 rClick.Perform();
-                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
-
-                System.Threading.Thread.Sleep(3000);
-                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();                
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -4565,6 +4583,7 @@ namespace MNsure_Regression_1
                     //{
                         myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div"), myHistoryInfo);
                         driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div")).Click();//select  evidence
+                        System.Threading.Thread.Sleep(2000);
                     /*}
                     else
                     {
@@ -5909,11 +5928,11 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //income tab
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[5]/div/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
+                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[5]/div/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]")).Click(); //income tab
 
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[2]/div[3]/div/ul/li[2]/div"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[2]/div[3]/div/ul/li[2]/div")).Click(); //income tab
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[5]/div/div/div[4]/div/div/div[2]/div[3]/div/div/ul/li[2]/div"), myHistoryInfo);
+                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[5]/div/div/div[4]/div/div/div[2]/div[3]/div/div/ul/li[2]/div")).Click(); //income tab
 
                 System.Threading.Thread.Sleep(2000);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);

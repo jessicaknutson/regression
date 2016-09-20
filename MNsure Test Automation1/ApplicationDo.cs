@@ -588,7 +588,13 @@ namespace MNsure_Regression_1
                 listboxMedicalIns.SendKeys("No");
 
                 IWebElement listboxUseTobacco = driver.FindElement(By.Id("__o3id49"));
-                listboxUseTobacco.SendKeys("No");
+                listboxUseTobacco.SendKeys(myApplication.myTobacco);
+
+                if (myApplication.myTobacco == "Yes")
+                {
+                    IWebElement listboxTobaccoLast = driver.FindElement(By.Id("__o3id4a"));
+                    listboxTobaccoLast.SendKeys(myApplication.myTobaccoLast);
+                }
 
                 IWebElement listboxIndian = driver.FindElement(By.Id("__o3id4b"));
                 listboxIndian.SendKeys("No");
@@ -887,7 +893,7 @@ namespace MNsure_Regression_1
                 listboxCitizen.SendKeys(myApplication.myCitizen);
                 myDriver.FindElement(By.Id("__o3id1b")).Click();
 
-                //This will only appear if age 18-27
+                //This will only appear if age 18-25
                 DateTime birth = Convert.ToDateTime(myApplication.myDOB);
                 TimeSpan span;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -976,14 +982,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -3041,17 +3047,21 @@ namespace MNsure_Regression_1
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id22"));
                     }
-                    else if (householdCount == 1)
+                    else if (householdCount == 1 || (householdCount == 2 && myApplication.myApplyYourself == "No"))
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id1c"));
                     }
                     else if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                     {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id1e"));
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id1e"));//when is this hit
+                    }                    
+                    else if (householdCount == 2)//2 hh
+                    {
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id27"));//2hh married couple qhp
                     }
                     else if (householdCount == 2)//2 hh
                     {
-                        listboxMAStartDate = driver.FindElement(By.Id("__o3id2a"));
+                        listboxMAStartDate = driver.FindElement(By.Id("__o3id2a")); //when is this hit
                     }
                     else if (householdCount == 3 && age3.Year - 1 < 19)
                     {

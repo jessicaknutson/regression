@@ -180,6 +180,9 @@ struct mystructSelectedTest
         public string myRegDate;
         public string myDay2TestId;
         public string myPassCount;
+        public string myTobacco;
+        public string myTobaccoLast;
+        public string myRandom;
     }
     struct mystructSSN
     {
@@ -278,6 +281,7 @@ struct mystructSelectedTest
         public string myReEnroll;
         public string mySaveExit;
         public string myPassCount;
+        public string myRandom;
     }
     
     struct mystructAssister

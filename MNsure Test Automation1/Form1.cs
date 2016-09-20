@@ -91,7 +91,7 @@ namespace MNsure_Regression_1
             object reflectResultf = null;
             //This loops through based on the number of tests selected to run
             for (iloop = 1; iloop <= testcount - 1; iloop++)
-            {                
+            {
                 for (iloop2 = 1; iloop2 <= myHistoryInfo.myMultiples; iloop2++)//loops through the multiples count
                 {
                     myHistoryInfo.myTestStepStatus = "none";
@@ -951,7 +951,7 @@ namespace MNsure_Regression_1
             {
                 mysRunid = dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value.ToString();
             }
-            
+
             String mysTestId;
             if (dataGridViewTestRunHistory.Rows[rowindex].Cells[0].Value == null)
             {
@@ -1161,25 +1161,25 @@ namespace MNsure_Regression_1
                             myApplication.myRenewalCov = reader.GetString(59);
                             myApplication.myWithDiscounts = reader.GetString(60);
                             myApplication.myIsPregnant = reader.GetString(61);
-                            if (!reader.IsDBNull(62)) 
-                            { 
-                                myApplication.myChildren = reader.GetString(62); 
+                            if (!reader.IsDBNull(62))
+                            {
+                                myApplication.myChildren = reader.GetString(62);
                             }
                             else
                             {
                                 myApplication.myChildren = "";
                             }
-                            if (!reader.IsDBNull(63)) 
-                            { 
-                                myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63)); 
+                            if (!reader.IsDBNull(63))
+                            {
+                                myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63));
                             }
                             else
                             {
                                 myApplication.myDueDate = null;
                             }
-                            if (!reader.IsDBNull(64)) 
-                            { 
-                                myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64)); 
+                            if (!reader.IsDBNull(64))
+                            {
+                                myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64));
                             }
                             else
                             {
@@ -1194,25 +1194,43 @@ namespace MNsure_Regression_1
                             {
                                 myApplication.myRegDate = null;
                             }
-                            if (!reader.IsDBNull(66)) 
-                            { 
-                                myApplication.myDay2TestId = reader.GetString(66); 
+                            if (!reader.IsDBNull(66))
+                            {
+                                myApplication.myDay2TestId = reader.GetString(66);
                             }
                             else
                             {
                                 myApplication.myDay2TestId = "";
                             }
-                            if (!reader.IsDBNull(67)) 
-                            { 
-                                myApplication.myPassCount = reader.GetString(67); 
+                            if (!reader.IsDBNull(67))
+                            {
+                                myApplication.myPassCount = reader.GetString(67);
                             }
                             else
                             {
                                 myApplication.myPassCount = "";
                             }
+                            if (!reader.IsDBNull(68))
+                            {
+                                myApplication.myTobacco = reader.GetString(68);
+                            }
+                            else
+                            {
+                                myApplication.myTobacco = "";
+                            }
+                            if (!reader.IsDBNull(69))
+                            {
+                                myApplication.myTobaccoLast = Convert.ToString(reader.GetDateTime(69));
+                            }
+                            else
+                            {
+                                myApplication.myTobaccoLast = null;
+                            }
+                            myApplication.myRandom = reader.GetString(70);
                         }
                         else
                         {
+                            myApplication.myRandom = "SSN, Name, Gender, DOB";
                             myApplication.myFirstName = myAccountCreate.myFirstName;
                             myApplication.myMiddleName = myAccountCreate.myMiddleName;
                             myApplication.myLastName = myAccountCreate.myLastName;
@@ -1271,6 +1289,7 @@ namespace MNsure_Regression_1
                             myApplication.myRenewalCov = "5";
                             myApplication.myWithDiscounts = "Yes";
                             myApplication.myIsPregnant = "No";
+                            myApplication.myTobacco = "No";
                         }
                         com3.ExecuteNonQuery();
                         com3.Dispose();
@@ -1634,46 +1653,47 @@ namespace MNsure_Regression_1
                                 myHouseholdMembers.myAuthRep = reader.GetString(53);
                                 myHouseholdMembers.myDependants = reader.GetString(54);
                                 myHouseholdMembers.myTaxFiler = reader.GetString(55);
-                                if (!reader.IsDBNull(56)) 
-                                { 
-                                    myHouseholdMembers.myChildren = reader.GetString(56); 
+                                if (!reader.IsDBNull(56))
+                                {
+                                    myHouseholdMembers.myChildren = reader.GetString(56);
                                 }
                                 else
                                 {
                                     myHouseholdMembers.myChildren = "";
                                 }
-                                if (!reader.IsDBNull(57)) 
-                                { 
-                                    myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57)); 
+                                if (!reader.IsDBNull(57))
+                                {
+                                    myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57));
                                 }
                                 else
                                 {
                                     myHouseholdMembers.myDueDate = null;
                                 }
-                                if (!reader.IsDBNull(58)) 
-                                { 
-                                    myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58)); 
+                                if (!reader.IsDBNull(58))
+                                {
+                                    myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58));
                                 }
                                 else
                                 {
                                     myHouseholdMembers.myPregnancyEnded = null;
                                 }
-                                if (!reader.IsDBNull(59)) 
-                                { 
-                                    myHouseholdMembers.myReEnroll = reader.GetString(59); 
+                                if (!reader.IsDBNull(59))
+                                {
+                                    myHouseholdMembers.myReEnroll = reader.GetString(59);
                                 }
                                 else
                                 {
                                     myHouseholdMembers.myReEnroll = "";
                                 }
-                                if (!reader.IsDBNull(60)) 
-                                { 
-                                    myHouseholdMembers.mySaveExit = reader.GetString(60); 
+                                if (!reader.IsDBNull(60))
+                                {
+                                    myHouseholdMembers.mySaveExit = reader.GetString(60);
                                 }
                                 else
                                 {
                                     myHouseholdMembers.mySaveExit = "";
                                 }
+                                myHouseholdMembers.myRandom = reader.GetString(61);
                             }
                             com5.ExecuteNonQuery();
                             com5.Dispose();
@@ -1779,6 +1799,44 @@ namespace MNsure_Regression_1
                 }
 
                 textBoxEnrollTest.Text = mySelectedTest.myTestName;
+                comboBoxRandom.Text = myApplication.myRandom;
+                if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
+                {
+                    myApplication.mySSNNum = "";
+                    myApplication.myFirstName = "";
+                    myApplication.myMiddleName = "";
+                    myApplication.myLastName = "";
+                    myApplication.mySuffix = "";
+                    myApplication.myGender = "";
+                    myApplication.myDOB = "";
+                }
+                if (comboBoxRandom.Text == "SSN, Name, Gender")
+                {
+                    myApplication.mySSNNum = "";
+                    myApplication.myFirstName = "";
+                    myApplication.myMiddleName = "";
+                    myApplication.myLastName = "";
+                    myApplication.mySuffix = "";
+                    myApplication.myGender = "";
+                }
+                if (comboBoxRandom.Text == "SSN, Name, DOB")
+                {
+                    myApplication.mySSNNum = "";
+                    myApplication.myFirstName = "";
+                    myApplication.myMiddleName = "";
+                    myApplication.myLastName = "";
+                    myApplication.mySuffix = "";
+                    myApplication.myDOB = "";
+                }
+                if (comboBoxRandom.Text == "SSN, Name")
+                {
+                    myApplication.mySSNNum = "";
+                    myApplication.myFirstName = "";
+                    myApplication.myMiddleName = "";
+                    myApplication.myLastName = "";
+                    myApplication.mySuffix = "";
+                }
+
                 textBoxEnrollFirstName.Text = myApplication.myFirstName;
                 textBoxEnrollMiddleName.Text = myApplication.myMiddleName;
                 textBoxEnrollLastName.Text = myApplication.myLastName;
@@ -1945,26 +2003,56 @@ namespace MNsure_Regression_1
                 }
                 textBoxRegDate.Text = myApplication.myRegDate;
                 textBoxDay2TestId.Text = myApplication.myDay2TestId;
-
+                comboBoxTobacco.Text = myApplication.myTobacco;
+                if (myApplication.myTobacco == "Yes")
+                {
+                    dateTimeTobacco.Enabled = true;
+                    dateTimeTobacco.Format = DateTimePickerFormat.Short;
+                }
+                else
+                {
+                    dateTimeTobacco.Enabled = false;
+                    dateTimeTobacco.Format = DateTimePickerFormat.Custom;
+                    dateTimeTobacco.CustomFormat = " ";
+                }
+                dateTimeTobacco.Text = myApplication.myTobaccoLast;
+                if (myApplication.myTobaccoLast != null && myApplication.myTobaccoLast != "")
+                {
+                    string tempTobacco;
+                    tempTobacco = Convert.ToString(myApplication.myTobaccoLast);
+                    tempTobacco = DateTime.Parse(tempTobacco).ToString("MM/dd/yyyy");
+                    dateTimeTobacco.Format = DateTimePickerFormat.Short;
+                    dateTimeTobacco.Value = Convert.ToDateTime(tempTobacco);
+                }
+                comboBoxRandom.Text = myApplication.myRandom;
+                
                 if (myApplication.myHouseholdOther == "Yes")
                 {
-                    if (checkBoxHMRandom.Checked == false)
+                    comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
+                    if (comboBoxHMRandom.Text == "SSN, Name, Gender")
                     {
-                        textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
-                        textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
-                        textBoxHMLastName.Text = myHouseholdMembers.myLastName;
-                        comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
-                    }
-                    else
+                        myHouseholdMembers.mySSN = "";
+                        myHouseholdMembers.myFirstName = "";
+                        myHouseholdMembers.myMiddleName = "";
+                        myHouseholdMembers.myLastName = "";
+                        myHouseholdMembers.mySuffix = "";
+                        myHouseholdMembers.myGender = "";
+                    }                   
+                    if (comboBoxHMRandom.Text == "SSN, Name")
                     {
-                        textBoxHMFirstName.Text = "";
-                        textBoxHMMiddleName.Text = "";
-                        textBoxHMLastName.Text = "";
-                        comboBoxHMSuffix.Text = "";
+                        myHouseholdMembers.mySSN = "";
+                        myHouseholdMembers.myFirstName = "";
+                        myHouseholdMembers.myMiddleName = "";
+                        myHouseholdMembers.myLastName = "";
+                        myHouseholdMembers.mySuffix = "";
                     }
+                    textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+                    textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+                    textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+                    comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
                     comboBoxHMGender.Text = myHouseholdMembers.myGender;
-                    comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
                     textBoxHMDOB.Text = myHouseholdMembers.myDOB;
+                    comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
                     comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
                     comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
                     comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
@@ -2216,20 +2304,49 @@ namespace MNsure_Regression_1
             mySelectedTest.myRowIndex = rowindex;
             string mysTestId;
             mysTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
-            if (checkBoxRandom.Checked == true)
+            if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
             {
+                myApplication.mySSNNum = "";
+                myApplication.myFirstName = "";
+                myApplication.myMiddleName = "";
+                myApplication.myLastName = "";
+                myApplication.mySuffix = "";
+                myApplication.myGender = "";
+                myApplication.myDOB = "";
+            }
+            if (comboBoxRandom.Text == "SSN, Name, DOB")
+            {
+                myApplication.mySSNNum = "";
+                myApplication.myFirstName = "";
+                myApplication.myMiddleName = "";
+                myApplication.myLastName = "";
+                myApplication.mySuffix = "";
+                myApplication.myDOB = "";
+            }
+            if (comboBoxRandom.Text == "SSN, Name, Gender")
+            {
+                myApplication.mySSNNum = "";
+                myApplication.myFirstName = "";
+                myApplication.myMiddleName = "";
+                myApplication.myLastName = "";
+                myApplication.mySuffix = "";
+                myApplication.myGender = "";
+            }
+            if (comboBoxRandom.Text == "SSN, Name")
+            {
+                myApplication.mySSNNum = "";
                 myApplication.myFirstName = "";
                 myApplication.myMiddleName = "";
                 myApplication.myLastName = "";
                 myApplication.mySuffix = "";
             }
-            else
-            {
-                myApplication.myFirstName = textBoxEnrollFirstName.Text;
-                myApplication.myMiddleName = textBoxEnrollMiddleName.Text;
-                myApplication.myLastName = textBoxEnrollLastName.Text;
-                myApplication.mySuffix = comboBoxEnrollSuffix.Text;
-            }
+            myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
+            myApplication.myFirstName = textBoxEnrollFirstName.Text;
+            myApplication.myMiddleName = textBoxEnrollMiddleName.Text;
+            myApplication.myLastName = textBoxEnrollLastName.Text;
+            myApplication.mySuffix = comboBoxEnrollSuffix.Text;
+            myApplication.myGender = comboBoxEnrollGender.Text;
+            myApplication.myDOB = textBoxEnrollDOB.Text;
             myApplication.myHomeAddress1 = textBoxHomeAddr1.Text;
             myApplication.myHomeAddress2 = textBoxHomeAddr2.Text;
             myApplication.myHomeAptSuite = textBoxHomeAptSuite.Text;
@@ -2247,16 +2364,7 @@ namespace MNsure_Regression_1
             myApplication.myMailZip4 = textBoxMailZip4.Text;
             myApplication.myMailCounty = comboBoxMailCounty.Text;
             myApplication.myAddressSame = comboBoxEnrollAddressSame.Text;
-            myApplication.myGender = comboBoxEnrollGender.Text;
             myApplication.myMaritalStatus = comboBoxEnrollMaritalStatus.Text;
-            if (checkBoxRandom.Checked == true)
-            {
-                myApplication.myDOB = "";
-            }
-            else
-            {
-                myApplication.myDOB = textBoxEnrollDOB.Text;
-            }
             myApplication.myMailingAddressYN = comboBoxMailAddrYN.Text;
             myApplication.myLiveMN = comboBoxLiveMN.Text;
             myApplication.myPlanLiveMN = comboBoxPlanLiveMN.Text;
@@ -2285,14 +2393,6 @@ namespace MNsure_Regression_1
                 myApplication.myMilitaryDate = dateTimeMilitary.Text;
             }
             myApplication.mySSN = comboBoxEnrollSSN.Text;
-            if (checkBoxRandom.Checked == true)
-            {
-                myApplication.mySSNNum = "";
-            }
-            else
-            {
-                myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
-            }
             myApplication.myAppliedSSN = comboBoxAppliedSSN.Text;
             myApplication.myWhyNoSSN = comboBoxWhyNoSSN.Text;
             myApplication.myAssistSSN = comboBoxAssistSSN.Text;
@@ -2330,6 +2430,12 @@ namespace MNsure_Regression_1
             myApplication.myRegDate = textBoxRegDate.Text;
             myApplication.myDay2TestId = textBoxDay2TestId.Text;
             myApplication.myPassCount = "1";
+            myApplication.myTobacco = comboBoxTobacco.Text;
+            if (dateTimeTobacco.Text != " ")
+            {
+                myApplication.myTobaccoLast = dateTimeTobacco.Text;
+            }
+            myApplication.myRandom = comboBoxRandom.Text;
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -2359,7 +2465,8 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId, @PassCount );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate," +
+                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random );";
                 using (SqlCeCommand com6 = new SqlCeCommand(myInsertString, con))
                 {
                     com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -2492,6 +2599,16 @@ namespace MNsure_Regression_1
                         com6.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                     }
                     com6.Parameters.AddWithValue("PassCount", myApplication.myPassCount);
+                    com6.Parameters.AddWithValue("Tobacco", myApplication.myTobacco);
+                    if (myApplication.myTobaccoLast != "" && myApplication.myTobaccoLast != null)
+                    {
+                        com6.Parameters.AddWithValue("TobaccoLast", myApplication.myTobaccoLast);
+                    }
+                    else
+                    {
+                        com6.Parameters.AddWithValue("TobaccoLast", DBNull.Value);
+                    }
+                    com6.Parameters.AddWithValue("Random", myApplication.myRandom);
 
                     com6.ExecuteNonQuery();
                     com6.Dispose();
@@ -3342,7 +3459,7 @@ namespace MNsure_Regression_1
                 else
                 {
                     //default values
-                    checkBoxHMRandom.Checked = true;
+                    comboBoxHMRandom.Text = "SSN, Name, Gender";
                     textBoxHMFirstName.Text = "";
                     textBoxHMMiddleName.Text = "";
                     textBoxHMLastName.Text = "";
@@ -5131,13 +5248,18 @@ namespace MNsure_Regression_1
                                     "@Race, @SSN, @Citizen, @SSNNum, @Household, @Dependants, @IncomeYN, @IncomeType, @IncomeAmount, @IncomeFrequency," +
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
-                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate, @PregnancyEnded, @RegDate, @Day2TestId, @PassCount );";
+                                    "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate," +
+                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random );";
                         using (SqlCeCommand com54 = new SqlCeCommand(myInsertString, con))
                         {
                             com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
                             if (!reader.IsDBNull(3))
                             {
                                 com54.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("MiddleName", DBNull.Value);
                             }
                             com54.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
@@ -5267,7 +5389,17 @@ namespace MNsure_Regression_1
                                 com54.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                             }
                             com54.Parameters.AddWithValue("PassCount", reader.GetString(67));
-
+                            com54.Parameters.AddWithValue("Tobacco", reader.GetString(68));
+                            if (!reader.IsDBNull(69))
+                            {
+                                com54.Parameters.AddWithValue("TobaccoLast", reader.GetDateTime(69));
+                            }
+                            else
+                            {
+                                com54.Parameters.AddWithValue("TobaccoLast", DBNull.Value);
+                            }
+                            com54.Parameters.AddWithValue("Random", reader.GetString(70));
+                            
                             com54.ExecuteNonQuery();
                             com54.Dispose();
                         }
@@ -5504,7 +5636,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit, @Random );";
 
                         using (SqlCeCommand com65 = new SqlCeCommand(myInsertString, con))
                         {
@@ -5605,6 +5737,7 @@ namespace MNsure_Regression_1
                             }
                             com65.Parameters.AddWithValue("Reenroll", reader.GetString(59));
                             com65.Parameters.AddWithValue("SaveExit", reader.GetString(60));
+                            com65.Parameters.AddWithValue("Random", reader.GetString(61));
 
                             com65.ExecuteNonQuery();
                             com65.Dispose();
@@ -5634,7 +5767,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit, @Random );";
 
                         using (SqlCeCommand com67 = new SqlCeCommand(myInsertString, con))
                         {
@@ -5735,6 +5868,7 @@ namespace MNsure_Regression_1
                             }
                             com67.Parameters.AddWithValue("Reenroll", reader.GetString(59));
                             com67.Parameters.AddWithValue("SaveExit", reader.GetString(60));
+                            com67.Parameters.AddWithValue("Random", reader.GetString(61));
 
                             com67.ExecuteNonQuery();
                             com67.Dispose();
@@ -6536,6 +6670,24 @@ namespace MNsure_Regression_1
             result = householdMembers.doGetHouseholdMember(ref myHouseholdMembers, ref  myHistoryInfo, myTestId);
 
             //The structure should be full now, so populate all the boxes.  
+            comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
+            if (comboBoxHMRandom.Text == "SSN, Name, Gender")
+            {
+                myHouseholdMembers.mySSN = "";
+                myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
+                myHouseholdMembers.myLastName = "";
+                myHouseholdMembers.mySuffix = "";
+                myHouseholdMembers.myGender = "";
+            }
+            if (comboBoxHMRandom.Text == "SSN, Name")
+            {
+                myHouseholdMembers.mySSN = "";
+                myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
+                myHouseholdMembers.myLastName = "";
+                myHouseholdMembers.mySuffix = "";
+            }
             textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
             textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
             textBoxHMLastName.Text = myHouseholdMembers.myLastName;
@@ -6666,7 +6818,25 @@ namespace MNsure_Regression_1
             FillStructures householdMembers = new FillStructures();
             result = householdMembers.doGetHouseholdMember(ref myHouseholdMembers, ref  myHistoryInfo, myTestId);
 
-            //The structure should be full now, so populate all the boxes.  
+            //The structure should be full now, so populate all the boxes. 
+            comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
+            if (comboBoxHMRandom.Text == "SSN, Name, Gender")
+            {
+                myHouseholdMembers.mySSN = "";
+                myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
+                myHouseholdMembers.myLastName = "";
+                myHouseholdMembers.mySuffix = "";
+                myHouseholdMembers.myGender = "";
+            }
+            if (comboBoxHMRandom.Text == "SSN, Name")
+            {
+                myHouseholdMembers.mySSN = "";
+                myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
+                myHouseholdMembers.myLastName = "";
+                myHouseholdMembers.mySuffix = "";
+            }
             textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
             textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
             textBoxHMLastName.Text = myHouseholdMembers.myLastName;
@@ -6782,7 +6952,7 @@ namespace MNsure_Regression_1
 
         private void buttonAddMember_Click(object sender, EventArgs e)
         {
-            checkBoxHMRandom.Checked = true;
+            comboBoxHMRandom.Text = "SSN, Name, Gender";
             textBoxHMFirstName.Text = "";
             textBoxHMMiddleName.Text = "";
             textBoxHMLastName.Text = "";
@@ -6935,21 +7105,30 @@ namespace MNsure_Regression_1
             string myTestId;
             myTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
 
-            if (checkBoxHMRandom.Checked == true)
+            if (comboBoxHMRandom.Text == "SSN, Name, Gender")
             {
+                myHouseholdMembers.mySSN = "";
                 myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
                 myHouseholdMembers.myLastName = "";
-            }
-            else
+                myHouseholdMembers.mySuffix = "";
+                myHouseholdMembers.myGender = "";
+            }            
+            if (comboBoxRandom.Text == "SSN, Name")
             {
-                myHouseholdMembers.myFirstName = textBoxHMFirstName.Text;
-                myHouseholdMembers.myLastName = textBoxHMLastName.Text;
+                myHouseholdMembers.mySSN = "";
+                myHouseholdMembers.myFirstName = "";
+                myHouseholdMembers.myMiddleName = "";
+                myHouseholdMembers.myLastName = "";
+                myHouseholdMembers.mySuffix = "";
             }
+            myHouseholdMembers.myFirstName = textBoxHMFirstName.Text;
             myHouseholdMembers.myMiddleName = textBoxHMMiddleName.Text;
+            myHouseholdMembers.myLastName = textBoxHMLastName.Text;
             myHouseholdMembers.mySuffix = comboBoxHMSuffix.Text;
             myHouseholdMembers.myGender = comboBoxHMGender.Text;
-            myHouseholdMembers.myMaritalStatus = comboBoxHMMaritalStatus.Text;
             myHouseholdMembers.myDOB = textBoxHMDOB.Text;
+            myHouseholdMembers.myMaritalStatus = comboBoxHMMaritalStatus.Text;
             myHouseholdMembers.myLiveWithYou = comboBoxHMLiveWithYou.Text;
             myHouseholdMembers.myLiveInMN = comboBoxHMLiveMN.Text;
             myHouseholdMembers.myTempAbsentMN = comboBoxHMTempAbsentMN.Text;
@@ -7014,6 +7193,7 @@ namespace MNsure_Regression_1
             {
                 myHouseholdMembers.myPregnancyEnded = dateTimeHMPregnancyEnded.Text;
             }
+            myHouseholdMembers.myRandom = comboBoxHMRandom.Text;
 
             myHouseholdMembers.HouseMembersID = Convert.ToInt32(textBoxCurrentMember.Text);
             SqlCeConnection con;
@@ -7036,7 +7216,7 @@ namespace MNsure_Regression_1
                     "@DOB , @LiveWithYou, @MNHome, @PersonHighlighted, @LiveMN, @TempAbsentMN, @Homeless, @PlanMakeMNHome, @SeekingEmployment, @Hispanic, @Race, @HaveSSN, @SSN, " +
                     "@USCitizen, @USNational, @Pregnant, @FosterCare, @Relationship, @HasIncome, @RelationshiptoNextHM, @TribeName, @LiveRes, @TribeId, @FederalTribe, @FileJointly, " +
                     "@IncomeType, @Employer, @Seasonal, @IncomeAmount, @IncomeFrequency, @IncomeMore, @Reduced, @Adjusted, @Expected, @PassCount, @Military, @MilitaryDate, " +
-                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit );";
+                    "@PrefContact, @PhoneNum, @PhoneType, @AltNum, @AltType, @Email, @VoterCard, @Notices, @AuthRep, @Dependant, @TaxFiler, @Children, @DueDate, @PregnancyEnded, @Reenroll, @SaveExit, @Random );";
 
                 using (SqlCeCommand com71 = new SqlCeCommand(myInsertString, con))
                 {
@@ -7134,6 +7314,7 @@ namespace MNsure_Regression_1
                     }
                     com71.Parameters.AddWithValue("Reenroll", "No");
                     com71.Parameters.AddWithValue("SaveExit", "No");
+                    com71.Parameters.AddWithValue("Random", myHouseholdMembers.myRandom);
 
                     com71.ExecuteNonQuery();
                     com71.Dispose();
@@ -7447,6 +7628,115 @@ namespace MNsure_Regression_1
 
             this.Cursor = Cursors.Default;
             MessageBox.Show("Delete Temp is complete.");
+        }
+
+        private void comboBoxTobacco_SelectedValueChanged(object sender, EventArgs e)
+        {
+            myApplication.myTobaccoLast = null;
+            if (comboBoxTobacco.Text == "No")
+            {
+                dateTimeTobacco.Enabled = false;
+                dateTimeTobacco.Format = DateTimePickerFormat.Custom;
+                dateTimeTobacco.CustomFormat = " ";
+            }
+            else
+            {
+                dateTimeTobacco.Enabled = true;
+                dateTimeTobacco.Format = DateTimePickerFormat.Short;
+            }
+        }
+
+        private void dateTimeTobacco_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxRandom_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxRandom_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (comboBoxRandom.Text == "Nothing")
+            {
+                textBoxEnrollSSNNum.Enabled = true;
+                textBoxEnrollFirstName.Enabled = true;
+                textBoxEnrollMiddleName.Enabled = true;
+                textBoxEnrollLastName.Enabled = true;
+                comboBoxEnrollSuffix.Enabled = true;
+                comboBoxEnrollGender.Enabled = true;
+                textBoxEnrollDOB.Enabled = true;
+            }
+            else if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
+            {
+                textBoxEnrollSSNNum.Enabled = false;
+                textBoxEnrollFirstName.Enabled = false;
+                textBoxEnrollMiddleName.Enabled = false;
+                textBoxEnrollLastName.Enabled = false;
+                comboBoxEnrollSuffix.Enabled = false;
+                comboBoxEnrollGender.Enabled = false;
+                textBoxEnrollDOB.Enabled = false;
+            }
+            else if (comboBoxRandom.Text == "SSN, Name, DOB")
+            {
+                textBoxEnrollSSNNum.Enabled = false;
+                textBoxEnrollFirstName.Enabled = false;
+                textBoxEnrollMiddleName.Enabled = false;
+                textBoxEnrollLastName.Enabled = false;
+                comboBoxEnrollSuffix.Enabled = false;
+                comboBoxEnrollGender.Enabled = true;
+                textBoxEnrollDOB.Enabled = false;
+            }
+            else if (comboBoxRandom.Text == "SSN, Name, Gender")
+            {
+                textBoxEnrollSSNNum.Enabled = false;
+                textBoxEnrollFirstName.Enabled = false;
+                textBoxEnrollMiddleName.Enabled = false;
+                textBoxEnrollLastName.Enabled = false;
+                comboBoxEnrollSuffix.Enabled = false;
+                comboBoxEnrollGender.Enabled = false;
+                textBoxEnrollDOB.Enabled = true;
+            }
+            else
+            {
+                textBoxEnrollSSNNum.Enabled = false;
+                textBoxEnrollFirstName.Enabled = false;
+                textBoxEnrollMiddleName.Enabled = false;
+                textBoxEnrollLastName.Enabled = false;
+                comboBoxEnrollSuffix.Enabled = false;
+                comboBoxEnrollGender.Enabled = true;
+                textBoxEnrollDOB.Enabled = true;
+            }
+        }
+
+        private void comboBoxHMRandom_SelectedValueChanged(object sender, EventArgs e)
+        {
+
+            if (comboBoxHMRandom.Text == "Nothing")
+            {
+                textBoxHMFirstName.Enabled = true;
+                textBoxHMMiddleName.Enabled = true;
+                textBoxHMLastName.Enabled = true;
+                comboBoxHMSuffix.Enabled = true;
+                comboBoxHMGender.Enabled = true;
+            } 
+            else if (comboBoxHMRandom.Text == "SSN, Name")
+            {
+                textBoxHMFirstName.Enabled = false;
+                textBoxHMMiddleName.Enabled = false;
+                textBoxHMLastName.Enabled = false;
+                comboBoxHMSuffix.Enabled = false;
+                comboBoxHMGender.Enabled = true;
+            }
+            else
+            {
+                textBoxHMFirstName.Enabled = false;
+                textBoxHMMiddleName.Enabled = false;
+                textBoxHMLastName.Enabled = false;
+                comboBoxHMSuffix.Enabled = false;
+                comboBoxHMGender.Enabled = false;
+            }
         }
 
 
