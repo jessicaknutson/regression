@@ -550,7 +550,14 @@ namespace MNsure_Regression_1
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                     {
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
-                        com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
+                        if (myAccountCreate.myMiddleName != "")
+                        {
+                            com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("MiddleName", DBNull.Value);
+                        }                      
                         com3.Parameters.AddWithValue("LastName", myAccountCreate.myLastName);
                         com3.Parameters.AddWithValue("Suffix", DBNull.Value);//myAccountCreate.mySuffix);
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
@@ -619,7 +626,14 @@ namespace MNsure_Regression_1
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                     {
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
-                        com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
+                        if (myAccountCreate.myMiddleName != "")
+                        {
+                            com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("MiddleName", DBNull.Value);
+                        }    
                         com3.Parameters.AddWithValue("LastName", myAccountCreate.myLastName);
                         com3.Parameters.AddWithValue("Suffix", DBNull.Value);//myAccountCreate.mySuffix);
                         com3.Parameters.AddWithValue("Email", myAccountCreate.myEmail);
