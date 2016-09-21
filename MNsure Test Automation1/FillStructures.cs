@@ -20,6 +20,28 @@ namespace MNsure_Regression_1
 
             try
             {
+                SqlCeCommand cmd6 = con.CreateCommand();
+                cmd6.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Account where TestID = " + mySelectedTest.myTestId, con))
+                {
+                    SqlCeDataReader reader = com6.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        myAccountCreate.myAccountID = reader.GetInt32(0);
+                        if (!reader.IsDBNull(2)) { myAccountCreate.myFirstName = reader.GetString(2); }
+                        if (!reader.IsDBNull(3)) { myAccountCreate.myMiddleName = reader.GetString(3); }
+                        if (!reader.IsDBNull(4)) { myAccountCreate.myLastName = reader.GetString(4); }
+                        if (!reader.IsDBNull(5)) { myAccountCreate.mySuffix = reader.GetString(5); }
+                        if (!reader.IsDBNull(6)) { myAccountCreate.myEmail = reader.GetString(6); }
+                        if (!reader.IsDBNull(7)) { myAccountCreate.myPhone = reader.GetString(7); }
+                        if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
+                        if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToDateTime(reader.GetDateTime(9)).ToString("MM/dd/yyyy"); }
+                        if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }
+                    }
+                }
+
                 SqlCeCommand cmd2 = con.CreateCommand();
                 cmd2.CommandType = CommandType.Text;
 
@@ -29,13 +51,13 @@ namespace MNsure_Regression_1
                     SqlCeDataReader reader = com2.ExecuteReader();
                     if (reader.Read())
                     {
-                        if (!reader.IsDBNull(2)) { myApplication.myFirstName = myAccountCreate.myFirstName; } //auto generated
-                        if (!reader.IsDBNull(3)) { myApplication.myMiddleName = myAccountCreate.myMiddleName; } //auto generated
-                        if (!reader.IsDBNull(4)) { myApplication.myLastName = myAccountCreate.myLastName; } //auto generated
-                        if (!reader.IsDBNull(5)) { myApplication.mySuffix = myAccountCreate.mySuffix; } //auto generated
-                        if (!reader.IsDBNull(6)) { myApplication.myGender = reader.GetString(6); } //auto generated and updated earlier
-                        if (!reader.IsDBNull(7)) { myApplication.myMaritalStatus = reader.GetString(7); }
-                        if (!reader.IsDBNull(8))
+                        myApplication.myFirstName = myAccountCreate.myFirstName;  //auto generated
+                        myApplication.myMiddleName = myAccountCreate.myMiddleName;  //auto generated
+                        myApplication.myLastName = myAccountCreate.myLastName;  //auto generated
+                        myApplication.mySuffix = myAccountCreate.mySuffix;  //auto generated
+                        myApplication.myGender = reader.GetString(6);  //auto generated and updated earlier
+                        
+                        /*if (!reader.IsDBNull(8))
                         {
                             string tempDOB;
                             tempDOB = Convert.ToString(reader.GetDateTime(8));
@@ -50,17 +72,19 @@ namespace MNsure_Regression_1
                             }
                         }
                         else
-                        {
+                        {*/
                             myApplication.myDOB = myAccountCreate.myDOB;
-                        }
+                        //}
+                        myApplication.myEmail = myAccountCreate.myEmail; //auto generated
+
+                        if (!reader.IsDBNull(7)) { myApplication.myMaritalStatus = reader.GetString(7); }
                         if (!reader.IsDBNull(9)) { myApplication.myLiveMN = reader.GetString(9); }
                         if (!reader.IsDBNull(10)) { myApplication.myPlanLiveMN = reader.GetString(10); }
                         if (!reader.IsDBNull(11)) { myApplication.myPrefContact = reader.GetString(11); }
                         if (!reader.IsDBNull(12)) { myApplication.myPhoneNum = reader.GetString(12); }
                         if (!reader.IsDBNull(13)) { myApplication.myPhoneType = reader.GetString(13); }
                         if (!reader.IsDBNull(14)) { myApplication.myAltNum = reader.GetString(14); }
-                        if (!reader.IsDBNull(15)) { myApplication.myAltNumType = reader.GetString(15); }
-                        if (!reader.IsDBNull(16)) { myApplication.myEmail = myAccountCreate.myEmail; }//auto generated
+                        if (!reader.IsDBNull(15)) { myApplication.myAltNumType = reader.GetString(15); }                        
                         if (!reader.IsDBNull(17)) { myApplication.myLanguageMost = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myApplication.myLanguageWritten = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myApplication.myVoterCard = reader.GetString(19); }
@@ -124,29 +148,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(69)) { myApplication.myTobaccoLast = Convert.ToDateTime(reader.GetDateTime(69)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(70)) { myApplication.myRandom = reader.GetString(70); }
                     }
-                }
-
-                SqlCeCommand cmd6 = con.CreateCommand();
-                cmd6.CommandType = CommandType.Text;
-
-                //Read configured rows if exist
-                using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Account where TestID = " + mySelectedTest.myTestId, con))
-                {
-                    SqlCeDataReader reader = com6.ExecuteReader();
-                    if (reader.Read())
-                    {
-                        myAccountCreate.myAccountID = reader.GetInt32(0);
-                        if (!reader.IsDBNull(2)) { myAccountCreate.myFirstName = reader.GetString(2); }
-                        if (!reader.IsDBNull(3)) { myAccountCreate.myMiddleName = reader.GetString(3); }
-                        if (!reader.IsDBNull(4)) { myAccountCreate.myLastName = reader.GetString(4); }
-                        if (!reader.IsDBNull(5)) { myAccountCreate.mySuffix = reader.GetString(5); }
-                        if (!reader.IsDBNull(6)) { myAccountCreate.myEmail = reader.GetString(6); }
-                        if (!reader.IsDBNull(7)) { myAccountCreate.myPhone = reader.GetString(7); }
-                        if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
-                        if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToDateTime(reader.GetDateTime(9)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }                  
-                    }
-                }
+                }                
 
                 SqlCeCommand cmd4 = con.CreateCommand();
                 cmd4.CommandType = CommandType.Text;
@@ -176,7 +178,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
                         if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
                         if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
+                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); } //auto generated
                         if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
                         if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
                         if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
@@ -408,66 +410,66 @@ namespace MNsure_Regression_1
                     if (reader.Read())
                     {
                         myHouseholdMembers.HouseMembersID = reader.GetInt32(0);
-                        if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); }
-                        if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); }
-                        if (!reader.IsDBNull(4)) { myHouseholdMembers.myLastName = reader.GetString(4); }
-                        if (!reader.IsDBNull(5)) { myHouseholdMembers.mySuffix = reader.GetString(5); }
-                        if (!reader.IsDBNull(6)) { myHouseholdMembers.myGender = reader.GetString(6); }
-                        if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); }
-                        if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); }
-                        if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); }
-                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); }
-                        if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); }
-                        if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); }
-                        if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); }
-                        if (!reader.IsDBNull(14)) { myHouseholdMembers.myHomeless = reader.GetString(14); }
-                        if (!reader.IsDBNull(15)) { myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15); }
-                        if (!reader.IsDBNull(16)) { myHouseholdMembers.mySeekEmplMN = reader.GetString(16); }
-                        if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); }
-                        if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); }
-                        if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); }
-                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); }//auto generated
-                        if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); }
-                        if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); }
-                        if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); }
-                        if (!reader.IsDBNull(24)) { myHouseholdMembers.myBeenInFosterCare = reader.GetString(24); }
-                        if (!reader.IsDBNull(25)) { myHouseholdMembers.myRelationship = reader.GetString(25); }
-                        if (!reader.IsDBNull(26)) { myHouseholdMembers.myHasIncome = reader.GetString(26); }
-                        if (!reader.IsDBNull(27)) { myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27); }
-                        if (!reader.IsDBNull(28)) { myHouseholdMembers.myTribeName = reader.GetString(28); }
-                        if (!reader.IsDBNull(29)) { myHouseholdMembers.myLiveRes = reader.GetString(29); }
-                        if (!reader.IsDBNull(30)) { myHouseholdMembers.myTribeId = reader.GetString(30); }
-                        if (!reader.IsDBNull(31)) { myHouseholdMembers.myFederalTribe = reader.GetString(31); }
-                        if (!reader.IsDBNull(32)) { myHouseholdMembers.myFileJointly = reader.GetString(32); }
-                        if (!reader.IsDBNull(33)) { myHouseholdMembers.myIncomeType = reader.GetString(33); }
-                        if (!reader.IsDBNull(34)) { myHouseholdMembers.myIncomeEmployer = reader.GetString(34); }
-                        if (!reader.IsDBNull(35)) { myHouseholdMembers.myIncomeSeasonal = reader.GetString(35); }
-                        if (!reader.IsDBNull(36)) { myHouseholdMembers.myIncomeAmount = reader.GetString(36); }
-                        if (!reader.IsDBNull(37)) { myHouseholdMembers.myIncomeFrequency = reader.GetString(37); }
-                        if (!reader.IsDBNull(38)) { myHouseholdMembers.myIncomeMore = reader.GetString(38); }
-                        if (!reader.IsDBNull(39)) { myHouseholdMembers.myIncomeReduced = reader.GetString(39); }
-                        if (!reader.IsDBNull(40)) { myHouseholdMembers.myIncomeAdjusted = reader.GetString(40); }
-                        if (!reader.IsDBNull(41)) { myHouseholdMembers.myIncomeExpected = reader.GetString(41); }
-                        if (!reader.IsDBNull(42)) { myHouseholdMembers.myPassCount = reader.GetString(42); }
-                        if (!reader.IsDBNull(43)) { myHouseholdMembers.myMilitary = reader.GetString(43); }
-                        if (!reader.IsDBNull(44)) { myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(45)) { myHouseholdMembers.myPrefContact = reader.GetString(45); }
-                        if (!reader.IsDBNull(46)) { myHouseholdMembers.myPhoneNum = reader.GetString(46); }
-                        if (!reader.IsDBNull(47)) { myHouseholdMembers.myPhoneType = reader.GetString(47); }
-                        if (!reader.IsDBNull(48)) { myHouseholdMembers.myAltNum = reader.GetString(48); }
-                        if (!reader.IsDBNull(49)) { myHouseholdMembers.myAltNumType = reader.GetString(49); }
-                        if (!reader.IsDBNull(50)) { myHouseholdMembers.myEmail = reader.GetString(50); }
-                        if (!reader.IsDBNull(51)) { myHouseholdMembers.myVoterCard = reader.GetString(51); }
-                        if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); }
-                        if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); }
-                        if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); }
-                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); }
-                        if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); }
-                        if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); }
-                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); }
-                        if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); }
-                        if (!reader.IsDBNull(61)) { myHouseholdMembers.myRandom = reader.GetString(61); }
+                        if (!reader.IsDBNull(2)) { myHouseholdMembers.myFirstName = reader.GetString(2); } else { myHouseholdMembers.myFirstName = null; }
+                        if (!reader.IsDBNull(3)) { myHouseholdMembers.myMiddleName = reader.GetString(3); } else { myHouseholdMembers.myMiddleName = null; }
+                        if (!reader.IsDBNull(4)) { myHouseholdMembers.myLastName = reader.GetString(4); } else { myHouseholdMembers.myLastName = null; }
+                        if (!reader.IsDBNull(5)) { myHouseholdMembers.mySuffix = reader.GetString(5); } else { myHouseholdMembers.mySuffix = null; }
+                        if (!reader.IsDBNull(6)) { myHouseholdMembers.myGender = reader.GetString(6); } else { myHouseholdMembers.myGender = null; }
+                        if (!reader.IsDBNull(7)) { myHouseholdMembers.myMaritalStatus = reader.GetString(7); } else { myHouseholdMembers.myMaritalStatus = null; }
+                        if (!reader.IsDBNull(8)) { myHouseholdMembers.myDOB = reader.GetString(8); } else { myHouseholdMembers.myDOB = null; }
+                        if (!reader.IsDBNull(9)) { myHouseholdMembers.myLiveWithYou = reader.GetString(9); } else { myHouseholdMembers.myLiveWithYou = null; }
+                        if (!reader.IsDBNull(10)) { myHouseholdMembers.myMNHome = reader.GetString(10); } else { myHouseholdMembers.myMNHome = null; }
+                        if (!reader.IsDBNull(11)) { myHouseholdMembers.myPersonHighlighted = reader.GetString(11); } else { myHouseholdMembers.myPersonHighlighted = null; }
+                        if (!reader.IsDBNull(12)) { myHouseholdMembers.myLiveInMN = reader.GetString(12); } else { myHouseholdMembers.myLiveInMN = null; }
+                        if (!reader.IsDBNull(13)) { myHouseholdMembers.myTempAbsentMN = reader.GetString(13); } else { myHouseholdMembers.myTempAbsentMN = null; }
+                        if (!reader.IsDBNull(14)) { myHouseholdMembers.myHomeless = reader.GetString(14); } else { myHouseholdMembers.myHomeless = null; }
+                        if (!reader.IsDBNull(15)) { myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15); } else { myHouseholdMembers.myPlanMakeMNHome = null; }
+                        if (!reader.IsDBNull(16)) { myHouseholdMembers.mySeekEmplMN = reader.GetString(16); } else { myHouseholdMembers.mySeekEmplMN = null; }
+                        if (!reader.IsDBNull(17)) { myHouseholdMembers.myHispanic = reader.GetString(17); } else { myHouseholdMembers.myHispanic = null; }
+                        if (!reader.IsDBNull(18)) { myHouseholdMembers.myRace = reader.GetString(18); } else { myHouseholdMembers.myRace = null; }
+                        if (!reader.IsDBNull(19)) { myHouseholdMembers.myHaveSSN = reader.GetString(19); } else { myHouseholdMembers.myHaveSSN = null; }
+                        if (!reader.IsDBNull(20)) { myHouseholdMembers.mySSN = reader.GetString(20); } else { myHouseholdMembers.mySSN = null; }//auto generated
+                        if (!reader.IsDBNull(21)) { myHouseholdMembers.myUSCitizen = reader.GetString(21); } else { myHouseholdMembers.myUSCitizen = null; }
+                        if (!reader.IsDBNull(22)) { myHouseholdMembers.myUSNational = reader.GetString(22); } else { myHouseholdMembers.myUSNational = null; }
+                        if (!reader.IsDBNull(23)) { myHouseholdMembers.myIsPregnant = reader.GetString(23); } else { myHouseholdMembers.myIsPregnant = null; }
+                        if (!reader.IsDBNull(24)) { myHouseholdMembers.myBeenInFosterCare = reader.GetString(24); } else { myHouseholdMembers.myBeenInFosterCare = null; }
+                        if (!reader.IsDBNull(25)) { myHouseholdMembers.myRelationship = reader.GetString(25); } else { myHouseholdMembers.myRelationship = null; }
+                        if (!reader.IsDBNull(26)) { myHouseholdMembers.myHasIncome = reader.GetString(26); } else { myHouseholdMembers.myHasIncome = null; }
+                        if (!reader.IsDBNull(27)) { myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27); } else { myHouseholdMembers.myRelationshiptoNextHM = null; }
+                        if (!reader.IsDBNull(28)) { myHouseholdMembers.myTribeName = reader.GetString(28); } else { myHouseholdMembers.myTribeName = null; }
+                        if (!reader.IsDBNull(29)) { myHouseholdMembers.myLiveRes = reader.GetString(29); } else { myHouseholdMembers.myLiveRes = null; }
+                        if (!reader.IsDBNull(30)) { myHouseholdMembers.myTribeId = reader.GetString(30); } else { myHouseholdMembers.myTribeId = null; }
+                        if (!reader.IsDBNull(31)) { myHouseholdMembers.myFederalTribe = reader.GetString(31); } else { myHouseholdMembers.myFederalTribe = null; }
+                        if (!reader.IsDBNull(32)) { myHouseholdMembers.myFileJointly = reader.GetString(32); } else { myHouseholdMembers.myFileJointly = null; }
+                        if (!reader.IsDBNull(33)) { myHouseholdMembers.myIncomeType = reader.GetString(33); } else { myHouseholdMembers.myIncomeType = null; }
+                        if (!reader.IsDBNull(34)) { myHouseholdMembers.myIncomeEmployer = reader.GetString(34); } else { myHouseholdMembers.myIncomeEmployer = null; }
+                        if (!reader.IsDBNull(35)) { myHouseholdMembers.myIncomeSeasonal = reader.GetString(35); } else { myHouseholdMembers.myIncomeSeasonal = null; }
+                        if (!reader.IsDBNull(36)) { myHouseholdMembers.myIncomeAmount = reader.GetString(36); } else { myHouseholdMembers.myIncomeAmount = null; }
+                        if (!reader.IsDBNull(37)) { myHouseholdMembers.myIncomeFrequency = reader.GetString(37); } else { myHouseholdMembers.myIncomeFrequency = null; }
+                        if (!reader.IsDBNull(38)) { myHouseholdMembers.myIncomeMore = reader.GetString(38); } else { myHouseholdMembers.myIncomeMore = null; }
+                        if (!reader.IsDBNull(39)) { myHouseholdMembers.myIncomeReduced = reader.GetString(39); } else { myHouseholdMembers.myIncomeReduced = null; }
+                        if (!reader.IsDBNull(40)) { myHouseholdMembers.myIncomeAdjusted = reader.GetString(40); } else { myHouseholdMembers.myIncomeAdjusted = null; }
+                        if (!reader.IsDBNull(41)) { myHouseholdMembers.myIncomeExpected = reader.GetString(41); } else { myHouseholdMembers.myIncomeExpected = null; }
+                        if (!reader.IsDBNull(42)) { myHouseholdMembers.myPassCount = reader.GetString(42); } else { myHouseholdMembers.myPassCount = null; }
+                        if (!reader.IsDBNull(43)) { myHouseholdMembers.myMilitary = reader.GetString(43); } else { myHouseholdMembers.myMilitary = null; }
+                        if (!reader.IsDBNull(44)) { myHouseholdMembers.myMilitaryDate = Convert.ToDateTime(reader.GetDateTime(44)).ToString("MM/dd/yyyy"); } else { myHouseholdMembers.myMilitaryDate = null; }
+                        if (!reader.IsDBNull(45)) { myHouseholdMembers.myPrefContact = reader.GetString(45); } else { myHouseholdMembers.myPrefContact = null; }
+                        if (!reader.IsDBNull(46)) { myHouseholdMembers.myPhoneNum = reader.GetString(46); } else { myHouseholdMembers.myPhoneNum = null; }
+                        if (!reader.IsDBNull(47)) { myHouseholdMembers.myPhoneType = reader.GetString(47); } else { myHouseholdMembers.myPhoneType = null; }
+                        if (!reader.IsDBNull(48)) { myHouseholdMembers.myAltNum = reader.GetString(48); } else { myHouseholdMembers.myAltNum = null; }
+                        if (!reader.IsDBNull(49)) { myHouseholdMembers.myAltNumType = reader.GetString(49); } else { myHouseholdMembers.myAltNumType = null; }
+                        if (!reader.IsDBNull(50)) { myHouseholdMembers.myEmail = reader.GetString(50); } else { myHouseholdMembers.myEmail = null; }
+                        if (!reader.IsDBNull(51)) { myHouseholdMembers.myVoterCard = reader.GetString(51); } else { myHouseholdMembers.myVoterCard = null; }
+                        if (!reader.IsDBNull(52)) { myHouseholdMembers.myNotices = reader.GetString(52); } else { myHouseholdMembers.myNotices = null; }
+                        if (!reader.IsDBNull(53)) { myHouseholdMembers.myAuthRep = reader.GetString(53); } else { myHouseholdMembers.myAuthRep = null; }
+                        if (!reader.IsDBNull(54)) { myHouseholdMembers.myDependants = reader.GetString(54); } else { myHouseholdMembers.myDependants = null; }
+                        if (!reader.IsDBNull(55)) { myHouseholdMembers.myTaxFiler = reader.GetString(55); } else { myHouseholdMembers.myTaxFiler = null; }
+                        if (!reader.IsDBNull(56)) { myHouseholdMembers.myChildren = reader.GetString(56); } else { myHouseholdMembers.myChildren = null; }
+                        if (!reader.IsDBNull(57)) { myHouseholdMembers.myDueDate = Convert.ToDateTime(reader.GetDateTime(57)).ToString("MM/dd/yyyy"); } else { myHouseholdMembers.myDueDate = null; }
+                        if (!reader.IsDBNull(58)) { myHouseholdMembers.myPregnancyEnded = Convert.ToDateTime(reader.GetDateTime(58)).ToString("MM/dd/yyyy"); } else { myHouseholdMembers.myPregnancyEnded = null; }
+                        if (!reader.IsDBNull(59)) { myHouseholdMembers.myReEnroll = reader.GetString(59); } else { myHouseholdMembers.myReEnroll = null; }
+                        if (!reader.IsDBNull(60)) { myHouseholdMembers.mySaveExit = reader.GetString(60); } else { myHouseholdMembers.mySaveExit = null; }
+                        if (!reader.IsDBNull(61)) { myHouseholdMembers.myRandom = reader.GetString(61); } else { myHouseholdMembers.myRandom = null; }
                     }
                 }
 
@@ -967,6 +969,64 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Update Assister SSN didn't work");
             }
             return 1;
+        }
+
+        public string DoGetAppRandom(ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return reader.GetString(70);
+                    }
+                    else
+                    {
+                        return "Error locating app random";
+                    }
+                }
+            }
+            catch
+            {
+                return "Error locating app random";
+            }
+        }
+
+        public string DoGetAppGender(ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        return reader.GetString(6);
+                    }
+                    else
+                    {
+                        return "Error locating app gender";
+                    }
+                }
+            }
+            catch
+            {
+                return "Error locating app gender";
+            }
         }
 
     }

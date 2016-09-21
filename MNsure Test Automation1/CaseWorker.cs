@@ -2517,14 +2517,14 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
                     driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[8]/td[3]/span/span/span")).Click();//app details actions button
-                /*}
+                }
                 else
                 {
                     driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[7]/td[3]/span/span/span")).Click();//app details actions button
-                }*/
+                }
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -2650,14 +2650,14 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
                     driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[86]/td[3]/span/span/span")).Click();//ssn details actions button
-                /*}
+                }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[87]/td[3]/span/span/span")).Click();//ssn details actions button
-                }*/
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();//ssn details actions button
+                }
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")

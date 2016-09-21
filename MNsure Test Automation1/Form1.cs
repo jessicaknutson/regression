@@ -157,11 +157,11 @@ namespace MNsure_Regression_1
                         AccountGeneration myAccountGeneration = new AccountGeneration();
                         if (householdCount > 1)
                         {
-                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myHistoryInfo);
+                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myApplication, ref myHistoryInfo);
                         }
                         if (householdCount == 3)
                         {
-                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myHistoryInfo);
+                            result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myApplication, ref myHistoryInfo);
                         }
                         result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
 

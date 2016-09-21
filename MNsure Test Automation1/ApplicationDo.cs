@@ -3436,13 +3436,29 @@ namespace MNsure_Regression_1
                 IWebElement textboxFirstName = driver.FindElement(By.Id("__o3ide"));
                 textboxFirstName.SendKeys(myApplication.myFirstName);
 
-                IWebElement textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
+                IWebElement textboxMiddleName;                
                 if (myApplication.myMiddleName != null)
                 {
+                    if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
+                    }
+                    else
+                    {
+                        textboxMiddleName = driver.FindElement(By.Id("__o3idc"));
+                    }
                     textboxMiddleName.SendKeys(myApplication.myMiddleName);
                 }
 
-                IWebElement textboxLastName = driver.FindElement(By.Id("__o3id10"));
+                IWebElement textboxLastName;
+                if (myApplication.myWithDiscounts == "Yes")
+                {
+                    textboxLastName = driver.FindElement(By.Id("__o3id10"));
+                }
+                else
+                {
+                    textboxLastName = driver.FindElement(By.Id("__o3idd"));
+                }                
                 textboxLastName.SendKeys(myApplication.myLastName);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);

@@ -33,9 +33,10 @@ namespace MNsure_Regression_1
             //string[] suffix = { "Junior", "Senior", "Second", "Third", "Fourth" };//current bug, turn off for now
 
             Random rand = new Random();
-
-            if (myApplication.myFirstName != null && myApplication.myFirstName != "" && myApplication.myDOB != null && myApplication.myDOB != ""
-                && myApplication.myGender != null && myApplication.myGender != "")//none random
+            FillStructures myFillStructures = new FillStructures();
+            string random = myFillStructures.DoGetAppRandom(ref myHistoryInfo);
+            string gender = myFillStructures.DoGetAppGender(ref myHistoryInfo);
+            if (random == "Nothing")//none random
             {
                 myAccountCreate.myFirstName = myApplication.myFirstName;
                 myAccountCreate.myMiddleName = myApplication.myMiddleName;
@@ -45,9 +46,9 @@ namespace MNsure_Regression_1
 
                 result = 1;
             }
-            else if (myApplication.myGender != null && myApplication.myGender != "" && myApplication.myDOB == null)//all random but gender
+            else if (random == "SSN, Name, DOB")//all random but gender
             {
-                if (myApplication.myGender == "Male")
+                if (gender == "Male")
                 {
                     Random rand2 = new Random();
                     myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
@@ -74,7 +75,7 @@ namespace MNsure_Regression_1
                     result = 1;
                 }
             }
-            else if (myApplication.myDOB != null && myApplication.myDOB != "" && myApplication.myGender == null)//all random but dob
+            else if (random == "SSN, Name, Gender")//all random but dob
             {
                 //<65 and >18 years old, otherwise need logic to handle other scenarios
                 if (rand.Next(1, 3) == 1)
@@ -104,9 +105,9 @@ namespace MNsure_Regression_1
                     result = 1;
                 }
             }
-            else if (myApplication.myDOB != null && myApplication.myDOB != "" && myApplication.myGender != null && myApplication.myGender != "")//all random but gender, dob
+            else if (random == "SSN, Name")//all random but gender, dob
             {
-                if (myApplication.myGender == "Male")
+                if (gender == "Male")
                 {
                     Random rand2 = new Random();
                     myAccountCreate.myFirstName = maleNames[rand2.Next(1, maleNames.Count())];
@@ -219,7 +220,7 @@ namespace MNsure_Regression_1
             return result;
         }
 
-        public int GenerateHouseholdNames(ref mystructHouseholdMembers myHouseholdMembers, int testId, string householdMember, ref mystructHistoryInfo myHistoryInfo)
+        public int GenerateHouseholdNames(ref mystructHouseholdMembers myHouseholdMembers, int testId, string householdMember, ref mystructApplication myApplication, ref mystructHistoryInfo myHistoryInfo)
         {
             int result;
 
@@ -235,14 +236,16 @@ namespace MNsure_Regression_1
 
 
             Random rand6 = new Random();
+            FillStructures myFillStructures = new FillStructures();
+            int secondMember = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "2");
             if (householdMember == "2")
             {
-                if (myHouseholdMembers.myFirstName != null && myHouseholdMembers.myFirstName != "" && myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//none random
+                if (myHouseholdMembers.myRandom == "Nothing")//none random
                 {
                     //do nothing
                     result = 1;
                 }
-                else if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "") //all random but gender
+                else if (myHouseholdMembers.myRandom == "SSN, Name") //all random but gender
                 {
                     if (myHouseholdMembers.myGender == "Male")
                     {
@@ -283,12 +286,13 @@ namespace MNsure_Regression_1
             }
             else
             {
-                if (myHouseholdMembers.myFirstName != null && myHouseholdMembers.myFirstName != "" && myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//none random
+                int thirdMember = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "3");
+                if (myHouseholdMembers.myRandom == "Nothing") //none random
                 {
                     //do nothing
                     result = 1;
                 }
-                else if (myHouseholdMembers.myGender != null && myHouseholdMembers.myGender != "")//all random but gender
+                else if (myHouseholdMembers.myRandom == "SSN, Name")//all random but gender
                 {
                     if (myHouseholdMembers.myGender == "Male")
                     {
