@@ -1529,16 +1529,9 @@ namespace MNsure_Regression_1
 
                 driver.SwitchTo().DefaultContent();
                 IWebElement fourthSearchTab;
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
                 fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"));
-                /*}
-                else
-                {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
-                    fourthSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
-                }*/
+                
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthSearchTab); //right click
                 rClick.Perform();
@@ -1816,16 +1809,18 @@ namespace MNsure_Regression_1
                 IWebElement textboxCounty;
                 textboxCounty = driver.FindElement(By.Id("__o3ide"));
                
-                if (myEnrollment.myHomeState == "Minnesota")
-                {
-                    textboxCounty.Clear();//need for 21 but not 20, need for cw08 also so logic is wrong
-                }
+                //if (myEnrollment.myHomeState == "Minnesota")
+                //{
+                    textboxCounty.Clear();//need for cw21 mn, b8, 16, 20 wi but not xx so logic is wrong
+                //}
                 textboxCounty.SendKeys(myEnrollment.myHomeCounty);
+                System.Threading.Thread.Sleep(1000);
 
                 IWebElement textboxHomeless;
                 textboxHomeless = driver.FindElement(By.Id("__o3idf"));
                 textboxHomeless.Clear();
                 textboxHomeless.SendKeys(myEnrollment.myHomeless);
+                System.Threading.Thread.Sleep(1000);
 
                 IWebElement textboxMNHome;
                 textboxMNHome = driver.FindElement(By.Id("__o3id10"));
@@ -2018,16 +2013,9 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 IWebElement fourthTab;
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
                 fourthTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[4]"));
-                /*}
-                else
-                {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"), myHistoryInfo);
-                    fourthTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[1]/div[4]/div/div[4]"));
-                }*/
+                
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthTab); //right click
                 rClick.Perform();

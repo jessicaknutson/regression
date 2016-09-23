@@ -877,14 +877,14 @@ namespace MNsure_Regression_1
                     {
                         IWebElement listboxWhyNoSSN = myDriver.FindElement(By.Id("__o3id1f"));
                         listboxWhyNoSSN.SendKeys(myApplication.myWhyNoSSN);
-                        outsideClick.Click();
+                        listboxAppliedSSN.Click();
                     }
 
                     if (myApplication.myWhyNoSSN == "Other")
                     {
                         IWebElement listboxAssistSSN = myDriver.FindElement(By.Id("__o3id20"));
                         listboxAssistSSN.SendKeys(myApplication.myAssistSSN);
-                        outsideClick.Click();
+                        listboxAppliedSSN.Click();
                     }
                 }
                 myDriver.FindElement(By.Id("__o3id1c")).Click();
