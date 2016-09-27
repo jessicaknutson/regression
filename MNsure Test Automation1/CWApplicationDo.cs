@@ -786,7 +786,7 @@ namespace MNsure_Regression_1
                 IWebElement listboxCitizen = driver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myEnrollment.myCitizen);
 
-                //This will only appear if age 18-25
+                //This will only appear if age 18-26
                 DateTime birth = Convert.ToDateTime(myEnrollment.myDOB);
                 TimeSpan span;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -878,14 +878,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
                     {
                         fosterCare = "Yes";
                     }

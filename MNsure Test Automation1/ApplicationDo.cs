@@ -893,7 +893,7 @@ namespace MNsure_Regression_1
                 listboxCitizen.SendKeys(myApplication.myCitizen);
                 myDriver.FindElement(By.Id("__o3id1b")).Click();
 
-                //This will only appear if age 18-25
+                //This will only appear if age 18-26
                 DateTime birth = Convert.ToDateTime(myApplication.myDOB);
                 TimeSpan span;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -982,14 +982,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -3439,14 +3439,14 @@ namespace MNsure_Regression_1
                 IWebElement textboxMiddleName;                
                 if (myApplication.myMiddleName != null)
                 {
-                    if (myHistoryInfo.myEnvironment == "STST2")
+                    /*if (myHistoryInfo.myEnvironment == "STST2")
                     {
                         textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
                     }
                     else
-                    {
+                    {*/
                         textboxMiddleName = driver.FindElement(By.Id("__o3idc"));
-                    }
+                    //}
                     textboxMiddleName.SendKeys(myApplication.myMiddleName);
                 }
 

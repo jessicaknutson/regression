@@ -610,33 +610,28 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
-                WebDriverWait wait = new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut));
-                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
-                wait.PollingInterval = TimeSpan.FromMilliseconds(100);
-                
-                driver.SwitchTo().DefaultContent();
-                new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
-                var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
-                driver.SwitchTo().Frame(iFrameElement);
+
+                myDriver.SwitchTo().DefaultContent();
+                ApplicationDo myApp = new ApplicationDo();
+                myApp.DoWaitForElement(myDriver, By.TagName("iFrame"), myHistoryInfo);
+                var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
+                myDriver.SwitchTo().Frame(iFrameElement);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-
-                IWebElement element;
+                
                 if (myEnrollment.myHouseholdOther == "Yes" && myHouseholdMembers.myReEnroll == "Yes")
                 {
-                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[2]/div[3]/div/a[1]")));
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[2]/div[2]/div[3]/div/a[1]")).Click();
                 }
                 else
                 {
-                    element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[2]/div[3]/div/a[1]")));
                     myDriver.FindElement(By.XPath("/html/body/div[3]/div[3]/div[2]/div[2]/div[4]/div/div/div[1]/div[2]/div[3]/div/a[1]")).Click();
                 }
 
@@ -1004,17 +999,43 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
-                textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
-
+                HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3) )
+                {
+                    FillStructures myFillStructures = new FillStructures();
+                    int result = myFillStructures.doFillNextHMStructures(ref myEnrollment, ref myHouseholdMembers, ref myHistoryInfo, "2");
+                    textboxSignatureFirst.SendKeys(myHouseholdMembers.myFirstName);
+                }
+                else
+                {
+                    textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
+                }
                 if (myEnrollment.myWithDiscounts == "Yes")//only valid for the with discounts
                 {
                     IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
-                    textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
+                    if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
+                    {
+                        if (myHouseholdMembers.myMiddleName != null)
+                        {
+                            textboxSignatureMiddle.SendKeys(myHouseholdMembers.myMiddleName);
+                        }
+                    }
+                    else
+                    {
+                        textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
+                    }
                 }
 
                 IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
-                textboxSignatureLast.SendKeys(myEnrollment.myLastName);
-
+                if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
+                {
+                    textboxSignatureLast.SendKeys(myHouseholdMembers.myLastName);
+                }
+                else
+                {
+                    textboxSignatureLast.SendKeys(myEnrollment.myLastName);
+                }
                 IWebElement buttonSubmit = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
                 buttonSubmit.Click();
 
@@ -1297,7 +1318,7 @@ namespace MNsure_Regression_1
                 textboxSignatureMI.SendKeys(myEnrollment.myMiddleName);
 
                 IWebElement textboxSignatureLN = driver.FindElement(By.Name("enrollment.individual.signature.lastName"));
-                textboxSignatureLN.SendKeys(myEnrollment.myLastName);
+                textboxSignatureLN.SendKeys(myEnrollment.myLastName);           
 
                 IWebElement buttonSubmit = driver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
                 buttonSubmit.Click();
