@@ -144,6 +144,7 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.comboBoxHMRandom = new System.Windows.Forms.ComboBox();
             this.label184 = new System.Windows.Forms.Label();
             this.comboBoxHMPregnancyDone = new System.Windows.Forms.ComboBox();
             this.comboBoxHMChildren = new System.Windows.Forms.ComboBox();
@@ -519,7 +520,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.comboBoxHMRandom = new System.Windows.Forms.ComboBox();
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -1824,7 +1824,7 @@
             // 
             this.groupBoxDependants.Controls.Add(this.comboBoxEnrollDependants);
             this.groupBoxDependants.Controls.Add(this.label38);
-            this.groupBoxDependants.Location = new System.Drawing.Point(1000, 520);
+            this.groupBoxDependants.Location = new System.Drawing.Point(0, 520);
             this.groupBoxDependants.Name = "groupBoxDependants";
             this.groupBoxDependants.Size = new System.Drawing.Size(450, 74);
             this.groupBoxDependants.TabIndex = 60;
@@ -1982,12 +1982,25 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(0, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 600);
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
+            // 
+            // comboBoxHMRandom
+            // 
+            this.comboBoxHMRandom.FormattingEnabled = true;
+            this.comboBoxHMRandom.Items.AddRange(new object[] {
+            "SSN, Name, Gender",
+            "SSN, Name",
+            "Nothing"});
+            this.comboBoxHMRandom.Location = new System.Drawing.Point(257, 19);
+            this.comboBoxHMRandom.Name = "comboBoxHMRandom";
+            this.comboBoxHMRandom.Size = new System.Drawing.Size(155, 21);
+            this.comboBoxHMRandom.TabIndex = 138;
+            this.comboBoxHMRandom.SelectedValueChanged += new System.EventHandler(this.comboBoxHMRandom_SelectedValueChanged);
             // 
             // label184
             // 
@@ -3607,7 +3620,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(0, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;
@@ -6046,19 +6059,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // comboBoxHMRandom
-            // 
-            this.comboBoxHMRandom.FormattingEnabled = true;
-            this.comboBoxHMRandom.Items.AddRange(new object[] {
-            "SSN, Name, Gender",
-            "SSN, Name",
-            "Nothing"});
-            this.comboBoxHMRandom.Location = new System.Drawing.Point(257, 19);
-            this.comboBoxHMRandom.Name = "comboBoxHMRandom";
-            this.comboBoxHMRandom.Size = new System.Drawing.Size(155, 21);
-            this.comboBoxHMRandom.TabIndex = 138;
-            this.comboBoxHMRandom.SelectedValueChanged += new System.EventHandler(this.comboBoxHMRandom_SelectedValueChanged);
             // 
             // FormMain
             // 

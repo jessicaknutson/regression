@@ -39,6 +39,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
                         if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToDateTime(reader.GetDateTime(9)).ToString("MM/dd/yyyy"); }
                         if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }
+                        if (!reader.IsDBNull(11)) { myAccountCreate.myCaseWorkerLoginId = reader.GetString(11); }
                     }
                 }
 
@@ -548,7 +549,7 @@ namespace MNsure_Regression_1
                     con.Open();
                     string myInsertString;
                     myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
-                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username );";
+                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username, @CWUsername );";
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                     {
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
@@ -581,7 +582,14 @@ namespace MNsure_Regression_1
                             com3.Parameters.AddWithValue("DOB", myApplication.myDOB);
                         }
                         com3.Parameters.AddWithValue("Username", myAccountCreate.myUsername);
-
+                        if (myAccountCreate.myCaseWorkerLoginId != "" && myAccountCreate.myCaseWorkerLoginId != null)
+                        {
+                            com3.Parameters.AddWithValue("CWUsername", myAccountCreate.myCaseWorkerLoginId);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("CWUsername", DBNull.Value);
+                        }  
                         com3.ExecuteNonQuery();
                         com3.Dispose();
                     }
@@ -813,6 +821,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(8)) { myAccountCreate.mySSN = reader.GetString(8); }
                         if (!reader.IsDBNull(9)) { myAccountCreate.myDOB = Convert.ToString(reader.GetDateTime(9)); }
                         if (!reader.IsDBNull(10)) { myAccountCreate.myUsername = reader.GetString(10); }
+                        if (!reader.IsDBNull(11)) { myAccountCreate.myCaseWorkerLoginId = reader.GetString(11); }
                     }
 
                     com2.ExecuteNonQuery();

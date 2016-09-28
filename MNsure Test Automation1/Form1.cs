@@ -862,6 +862,7 @@ namespace MNsure_Regression_1
             }
             //System.Windows.Forms.Timer execute = new System.Windows.Forms.Timer();//timer is not stopping
             //execute.Stop();
+
             MessageBox.Show("The test run is complete. For more info see c:\\TemplatesRun\\", "Test Run Complete", MessageBoxButtons.OK, MessageBoxIcon.None,
                 MessageBoxDefaultButton.Button1, (MessageBoxOptions)0x40000);  // MB_TOPMOST            
             return;  //exit now
@@ -1574,7 +1575,7 @@ namespace MNsure_Regression_1
                                 }
                                 myHouseholdMembers.myFederalTribe = reader.GetString(31);
                                 myHouseholdMembers.myFileJointly = reader.GetString(32);
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(33))
                                 {
                                     myHouseholdMembers.myIncomeType = reader.GetString(33);
                                 }
@@ -1582,7 +1583,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeType = "";
                                 }
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(34))
                                 {
                                     myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
                                 }
@@ -1590,7 +1591,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeEmployer = "";
                                 }
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(35))
                                 {
                                     myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
                                 }
@@ -1598,7 +1599,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeSeasonal = "";
                                 }
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(36))
                                 {
                                     myHouseholdMembers.myIncomeAmount = reader.GetString(36);
                                 }
@@ -1606,7 +1607,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeAmount = "";
                                 }
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(37))
                                 {
                                     myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
                                 }
@@ -1614,7 +1615,7 @@ namespace MNsure_Regression_1
                                 {
                                     myHouseholdMembers.myIncomeFrequency = "";
                                 }
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(38))
                                 {
                                     myHouseholdMembers.myIncomeMore = reader.GetString(38);
                                 }
@@ -1623,7 +1624,7 @@ namespace MNsure_Regression_1
                                     myHouseholdMembers.myIncomeMore = "";
                                 }
                                 myHouseholdMembers.myIncomeReduced = reader.GetString(39);
-                                if (!reader.IsDBNull(3))
+                                if (!reader.IsDBNull(40))
                                 {
                                     myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
                                 }
@@ -2436,6 +2437,72 @@ namespace MNsure_Regression_1
                 myApplication.myTobaccoLast = dateTimeTobacco.Text;
             }
             myApplication.myRandom = comboBoxRandom.Text;
+
+            if (myApplication.myHouseholdOther == "No") //1 HH
+            {
+                if (Convert.ToInt32(textBoxEnrollAmount.Text) < 16395)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 23761)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if (Convert.ToInt32(textBoxEnrollAmount.Text) < 47521)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
+            }
+            else if (textBoxTotalMembers.Text == "2")
+            {
+                if (textBoxHMAmount.Text == "")
+                {
+                    textBoxHMAmount.Text = "0";
+                }
+                if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 22108)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 32041)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 64081)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
+            }
+            else if (textBoxTotalMembers.Text == "3")
+            {
+                if (textBoxHMAmount.Text == "")
+                {
+                    textBoxHMAmount.Text = "0";
+                }
+                if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 27821)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care MA";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 40321)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care BHP";
+                }
+                else if ((Convert.ToInt32(textBoxEnrollAmount.Text) + Convert.ToInt32(textBoxHMAmount.Text)) < 80641)
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care QHP";
+                }
+                else
+                {
+                    myApplication.myEnrollmentPlanType = "MN Care UQHP";
+                }
+            }
 
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
@@ -7533,10 +7600,10 @@ namespace MNsure_Regression_1
             TimeSpan timeLeftUntilFirstRun = ((day - now) + activationTime);
             if (timeLeftUntilFirstRun.TotalHours > 24)
                 timeLeftUntilFirstRun -= new TimeSpan(24, 0, 0);    // Deducts a day from the schedule so it will run today.
-            System.Windows.Forms.Timer execute = new System.Windows.Forms.Timer();
-            execute.Interval = Convert.ToInt32(timeLeftUntilFirstRun.TotalMilliseconds);
-            execute.Tick += new EventHandler(buttonGo_Click);
-            //execute.Start(); turned off, can't figure out how to stop it
+            System.Windows.Forms.Timer myTimer = new System.Windows.Forms.Timer();
+            myTimer.Interval = Convert.ToInt32(timeLeftUntilFirstRun.TotalMilliseconds);
+            myTimer.Tick += new EventHandler(buttonGo_Click);
+            //myTimer.Start(); //can't figure out how to stop it
         }
 
         private void dateTimePickerRunHistory_ValueChanged(object sender, EventArgs e)

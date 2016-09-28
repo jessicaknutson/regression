@@ -70,6 +70,7 @@ namespace MNsure_Regression_1
 
                 myEnrollment.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
                 myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
+                DoUpdateCWUserName(myHistoryInfo, myAccountCreate.myCaseWorkerLoginId);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -119,6 +120,8 @@ namespace MNsure_Regression_1
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]")).Click();
+
+                DoUpdateCWUserName(myHistoryInfo, myAccountCreate.myCaseWorkerLoginId);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -5296,6 +5299,41 @@ namespace MNsure_Regression_1
             catch
             {
                 MessageBox.Show("Update pass count didn't work");
+            }
+            return 1;
+        }
+
+        public int DoUpdateCWUserName(mystructHistoryInfo myHistoryInfo, string updateUser)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand(
+                    "SELECT * FROM Account where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Account set CWUsername = @CWUser where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com2 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com2.Parameters.AddWithValue("CWUser", updateUser);
+                            com2.ExecuteNonQuery();
+                            com2.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update cw username didn't work");
             }
             return 1;
         }

@@ -67,7 +67,7 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement checkBoxAgree = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[3]/input"));
+                IWebElement checkBoxAgree = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[13]/input"));
                 checkBoxAgree.Click();
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
