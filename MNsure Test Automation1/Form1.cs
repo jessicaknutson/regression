@@ -2026,7 +2026,7 @@ namespace MNsure_Regression_1
                     dateTimeTobacco.Value = Convert.ToDateTime(tempTobacco);
                 }
                 comboBoxRandom.Text = myApplication.myRandom;
-                
+
                 if (myApplication.myHouseholdOther == "Yes")
                 {
                     comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
@@ -2038,7 +2038,7 @@ namespace MNsure_Regression_1
                         myHouseholdMembers.myLastName = "";
                         myHouseholdMembers.mySuffix = "";
                         myHouseholdMembers.myGender = "";
-                    }                   
+                    }
                     if (comboBoxHMRandom.Text == "SSN, Name")
                     {
                         myHouseholdMembers.mySSN = "";
@@ -5447,14 +5447,7 @@ namespace MNsure_Regression_1
                             {
                                 com54.Parameters.AddWithValue("RegDate", DBNull.Value);
                             }
-                            if (!reader.IsDBNull(66))
-                            {
-                                com54.Parameters.AddWithValue("Day2TestId", reader.GetString(66));
-                            }
-                            else
-                            {
-                                com54.Parameters.AddWithValue("Day2TestId", DBNull.Value);
-                            }
+                            com54.Parameters.AddWithValue("Day2TestId", DBNull.Value);
                             com54.Parameters.AddWithValue("PassCount", reader.GetString(67));
                             com54.Parameters.AddWithValue("Tobacco", reader.GetString(68));
                             if (!reader.IsDBNull(69))
@@ -5466,7 +5459,7 @@ namespace MNsure_Regression_1
                                 com54.Parameters.AddWithValue("TobaccoLast", DBNull.Value);
                             }
                             com54.Parameters.AddWithValue("Random", reader.GetString(70));
-                            
+
                             com54.ExecuteNonQuery();
                             com54.Dispose();
                         }
@@ -5712,6 +5705,10 @@ namespace MNsure_Regression_1
                             {
                                 com65.Parameters.AddWithValue("MiddleName", reader.GetString(3));
                             }
+                            else
+                            {
+                                com65.Parameters.AddWithValue("MiddleName", DBNull.Value);
+                            }
                             com65.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
                             {
@@ -5842,6 +5839,10 @@ namespace MNsure_Regression_1
                             if (!reader.IsDBNull(3))
                             {
                                 com67.Parameters.AddWithValue("MiddleName", reader.GetString(3));
+                            }
+                            else
+                            {
+                                com67.Parameters.AddWithValue("MiddleName", DBNull.Value);
                             }
                             com67.Parameters.AddWithValue("LastName", reader.GetString(4));
                             if (!reader.IsDBNull(5))
@@ -7180,7 +7181,7 @@ namespace MNsure_Regression_1
                 myHouseholdMembers.myLastName = "";
                 myHouseholdMembers.mySuffix = "";
                 myHouseholdMembers.myGender = "";
-            }            
+            }
             if (comboBoxRandom.Text == "SSN, Name")
             {
                 myHouseholdMembers.mySSN = "";
@@ -7787,7 +7788,7 @@ namespace MNsure_Regression_1
                 textBoxHMLastName.Enabled = true;
                 comboBoxHMSuffix.Enabled = true;
                 comboBoxHMGender.Enabled = true;
-            } 
+            }
             else if (comboBoxHMRandom.Text == "SSN, Name")
             {
                 textBoxHMFirstName.Enabled = false;

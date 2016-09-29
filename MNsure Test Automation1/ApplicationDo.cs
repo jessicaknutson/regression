@@ -1673,7 +1673,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3439,14 +3439,7 @@ namespace MNsure_Regression_1
                 IWebElement textboxMiddleName;                
                 if (myApplication.myMiddleName != null)
                 {
-                    /*if (myHistoryInfo.myEnvironment == "STST2")
-                    {
-                        textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
-                    }
-                    else
-                    {*/
-                        textboxMiddleName = driver.FindElement(By.Id("__o3idc"));
-                    //}
+                    textboxMiddleName = driver.FindElement(By.Id("__o3idf"));
                     textboxMiddleName.SendKeys(myApplication.myMiddleName);
                 }
 
