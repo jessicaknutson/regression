@@ -864,7 +864,6 @@ namespace MNsure_Regression_1
                 }
 
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
-                //textboxReason.Clear();
                 textboxReason.SendKeys("Reported by Client");
 
                 IWebElement textboxEndDate = driver.FindElement(By.Id("__o3ida"));
@@ -1551,7 +1550,6 @@ namespace MNsure_Regression_1
                 }
 
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
-                //textboxReason.Clear();
                 textboxReason.SendKeys("Reported by Client");
 
                 IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
@@ -1692,7 +1690,6 @@ namespace MNsure_Regression_1
                 }
 
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
-                //textboxReason.Clear();
                 textboxReason.SendKeys("Reported by Client");
 
                 IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
@@ -1833,7 +1830,6 @@ namespace MNsure_Regression_1
                 }
 
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
-                //textboxReason.Clear();
                 textboxReason.SendKeys("Reported by Client");
 
                 IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
@@ -1918,7 +1914,6 @@ namespace MNsure_Regression_1
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                 var rClick = action.ContextClick(fourthTab); //right click
                 rClick.Perform();
-                //driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
                 action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -2006,7 +2001,6 @@ namespace MNsure_Regression_1
                 textboxRecDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
 
                 IWebElement textboxReason = driver.FindElement(By.Id("__o3id8"));
-                //textboxReason.Clear();
                 textboxReason.SendKeys("Reported by Client");
 
                 IWebElement textboxEffDate = driver.FindElement(By.Id("__o3id9"));
@@ -2375,7 +2369,7 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);                
+                driver.SwitchTo().Frame(iFrameElement2);
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();//ssn details actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
@@ -2996,7 +2990,7 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);                
+                driver.SwitchTo().Frame(iFrameElement2);
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[69]/td[3]/span/span/span")).Click();//projected annual income actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
@@ -3376,7 +3370,7 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
-                driver.SwitchTo().Frame(iFrameElement2);                
+                driver.SwitchTo().Frame(iFrameElement2);
                 driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[80]/td[3]/span/span/span")).Click();//tax filing status actions button
                 driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
 
@@ -3951,8 +3945,6 @@ namespace MNsure_Regression_1
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     var rClick = action.ContextClick(secondTab); //right click
                     rClick.Perform();
-                    //driver.FindElement(By.XPath("//td[contains(text(), 'Close all tabs')]")).Click();
-                    //driver.FindElement(By.XPath("/html/body/div[4]/table/tbody/tr[2]/td[2]")).Click();//close all tabs
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
 

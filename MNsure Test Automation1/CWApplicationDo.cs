@@ -212,16 +212,8 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
-                //if (myHistoryInfo.myEnvironment == "STST2")
-                //{
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-                /*}
-                else
-                {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[2]/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-                }*/
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
+                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
                 driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -846,10 +838,6 @@ namespace MNsure_Regression_1
                 {
                     IWebElement listboxPregnant;
                     listboxPregnant = driver.FindElement(By.Id("__o3id2c"));
-                    /*if (myHistoryInfo.myEnvironment == "STST")
-                    {
-                        listboxPregnant.Clear();
-                    }*/
                     listboxPregnant.SendKeys(myEnrollment.myIsPregnant);
                 }
 
@@ -1645,7 +1633,7 @@ namespace MNsure_Regression_1
                     listboxIncomeAdjusted.SendKeys(incomeExpected);
                 }
 
-                /*if (myHistoryInfo.myInTimeTravel == "Yes")
+                if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
                         myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
@@ -1653,7 +1641,7 @@ namespace MNsure_Regression_1
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
-                }*/
+                }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -2408,10 +2396,8 @@ namespace MNsure_Regression_1
                 string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
                 string isQHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "QHP");
 
-                if (myEnrollment.myHomeState == "Minnesota" && //(myEnrollment.myHouseholdOther == "No" && householdCount == 1 && (isMA == "True" || isBHP == "True") && age.Year - 1 < 20)//1 hh
+                if (myEnrollment.myHomeState == "Minnesota" && 
                     (((householdCount == 1 || householdCount == 2) && (isMA == "True" || isBHP == "True")) //bd bhp1,2, ma1,2
-                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 20 || age2.Year - 1 < 20) ) // 2 hh
-                    //|| (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && (isMA == "True" || isBHP == "True") ) //bd bhp2, ma1                    
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isQHP == "True" && (age.Year - 1 < 20 || age2.Year - 1 < 20)) // bd qhp2
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && isQHP == "True" && (age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
@@ -2495,7 +2481,6 @@ namespace MNsure_Regression_1
                     else if (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2)//2 hh
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id27"));
-                        //listboxMAStartDate = driver.FindElement(By.Id("__o3id2a"));
                     }
                     else if (indian == "Yes" || (householdCount == 3 && myHouseholdMembers.myTaxFiler == "Yes" && myHouseholdMembers.myDependants == "No"))
                     {

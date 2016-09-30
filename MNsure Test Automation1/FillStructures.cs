@@ -474,6 +474,38 @@ namespace MNsure_Regression_1
                     }
                 }
 
+                SqlCeCommand cmd3 = con.CreateCommand();
+                cmd3.CommandType = CommandType.Text;
+
+                //Read configured rows if exist
+                using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (myHouseMembersID == "2" && reader.GetString(9) == "Household 2")
+                        {
+                            if (!reader.IsDBNull(3)) { myHouseholdMembers.myMailAddress1 = reader.GetString(3); } else { myHouseholdMembers.myMailAddress1 = null; }
+                            if (!reader.IsDBNull(4)) { myHouseholdMembers.myMailAddress2 = reader.GetString(4); } else { myHouseholdMembers.myMailAddress2 = null; }
+                            if (!reader.IsDBNull(5)) { myHouseholdMembers.myMailCity = reader.GetString(5); } else { myHouseholdMembers.myMailCity = null; }
+                            if (!reader.IsDBNull(6)) { myHouseholdMembers.myMailState = reader.GetString(6); } else { myHouseholdMembers.myMailState = null; }
+                            if (!reader.IsDBNull(7)) { myHouseholdMembers.myMailZip = reader.GetString(7); } else { myHouseholdMembers.myMailZip = null; }
+                            if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); } else { myHouseholdMembers.myMailCounty = null; }
+                            if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); } else { myHouseholdMembers.myMailAptSuite = null; }
+                        }
+                        else if (myHouseMembersID == "3" && reader.GetString(9) == "Household 3")
+                        {
+                            if (!reader.IsDBNull(3)) { myHouseholdMembers.myMailAddress1 = reader.GetString(3); } else { myHouseholdMembers.myMailAddress1 = null; }
+                            if (!reader.IsDBNull(4)) { myHouseholdMembers.myMailAddress2 = reader.GetString(4); } else { myHouseholdMembers.myMailAddress2 = null; }
+                            if (!reader.IsDBNull(5)) { myHouseholdMembers.myMailCity = reader.GetString(5); } else { myHouseholdMembers.myMailCity = null; }
+                            if (!reader.IsDBNull(6)) { myHouseholdMembers.myMailState = reader.GetString(6); } else { myHouseholdMembers.myMailState = null; }
+                            if (!reader.IsDBNull(7)) { myHouseholdMembers.myMailZip = reader.GetString(7); } else { myHouseholdMembers.myMailZip = null; }
+                            if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); } else { myHouseholdMembers.myMailCounty = null; }
+                            if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); } else { myHouseholdMembers.myMailAptSuite = null; }
+                        }                        
+                    }
+                }
+
                 con.Close();
                 return 1;
             }
@@ -632,11 +664,11 @@ namespace MNsure_Regression_1
                     con.Open();
                     string myInsertString;
                     myInsertString = "Insert into Account values (" + myAccountCreate.myAccountID + ", " + mySelectedTest.myTestId +
-                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username );";
+                       ", @FirstName, @MiddleName, @LastName, @Suffix, @Email, @Phone, @SSN, @DOB, @Username, @CWUsername );";
                     using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                     {
                         com3.Parameters.AddWithValue("FirstName", myAccountCreate.myFirstName);
-                        if (myAccountCreate.myMiddleName != "")
+                        if (myAccountCreate.myMiddleName != "" && myAccountCreate.myMiddleName != null)
                         {
                             com3.Parameters.AddWithValue("MiddleName", myAccountCreate.myMiddleName);
                         }
@@ -665,6 +697,14 @@ namespace MNsure_Regression_1
                             com3.Parameters.AddWithValue("DOB", myApplication.myDOB);
                         }
                         com3.Parameters.AddWithValue("Username", myAccountCreate.myUsername);
+                        if (myAccountCreate.myCaseWorkerLoginId != "" && myAccountCreate.myCaseWorkerLoginId != null)
+                        {
+                            com3.Parameters.AddWithValue("CWUsername", myAccountCreate.myCaseWorkerLoginId);
+                        }
+                        else
+                        {
+                            com3.Parameters.AddWithValue("CWUsername", DBNull.Value);
+                        } 
 
                         com3.ExecuteNonQuery();
                         com3.Dispose();
@@ -773,7 +813,17 @@ namespace MNsure_Regression_1
                     SqlCeDataReader reader = com3.ExecuteReader();
                     while (reader.Read())
                     {
-                        if (reader.GetString(9) == "Household 2")
+                        if (myHouseholdMembers.HouseMembersID == 2 && reader.GetString(9) == "Household 2")
+                        {
+                            if (!reader.IsDBNull(3)) { myHouseholdMembers.myMailAddress1 = reader.GetString(3); }
+                            if (!reader.IsDBNull(4)) { myHouseholdMembers.myMailAddress2 = reader.GetString(4); }
+                            if (!reader.IsDBNull(5)) { myHouseholdMembers.myMailCity = reader.GetString(5); }
+                            if (!reader.IsDBNull(6)) { myHouseholdMembers.myMailState = reader.GetString(6); }
+                            if (!reader.IsDBNull(7)) { myHouseholdMembers.myMailZip = reader.GetString(7); }
+                            if (!reader.IsDBNull(10)) { myHouseholdMembers.myMailCounty = reader.GetString(10); }
+                            if (!reader.IsDBNull(11)) { myHouseholdMembers.myMailAptSuite = reader.GetString(11); }
+                        }
+                        else if (myHouseholdMembers.HouseMembersID == 3 && reader.GetString(9) == "Household 3")
                         {
                             if (!reader.IsDBNull(3)) { myHouseholdMembers.myMailAddress1 = reader.GetString(3); }
                             if (!reader.IsDBNull(4)) { myHouseholdMembers.myMailAddress2 = reader.GetString(4); }

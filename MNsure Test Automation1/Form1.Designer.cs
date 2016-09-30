@@ -520,6 +520,7 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.buttonDeleteAddr = new System.Windows.Forms.Button();
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -1854,6 +1855,7 @@
             // 
             // groupBoxHouseholdOther
             // 
+            this.groupBoxHouseholdOther.Controls.Add(this.buttonDeleteAddr);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMRandom);
             this.groupBoxHouseholdOther.Controls.Add(this.label184);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxHMPregnancyDone);
@@ -6060,6 +6062,16 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // buttonDeleteAddr
+            // 
+            this.buttonDeleteAddr.Location = new System.Drawing.Point(798, 485);
+            this.buttonDeleteAddr.Name = "buttonDeleteAddr";
+            this.buttonDeleteAddr.Size = new System.Drawing.Size(90, 23);
+            this.buttonDeleteAddr.TabIndex = 139;
+            this.buttonDeleteAddr.Text = "Delete Address";
+            this.buttonDeleteAddr.UseVisualStyleBackColor = true;
+            this.buttonDeleteAddr.Click += new System.EventHandler(this.buttonDeleteAddr_Click);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6621,6 +6633,7 @@
         private System.Windows.Forms.Label label214;
         private System.Windows.Forms.ComboBox comboBoxRandom;
         private System.Windows.Forms.ComboBox comboBoxHMRandom;
+        private System.Windows.Forms.Button buttonDeleteAddr;
 
     }
 }
