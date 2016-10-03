@@ -142,14 +142,32 @@ namespace MNsure_Regression_1
 
                     try
                     {
-                        //Fill structures for Test
+                        FillStructures myFillStructures = new FillStructures();
                         InitializeSSN myInitializeSSN = new InitializeSSN();
                         result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                         int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                         myAccountCreate.mySSN = Convert.ToString(temp1);
-
-                        FillStructures myFillStructures = new FillStructures();
+                        //Fill structures for Test
                         result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                        
+                        /*if (checkBoxTimeTravel.Checked == true)
+                        {
+                            SSNNumberForm _ExistingSSNNumber = new SSNNumberForm();
+                            DialogResult dialogResult = _ExistingSSNNumber.ShowDialog();
+                            if (dialogResult == DialogResult.OK)
+                            {
+                                if (_ExistingSSNNumber.SSNNumber != null)
+                                {
+                                    myAccountCreate.mySSN = _ExistingSSNNumber.SSNNumber;
+                                }
+                                else
+                                {
+                                    //grab next available ssn from c:\mnsure regression 1\existingssn\AccountCreate1.xls
+
+                                    myAccountCreate.mySSN = "";
+                                }
+                            }                            
+                        }*/
 
                         HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                         int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);

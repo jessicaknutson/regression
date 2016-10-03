@@ -1342,11 +1342,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.FindElement(By.XPath("/html/body/form")).Click();
@@ -1661,11 +1661,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -1954,8 +1954,8 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
-                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))//these dates are a year too far in the future, once we get 2017 configured then these dates can be corrected
+                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/1/2016") &&
+                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
@@ -1992,11 +1992,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
@@ -3281,11 +3281,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;//norm 12
+                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;//norm 12
                 }
                 System.Threading.Thread.Sleep(appwait);
 

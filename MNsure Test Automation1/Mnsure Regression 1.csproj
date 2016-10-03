@@ -129,6 +129,12 @@
     <Compile Include="RegistrationNumberForm.Designer.cs">
       <DependentUpon>RegistrationNumberForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="SSNNumberForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SSNNumberForm.Designer.cs">
+      <DependentUpon>SSNNumberForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardApplicationDo.cs" />
     <Compile Include="CWApplicationDo.cs" />
     <Compile Include="CaseWorker.cs" />
@@ -162,6 +168,9 @@
     </Compile>
     <EmbeddedResource Include="RegistrationNumberForm.resx">
       <DependentUpon>RegistrationNumberForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SSNNumberForm.resx">
+      <DependentUpon>SSNNumberForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Mnsure Regression 1_TemporaryKey.pfx" />

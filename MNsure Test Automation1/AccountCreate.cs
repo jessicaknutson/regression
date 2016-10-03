@@ -477,11 +477,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
@@ -517,19 +517,19 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a"), myHistoryInfo);
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li[2]/a"), myHistoryInfo);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
-                IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[3]/ul/li[1]/a"));
+                IWebElement myclickLinkContinue = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div/div/div/div/div[1]/div/div/h1[1]/ul/li[2]/a"));
                 myclickLinkContinue.Click();
 
                 returnStatus = "Pass";
@@ -780,11 +780,12 @@ namespace MNsure_Regression_1
                 
                 myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
                 IWebElement textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
-               
-                textboxLogin.SendKeys(myAccountCreate.myUsername);
+                textboxLogin.SendKeys(myAccountCreate.myUsername); //stst2
+                //textboxLogin.SendKeys("stSSSHark1415");//stst1
 
                 IWebElement textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));                
-                textboxPW.SendKeys(myAccountCreate.myPassword);
+                textboxPW.SendKeys(myAccountCreate.myPassword);//stst2
+                //textboxPW.SendKeys("Welcome1#");//stst1
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
