@@ -55,6 +55,41 @@ struct mystructHistoryInfo
     public string myMNSureID;
 }
 
+struct mystructExistingAccounts
+{
+    public string[] myExistingAccountFirstName;
+    public string[] myExistingAccountMiddleName;
+    public string[] myExistingAccountLastName;
+    public string[] myExistingAccountSuffix;
+    public string[] myExistingAccountAddress1;
+    public string[] myExistingAccountAddress2;
+    public string[] myExistingAccountCity;
+    public string[] myExistingAccountState;
+    public string[] myExistingAccountZip;
+    public string[] myExistingAccountZip4;
+    public string[] myExistingAccountEmail;
+    public string[] myExistingAccountPhone;
+    public string[] myExistingAccountSSN;
+    public string[] myExistingAccountDOB;
+    public string[] myExistingAccountUserName;
+    public string[] myExistingAccountPassword;
+    public string[] myExistingAccountSecret;
+    public string[] myExistingAccountQuestion1;
+    public string[] myExistingAccountAnswer1;
+    public string[] myExistingAccountQuestion2;
+    public string[] myExistingAccountAnswer2;
+    public string[] myExistingAccountQuestion3;
+    public string[] myExistingAccountAnswer3;
+    public string[] myExistingAccountQuestion4;
+    public string[] myExistingAccountAnswer4;
+    public string[] myExistingAccountQuestion5;
+    public string[] myExistingAccountAnswer5;
+    public string[] myExistingAccountConfirmation;
+    public string[] myExistingAccountEnvironment;
+    public string[] myExistingAccountGender;
+    public string[] myExistingAccountUsed;
+}
+
 struct mystructSelectedTest
 {
     public int myTestId;

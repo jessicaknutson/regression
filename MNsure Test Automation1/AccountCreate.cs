@@ -397,10 +397,9 @@ namespace MNsure_Regression_1
                 wait.PollingInterval = TimeSpan.FromMilliseconds(100);
                 IWebElement element = wait.Until<IWebElement>(ExpectedConditions.ElementIsVisible(By.Id("username")));
                 IWebElement myselectUsername = myDriver.FindElement(By.Id("username"));
-                myselectUsername.SendKeys(myAccountCreate.myUsername);
-
-                //Enter password
                 IWebElement myselectPassword = myDriver.FindElement(By.Id("password"));
+
+                myselectUsername.SendKeys(myAccountCreate.myUsername); //stCStend0771,stBWats0886
                 myselectPassword.SendKeys(myAccountCreate.myPassword);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
@@ -780,12 +779,10 @@ namespace MNsure_Regression_1
                 
                 myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
                 IWebElement textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
-                textboxLogin.SendKeys(myAccountCreate.myUsername); //stst2
-                //textboxLogin.SendKeys("stSSSHark1415");//stst1
+                textboxLogin.SendKeys(myAccountCreate.myUsername); 
 
                 IWebElement textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));                
-                textboxPW.SendKeys(myAccountCreate.myPassword);//stst2
-                //textboxPW.SendKeys("Welcome1#");//stst1
+                textboxPW.SendKeys(myAccountCreate.myPassword);                
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 

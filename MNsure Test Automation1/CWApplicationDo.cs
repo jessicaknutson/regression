@@ -866,14 +866,14 @@ namespace MNsure_Regression_1
                 string fosterCare = "No";
                 if (myEnrollment.myHouseholdOther == "Yes" && myEnrollment.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -968,11 +968,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -1023,11 +1023,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -1633,7 +1633,7 @@ namespace MNsure_Regression_1
                     listboxIncomeAdjusted.SendKeys(incomeExpected);
                 }
 
-                if (myHistoryInfo.myInTimeTravel == "Yes")
+                /*if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
                         myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
@@ -1642,6 +1642,7 @@ namespace MNsure_Regression_1
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
                 }
+                 */
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 

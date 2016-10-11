@@ -394,11 +394,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
@@ -670,11 +670,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr[1]/td[2]/table/tbody/tr/td[1]/div/div/input"), myHistoryInfo);
@@ -976,16 +976,17 @@ namespace MNsure_Regression_1
                 }
 
                 string fosterCare = "No";
+                //18-26 seems to work most of the time, q5 age 26 fails
                 if (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                 {
-                    if (age2.Year - 1 > 17 && age2.Year - 1 < 27) //2 hh
+                    if (age2.Year - 1 > 17 && age2.Year - 1 < 26) //2 hh
                     {
                         fosterCare = "Yes";
                     }
                 }
                 else
                 {
-                    if (age.Year - 1 > 17 && age.Year - 1 < 27) //1 hh
+                    if (age.Year - 1 > 17 && age.Year - 1 < 26) //1 hh
                     {
                         fosterCare = "Yes";
                     }
@@ -1102,7 +1103,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (9 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 else
@@ -1113,7 +1114,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (7 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (9 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -1219,7 +1220,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;//norm 10
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;//norm 10
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[2]/table/tbody/tr/td[2]/table/tbody/tr/td[1]/div/div[2]/div[1]/div[1]/input"), myHistoryInfo);
@@ -1661,11 +1662,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -1905,11 +1906,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
@@ -1954,7 +1955,7 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/1/2016") &&
+                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
                         myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
@@ -3281,11 +3282,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (10 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (12 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (8 + myHistoryInfo.myAppWait) * 1000;//norm 12
+                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;//norm 12
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3339,7 +3340,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (10 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);
@@ -3446,7 +3447,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 

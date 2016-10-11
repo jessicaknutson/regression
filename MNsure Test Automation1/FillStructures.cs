@@ -6,6 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Net;
+using System.Data.Sql;
+using System.Windows.Forms;
+using OpenQA.Selenium;
+using System.Data.SqlClient;
+using System.Data.SqlServerCe;
+using Novacode;
+using System.Diagnostics;
+using System.Drawing;
+using Microsoft.Office.Interop.Excel;
+using System.Runtime.InteropServices;
+using Microsoft.Office.Core;
 
 namespace MNsure_Regression_1
 {
@@ -963,7 +976,6 @@ namespace MNsure_Regression_1
             SqlCeConnection con;
             string conString = Properties.Settings.Default.Database1ConnectionString;
 
-
             try
             {
                 con = new SqlCeConnection(conString);
@@ -990,6 +1002,42 @@ namespace MNsure_Regression_1
             catch
             {
                 MessageBox.Show("Update Account SSN didn't work");
+            }
+            return 1;
+        }
+
+        public int doUpdateAccountUsername(ref mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand(
+                    "SELECT * FROM Account where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Account set Username = @myUsername where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("myUsername", updateValue);                            
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update Account Username didn't work");
             }
             return 1;
         }
@@ -1087,6 +1135,552 @@ namespace MNsure_Regression_1
                 return "Error locating app gender";
             }
         }
+
+        public string DoGetAppDay2(ref mystructHistoryInfo myHistoryInfo)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                // Open the connection using the connection string.
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com = new SqlCeCommand("SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        if (!reader.IsDBNull(66))
+                        {
+                            return reader.GetString(66);
+                        }
+                        else
+                        {
+                            return "";
+                        }
+                    }
+                    else
+                    {
+                        return "Error locating app day2";
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                return "Error locating app day2 " + e;
+            }
+        }
+
+        public int DoGetExistingAccounts(ref mystructHistoryInfo myHistoryInfo, ref mystructExistingAccounts myExistingAccountInfo, ref mystructAccountCreate myAccountCreate,
+            ref mystructApplication myApplication)
+        {
+            for (int j = 0; j < 100; ++j)//must clear first before next test
+            {
+                if (myExistingAccountInfo.myExistingAccountFirstName[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountFirstName[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountMiddleName[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountMiddleName[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountLastName[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountLastName[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountSuffix[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountSuffix[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAddress1[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAddress1[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAddress2[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAddress2[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountCity[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountCity[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountState[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountState[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountZip[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountZip[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountZip4[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountZip4[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountEmail[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountEmail[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountPhone[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountPhone[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountSSN[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountSSN[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountDOB[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountDOB[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountUserName[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountUserName[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountPassword[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountPassword[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountSecret[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountSecret[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountQuestion1[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion1[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAnswer1[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer1[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountQuestion2[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion2[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAnswer2[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer2[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountQuestion3[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion3[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAnswer3[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer3[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountQuestion4[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion4[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAnswer4[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer4[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountQuestion5[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion5[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountAnswer5[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer5[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountConfirmation[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountConfirmation[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountEnvironment[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountEnvironment[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountGender[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountGender[j] = null;
+                }
+                if (myExistingAccountInfo.myExistingAccountUsed[j] != null)
+                {
+                    myExistingAccountInfo.myExistingAccountUsed[j] = null;
+                }
+            }
+
+            //open the workbook 
+            Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+            app = new Microsoft.Office.Interop.Excel.Application();
+
+            string fullPathName;
+            if (myHistoryInfo.myEnvironment == "STST2")
+            {
+                fullPathName = "S:\\GPesall backup\\ExistingAccounts\\STST2AccountCreate1.xls";
+            }
+            else
+            {
+                fullPathName = "S:\\GPesall backup\\ExistingAccounts\\STST1AccountCreate1.xls";
+            }
+            Microsoft.Office.Interop.Excel.Workbook excelWorkbook = app.Workbooks.Open(fullPathName,
+                    0, false, 5, "", "", false, Microsoft.Office.Interop.Excel.XlPlatform.xlWindows, "",
+                    true, false, 0, true, false, false);
+            app.Visible = true;
+            Microsoft.Office.Interop.Excel.Sheets xcelSheets = excelWorkbook.Worksheets;
+
+            Microsoft.Office.Interop.Excel.Worksheet excelWorksheet = (Microsoft.Office.Interop.Excel.Worksheet)xcelSheets.get_Item(1);
+            Range excelRange = excelWorksheet.UsedRange;
+
+            //get an object array of all of the cells in the worksheet (their values)
+            object[,] valueArray = (object[,])excelRange.get_Value(
+                        XlRangeValueDataType.xlRangeValueDefault);
+
+            string myFirstName, myMiddleName, myLastName, mySuffix, myAddress1, myAddress2, myCity, myState, myZip, myZip4, myEmail, myPhone, mySSN, myDOB,
+                myUserName, myPassword, mySecret, myQuestion1, myAnswer1, myQuestion2, myAnswer2, myQuestion3, myAnswer3, myQuestion4, myAnswer4, myQuestion5,
+                myAnswer5, myConfirmation, myEnvironment, myGender, myUsed;
+            int i = 0;
+            for (int row = 2; row < excelWorksheet.UsedRange.Rows.Count; ++row)
+            {
+                //access each cell
+                myFirstName = Convert.ToString(valueArray[row, 1]);
+                if (myFirstName != "")
+                {
+                    myExistingAccountInfo.myExistingAccountFirstName[i] = myFirstName;
+                }
+                myMiddleName = Convert.ToString(valueArray[row, 2]);
+                if (myMiddleName != "")
+                {
+                    myExistingAccountInfo.myExistingAccountMiddleName[i] = myMiddleName;
+                }
+                myLastName = Convert.ToString(valueArray[row, 3]);
+                if (myLastName != "")
+                {
+                    myExistingAccountInfo.myExistingAccountLastName[i] = myLastName;
+                }
+                mySuffix = Convert.ToString(valueArray[row, 4]);
+                if (mySuffix != "")
+                {
+                    myExistingAccountInfo.myExistingAccountSuffix[i] = mySuffix;
+                }
+                myAddress1 = Convert.ToString(valueArray[row, 5]);
+                if (myAddress1 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAddress1[i] = myAddress1;
+                }
+                myAddress2 = Convert.ToString(valueArray[row, 6]);
+                if (myAddress2 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAddress2[i] = myAddress2;
+                }
+                myCity = Convert.ToString(valueArray[row, 7]);
+                if (myCity != "")
+                {
+                    myExistingAccountInfo.myExistingAccountCity[i] = myCity;
+                }
+                myState = Convert.ToString(valueArray[row, 8]);
+                if (myState != "")
+                {
+                    myExistingAccountInfo.myExistingAccountState[i] = myState;
+                }
+                myZip = Convert.ToString(valueArray[row, 9]);
+                if (myZip != "")
+                {
+                    myExistingAccountInfo.myExistingAccountZip[i] = myZip;
+                }
+                myZip4 = Convert.ToString(valueArray[row, 10]);
+                if (myZip4 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountZip4[i] = myZip4;
+                }
+                myEmail = Convert.ToString(valueArray[row, 11]);
+                if (myEmail != "")
+                {
+                    myExistingAccountInfo.myExistingAccountEmail[i] = myEmail;
+                }
+                myPhone = Convert.ToString(valueArray[row, 12]);
+                if (myPhone != "")
+                {
+                    myExistingAccountInfo.myExistingAccountPhone[i] = myPhone;
+                }
+                mySSN = Convert.ToString(valueArray[row, 13]);
+                if (mySSN != "")
+                {
+                    myExistingAccountInfo.myExistingAccountSSN[i] = mySSN;
+                }
+                myDOB = Convert.ToString(valueArray[row, 14]);
+                if (myDOB != "")
+                {
+                    myExistingAccountInfo.myExistingAccountDOB[i] = myDOB;
+                }
+                myUserName = Convert.ToString(valueArray[row, 15]);
+                if (myUserName != "")
+                {
+                    myExistingAccountInfo.myExistingAccountUserName[i] = myUserName;
+                }
+                myPassword = Convert.ToString(valueArray[row, 16]);
+                if (myPassword != "")
+                {
+                    myExistingAccountInfo.myExistingAccountPassword[i] = myPassword;
+                }
+                mySecret = Convert.ToString(valueArray[row, 17]);
+                if (mySecret != "")
+                {
+                    myExistingAccountInfo.myExistingAccountSecret[i] = mySecret;
+                }
+                myQuestion1 = Convert.ToString(valueArray[row, 18]);
+                if (myQuestion1 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion1[i] = myQuestion1;
+                }
+                myAnswer1 = Convert.ToString(valueArray[row, 19]);
+                if (myAnswer1 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer1[i] = myAnswer1;
+                }
+                myQuestion2 = Convert.ToString(valueArray[row, 20]);
+                if (myQuestion2 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion2[i] = myQuestion2;
+                }
+                myAnswer2 = Convert.ToString(valueArray[row, 21]);
+                if (myAnswer2 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer2[i] = myAnswer2;
+                }
+                myQuestion3 = Convert.ToString(valueArray[row, 22]);
+                if (myQuestion3 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion3[i] = myQuestion3;
+                }
+                myAnswer3 = Convert.ToString(valueArray[row, 23]);
+                if (myAnswer3 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer3[i] = myAnswer3;
+                }
+                myQuestion4 = Convert.ToString(valueArray[row, 24]);
+                if (myQuestion4 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion4[i] = myQuestion4;
+                }
+                myAnswer4 = Convert.ToString(valueArray[row, 25]);
+                if (myAnswer4 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer4[i] = myAnswer4;
+                }
+                myQuestion5 = Convert.ToString(valueArray[row, 26]);
+                if (myQuestion5 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountQuestion5[i] = myQuestion5;
+                }
+                myAnswer5 = Convert.ToString(valueArray[row, 27]);
+                if (myAnswer5 != "")
+                {
+                    myExistingAccountInfo.myExistingAccountAnswer5[i] = myAnswer5;
+                }
+                myConfirmation = Convert.ToString(valueArray[row, 28]);
+                if (myConfirmation != "")
+                {
+                    myExistingAccountInfo.myExistingAccountConfirmation[i] = myConfirmation;
+                }
+                myEnvironment = Convert.ToString(valueArray[row, 29]);
+                if (myEnvironment != "")
+                {
+                    myExistingAccountInfo.myExistingAccountEnvironment[i] = myEnvironment;
+                }
+                myGender = Convert.ToString(valueArray[row, 30]);
+                if (myGender != "")
+                {
+                    myExistingAccountInfo.myExistingAccountGender[i] = myGender;
+                }
+                myUsed = Convert.ToString(valueArray[row, 31]);
+                if (myUsed != "")
+                {
+                    myExistingAccountInfo.myExistingAccountUsed[i] = myUsed;
+                }
+                i = i + 1;
+            }
+
+            //locate first not used
+            int k = 0;
+            for (int row = 2; row < excelWorksheet.UsedRange.Rows.Count; ++row)
+            {
+                myUsed = Convert.ToString(valueArray[row, 31]);
+                if (myUsed == "N")
+                {
+                    myAccountCreate.myFirstName = myExistingAccountInfo.myExistingAccountFirstName[k];
+                    myAccountCreate.myMiddleName = myExistingAccountInfo.myExistingAccountMiddleName[k];
+                    myAccountCreate.myLastName = myExistingAccountInfo.myExistingAccountLastName[k];
+                    //myAccountCreate.mySuffix = myExistingAccountInfo.myExistingAccountSuffix[k];
+                    myAccountCreate.myEmail = myExistingAccountInfo.myExistingAccountEmail[k];
+                    myAccountCreate.myPhone = myExistingAccountInfo.myExistingAccountPhone[k];
+                    myAccountCreate.mySSN = myExistingAccountInfo.myExistingAccountSSN[k];
+                    myAccountCreate.myDOB = myExistingAccountInfo.myExistingAccountDOB[k];
+                    myAccountCreate.myUsername = myExistingAccountInfo.myExistingAccountUserName[k];
+                    myAccountCreate.myPassword = "Welcome1#";
+                    myAccountCreate.myQuestion1 = myExistingAccountInfo.myExistingAccountQuestion1[k];
+                    myAccountCreate.myAnswer1 = myExistingAccountInfo.myExistingAccountAnswer1[k];
+                    myAccountCreate.myQuestion2 = myExistingAccountInfo.myExistingAccountQuestion2[k];
+                    myAccountCreate.myAnswer2 = myExistingAccountInfo.myExistingAccountAnswer2[k];
+                    myAccountCreate.myQuestion3 = myExistingAccountInfo.myExistingAccountQuestion3[k];
+                    myAccountCreate.myAnswer3 = myExistingAccountInfo.myExistingAccountAnswer3[k];
+                    myAccountCreate.myQuestion4 = myExistingAccountInfo.myExistingAccountQuestion4[k];
+                    myAccountCreate.myAnswer4 = myExistingAccountInfo.myExistingAccountAnswer4[k];
+                    myAccountCreate.myQuestion5 = myExistingAccountInfo.myExistingAccountQuestion5[k];
+                    myAccountCreate.myAnswer5 = myExistingAccountInfo.myExistingAccountAnswer5[k];
+
+                    SqlCeConnection con;
+                    string conString = Properties.Settings.Default.Database1ConnectionString;
+
+                    try
+                    {
+                        con = new SqlCeConnection(conString);
+                        con.Open();
+                        using (SqlCeCommand com4 = new SqlCeCommand(
+                            "SELECT * FROM Account where TestID = " + myHistoryInfo.myTestId, con))
+                        {
+                            SqlCeDataReader reader = com4.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                string myUpdateString;
+                                myUpdateString = "Update Account set SSN = @mySSN, FirstName = @myFirstName, MiddleName = @myMiddleName, LastName = @myLastName, "
+                                   + "Suffix = @mySuffix, Email = @myEmail, Phone = @myPhone, DOB = @myDOB, UserName = @myUsername where TestID = " + myHistoryInfo.myTestId;
+
+                                using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                                {
+                                    com5.Parameters.AddWithValue("myFirstName", myAccountCreate.myFirstName);
+                                    com5.Parameters.AddWithValue("myMiddleName", myAccountCreate.myMiddleName);
+                                    com5.Parameters.AddWithValue("myLastName", myAccountCreate.myLastName);
+                                    com5.Parameters.AddWithValue("mySuffix", DBNull.Value);
+                                    com5.Parameters.AddWithValue("myEmail", myAccountCreate.myEmail);
+                                    com5.Parameters.AddWithValue("myPhone", myAccountCreate.myPhone);
+                                    com5.Parameters.AddWithValue("mySSN", myAccountCreate.mySSN);
+                                    com5.Parameters.AddWithValue("myDOB", myAccountCreate.myDOB);
+                                    com5.Parameters.AddWithValue("myUsername", myAccountCreate.myUsername);
+                                    com5.ExecuteNonQuery();
+                                    com5.Dispose();
+                                }
+                            }
+                        }
+                        con.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Update Account didn't work");
+                    }
+
+                    myApplication.myFirstName = myAccountCreate.myFirstName;
+                    myApplication.myMiddleName = myAccountCreate.myMiddleName;
+                    myApplication.myLastName = myAccountCreate.myLastName;
+                    myApplication.myEmail = myAccountCreate.myEmail;
+                    myApplication.myPhoneNum = myAccountCreate.myPhone;
+                    myApplication.myPhoneNum = myAccountCreate.myPhone.Substring(1, 3) + myAccountCreate.myPhone.Substring(5, 3) + myAccountCreate.myPhone.Substring(9, 4);
+                    myApplication.mySSNNum = myAccountCreate.mySSN;
+                    myApplication.myDOB = myAccountCreate.myDOB;
+                    myApplication.myGender = myExistingAccountInfo.myExistingAccountGender[k];
+
+                    try
+                    {
+                        con = new SqlCeConnection(conString);
+                        con.Open();
+                        using (SqlCeCommand com4 = new SqlCeCommand(
+                            "SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                        {
+                            SqlCeDataReader reader = com4.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                string myUpdateString;
+                                myUpdateString = "Update Application set SSNNum = @mySSN, FirstName = @myFirstName, MiddleName = @myMiddleName, LastName = @myLastName, "
+                                   + "Email = @myEmail, PhoneNum = @myPhone, DOB = @myDOB, Gender = @myGender where TestID = " + myHistoryInfo.myTestId;
+
+                                using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                                {
+                                    com5.Parameters.AddWithValue("myFirstName", myApplication.myFirstName);
+                                    com5.Parameters.AddWithValue("myMiddleName", myApplication.myMiddleName);
+                                    com5.Parameters.AddWithValue("myLastName", myApplication.myLastName);
+                                    com5.Parameters.AddWithValue("myEmail", myApplication.myEmail);
+                                    com5.Parameters.AddWithValue("myPhone", myApplication.myPhoneNum);
+                                    com5.Parameters.AddWithValue("mySSN", myApplication.mySSNNum);
+                                    com5.Parameters.AddWithValue("myDOB", myApplication.myDOB);
+                                    com5.Parameters.AddWithValue("myGender", myApplication.myGender);
+                                    com5.ExecuteNonQuery();
+                                    com5.Dispose();
+                                }
+                            }
+                        }
+                        con.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Update Application didn't work");
+                    }
+
+                    myApplication.myHomeAddress1 = myExistingAccountInfo.myExistingAccountAddress1[k];
+                    myApplication.myHomeAddress2 = myExistingAccountInfo.myExistingAccountAddress2[k];
+                    myApplication.myHomeCity = myExistingAccountInfo.myExistingAccountCity[k];
+                    myApplication.myHomeState = myExistingAccountInfo.myExistingAccountState[k];
+                    myApplication.myHomeZip = myExistingAccountInfo.myExistingAccountZip[k];
+                    myApplication.myHomeZip4 = myExistingAccountInfo.myExistingAccountZip4[k];
+
+                    try
+                    {
+                        con = new SqlCeConnection(conString);
+                        con.Open();
+                        using (SqlCeCommand com6 = new SqlCeCommand(
+                            "SELECT * FROM Address where TestID = " + myHistoryInfo.myTestId + " and Type = 'Home'", con))
+                        {
+                            SqlCeDataReader reader = com6.ExecuteReader();
+                            if (reader.Read())
+                            {
+                                string myUpdateString;
+                                myUpdateString = "Update Address set Address1 = @myAddress1, Address2 = @myAddress2, City = @myCity, State = @myState, Zip = @myZip, Zip4 = @myZip4, "
+                                + "Type = @myType, County = @myCounty where TestID = " + myHistoryInfo.myTestId;
+
+                                using (SqlCeCommand com7 = new SqlCeCommand(myUpdateString, con))
+                                {
+                                    com7.Parameters.AddWithValue("myAddress1", myApplication.myHomeAddress1);
+                                    com7.Parameters.AddWithValue("myAddress2", myApplication.myHomeAddress2);
+                                    com7.Parameters.AddWithValue("myCity", myApplication.myHomeCity);
+                                    com7.Parameters.AddWithValue("myState", myApplication.myHomeState);
+                                    com7.Parameters.AddWithValue("myZip", myApplication.myHomeZip);
+                                    com7.Parameters.AddWithValue("myZip4", myApplication.myHomeZip4);
+                                    com7.Parameters.AddWithValue("myCounty", "Hennepin");
+                                    com7.Parameters.AddWithValue("myType", "Home");
+                                    com7.ExecuteNonQuery();
+                                    com7.Dispose();
+                                }
+                            }
+                        }
+                        con.Close();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Update Address didn't work");
+                    }
+
+                    myExistingAccountInfo.myExistingAccountUsed[k] = "Y";
+                    try
+                    {
+                        excelWorksheet.Cells[k + 2, 31] = "Y";//update used in worksheet
+                    }
+                    catch (Exception a)
+                    {
+                        MessageBox.Show("Spreadsheet update didn't work" + a);
+                    }
+                    break;
+                }
+                k = k + 1;
+            }
+
+            if (myAccountCreate.myFirstName == null)
+            {
+                MessageBox.Show("All existing accounts have been used. A new list must be created.");
+            }
+
+            excelWorkbook.Save();
+            excelWorkbook.Close(true, Type.Missing, Type.Missing);
+
+            app.Quit();
+
+            Marshal.ReleaseComObject(excelWorkbook);
+            Marshal.ReleaseComObject(app);
+
+            return 1;
+        }
+
 
     }
 }

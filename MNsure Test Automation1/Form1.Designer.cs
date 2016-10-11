@@ -144,6 +144,7 @@
             this.comboBoxEnrollDependants = new System.Windows.Forms.ComboBox();
             this.label38 = new System.Windows.Forms.Label();
             this.groupBoxHouseholdOther = new System.Windows.Forms.GroupBox();
+            this.buttonDeleteAddr = new System.Windows.Forms.Button();
             this.comboBoxHMRandom = new System.Windows.Forms.ComboBox();
             this.label184 = new System.Windows.Forms.Label();
             this.comboBoxHMPregnancyDone = new System.Windows.Forms.ComboBox();
@@ -288,7 +289,6 @@
             this.radioButtonHouseholdOther = new System.Windows.Forms.RadioButton();
             this.radioButtonMore = new System.Windows.Forms.RadioButton();
             this.radioButtonInformation = new System.Windows.Forms.RadioButton();
-            this.button2 = new System.Windows.Forms.Button();
             this.groupBoxMoreAboutYou = new System.Windows.Forms.GroupBox();
             this.comboBoxTobacco = new System.Windows.Forms.ComboBox();
             this.dateTimeTobacco = new System.Windows.Forms.DateTimePicker();
@@ -520,7 +520,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.buttonDeleteAddr = new System.Windows.Forms.Button();
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -960,9 +959,9 @@
             this.checkBoxTimeTravel.AutoSize = true;
             this.checkBoxTimeTravel.Location = new System.Drawing.Point(41, 153);
             this.checkBoxTimeTravel.Name = "checkBoxTimeTravel";
-            this.checkBoxTimeTravel.Size = new System.Drawing.Size(104, 17);
+            this.checkBoxTimeTravel.Size = new System.Drawing.Size(110, 17);
             this.checkBoxTimeTravel.TabIndex = 6;
-            this.checkBoxTimeTravel.Text = "Use Time Travel";
+            this.checkBoxTimeTravel.Text = "Use Time Travel?";
             this.checkBoxTimeTravel.UseVisualStyleBackColor = true;
             this.checkBoxTimeTravel.CheckedChanged += new System.EventHandler(this.checkBoxTimeTravel_CheckedChanged);
             // 
@@ -1119,7 +1118,6 @@
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxDependants);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxHouseholdOther);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBox1);
-            this.tabPageConfigureEnrollment.Controls.Add(this.button2);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxMoreAboutYou);
             this.tabPageConfigureEnrollment.Controls.Add(this.groupBoxApplicantInformation);
             this.tabPageConfigureEnrollment.Controls.Add(this.textBoxEnrollTest);
@@ -1176,7 +1174,7 @@
             this.groupBoxAssister.Controls.Add(this.label185);
             this.groupBoxAssister.Controls.Add(this.label165);
             this.groupBoxAssister.Controls.Add(this.label76);
-            this.groupBoxAssister.Location = new System.Drawing.Point(1000, 55);
+            this.groupBoxAssister.Location = new System.Drawing.Point(0, 55);
             this.groupBoxAssister.Name = "groupBoxAssister";
             this.groupBoxAssister.Size = new System.Drawing.Size(800, 526);
             this.groupBoxAssister.TabIndex = 1;
@@ -1625,7 +1623,7 @@
             this.groupBoxEnrollIncome.Controls.Add(this.label40);
             this.groupBoxEnrollIncome.Controls.Add(this.comboBoxEnrollIncomeType);
             this.groupBoxEnrollIncome.Controls.Add(this.label39);
-            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(1000, 214);
+            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(0, 214);
             this.groupBoxEnrollIncome.Name = "groupBoxEnrollIncome";
             this.groupBoxEnrollIncome.Size = new System.Drawing.Size(534, 394);
             this.groupBoxEnrollIncome.TabIndex = 61;
@@ -1990,6 +1988,16 @@
             this.groupBoxHouseholdOther.TabIndex = 59;
             this.groupBoxHouseholdOther.TabStop = false;
             this.groupBoxHouseholdOther.Text = "Other Household members";
+            // 
+            // buttonDeleteAddr
+            // 
+            this.buttonDeleteAddr.Location = new System.Drawing.Point(798, 485);
+            this.buttonDeleteAddr.Name = "buttonDeleteAddr";
+            this.buttonDeleteAddr.Size = new System.Drawing.Size(90, 23);
+            this.buttonDeleteAddr.TabIndex = 139;
+            this.buttonDeleteAddr.Text = "Delete Address";
+            this.buttonDeleteAddr.UseVisualStyleBackColor = true;
+            this.buttonDeleteAddr.Click += new System.EventHandler(this.buttonDeleteAddr_Click);
             // 
             // comboBoxHMRandom
             // 
@@ -3553,15 +3561,6 @@
             this.radioButtonInformation.Text = "Information About You";
             this.radioButtonInformation.UseVisualStyleBackColor = true;
             this.radioButtonInformation.Click += new System.EventHandler(this.radioButtonInformation_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(1081, 556);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(142, 23);
-            this.button2.TabIndex = 52;
-            this.button2.Text = "Clone this Configuration";
-            this.button2.UseVisualStyleBackColor = true;
             // 
             // groupBoxMoreAboutYou
             // 
@@ -6062,16 +6061,6 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
-            // buttonDeleteAddr
-            // 
-            this.buttonDeleteAddr.Location = new System.Drawing.Point(798, 485);
-            this.buttonDeleteAddr.Name = "buttonDeleteAddr";
-            this.buttonDeleteAddr.Size = new System.Drawing.Size(90, 23);
-            this.buttonDeleteAddr.TabIndex = 139;
-            this.buttonDeleteAddr.Text = "Delete Address";
-            this.buttonDeleteAddr.UseVisualStyleBackColor = true;
-            this.buttonDeleteAddr.Click += new System.EventHandler(this.buttonDeleteAddr_Click);
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6161,7 +6150,6 @@
         private System.Windows.Forms.RadioButton radioButtonInformation;
         private System.Windows.Forms.GroupBox groupBoxApplicantInformation;
         private System.Windows.Forms.ComboBox comboBoxEnrollApplyYourself;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Button buttonSaveConfiguration;
         private System.Windows.Forms.ComboBox comboBoxEnrollAuthRep;

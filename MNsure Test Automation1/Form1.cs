@@ -31,6 +31,7 @@ namespace MNsure_Regression_1
         mystructSelectedTest mySelectedTest;
         mystructAccountCreate myAccountCreate;
         mystructHistoryInfo myHistoryInfo;
+        mystructExistingAccounts myExistingAccountInfo;
         mystructApplication myApplication;
         mystructAssister myAssister;
         mystructSSN myLastSSN;
@@ -53,6 +54,37 @@ namespace MNsure_Regression_1
             myHistoryInfo.myRequiredStep = new int[50];
             myHistoryInfo.myRequiredStepStatus = new string[50];
             myHistoryInfo.myRequiredScreenshotFile = new string[50];
+            myExistingAccountInfo.myExistingAccountFirstName = new string[100];
+            myExistingAccountInfo.myExistingAccountMiddleName = new string[100];
+            myExistingAccountInfo.myExistingAccountLastName = new string[100];
+            myExistingAccountInfo.myExistingAccountSuffix = new string[100];
+            myExistingAccountInfo.myExistingAccountAddress1 = new string[100];
+            myExistingAccountInfo.myExistingAccountAddress2 = new string[100];
+            myExistingAccountInfo.myExistingAccountCity = new string[100];
+            myExistingAccountInfo.myExistingAccountState = new string[100];
+            myExistingAccountInfo.myExistingAccountZip = new string[100];
+            myExistingAccountInfo.myExistingAccountZip4 = new string[100];
+            myExistingAccountInfo.myExistingAccountEmail = new string[100];
+            myExistingAccountInfo.myExistingAccountPhone = new string[100];
+            myExistingAccountInfo.myExistingAccountSSN = new string[100];
+            myExistingAccountInfo.myExistingAccountDOB = new string[100];
+            myExistingAccountInfo.myExistingAccountUserName = new string[100];
+            myExistingAccountInfo.myExistingAccountPassword = new string[100];
+            myExistingAccountInfo.myExistingAccountSecret = new string[100];
+            myExistingAccountInfo.myExistingAccountQuestion1 = new string[100];
+            myExistingAccountInfo.myExistingAccountAnswer1 = new string[100];
+            myExistingAccountInfo.myExistingAccountQuestion2 = new string[100];
+            myExistingAccountInfo.myExistingAccountAnswer2 = new string[100];
+            myExistingAccountInfo.myExistingAccountQuestion3 = new string[100];
+            myExistingAccountInfo.myExistingAccountAnswer3 = new string[100];
+            myExistingAccountInfo.myExistingAccountQuestion4 = new string[100];
+            myExistingAccountInfo.myExistingAccountAnswer4 = new string[100];
+            myExistingAccountInfo.myExistingAccountQuestion5 = new string[100];
+            myExistingAccountInfo.myExistingAccountAnswer5 = new string[100];
+            myExistingAccountInfo.myExistingAccountConfirmation = new string[100];
+            myExistingAccountInfo.myExistingAccountEnvironment = new string[100];
+            myExistingAccountInfo.myExistingAccountGender = new string[100];
+            myExistingAccountInfo.myExistingAccountUsed = new string[100];
             myHistoryInfo.myIcnumber = null;
             myApplication.myDay2TestId = null;
             myHistoryInfo.myTestStartTime = DateTime.Now;
@@ -139,55 +171,45 @@ namespace MNsure_Regression_1
 
                     result = writeLogs.WriteRunHistoryRowStart(ref myHistoryInfo);
                     result = writeLogs.WriteTestHistoryRowStart(ref myHistoryInfo);
+                    result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
 
                     try
                     {
-                        FillStructures myFillStructures = new FillStructures();
                         InitializeSSN myInitializeSSN = new InitializeSSN();
                         result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
                         int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                         myAccountCreate.mySSN = Convert.ToString(temp1);
-                        //Fill structures for Test
-                        result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
-                        
-                        /*if (checkBoxTimeTravel.Checked == true)
+
+                        FillStructures myFillStructures = new FillStructures();
+                        string isDay2 = myFillStructures.DoGetAppDay2(ref myHistoryInfo);
+                        if (checkBoxTimeTravel.Checked == true && isDay2 == "")
                         {
-                            SSNNumberForm _ExistingSSNNumber = new SSNNumberForm();
-                            DialogResult dialogResult = _ExistingSSNNumber.ShowDialog();
-                            if (dialogResult == DialogResult.OK)
-                            {
-                                if (_ExistingSSNNumber.SSNNumber != null)
-                                {
-                                    myAccountCreate.mySSN = _ExistingSSNNumber.SSNNumber;
-                                }
-                                else
-                                {
-                                    //grab next available ssn from c:\mnsure regression 1\existingssn\AccountCreate1.xls
-
-                                    myAccountCreate.mySSN = "";
-                                }
-                            }                            
-                        }*/
-
+                            result = myFillStructures.DoGetExistingAccounts(ref myHistoryInfo, ref myExistingAccountInfo, ref myAccountCreate, ref myApplication);
+                        }
+                        else
+                        {
+                            //Fill primary structures for Test
+                            result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                        }
                         HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                         int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                         AccountGeneration myAccountGeneration = new AccountGeneration();
                         if (householdCount > 1)
                         {
                             result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "2", ref myApplication, ref myHistoryInfo);
+
                         }
                         if (householdCount == 3)
                         {
                             result = myAccountGeneration.GenerateHouseholdNames(ref myHouseholdMembers, mySelectedTest.myTestId, "3", ref myApplication, ref myHistoryInfo);
+
                         }
                         result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
 
-                        if (myAssister.myFirstName != null)//must create a second account for assister
+                        if (myAssister.myFirstName != null && myAssister.myFirstName != "")//must create a second account for assister
                         {
                             result = myFillStructures.doCreateAssisterAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
                         }
-
-                        result = writeLogs.DoGetRequiredScreenshots(ref myHistoryInfo);
 
                         if (myApplication.myHouseholdOther == "Yes" && householdCount == 2) //for 2nd member in household
                         {
@@ -201,6 +223,9 @@ namespace MNsure_Regression_1
                         {
                             int temp3 = temp1 + 2;
                             myLastSSN.myLastSSN = Convert.ToString(temp3);
+
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp3 - 1), "2");
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myLastSSN.myLastSSN, "3");
                         }
                         else if (myAssister.myFirstName != null) //for assister
                         {
@@ -222,6 +247,8 @@ namespace MNsure_Regression_1
                         if (myHistoryInfo.myEnvironment == "STST2")
                         {
                             hhssn = hhssn.Remove(0, 3).Insert(0, "444");
+                            result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
+                            result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
                         }
                         if (myHistoryInfo.myEnvironment == "STST")
                         {
@@ -229,17 +256,19 @@ namespace MNsure_Regression_1
                             if (beginning == "444")
                             {
                                 hhssn = hhssn.Remove(0, 3).Insert(0, "144");
+                                result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
+                                result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
                             }
-                        }
-                        result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
-                        result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
+                        }                        
 
                         if (myApplication.myHouseholdOther == "Yes" && householdCount < 4) //for 2 household
                         {
-                            int temp = Convert.ToInt32(myAccountCreate.mySSN) + 1;
+                            result = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "2");
+                            int temp = Convert.ToInt32(myHouseholdMembers.mySSN);
                             if (myHistoryInfo.myEnvironment == "STST2")
                             {
                                 temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "444"));
+                                result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
                             }
                             else if (myHistoryInfo.myEnvironment == "STST")
                             {
@@ -247,16 +276,19 @@ namespace MNsure_Regression_1
                                 if (beginning == "444")
                                 {
                                     temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
+                                    result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
                                 }
                             }
-                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
+                            
                         }
                         if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3 household
                         {
-                            int temp2 = Convert.ToInt32(myAccountCreate.mySSN) + 2;
+                            result = myFillStructures.doFillNextHMStructures(ref myApplication, ref myHouseholdMembers, ref myHistoryInfo, "3");
+                            int temp2 = Convert.ToInt32(myHouseholdMembers.mySSN);
                             if (myHistoryInfo.myEnvironment == "STST2")
                             {
                                 temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "444"));
+                                result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
                             }
                             else if (myHistoryInfo.myEnvironment == "STST")
                             {
@@ -264,11 +296,11 @@ namespace MNsure_Regression_1
                                 if (beginning == "444")
                                 {
                                     temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "144"));
+                                    result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
                                 }
-                            }
-                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
+                            }                            
                         }
-
+                        //}
 
                         con = new SqlCeConnection(conString);
                         con.Open();
@@ -769,52 +801,6 @@ namespace MNsure_Regression_1
 
                                         //must fill structures again after updating pass count
                                         result = myFillStructures.doFillStructures(mySelectedTest, ref myAccountCreate, ref myApplication, ref myHouseholdMembers, ref myAssister, ref myHistoryInfo);
-                                        break;
-
-                                    case "FileNetDo":
-
-                                        object[] parmsf = new object[13];
-                                        if (myHistoryInfo.myBrowser == "Firefox")
-                                        {
-                                            parmsf[0] = driver;
-                                            parmsf[1] = driver2;
-                                            parmsf[2] = driver3;
-                                            parmsf[3] = driver4;
-                                            parmsf[4] = driver5;
-                                        }
-                                        else
-                                        {
-                                            parmsf[0] = driver6;
-                                            parmsf[1] = driver7;
-                                            parmsf[2] = driver8;
-                                            parmsf[3] = driver9;
-                                            parmsf[4] = driver10;
-                                        }
-
-                                        parmsf[5] = myAccountCreate;
-                                        parmsf[6] = myApplication;
-                                        parmsf[7] = myAssister;
-                                        parmsf[8] = myHistoryInfo;
-                                        parmsf[9] = returnStatus;
-                                        parmsf[10] = returnException;
-                                        parmsf[11] = returnScreenshot;
-                                        parmsf[12] = returnICNumber;
-
-                                        FileNetDo myFileNetDo = new FileNetDo();
-                                        Type reflectTestTypef = typeof(FileNetDo);
-                                        MethodInfo reflectMethodToInvokef = reflectTestTypef.GetMethod(myMethod);
-                                        ParameterInfo[] reflectMethodParametersf = reflectMethodToInvokef.GetParameters();
-                                        result = writeLogs.DoWriteHistoryTestStepStart(ref myHistoryInfo);
-                                        reflectResultf = reflectMethodToInvokef.Invoke(new FileNetDo(), parmsf);
-                                        myHistoryInfo.myTestStepStatus = parmsf[9].ToString();
-                                        myHistoryInfo.myStepException = parmsf[10].ToString();
-                                        myHistoryInfo.myScreenShot = parmsf[11].ToString();
-                                        if (parmsf[12].ToString() != String.Empty)
-                                        {
-                                            myHistoryInfo.myIcnumber = parmsf[12].ToString();
-                                        }
-                                        result = writeLogs.DoWriteHistoryTestStepEnd(ref myHistoryInfo);
-
                                         break;
 
                                     default:
@@ -3304,7 +3290,7 @@ namespace MNsure_Regression_1
             myHistoryInfo.myAppBuild = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             labelAppBuild.Text = "Application Build #: " + myHistoryInfo.myAppBuild;
             //labelCuramBuild.Text = "Curam Build #: ";
-            textBoxMNSureBuild.Text = "16.3";
+            textBoxMNSureBuild.Text = "16.4";
             myHistoryInfo.myMnsureBuild = textBoxMNSureBuild.Text;
             myHistoryInfo.myCitizenWait = 20;
             myHistoryInfo.myCaseWorkerWait = 20;
@@ -6842,7 +6828,7 @@ namespace MNsure_Regression_1
             myHouseholdMembers.myMailAptSuite = "";
             myHouseholdMembers.myMailCity = "";
             myHouseholdMembers.myMailState = "";
-            myHouseholdMembers.myMailZip = ""; 
+            myHouseholdMembers.myMailZip = "";
             myHouseholdMembers.myMailCounty = "";
 
             FillStructures myFillStructures = new FillStructures();
