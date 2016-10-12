@@ -216,16 +216,24 @@ namespace MNsure_Regression_1
                             int temp2 = temp1 + 1;
                             myHouseholdMembers.mySSN = Convert.ToString(temp2);
                             myLastSSN.myLastSSN = myHouseholdMembers.mySSN;
-
-                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myHouseholdMembers.mySSN, "2");
+                            if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp2 = Convert.ToInt32(Convert.ToString(temp2).Remove(0, 3).Insert(0, "444"));
+                                myHouseholdMembers.mySSN = Convert.ToString(temp2);
+                            }
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "2");
                         }
                         else if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3rd member in household
                         {
                             int temp3 = temp1 + 2;
                             myLastSSN.myLastSSN = Convert.ToString(temp3);
-
+                            if (myHistoryInfo.myEnvironment == "STST2")
+                            {
+                                temp3 = Convert.ToInt32(Convert.ToString(temp3).Remove(0, 3).Insert(0, "444"));
+                                myHouseholdMembers.mySSN = Convert.ToString(temp3 - 1);
+                            }
                             result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp3 - 1), "2");
-                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, myLastSSN.myLastSSN, "3");
+                            result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp3), "3");
                         }
                         else if (myAssister.myFirstName != null) //for assister
                         {
@@ -237,7 +245,15 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            myLastSSN.myLastSSN = myAccountCreate.mySSN;
+                            if (checkBoxTimeTravel.Checked == true)
+                            {
+                                int temp2 = Convert.ToInt32(myLastSSN.myLastSSN);//no need to change
+                                myLastSSN.myLastSSN = Convert.ToString(temp2);
+                            }
+                            else
+                            {
+                                myLastSSN.myLastSSN = myAccountCreate.mySSN;
+                            }
                         }
 
                         InitializeSSN myInitializeSSN2 = new InitializeSSN();
@@ -250,7 +266,7 @@ namespace MNsure_Regression_1
                             result = myFillStructures.doUpdateAccountSSN(ref myHistoryInfo, hhssn);
                             result = myFillStructures.doUpdateApplicationSSN(ref myHistoryInfo, hhssn);
                         }
-                        if (myHistoryInfo.myEnvironment == "STST")
+                        else if (myHistoryInfo.myEnvironment == "STST")
                         {
                             string beginning = hhssn.Substring(0, 3);
                             if (beginning == "444")
@@ -300,7 +316,6 @@ namespace MNsure_Regression_1
                                 }
                             }                            
                         }
-                        //}
 
                         con = new SqlCeConnection(conString);
                         con.Open();
