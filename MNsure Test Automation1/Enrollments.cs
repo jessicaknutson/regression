@@ -484,9 +484,9 @@ namespace MNsure_Regression_1
                     myHouseholdMembers, By.CssSelector("a.buttonNext._startPA"));
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                /*driver.SwitchTo().DefaultContent();
-                var iFrameElement = myDriver.FindElement(By.TagName("iFrame")); //needed for qhp
-                myDriver.SwitchTo().Frame(iFrameElement);*/
+                driver.SwitchTo().DefaultContent();
+                var iFrameElement = myDriver.FindElement(By.TagName("iFrame")); //q21 failed
+                myDriver.SwitchTo().Frame(iFrameElement);
                 IWebElement buttonStart = myDriver.FindElement(By.CssSelector("a.buttonNext._startPA"));
                 buttonStart.Click();
 
@@ -944,15 +944,29 @@ namespace MNsure_Regression_1
                 }
 
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
-                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
-                textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
-
+                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));               
                 IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
-                textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
-
                 IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
-                textboxSignatureLast.SendKeys(myEnrollment.myLastName);
 
+                if (myEnrollment.myApplyYourself == "Yes")
+                {
+                    textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
+                    if (myEnrollment.myMiddleName != null)
+                    {
+                        textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
+                    }
+                    textboxSignatureLast.SendKeys(myEnrollment.myLastName);
+                }
+                else
+                {
+                    textboxSignatureFirst.SendKeys(myHouseholdMembers.myFirstName);
+                    if (myHouseholdMembers.myMiddleName != null)
+                    {
+                        textboxSignatureMiddle.SendKeys(myHouseholdMembers.myMiddleName);
+                    }
+                    textboxSignatureLast.SendKeys(myHouseholdMembers.myLastName);
+                }               
+                
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
                 IWebElement buttonSubmit = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[3]/span[3]/a"));
@@ -1500,7 +1514,7 @@ namespace MNsure_Regression_1
                     System.Threading.Thread.Sleep(appwait);
                 }
 
-                if (householdCount > 1)
+                if (householdCount > 1)//r21 will fail here
                 {
                     DoSelectPrimary(driver, driver3, myEnrollment, myHistoryInfo, ref returnStatus, ref returnException, ref returnScreenshot,
                     myHouseholdMembers);

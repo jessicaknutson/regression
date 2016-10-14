@@ -454,7 +454,7 @@ namespace MNsure_Regression_1
 
                 MessageBox.Show(new Form() { TopMost = true }, "Please Open or Save PDF.",
                 "Open or Save PDF", MessageBoxButtons.OK, MessageBoxIcon.Stop);*/
-
+                
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;

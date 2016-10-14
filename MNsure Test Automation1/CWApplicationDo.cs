@@ -467,7 +467,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -1027,7 +1027,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -1210,7 +1210,7 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    appwait = (1 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();

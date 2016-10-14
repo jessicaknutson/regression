@@ -366,6 +366,22 @@ namespace MNsure_Regression_1
                                                 profile2.SetPreference("browser.cache.offline.enable", false);
                                                 profile2.SetPreference("network.http.use-cache", false);
 
+                                               /* String path = "C:\\Logs\\";
+                                                profile2.SetPreference("browser.download.folderList", 2);
+                                                profile2.SetPreference("browser.download.dir", path);
+                                                profile2.SetPreference("browser.download.manager.alertOnEXEOpen", false);
+                                                profile2.SetPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf"); //, application/csv, application/ris, text/csv, image/png, application/msword, text/html, text/plain, application/zip, application/x-zip, application/x-zip-compressed, application/download, application/octet-stream");
+                                                //profile2.SetPreference("browser.download.manager.showWhenStarting", false);
+                                                profile2.SetPreference("browser.download.manager.focusWhenStarting", false);
+                                                profile2.SetPreference("browser.download.useDownloadDir", true);
+                                                profile2.SetPreference("browser.helperApps.alwaysAsk.force", false);
+                                                profile2.SetPreference("browser.download.manager.alertOnEXEOpen", false);
+                                                profile2.SetPreference("browser.download.manager.closeWhenDone", true);
+                                                profile2.SetPreference("browser.download.manager.showAlertOnComplete", false);
+                                                profile2.SetPreference("browser.download.manager.useWindow", false);
+                                                profile2.SetPreference("services.sync.prefs.sync.browser.download.manager.showWhenStarting", false);
+                                                profile2.SetPreference("pdfjs.disabled", true);*/
+
                                                 //create separate driver for case worker
                                                 driver2 = new FirefoxDriver(profile2);
                                                 driver2.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
@@ -973,1332 +989,1339 @@ namespace MNsure_Regression_1
 
         private void tabPageConfigureEnrollment_Enter(object sender, EventArgs e)
         {
-            int rowindex;
-            rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
-            mySelectedTest.myRowIndex = rowindex;
-            string mysRowid;
-            mysRowid = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
-            int myTestId;
-
-            myTestId = Convert.ToInt32(mysRowid);
-            if (myNavHelper.myConfigureClicked == "No")
+            if (myHistoryInfo.myTestId == null)
             {
                 tabControlMain.SelectedIndex = 0;
             }
             else
             {
-                SqlCeConnection con;
-                string conString = Properties.Settings.Default.Database1ConnectionString;
-                con = new SqlCeConnection(conString);
-                con.Open();
-                try
-                {
-                    SqlCeCommand cmd2 = con.CreateCommand();
-                    cmd2.CommandType = CommandType.Text;
+                int rowindex;
+                rowindex = dataGridViewSelectedTests.CurrentCell.RowIndex;
+                mySelectedTest.myRowIndex = rowindex;
+                string mysRowid;
+                mysRowid = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
+                int myTestId;
 
-                    //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myTestId, con))
+                myTestId = Convert.ToInt32(mysRowid);
+                if (myNavHelper.myConfigureClicked == "No")
+                {
+                    tabControlMain.SelectedIndex = 0;
+                }
+                else
+                {
+                    SqlCeConnection con;
+                    string conString = Properties.Settings.Default.Database1ConnectionString;
+                    con = new SqlCeConnection(conString);
+                    con.Open();
+                    try
                     {
-                        SqlCeDataReader reader = com3.ExecuteReader();
-                        if (reader.Read())
+                        SqlCeCommand cmd2 = con.CreateCommand();
+                        cmd2.CommandType = CommandType.Text;
+
+                        //Read configured rows if exist, otherwise fill with default values
+                        using (SqlCeCommand com3 = new SqlCeCommand("SELECT * FROM Application where TestId = " + myTestId, con))
                         {
-                            myApplication.myFirstName = reader.GetString(2);
-                            if (!reader.IsDBNull(3))
+                            SqlCeDataReader reader = com3.ExecuteReader();
+                            if (reader.Read())
                             {
-                                myApplication.myMiddleName = reader.GetString(3);
-                            }
-                            else
-                            {
-                                myApplication.myMiddleName = "";
-                            }
-                            myApplication.myLastName = reader.GetString(4);
-                            if (!reader.IsDBNull(5))
-                            {
-                                myApplication.mySuffix = reader.GetString(5);
-                            }
-                            else
-                            {
-                                myApplication.mySuffix = "";
-                            }
-                            myApplication.myGender = reader.GetString(6);
-                            myApplication.myMaritalStatus = reader.GetString(7);
-                            if (!reader.IsDBNull(8))
-                            {
-                                string tempDOB;
-                                tempDOB = Convert.ToString(reader.GetDateTime(8));
-                                tempDOB = DateTime.Parse(tempDOB).ToString("M/d/yyyy");
-                                if (tempDOB != "01/01/2011")
+                                myApplication.myFirstName = reader.GetString(2);
+                                if (!reader.IsDBNull(3))
                                 {
-                                    myApplication.myDOB = tempDOB;
+                                    myApplication.myMiddleName = reader.GetString(3);
                                 }
                                 else
                                 {
-                                    myApplication.myDOB = myAccountCreate.myDOB;
+                                    myApplication.myMiddleName = "";
+                                }
+                                myApplication.myLastName = reader.GetString(4);
+                                if (!reader.IsDBNull(5))
+                                {
+                                    myApplication.mySuffix = reader.GetString(5);
+                                }
+                                else
+                                {
+                                    myApplication.mySuffix = "";
+                                }
+                                myApplication.myGender = reader.GetString(6);
+                                myApplication.myMaritalStatus = reader.GetString(7);
+                                if (!reader.IsDBNull(8))
+                                {
+                                    string tempDOB;
+                                    tempDOB = Convert.ToString(reader.GetDateTime(8));
+                                    tempDOB = DateTime.Parse(tempDOB).ToString("M/d/yyyy");
+                                    if (tempDOB != "01/01/2011")
+                                    {
+                                        myApplication.myDOB = tempDOB;
+                                    }
+                                    else
+                                    {
+                                        myApplication.myDOB = myAccountCreate.myDOB;
+                                    }
+                                }
+                                else
+                                {
+                                    myApplication.myDOB = null;
+                                }
+                                myApplication.myLiveMN = reader.GetString(9);
+                                myApplication.myPlanLiveMN = reader.GetString(10);
+                                myApplication.myPrefContact = reader.GetString(11);
+                                myApplication.myPhoneNum = reader.GetString(12);
+                                myApplication.myPhoneType = reader.GetString(13);
+                                myApplication.myAltNum = reader.GetString(14);
+                                myApplication.myAltNumType = reader.GetString(15);
+                                myApplication.myEmail = reader.GetString(16);
+                                myApplication.myLanguageMost = reader.GetString(17);
+                                myApplication.myLanguageWritten = reader.GetString(18);
+                                myApplication.myVoterCard = reader.GetString(19);
+                                myApplication.myNotices = reader.GetString(20);
+                                myApplication.myAuthRep = reader.GetString(21);
+                                myApplication.myApplyYourself = reader.GetString(22);
+                                myApplication.myHomeless = reader.GetString(23);
+                                myApplication.myAddressSame = reader.GetString(24);
+                                myApplication.myHispanic = reader.GetString(25);
+                                myApplication.myRace = reader.GetString(26);
+                                myApplication.mySSN = reader.GetString(27);
+                                myApplication.myCitizen = reader.GetString(28);
+                                if (!reader.IsDBNull(29))
+                                {
+                                    myApplication.mySSNNum = reader.GetString(29);
+                                }
+                                else
+                                {
+                                    myApplication.mySSNNum = "";
+                                }
+                                myApplication.myHouseholdOther = reader.GetString(30);
+                                myApplication.myDependants = reader.GetString(31);
+                                myApplication.myIncomeYN = reader.GetString(32);
+                                myApplication.myIncomeType = reader.GetString(33);
+                                myApplication.myIncomeAmount = reader.GetString(34);
+                                myApplication.myIncomeFrequency = reader.GetString(35);
+                                myApplication.myIncomeMore = reader.GetString(36);
+                                myApplication.myIncomeEmployer = reader.GetString(37);
+                                myApplication.myIncomeSeasonal = reader.GetString(38);
+                                myApplication.myIncomeReduced = reader.GetString(39);
+                                myApplication.myIncomeAdjusted = reader.GetString(40);
+                                myApplication.myIncomeExpected = reader.GetString(41);
+                                myApplication.myEnrollmentPlanType = reader.GetString(42);
+                                myApplication.myFosterCare = reader.GetString(43);
+                                myApplication.myMailingAddressYN = reader.GetString(44);
+                                if (!reader.IsDBNull(45))
+                                {
+                                    myApplication.myTribeName = reader.GetString(45);
+                                }
+                                else
+                                {
+                                    myApplication.myTribeName = "";
+                                }
+                                if (!reader.IsDBNull(46))
+                                {
+                                    myApplication.myLiveRes = reader.GetString(46);
+                                }
+                                else
+                                {
+                                    myApplication.myLiveRes = "";
+                                }
+                                if (!reader.IsDBNull(47))
+                                {
+                                    myApplication.myTribeId = reader.GetString(47);
+                                }
+                                else
+                                {
+                                    myApplication.myTribeId = "";
+                                }
+                                if (!reader.IsDBNull(48))
+                                {
+                                    myApplication.myFederalTribe = reader.GetString(48);
+                                }
+                                else
+                                {
+                                    myApplication.myFederalTribe = "";
+                                }
+                                if (!reader.IsDBNull(49))
+                                {
+                                    myApplication.myMilitary = reader.GetString(49);
+                                }
+                                else
+                                {
+                                    myApplication.myMilitary = "";
+                                }
+                                if (!reader.IsDBNull(50))
+                                {
+                                    myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(50));
+                                }
+                                else
+                                {
+                                    myApplication.myMilitaryDate = null;
+                                }
+                                myApplication.myAppliedSSN = reader.GetString(51);
+                                if (!reader.IsDBNull(52))
+                                {
+                                    myApplication.myWhyNoSSN = reader.GetString(52);
+                                }
+                                else
+                                {
+                                    myApplication.myWhyNoSSN = "";
+                                }
+                                myApplication.myAssistSSN = reader.GetString(53);
+                                myApplication.myOtherIns = reader.GetString(54);
+                                if (!reader.IsDBNull(55))
+                                {
+                                    myApplication.myKindIns = reader.GetString(55);
+                                }
+                                else
+                                {
+                                    myApplication.myKindIns = "";
+                                }
+                                myApplication.myCoverageEnd = reader.GetString(56);
+                                myApplication.myAddIns = reader.GetString(57);
+                                myApplication.myESC = reader.GetString(58);
+                                myApplication.myRenewalCov = reader.GetString(59);
+                                myApplication.myWithDiscounts = reader.GetString(60);
+                                myApplication.myIsPregnant = reader.GetString(61);
+                                if (!reader.IsDBNull(62))
+                                {
+                                    myApplication.myChildren = reader.GetString(62);
+                                }
+                                else
+                                {
+                                    myApplication.myChildren = "";
+                                }
+                                if (!reader.IsDBNull(63))
+                                {
+                                    myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63));
+                                }
+                                else
+                                {
+                                    myApplication.myDueDate = null;
+                                }
+                                if (!reader.IsDBNull(64))
+                                {
+                                    myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64));
+                                }
+                                else
+                                {
+                                    myApplication.myPregnancyEnded = null;
+                                }
+                                if (!reader.IsDBNull(65))
+                                {
+                                    myApplication.myRegDate = Convert.ToString(reader.GetDateTime(65));
+                                    myApplication.myRegDate = DateTime.Parse(myApplication.myRegDate).ToString("M/d/yyyy");
+                                }
+                                else
+                                {
+                                    myApplication.myRegDate = null;
+                                }
+                                if (!reader.IsDBNull(66))
+                                {
+                                    myApplication.myDay2TestId = reader.GetString(66);
+                                }
+                                else
+                                {
+                                    myApplication.myDay2TestId = "";
+                                }
+                                if (!reader.IsDBNull(67))
+                                {
+                                    myApplication.myPassCount = reader.GetString(67);
+                                }
+                                else
+                                {
+                                    myApplication.myPassCount = "";
+                                }
+                                if (!reader.IsDBNull(68))
+                                {
+                                    myApplication.myTobacco = reader.GetString(68);
+                                }
+                                else
+                                {
+                                    myApplication.myTobacco = "";
+                                }
+                                if (!reader.IsDBNull(69))
+                                {
+                                    myApplication.myTobaccoLast = Convert.ToString(reader.GetDateTime(69));
+                                }
+                                else
+                                {
+                                    myApplication.myTobaccoLast = null;
+                                }
+                                myApplication.myRandom = reader.GetString(70);
+                            }
+                            else
+                            {
+                                myApplication.myRandom = "SSN, Name, Gender, DOB";
+                                myApplication.myFirstName = myAccountCreate.myFirstName;
+                                myApplication.myMiddleName = myAccountCreate.myMiddleName;
+                                myApplication.myLastName = myAccountCreate.myLastName;
+                                myApplication.mySuffix = "Senior";
+                                myApplication.myGender = "Male";
+                                myApplication.myMaritalStatus = "Never Married";
+                                myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);
+                                myApplication.myLiveMN = "Yes";
+                                myApplication.myHomeless = "No";
+                                myApplication.myPlanLiveMN = "Yes";
+                                myApplication.myPrefContact = "Phone";
+                                myApplication.myPhoneNum = "6128129998";
+                                myApplication.myPhoneType = "Mobile";
+                                myApplication.myAltNum = "6128129987";
+                                myApplication.myAltNumType = "Home";
+                                myApplication.myEmail = myAccountCreate.myEmail;
+                                myApplication.myLanguageMost = "English";
+                                myApplication.myLanguageWritten = "English";
+                                myApplication.myVoterCard = "Yes";
+                                myApplication.myNotices = "Email";
+                                myApplication.myAuthRep = "Yes";
+                                myApplication.myApplyYourself = "Yes";
+                                myApplication.myHomeless = "No";
+                                myApplication.myMailingAddressYN = "No";
+                                myApplication.myAddressSame = "Yes";
+                                myApplication.myHispanic = "No";
+                                myApplication.myLiveRes = "No";
+                                myApplication.myFederalTribe = "No";
+                                myApplication.myTribeName = "";
+                                myApplication.myTribeId = "";
+                                myApplication.myMilitary = "No";
+                                myApplication.myRace = "White";
+                                myApplication.mySSN = "Yes";
+                                myApplication.myCitizen = "Yes";
+                                myApplication.myAppliedSSN = "No";
+                                myApplication.myAssistSSN = "No";
+                                myApplication.mySSNNum = myAccountCreate.mySSN;
+                                myApplication.myHouseholdOther = "No";
+                                myApplication.myDependants = "No";
+                                myApplication.myIncomeYN = "Yes";
+                                myApplication.myIncomeType = "Wages before taxes";
+                                myApplication.myIncomeAmount = "1000";
+                                myApplication.myIncomeFrequency = "Yearly";
+                                myApplication.myIncomeMore = "No";
+                                myApplication.myIncomeEmployer = "Target";
+                                myApplication.myIncomeSeasonal = "No";
+                                myApplication.myIncomeReduced = "No";
+                                myApplication.myIncomeAdjusted = "No";
+                                myApplication.myIncomeExpected = "Yes";
+                                myApplication.myEnrollmentPlanType = "MN Care BHP";
+                                myApplication.myFosterCare = "No";
+                                myApplication.myOtherIns = "No";
+                                myApplication.myCoverageEnd = "No";
+                                myApplication.myAddIns = "No";
+                                myApplication.myESC = "No";
+                                myApplication.myRenewalCov = "5";
+                                myApplication.myWithDiscounts = "Yes";
+                                myApplication.myIsPregnant = "No";
+                                myApplication.myTobacco = "No";
+                            }
+                            com3.ExecuteNonQuery();
+                            com3.Dispose();
+                        }
+                        //reset address values before continuing
+                        if (myApplication.myHouseholdOther == "Yes")
+                        {
+                            myHouseholdMembers.myMailAddress1 = "";
+                            myHouseholdMembers.myMailAddress2 = "";
+                            myHouseholdMembers.myMailAptSuite = "";
+                            myHouseholdMembers.myMailCity = "";
+                            myHouseholdMembers.myMailState = "";
+                            myHouseholdMembers.myMailZip = "";
+                            myHouseholdMembers.myMailCounty = "";
+                        }
+                        myAssister.myAddress1 = "";
+                        myAssister.myAddress2 = "";
+                        myAssister.myAptSuite = "";
+                        myAssister.myCity = "";
+                        myAssister.myState = "";
+                        myAssister.myZip = "";
+                        myAssister.myCounty = "";
+
+                        myApplication.myHomeAddress1 = "";
+                        myApplication.myHomeAddress2 = "";
+                        myApplication.myHomeCity = "";
+                        myApplication.myHomeState = "";
+                        myApplication.myHomeZip = "";
+                        myApplication.myHomeZip4 = "";
+                        myApplication.myHomeCounty = "";
+                        myApplication.myHomeAptSuite = "";
+
+                        myApplication.myMailAddress1 = "";
+                        myApplication.myMailAddress2 = "";
+                        myApplication.myMailCity = "";
+                        myApplication.myMailState = "";
+                        myApplication.myMailZip = "";
+                        myApplication.myMailZip4 = "";
+                        myApplication.myMailCounty = "";
+                        myApplication.myMailAptSuite = "";
+
+                        //reset assister values before continuing
+                        myAssister.myFirstName = "";
+                        myAssister.myLastName = "";
+                        myAssister.myCommunication = "";
+                        myAssister.myLanguage = "";
+                        myAssister.myMethod = "";
+                        myAssister.AssisterId = "";
+                        myAssister.myPhoneType = "";
+                        myAssister.myPhoneNum = "";
+                        myAssister.myCategory = "";
+                        myAssister.myType = "";
+                        myAssister.myEmail = "";
+
+                        SqlCeCommand cmd3 = con.CreateCommand();
+                        cmd3.CommandType = CommandType.Text;
+
+                        //Read configured rows if exist, otherwise fill with default values
+                        using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
+                        {
+                            SqlCeDataReader reader = com4.ExecuteReader();
+                            while (reader.Read())
+                            {
+                                if (reader.GetString(9) == "Home")
+                                {
+                                    myApplication.myHomeAddress1 = reader.GetString(3);
+                                    int index = reader.GetOrdinal("Address2");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myHomeAddress2 = reader.GetString(4);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myHomeAddress2 = "";
+                                    }
+                                    myApplication.myHomeCity = reader.GetString(5);
+                                    myApplication.myHomeState = reader.GetString(6);
+                                    myApplication.myHomeZip = reader.GetString(7);
+                                    index = reader.GetOrdinal("Zip4");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myHomeZip4 = reader.GetString(8);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myHomeZip4 = "";
+                                    }
+                                    myApplication.myHomeCounty = reader.GetString(10);
+                                    index = reader.GetOrdinal("AptSuite");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myHomeAptSuite = reader.GetString(11);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myHomeAptSuite = "";
+                                    }
+                                }
+                                else if (reader.GetString(9) == "Household 2")
+                                {
+                                    myHouseholdMembers.myMailAddress1 = reader.GetString(3);
+                                    if (!reader.IsDBNull(4))
+                                    {
+                                        myHouseholdMembers.myMailAddress2 = reader.GetString(4);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myMailAddress2 = "";
+                                    }
+                                    myHouseholdMembers.myMailCity = reader.GetString(5);
+                                    myHouseholdMembers.myMailState = reader.GetString(6);
+                                    myHouseholdMembers.myMailZip = reader.GetString(7);
+                                    myHouseholdMembers.myMailCounty = reader.GetString(10);
+                                    if (!reader.IsDBNull(11))
+                                    {
+                                        myHouseholdMembers.myMailAptSuite = reader.GetString(11);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myMailAptSuite = "";
+                                    }
+                                }
+                                else if (reader.GetString(9) == "Assister")
+                                {
+                                    myAssister.myAddress1 = reader.GetString(3);
+                                    if (!reader.IsDBNull(4))
+                                    {
+                                        myAssister.myAddress2 = reader.GetString(4);
+                                    }
+                                    else
+                                    {
+                                        myAssister.myAddress2 = "";
+                                    }
+                                    myAssister.myCity = reader.GetString(5);
+                                    myAssister.myState = reader.GetString(6);
+                                    myAssister.myZip = reader.GetString(7);
+                                    myAssister.myCounty = reader.GetString(10);
+                                    if (!reader.IsDBNull(11))
+                                    {
+                                        myAssister.myAptSuite = reader.GetString(11);
+                                    }
+                                    else
+                                    {
+                                        myAssister.myAptSuite = "";
+                                    }
+                                }
+                                else
+                                {
+                                    myApplication.myMailAddress1 = reader.GetString(3);
+                                    int index = reader.GetOrdinal("Address2");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myMailAddress2 = reader.GetString(4);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myMailAddress2 = "";
+                                    }
+                                    myApplication.myMailCity = reader.GetString(5);
+                                    myApplication.myMailState = reader.GetString(6);
+                                    myApplication.myMailZip = reader.GetString(7);
+                                    index = reader.GetOrdinal("Zip4");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myMailZip4 = reader.GetString(8);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myMailZip4 = "";
+                                    }
+                                    myApplication.myMailCounty = reader.GetString(10);
+                                    index = reader.GetOrdinal("AptSuite");
+                                    if (!reader.IsDBNull(index))
+                                    {
+                                        myApplication.myMailAptSuite = reader.GetString(11);
+                                    }
+                                    else
+                                    {
+                                        myApplication.myMailAptSuite = "";
+                                    }
                                 }
                             }
-                            else
+                            if (myApplication.myHomeAddress1 == null || myApplication.myHomeAddress1 == "")
                             {
-                                myApplication.myDOB = null;
+                                myApplication.myHomeAddress1 = "12969 First Ave W";
+                                myApplication.myHomeAddress2 = "PO Box 44";
+                                myApplication.myHomeCity = "Minneapolis";
+                                myApplication.myHomeState = "Minnesota";
+                                myApplication.myHomeZip = "55401";
+                                myApplication.myHomeZip4 = "1111";
+                                myApplication.myHomeCounty = "Hennepin";
+                                myApplication.myHomeAptSuite = "Suite 64";
+
+                                myApplication.myMailAddress1 = "";
+                                myApplication.myMailAddress2 = "";
+                                myApplication.myMailCity = "";
+                                myApplication.myMailState = "";
+                                myApplication.myMailZip = "";
+                                myApplication.myMailZip4 = "";
+                                myApplication.myMailCounty = "";
+                                myApplication.myMailAptSuite = "";
                             }
-                            myApplication.myLiveMN = reader.GetString(9);
-                            myApplication.myPlanLiveMN = reader.GetString(10);
-                            myApplication.myPrefContact = reader.GetString(11);
-                            myApplication.myPhoneNum = reader.GetString(12);
-                            myApplication.myPhoneType = reader.GetString(13);
-                            myApplication.myAltNum = reader.GetString(14);
-                            myApplication.myAltNumType = reader.GetString(15);
-                            myApplication.myEmail = reader.GetString(16);
-                            myApplication.myLanguageMost = reader.GetString(17);
-                            myApplication.myLanguageWritten = reader.GetString(18);
-                            myApplication.myVoterCard = reader.GetString(19);
-                            myApplication.myNotices = reader.GetString(20);
-                            myApplication.myAuthRep = reader.GetString(21);
-                            myApplication.myApplyYourself = reader.GetString(22);
-                            myApplication.myHomeless = reader.GetString(23);
-                            myApplication.myAddressSame = reader.GetString(24);
-                            myApplication.myHispanic = reader.GetString(25);
-                            myApplication.myRace = reader.GetString(26);
-                            myApplication.mySSN = reader.GetString(27);
-                            myApplication.myCitizen = reader.GetString(28);
-                            if (!reader.IsDBNull(29))
+
+                            com4.ExecuteNonQuery();
+                            com4.Dispose();
+                        }
+
+                        if (myApplication.myHouseholdOther == "Yes")
+                        {
+                            SqlCeCommand cmd4 = con.CreateCommand();
+                            cmd4.CommandType = CommandType.Text;
+
+                            //Read configured rows if exist, otherwise fill with default values
+                            using (SqlCeCommand com5 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + myTestId + " and HouseMembersID = 2", con))
                             {
-                                myApplication.mySSNNum = reader.GetString(29);
+                                SqlCeDataReader reader = com5.ExecuteReader();
+                                while (reader.Read())
+                                {
+                                    myHouseholdMembers.myFirstName = reader.GetString(2);
+                                    if (!reader.IsDBNull(3))
+                                    {
+                                        myHouseholdMembers.myMiddleName = reader.GetString(3);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myMiddleName = "";
+                                    }
+                                    myHouseholdMembers.myLastName = reader.GetString(4);
+                                    if (!reader.IsDBNull(5))
+                                    {
+                                        myHouseholdMembers.mySuffix = reader.GetString(5);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.mySuffix = "";
+                                    }
+                                    myHouseholdMembers.myGender = reader.GetString(6);
+                                    myHouseholdMembers.myMaritalStatus = reader.GetString(7);
+                                    myHouseholdMembers.myDOB = reader.GetString(8);
+                                    myHouseholdMembers.myLiveWithYou = reader.GetString(9);
+                                    myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
+                                    myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
+                                    myHouseholdMembers.myLiveInMN = reader.GetString(12);
+                                    myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
+                                    myHouseholdMembers.myHomeless = reader.GetString(14);
+                                    myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15);
+                                    myHouseholdMembers.mySeekEmplMN = reader.GetString(16);
+                                    myHouseholdMembers.myHispanic = reader.GetString(17);
+                                    myHouseholdMembers.myRace = reader.GetString(18);
+                                    myHouseholdMembers.myHaveSSN = reader.GetString(19);
+                                    //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
+                                    myHouseholdMembers.myUSCitizen = reader.GetString(21);
+                                    myHouseholdMembers.myUSNational = reader.GetString(22);
+                                    myHouseholdMembers.myIsPregnant = reader.GetString(23);
+                                    myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
+                                    myHouseholdMembers.myRelationship = reader.GetString(25);
+                                    myHouseholdMembers.myHasIncome = reader.GetString(26);
+                                    if (!reader.IsDBNull(27))
+                                    {
+                                        myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myRelationshiptoNextHM = "";
+                                    }
+                                    if (!reader.IsDBNull(28))
+                                    {
+                                        myHouseholdMembers.myTribeName = reader.GetString(28);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myTribeName = "";
+                                    }
+                                    myHouseholdMembers.myLiveRes = reader.GetString(29);
+                                    if (!reader.IsDBNull(30))
+                                    {
+                                        myHouseholdMembers.myTribeId = reader.GetString(30);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myTribeId = "";
+                                    }
+                                    myHouseholdMembers.myFederalTribe = reader.GetString(31);
+                                    myHouseholdMembers.myFileJointly = reader.GetString(32);
+                                    if (!reader.IsDBNull(33))
+                                    {
+                                        myHouseholdMembers.myIncomeType = reader.GetString(33);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeType = "";
+                                    }
+                                    if (!reader.IsDBNull(34))
+                                    {
+                                        myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeEmployer = "";
+                                    }
+                                    if (!reader.IsDBNull(35))
+                                    {
+                                        myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeSeasonal = "";
+                                    }
+                                    if (!reader.IsDBNull(36))
+                                    {
+                                        myHouseholdMembers.myIncomeAmount = reader.GetString(36);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeAmount = "";
+                                    }
+                                    if (!reader.IsDBNull(37))
+                                    {
+                                        myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeFrequency = "";
+                                    }
+                                    if (!reader.IsDBNull(38))
+                                    {
+                                        myHouseholdMembers.myIncomeMore = reader.GetString(38);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeMore = "";
+                                    }
+                                    myHouseholdMembers.myIncomeReduced = reader.GetString(39);
+                                    if (!reader.IsDBNull(40))
+                                    {
+                                        myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myIncomeAdjusted = "";
+                                    }
+                                    myHouseholdMembers.myIncomeExpected = reader.GetString(41);
+                                    myHouseholdMembers.myPassCount = reader.GetString(42);
+                                    myHouseholdMembers.myMilitary = reader.GetString(43);
+                                    if (!reader.IsDBNull(44))
+                                    {
+                                        myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44));
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myMilitaryDate = null;
+                                    }
+                                    myHouseholdMembers.myPrefContact = reader.GetString(45);
+                                    myHouseholdMembers.myPhoneNum = reader.GetString(46);
+                                    myHouseholdMembers.myPhoneType = reader.GetString(47);
+                                    myHouseholdMembers.myAltNum = reader.GetString(48);
+                                    myHouseholdMembers.myAltNumType = reader.GetString(49);
+                                    myHouseholdMembers.myEmail = reader.GetString(50);
+                                    myHouseholdMembers.myVoterCard = reader.GetString(51);
+                                    myHouseholdMembers.myNotices = reader.GetString(52);
+                                    myHouseholdMembers.myAuthRep = reader.GetString(53);
+                                    myHouseholdMembers.myDependants = reader.GetString(54);
+                                    myHouseholdMembers.myTaxFiler = reader.GetString(55);
+                                    if (!reader.IsDBNull(56))
+                                    {
+                                        myHouseholdMembers.myChildren = reader.GetString(56);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myChildren = "";
+                                    }
+                                    if (!reader.IsDBNull(57))
+                                    {
+                                        myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57));
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myDueDate = null;
+                                    }
+                                    if (!reader.IsDBNull(58))
+                                    {
+                                        myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58));
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myPregnancyEnded = null;
+                                    }
+                                    if (!reader.IsDBNull(59))
+                                    {
+                                        myHouseholdMembers.myReEnroll = reader.GetString(59);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.myReEnroll = "";
+                                    }
+                                    if (!reader.IsDBNull(60))
+                                    {
+                                        myHouseholdMembers.mySaveExit = reader.GetString(60);
+                                    }
+                                    else
+                                    {
+                                        myHouseholdMembers.mySaveExit = "";
+                                    }
+                                    myHouseholdMembers.myRandom = reader.GetString(61);
+                                }
+                                com5.ExecuteNonQuery();
+                                com5.Dispose();
                             }
-                            else
+                        }
+
+                        SqlCeCommand cmd5 = con.CreateCommand();
+                        cmd5.CommandType = CommandType.Text;
+
+                        //Read configured rows if exist
+                        using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Assister where TestID = " + myTestId, con))
+                        {
+                            SqlCeDataReader reader = com6.ExecuteReader();
+                            while (reader.Read())
                             {
-                                myApplication.mySSNNum = "";
+                                myAssister.AssisterId = reader.GetString(2);
+                                myAssister.myCommunication = reader.GetString(3);
+                                myAssister.myLanguage = reader.GetString(4);
+                                myAssister.myMethod = reader.GetString(5);
+                                if (!reader.IsDBNull(6))
+                                {
+                                    myAssister.myPhoneType = reader.GetString(6);
+                                }
+                                else
+                                {
+                                    myAssister.myPhoneType = "";
+                                }
+                                if (!reader.IsDBNull(7))
+                                {
+                                    myAssister.myPhoneNum = reader.GetString(7);
+                                }
+                                else
+                                {
+                                    myAssister.myPhoneNum = "";
+                                }
+                                myAssister.myCategory = reader.GetString(8);
+                                myAssister.myType = reader.GetString(9);
+                                if (!reader.IsDBNull(10))
+                                {
+                                    myAssister.myEmail = reader.GetString(10);
+                                }
+                                else
+                                {
+                                    myAssister.myEmail = "";
+                                }
+                                if (!reader.IsDBNull(11))
+                                {
+                                    myAssister.myLastName = reader.GetString(11);
+                                }
+                                else
+                                {
+                                    myAssister.myLastName = "";
+                                }
+                                if (!reader.IsDBNull(12))
+                                {
+                                    myAssister.myFirstName = reader.GetString(12);
+                                }
+                                else
+                                {
+                                    myAssister.myFirstName = "";
+                                }
+                                if (!reader.IsDBNull(13))
+                                {
+                                    myAssister.myRefNumber = reader.GetString(13);
+                                }
+                                else
+                                {
+                                    myAssister.myRefNumber = "";
+                                }
+                                if (!reader.IsDBNull(14))
+                                {
+                                    myAssister.mySSN = reader.GetString(14);
+                                }
+                                else
+                                {
+                                    myAssister.mySSN = "";
+                                }
+                                if (!reader.IsDBNull(15))
+                                {
+                                    myAssister.myDOB = reader.GetDateTime(15).ToShortDateString();
+                                }
+                                else
+                                {
+                                    myAssister.myDOB = null;
+                                }
+                                if (!reader.IsDBNull(16))
+                                {
+                                    myAssister.myRegNumber = reader.GetString(16);
+                                }
+                                else
+                                {
+                                    myAssister.myRegNumber = "";
+                                }
                             }
-                            myApplication.myHouseholdOther = reader.GetString(30);
-                            myApplication.myDependants = reader.GetString(31);
-                            myApplication.myIncomeYN = reader.GetString(32);
-                            myApplication.myIncomeType = reader.GetString(33);
-                            myApplication.myIncomeAmount = reader.GetString(34);
-                            myApplication.myIncomeFrequency = reader.GetString(35);
-                            myApplication.myIncomeMore = reader.GetString(36);
-                            myApplication.myIncomeEmployer = reader.GetString(37);
-                            myApplication.myIncomeSeasonal = reader.GetString(38);
-                            myApplication.myIncomeReduced = reader.GetString(39);
-                            myApplication.myIncomeAdjusted = reader.GetString(40);
-                            myApplication.myIncomeExpected = reader.GetString(41);
-                            myApplication.myEnrollmentPlanType = reader.GetString(42);
-                            myApplication.myFosterCare = reader.GetString(43);
-                            myApplication.myMailingAddressYN = reader.GetString(44);
-                            if (!reader.IsDBNull(45))
-                            {
-                                myApplication.myTribeName = reader.GetString(45);
-                            }
-                            else
-                            {
-                                myApplication.myTribeName = "";
-                            }
-                            if (!reader.IsDBNull(46))
-                            {
-                                myApplication.myLiveRes = reader.GetString(46);
-                            }
-                            else
-                            {
-                                myApplication.myLiveRes = "";
-                            }
-                            if (!reader.IsDBNull(47))
-                            {
-                                myApplication.myTribeId = reader.GetString(47);
-                            }
-                            else
-                            {
-                                myApplication.myTribeId = "";
-                            }
-                            if (!reader.IsDBNull(48))
-                            {
-                                myApplication.myFederalTribe = reader.GetString(48);
-                            }
-                            else
-                            {
-                                myApplication.myFederalTribe = "";
-                            }
-                            if (!reader.IsDBNull(49))
-                            {
-                                myApplication.myMilitary = reader.GetString(49);
-                            }
-                            else
-                            {
-                                myApplication.myMilitary = "";
-                            }
-                            if (!reader.IsDBNull(50))
-                            {
-                                myApplication.myMilitaryDate = Convert.ToString(reader.GetDateTime(50));
-                            }
-                            else
-                            {
-                                myApplication.myMilitaryDate = null;
-                            }
-                            myApplication.myAppliedSSN = reader.GetString(51);
-                            if (!reader.IsDBNull(52))
-                            {
-                                myApplication.myWhyNoSSN = reader.GetString(52);
-                            }
-                            else
-                            {
-                                myApplication.myWhyNoSSN = "";
-                            }
-                            myApplication.myAssistSSN = reader.GetString(53);
-                            myApplication.myOtherIns = reader.GetString(54);
-                            if (!reader.IsDBNull(55))
-                            {
-                                myApplication.myKindIns = reader.GetString(55);
-                            }
-                            else
-                            {
-                                myApplication.myKindIns = "";
-                            }
-                            myApplication.myCoverageEnd = reader.GetString(56);
-                            myApplication.myAddIns = reader.GetString(57);
-                            myApplication.myESC = reader.GetString(58);
-                            myApplication.myRenewalCov = reader.GetString(59);
-                            myApplication.myWithDiscounts = reader.GetString(60);
-                            myApplication.myIsPregnant = reader.GetString(61);
-                            if (!reader.IsDBNull(62))
-                            {
-                                myApplication.myChildren = reader.GetString(62);
-                            }
-                            else
-                            {
-                                myApplication.myChildren = "";
-                            }
-                            if (!reader.IsDBNull(63))
-                            {
-                                myApplication.myDueDate = Convert.ToString(reader.GetDateTime(63));
-                            }
-                            else
-                            {
-                                myApplication.myDueDate = null;
-                            }
-                            if (!reader.IsDBNull(64))
-                            {
-                                myApplication.myPregnancyEnded = Convert.ToString(reader.GetDateTime(64));
-                            }
-                            else
-                            {
-                                myApplication.myPregnancyEnded = null;
-                            }
-                            if (!reader.IsDBNull(65))
-                            {
-                                myApplication.myRegDate = Convert.ToString(reader.GetDateTime(65));
-                                myApplication.myRegDate = DateTime.Parse(myApplication.myRegDate).ToString("M/d/yyyy");
-                            }
-                            else
-                            {
-                                myApplication.myRegDate = null;
-                            }
-                            if (!reader.IsDBNull(66))
-                            {
-                                myApplication.myDay2TestId = reader.GetString(66);
-                            }
-                            else
-                            {
-                                myApplication.myDay2TestId = "";
-                            }
-                            if (!reader.IsDBNull(67))
-                            {
-                                myApplication.myPassCount = reader.GetString(67);
-                            }
-                            else
-                            {
-                                myApplication.myPassCount = "";
-                            }
-                            if (!reader.IsDBNull(68))
-                            {
-                                myApplication.myTobacco = reader.GetString(68);
-                            }
-                            else
-                            {
-                                myApplication.myTobacco = "";
-                            }
-                            if (!reader.IsDBNull(69))
-                            {
-                                myApplication.myTobaccoLast = Convert.ToString(reader.GetDateTime(69));
-                            }
-                            else
-                            {
-                                myApplication.myTobaccoLast = null;
-                            }
-                            myApplication.myRandom = reader.GetString(70);
+                            com6.ExecuteNonQuery();
+                            com6.Dispose();
+                        }
+
+                    }
+                    catch (Exception f)
+                    {
+                        MessageBox.Show("Did not find data for enroll " + f);
+                    }
+
+                    textBoxEnrollTest.Text = mySelectedTest.myTestName;
+                    comboBoxRandom.Text = myApplication.myRandom;
+                    if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
+                    {
+                        myApplication.mySSNNum = "";
+                        myApplication.myFirstName = "";
+                        myApplication.myMiddleName = "";
+                        myApplication.myLastName = "";
+                        myApplication.mySuffix = "";
+                        myApplication.myGender = "";
+                        myApplication.myDOB = "";
+                    }
+                    if (comboBoxRandom.Text == "SSN, Name, Gender")
+                    {
+                        myApplication.mySSNNum = "";
+                        myApplication.myFirstName = "";
+                        myApplication.myMiddleName = "";
+                        myApplication.myLastName = "";
+                        myApplication.mySuffix = "";
+                        myApplication.myGender = "";
+                    }
+                    if (comboBoxRandom.Text == "SSN, Name, DOB")
+                    {
+                        myApplication.mySSNNum = "";
+                        myApplication.myFirstName = "";
+                        myApplication.myMiddleName = "";
+                        myApplication.myLastName = "";
+                        myApplication.mySuffix = "";
+                        myApplication.myDOB = "";
+                    }
+                    if (comboBoxRandom.Text == "SSN, Name")
+                    {
+                        myApplication.mySSNNum = "";
+                        myApplication.myFirstName = "";
+                        myApplication.myMiddleName = "";
+                        myApplication.myLastName = "";
+                        myApplication.mySuffix = "";
+                    }
+
+                    textBoxEnrollFirstName.Text = myApplication.myFirstName;
+                    textBoxEnrollMiddleName.Text = myApplication.myMiddleName;
+                    textBoxEnrollLastName.Text = myApplication.myLastName;
+                    comboBoxEnrollSuffix.Text = myApplication.mySuffix;
+                    comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
+                    comboBoxHomeCounty.Text = myApplication.myHomeCounty;
+                    comboBoxEnrollGender.Text = myApplication.myGender;
+                    comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
+                    if (myApplication.myDOB == null)
+                    {
+                        textBoxEnrollDOB.Text = myAccountCreate.myDOB;
+                    }
+                    else
+                    {
+                        textBoxEnrollDOB.Text = myApplication.myDOB;
+                    }
+                    textBoxHomeAddr1.Text = myApplication.myHomeAddress1;
+                    if (myApplication.myHomeAddress2 != null)
+                    {
+                        textBoxHomeAddr2.Text = myApplication.myHomeAddress2;
+                    }
+                    textBoxHomeCity.Text = myApplication.myHomeCity;
+                    comboBoxHomeState.Text = myApplication.myHomeState;
+                    textBoxHomeZip.Text = myApplication.myHomeZip;
+                    if (myApplication.myHomeZip4 != null)
+                    {
+                        textBoxHomeZip4.Text = myApplication.myHomeZip4;
+                    }
+                    if (myApplication.myHomeAptSuite != null)
+                    {
+                        textBoxHomeAptSuite.Text = myApplication.myHomeAptSuite;
+                    }
+                    textBoxMailAddr1.Text = myApplication.myMailAddress1;
+                    if (myApplication.myMailAddress2 != null)
+                    {
+                        textBoxMailAddr2.Text = myApplication.myMailAddress2;
+                    }
+                    textBoxMailCity.Text = myApplication.myMailCity;
+                    comboBoxMailState.Text = myApplication.myMailState;
+                    textBoxMailZip.Text = myApplication.myMailZip;
+                    if (myApplication.myMailZip4 != null)
+                    {
+                        textBoxMailZip4.Text = myApplication.myMailZip4;
+                    }
+                    if (myApplication.myMailAptSuite != null)
+                    {
+                        textBoxMailAptSuite.Text = myApplication.myMailAptSuite;
+                    }
+                    comboBoxMailCounty.Text = myApplication.myMailCounty;
+                    comboBoxLiveMN.Text = myApplication.myLiveMN;
+                    comboBoxMailAddrYN.Text = myApplication.myMailingAddressYN;
+                    comboBoxPlanLiveMN.Text = myApplication.myPlanLiveMN;
+                    comboBoxEnrollPrefContact.Text = myApplication.myPrefContact;
+                    textBoxPhoneNum.Text = myApplication.myPhoneNum;
+                    comboBoxPhoneType.Text = myApplication.myPhoneType;
+                    textBoxEnrollAltNum.Text = myApplication.myAltNum;
+                    comboBoxEnrollAltPhoneType.Text = myApplication.myAltNumType;
+                    textBoxEnrollEmail.Text = myAccountCreate.myEmail;
+                    comboBoxEnrollLanguageMost.Text = myApplication.myLanguageMost;
+                    comboBoxEnrollLanguageWritten.Text = myApplication.myLanguageWritten;
+                    comboBoxEnrollHomeless.Text = myApplication.myHomeless;
+                    comboBoxEnrollVoterCard.Text = myApplication.myVoterCard;
+                    comboBoxEnrollNotices.Text = myApplication.myNotices;
+                    comboBoxEnrollAuthRep.Text = myApplication.myAuthRep;
+                    comboBoxEnrollApplyYourself.Text = myApplication.myApplyYourself;
+                    comboBoxEnrollHispanic.Text = myApplication.myHispanic;
+                    textBoxTribeName.Text = myApplication.myTribeName;
+                    textBoxTribeId.Text = myApplication.myTribeId;
+                    comboBoxRace.Text = myApplication.myRace;
+                    comboBoxLiveRes.Text = myApplication.myLiveRes;
+                    comboBoxFederalTribe.Text = myApplication.myFederalTribe;
+                    comboBoxMilitary.Text = myApplication.myMilitary;
+                    if (myApplication.myMilitary == "Yes")
+                    {
+                        dateTimeMilitary.Enabled = true;
+                        dateTimeMilitary.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeMilitary.Enabled = false;
+                        dateTimeMilitary.Format = DateTimePickerFormat.Custom;
+                        dateTimeMilitary.CustomFormat = " ";
+                    }
+                    dateTimeMilitary.Text = myApplication.myMilitaryDate;
+                    if (myApplication.myMilitaryDate != null && myApplication.myMilitaryDate != "")
+                    {
+                        string tempMilitary;
+                        tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
+                        tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                        dateTimeMilitary.Format = DateTimePickerFormat.Short;
+                        dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
+                    }
+
+                    comboBoxEnrollSSN.Text = myApplication.mySSN;
+                    textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
+                    comboBoxAppliedSSN.Text = myApplication.myAppliedSSN;
+                    comboBoxWhyNoSSN.Text = myApplication.myWhyNoSSN;
+                    comboBoxAssistSSN.Text = myApplication.myAssistSSN;
+                    comboBoxEnrollCitizen.Text = myApplication.myCitizen;
+                    comboBoxEnrollHouseholdOther.Text = myApplication.myHouseholdOther;
+                    comboBoxEnrollDependants.Text = myApplication.myDependants;
+                    comboBoxEnrollIncomeYN.Text = myApplication.myIncomeYN;
+                    comboBoxEnrollIncomeType.Text = myApplication.myIncomeType;
+                    textBoxEnrollIncomeEmployer.Text = myApplication.myIncomeEmployer;
+                    comboBoxEnrollIncomeSeasonal.Text = myApplication.myIncomeSeasonal;
+                    textBoxEnrollAmount.Text = myApplication.myIncomeAmount;
+                    comboBoxEnrollFrequency.Text = myApplication.myIncomeFrequency;
+                    comboBoxEnrollMoreIncome.Text = myApplication.myIncomeMore;
+                    comboBoxEnrollIncomeReduced.Text = myApplication.myIncomeReduced;
+                    comboBoxEnrollIncomeAdjustments.Text = myApplication.myIncomeAdjusted;
+                    comboBoxEnrollIncomeExpected.Text = myApplication.myIncomeExpected;
+                    textBoxEnrollFosterCare.Text = myApplication.myFosterCare;
+                    comboBoxOtherIns.Text = myApplication.myOtherIns;
+                    comboBoxKindIns.Text = myApplication.myKindIns;
+                    comboBoxCoverageEnd.Text = myApplication.myCoverageEnd;
+                    comboBoxAddIns.Text = myApplication.myAddIns;
+                    comboBoxESC.Text = myApplication.myESC;
+                    comboBoxRenewalCov.Text = myApplication.myRenewalCov;
+                    comboBoxWithDiscounts.Text = myApplication.myWithDiscounts;
+                    comboBoxPregnant.Text = myApplication.myIsPregnant;
+                    comboBoxChildren.Text = myApplication.myChildren;
+                    if (myApplication.myIsPregnant == "Yes")
+                    {
+                        dateTimeDueDate.Enabled = true;
+                        dateTimeDueDate.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeDueDate.Enabled = false;
+                        dateTimeDueDate.Format = DateTimePickerFormat.Custom;
+                        dateTimeDueDate.CustomFormat = " ";
+                    }
+                    if (comboBoxPregnancyDone.Text == "Yes")
+                    {
+                        dateTimePregnancyEnded.Enabled = true;
+                        dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimePregnancyEnded.Enabled = false;
+                        dateTimePregnancyEnded.Format = DateTimePickerFormat.Custom;
+                        dateTimePregnancyEnded.CustomFormat = " ";
+                    }
+                    if (myApplication.myDueDate != null && myApplication.myDueDate != "")
+                    {
+                        string tempDueDate;
+                        tempDueDate = Convert.ToString(myApplication.myDueDate);
+                        tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                        dateTimeDueDate.Format = DateTimePickerFormat.Short;
+                        dateTimeDueDate.Value = Convert.ToDateTime(tempDueDate);
+                    }
+                    if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != "")
+                    {
+                        string tempPregnancyEnded;
+                        tempPregnancyEnded = Convert.ToString(myApplication.myPregnancyEnded);
+                        tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                        dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
+                        dateTimePregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+                        comboBoxPregnancyDone.Text = "Yes";
+                    }
+                    else
+                    {
+                        comboBoxPregnancyDone.Text = "No";
+                    }
+                    textBoxRegDate.Text = myApplication.myRegDate;
+                    textBoxDay2TestId.Text = myApplication.myDay2TestId;
+                    comboBoxTobacco.Text = myApplication.myTobacco;
+                    if (myApplication.myTobacco == "Yes")
+                    {
+                        dateTimeTobacco.Enabled = true;
+                        dateTimeTobacco.Format = DateTimePickerFormat.Short;
+                    }
+                    else
+                    {
+                        dateTimeTobacco.Enabled = false;
+                        dateTimeTobacco.Format = DateTimePickerFormat.Custom;
+                        dateTimeTobacco.CustomFormat = " ";
+                    }
+                    dateTimeTobacco.Text = myApplication.myTobaccoLast;
+                    if (myApplication.myTobaccoLast != null && myApplication.myTobaccoLast != "")
+                    {
+                        string tempTobacco;
+                        tempTobacco = Convert.ToString(myApplication.myTobaccoLast);
+                        tempTobacco = DateTime.Parse(tempTobacco).ToString("MM/dd/yyyy");
+                        dateTimeTobacco.Format = DateTimePickerFormat.Short;
+                        dateTimeTobacco.Value = Convert.ToDateTime(tempTobacco);
+                    }
+                    comboBoxRandom.Text = myApplication.myRandom;
+
+                    if (myApplication.myHouseholdOther == "Yes")
+                    {
+                        comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
+                        if (comboBoxHMRandom.Text == "SSN, Name, Gender")
+                        {
+                            myHouseholdMembers.mySSN = "";
+                            myHouseholdMembers.myFirstName = "";
+                            myHouseholdMembers.myMiddleName = "";
+                            myHouseholdMembers.myLastName = "";
+                            myHouseholdMembers.mySuffix = "";
+                            myHouseholdMembers.myGender = "";
+                        }
+                        if (comboBoxHMRandom.Text == "SSN, Name")
+                        {
+                            myHouseholdMembers.mySSN = "";
+                            myHouseholdMembers.myFirstName = "";
+                            myHouseholdMembers.myMiddleName = "";
+                            myHouseholdMembers.myLastName = "";
+                            myHouseholdMembers.mySuffix = "";
+                        }
+                        textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
+                        textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
+                        textBoxHMLastName.Text = myHouseholdMembers.myLastName;
+                        comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
+                        comboBoxHMGender.Text = myHouseholdMembers.myGender;
+                        textBoxHMDOB.Text = myHouseholdMembers.myDOB;
+                        comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
+                        comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
+                        comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
+                        comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
+                        comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
+                        textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
+                        textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
+                        textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
+                        textBoxHMCity.Text = myHouseholdMembers.myMailCity;
+                        comboBoxHMState.Text = myHouseholdMembers.myMailState;
+                        textBoxHMZip.Text = myHouseholdMembers.myMailZip;
+                        comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
+                        comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
+                        comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
+                        comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
+                        comboBoxHMHispanic.Text = myHouseholdMembers.myHispanic;
+                        textBoxHMTribeName.Text = myHouseholdMembers.myTribeName;
+                        textBoxHMTribeId.Text = myHouseholdMembers.myTribeId;
+                        comboBoxHMLiveRes.Text = myHouseholdMembers.myLiveRes;
+                        comboBoxHMFederalTribe.Text = myHouseholdMembers.myFederalTribe;
+                        comboBoxHMRace.Text = myHouseholdMembers.myRace;
+                        comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
+                        //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
+                        comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
+                        comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
+                        comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
+                        comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
+                        comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
+                        comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
+                        comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
+                        comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
+                        comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
+                        textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
+                        comboBoxHMSeasonal.Text = myHouseholdMembers.myIncomeSeasonal;
+                        textBoxHMAmount.Text = myHouseholdMembers.myIncomeAmount;
+                        comboBoxHMFrequency.Text = myHouseholdMembers.myIncomeFrequency;
+                        comboBoxHMMoreIncome.Text = myHouseholdMembers.myIncomeMore;
+                        comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
+                        comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
+                        comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
+                        comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
+                        if (myHouseholdMembers.myMilitary == "Yes")
+                        {
+                            dateTimeHMMilitary.Enabled = true;
+                            dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
                         }
                         else
                         {
-                            myApplication.myRandom = "SSN, Name, Gender, DOB";
-                            myApplication.myFirstName = myAccountCreate.myFirstName;
-                            myApplication.myMiddleName = myAccountCreate.myMiddleName;
-                            myApplication.myLastName = myAccountCreate.myLastName;
-                            myApplication.mySuffix = "Senior";
-                            myApplication.myGender = "Male";
-                            myApplication.myMaritalStatus = "Never Married";
-                            myApplication.myDOB = Convert.ToString(myAccountCreate.myDOB);
-                            myApplication.myLiveMN = "Yes";
-                            myApplication.myHomeless = "No";
-                            myApplication.myPlanLiveMN = "Yes";
-                            myApplication.myPrefContact = "Phone";
-                            myApplication.myPhoneNum = "6128129998";
-                            myApplication.myPhoneType = "Mobile";
-                            myApplication.myAltNum = "6128129987";
-                            myApplication.myAltNumType = "Home";
-                            myApplication.myEmail = myAccountCreate.myEmail;
-                            myApplication.myLanguageMost = "English";
-                            myApplication.myLanguageWritten = "English";
-                            myApplication.myVoterCard = "Yes";
-                            myApplication.myNotices = "Email";
-                            myApplication.myAuthRep = "Yes";
-                            myApplication.myApplyYourself = "Yes";
-                            myApplication.myHomeless = "No";
-                            myApplication.myMailingAddressYN = "No";
-                            myApplication.myAddressSame = "Yes";
-                            myApplication.myHispanic = "No";
-                            myApplication.myLiveRes = "No";
-                            myApplication.myFederalTribe = "No";
-                            myApplication.myTribeName = "";
-                            myApplication.myTribeId = "";
-                            myApplication.myMilitary = "No";
-                            myApplication.myRace = "White";
-                            myApplication.mySSN = "Yes";
-                            myApplication.myCitizen = "Yes";
-                            myApplication.myAppliedSSN = "No";
-                            myApplication.myAssistSSN = "No";
-                            myApplication.mySSNNum = myAccountCreate.mySSN;
-                            myApplication.myHouseholdOther = "No";
-                            myApplication.myDependants = "No";
-                            myApplication.myIncomeYN = "Yes";
-                            myApplication.myIncomeType = "Wages before taxes";
-                            myApplication.myIncomeAmount = "1000";
-                            myApplication.myIncomeFrequency = "Yearly";
-                            myApplication.myIncomeMore = "No";
-                            myApplication.myIncomeEmployer = "Target";
-                            myApplication.myIncomeSeasonal = "No";
-                            myApplication.myIncomeReduced = "No";
-                            myApplication.myIncomeAdjusted = "No";
-                            myApplication.myIncomeExpected = "Yes";
-                            myApplication.myEnrollmentPlanType = "MN Care BHP";
-                            myApplication.myFosterCare = "No";
-                            myApplication.myOtherIns = "No";
-                            myApplication.myCoverageEnd = "No";
-                            myApplication.myAddIns = "No";
-                            myApplication.myESC = "No";
-                            myApplication.myRenewalCov = "5";
-                            myApplication.myWithDiscounts = "Yes";
-                            myApplication.myIsPregnant = "No";
-                            myApplication.myTobacco = "No";
+                            dateTimeHMMilitary.Enabled = false;
+                            dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
+                            dateTimeHMMilitary.CustomFormat = " ";
                         }
-                        com3.ExecuteNonQuery();
-                        com3.Dispose();
-                    }
-                    //reset address values before continuing
-                    if (myApplication.myHouseholdOther == "Yes")
-                    {
-                        myHouseholdMembers.myMailAddress1 = "";
-                        myHouseholdMembers.myMailAddress2 = "";
-                        myHouseholdMembers.myMailAptSuite = "";
-                        myHouseholdMembers.myMailCity = "";
-                        myHouseholdMembers.myMailState = "";
-                        myHouseholdMembers.myMailZip = "";
-                        myHouseholdMembers.myMailCounty = "";
-                    }
-                    myAssister.myAddress1 = "";
-                    myAssister.myAddress2 = "";
-                    myAssister.myAptSuite = "";
-                    myAssister.myCity = "";
-                    myAssister.myState = "";
-                    myAssister.myZip = "";
-                    myAssister.myCounty = "";
-
-                    myApplication.myHomeAddress1 = "";
-                    myApplication.myHomeAddress2 = "";
-                    myApplication.myHomeCity = "";
-                    myApplication.myHomeState = "";
-                    myApplication.myHomeZip = "";
-                    myApplication.myHomeZip4 = "";
-                    myApplication.myHomeCounty = "";
-                    myApplication.myHomeAptSuite = "";
-
-                    myApplication.myMailAddress1 = "";
-                    myApplication.myMailAddress2 = "";
-                    myApplication.myMailCity = "";
-                    myApplication.myMailState = "";
-                    myApplication.myMailZip = "";
-                    myApplication.myMailZip4 = "";
-                    myApplication.myMailCounty = "";
-                    myApplication.myMailAptSuite = "";
-
-                    //reset assister values before continuing
-                    myAssister.myFirstName = "";
-                    myAssister.myLastName = "";
-                    myAssister.myCommunication = "";
-                    myAssister.myLanguage = "";
-                    myAssister.myMethod = "";
-                    myAssister.AssisterId = "";
-                    myAssister.myPhoneType = "";
-                    myAssister.myPhoneNum = "";
-                    myAssister.myCategory = "";
-                    myAssister.myType = "";
-                    myAssister.myEmail = "";
-
-                    SqlCeCommand cmd3 = con.CreateCommand();
-                    cmd3.CommandType = CommandType.Text;
-
-                    //Read configured rows if exist, otherwise fill with default values
-                    using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Address where TestId = " + myTestId, con))
-                    {
-                        SqlCeDataReader reader = com4.ExecuteReader();
-                        while (reader.Read())
+                        dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
+                        if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
                         {
-                            if (reader.GetString(9) == "Home")
-                            {
-                                myApplication.myHomeAddress1 = reader.GetString(3);
-                                int index = reader.GetOrdinal("Address2");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myHomeAddress2 = reader.GetString(4);
-                                }
-                                else
-                                {
-                                    myApplication.myHomeAddress2 = "";
-                                }
-                                myApplication.myHomeCity = reader.GetString(5);
-                                myApplication.myHomeState = reader.GetString(6);
-                                myApplication.myHomeZip = reader.GetString(7);
-                                index = reader.GetOrdinal("Zip4");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myHomeZip4 = reader.GetString(8);
-                                }
-                                else
-                                {
-                                    myApplication.myHomeZip4 = "";
-                                }
-                                myApplication.myHomeCounty = reader.GetString(10);
-                                index = reader.GetOrdinal("AptSuite");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myHomeAptSuite = reader.GetString(11);
-                                }
-                                else
-                                {
-                                    myApplication.myHomeAptSuite = "";
-                                }
-                            }
-                            else if (reader.GetString(9) == "Household 2")
-                            {
-                                myHouseholdMembers.myMailAddress1 = reader.GetString(3);
-                                if (!reader.IsDBNull(4))
-                                {
-                                    myHouseholdMembers.myMailAddress2 = reader.GetString(4);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myMailAddress2 = "";
-                                }
-                                myHouseholdMembers.myMailCity = reader.GetString(5);
-                                myHouseholdMembers.myMailState = reader.GetString(6);
-                                myHouseholdMembers.myMailZip = reader.GetString(7);
-                                myHouseholdMembers.myMailCounty = reader.GetString(10);
-                                if (!reader.IsDBNull(11))
-                                {
-                                    myHouseholdMembers.myMailAptSuite = reader.GetString(11);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myMailAptSuite = "";
-                                }
-                            }
-                            else if (reader.GetString(9) == "Assister")
-                            {
-                                myAssister.myAddress1 = reader.GetString(3);
-                                if (!reader.IsDBNull(4))
-                                {
-                                    myAssister.myAddress2 = reader.GetString(4);
-                                }
-                                else
-                                {
-                                    myAssister.myAddress2 = "";
-                                }
-                                myAssister.myCity = reader.GetString(5);
-                                myAssister.myState = reader.GetString(6);
-                                myAssister.myZip = reader.GetString(7);
-                                myAssister.myCounty = reader.GetString(10);
-                                if (!reader.IsDBNull(11))
-                                {
-                                    myAssister.myAptSuite = reader.GetString(11);
-                                }
-                                else
-                                {
-                                    myAssister.myAptSuite = "";
-                                }
-                            }
-                            else
-                            {
-                                myApplication.myMailAddress1 = reader.GetString(3);
-                                int index = reader.GetOrdinal("Address2");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myMailAddress2 = reader.GetString(4);
-                                }
-                                else
-                                {
-                                    myApplication.myMailAddress2 = "";
-                                }
-                                myApplication.myMailCity = reader.GetString(5);
-                                myApplication.myMailState = reader.GetString(6);
-                                myApplication.myMailZip = reader.GetString(7);
-                                index = reader.GetOrdinal("Zip4");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myMailZip4 = reader.GetString(8);
-                                }
-                                else
-                                {
-                                    myApplication.myMailZip4 = "";
-                                }
-                                myApplication.myMailCounty = reader.GetString(10);
-                                index = reader.GetOrdinal("AptSuite");
-                                if (!reader.IsDBNull(index))
-                                {
-                                    myApplication.myMailAptSuite = reader.GetString(11);
-                                }
-                                else
-                                {
-                                    myApplication.myMailAptSuite = "";
-                                }
-                            }
+                            string tempMilitary;
+                            tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
+                            tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
+                            dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                            dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
                         }
-                        if (myApplication.myHomeAddress1 == null || myApplication.myHomeAddress1 == "")
+                        comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
+                        textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
+                        comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
+                        textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
+                        comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
+                        textBoxHMEmail.Text = myHouseholdMembers.myEmail;
+                        comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
+                        comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
+                        comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
+                        comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
+                        comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
+                        comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
+                        if (myHouseholdMembers.myIsPregnant == "Yes")
                         {
-                            myApplication.myHomeAddress1 = "12969 First Ave W";
-                            myApplication.myHomeAddress2 = "PO Box 44";
-                            myApplication.myHomeCity = "Minneapolis";
-                            myApplication.myHomeState = "Minnesota";
-                            myApplication.myHomeZip = "55401";
-                            myApplication.myHomeZip4 = "1111";
-                            myApplication.myHomeCounty = "Hennepin";
-                            myApplication.myHomeAptSuite = "Suite 64";
-
-                            myApplication.myMailAddress1 = "";
-                            myApplication.myMailAddress2 = "";
-                            myApplication.myMailCity = "";
-                            myApplication.myMailState = "";
-                            myApplication.myMailZip = "";
-                            myApplication.myMailZip4 = "";
-                            myApplication.myMailCounty = "";
-                            myApplication.myMailAptSuite = "";
+                            dateTimeHMDueDate.Enabled = true;
+                            dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
                         }
-
-                        com4.ExecuteNonQuery();
-                        com4.Dispose();
-                    }
-
-                    if (myApplication.myHouseholdOther == "Yes")
-                    {
-                        SqlCeCommand cmd4 = con.CreateCommand();
-                        cmd4.CommandType = CommandType.Text;
-
-                        //Read configured rows if exist, otherwise fill with default values
-                        using (SqlCeCommand com5 = new SqlCeCommand("SELECT * FROM HouseMembers where TestID = " + myTestId + " and HouseMembersID = 2", con))
+                        else
                         {
-                            SqlCeDataReader reader = com5.ExecuteReader();
-                            while (reader.Read())
-                            {
-                                myHouseholdMembers.myFirstName = reader.GetString(2);
-                                if (!reader.IsDBNull(3))
-                                {
-                                    myHouseholdMembers.myMiddleName = reader.GetString(3);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myMiddleName = "";
-                                }
-                                myHouseholdMembers.myLastName = reader.GetString(4);
-                                if (!reader.IsDBNull(5))
-                                {
-                                    myHouseholdMembers.mySuffix = reader.GetString(5);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.mySuffix = "";
-                                }
-                                myHouseholdMembers.myGender = reader.GetString(6);
-                                myHouseholdMembers.myMaritalStatus = reader.GetString(7);
-                                myHouseholdMembers.myDOB = reader.GetString(8);
-                                myHouseholdMembers.myLiveWithYou = reader.GetString(9);
-                                myHouseholdMembers.myMNHome = reader.GetString(10); //is this the same mnhome and planmakemnhome????                       
-                                myHouseholdMembers.myPersonHighlighted = reader.GetString(11);
-                                myHouseholdMembers.myLiveInMN = reader.GetString(12);
-                                myHouseholdMembers.myTempAbsentMN = reader.GetString(13);
-                                myHouseholdMembers.myHomeless = reader.GetString(14);
-                                myHouseholdMembers.myPlanMakeMNHome = reader.GetString(15);
-                                myHouseholdMembers.mySeekEmplMN = reader.GetString(16);
-                                myHouseholdMembers.myHispanic = reader.GetString(17);
-                                myHouseholdMembers.myRace = reader.GetString(18);
-                                myHouseholdMembers.myHaveSSN = reader.GetString(19);
-                                //myHouseholdMembers.mySSN = reader.GetString(26);//auto generated
-                                myHouseholdMembers.myUSCitizen = reader.GetString(21);
-                                myHouseholdMembers.myUSNational = reader.GetString(22);
-                                myHouseholdMembers.myIsPregnant = reader.GetString(23);
-                                myHouseholdMembers.myBeenInFosterCare = reader.GetString(24);
-                                myHouseholdMembers.myRelationship = reader.GetString(25);
-                                myHouseholdMembers.myHasIncome = reader.GetString(26);
-                                if (!reader.IsDBNull(27))
-                                {
-                                    myHouseholdMembers.myRelationshiptoNextHM = reader.GetString(27);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myRelationshiptoNextHM = "";
-                                }
-                                if (!reader.IsDBNull(28))
-                                {
-                                    myHouseholdMembers.myTribeName = reader.GetString(28);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myTribeName = "";
-                                }
-                                myHouseholdMembers.myLiveRes = reader.GetString(29);
-                                if (!reader.IsDBNull(30))
-                                {
-                                    myHouseholdMembers.myTribeId = reader.GetString(30);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myTribeId = "";
-                                }
-                                myHouseholdMembers.myFederalTribe = reader.GetString(31);
-                                myHouseholdMembers.myFileJointly = reader.GetString(32);
-                                if (!reader.IsDBNull(33))
-                                {
-                                    myHouseholdMembers.myIncomeType = reader.GetString(33);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeType = "";
-                                }
-                                if (!reader.IsDBNull(34))
-                                {
-                                    myHouseholdMembers.myIncomeEmployer = reader.GetString(34);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeEmployer = "";
-                                }
-                                if (!reader.IsDBNull(35))
-                                {
-                                    myHouseholdMembers.myIncomeSeasonal = reader.GetString(35);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeSeasonal = "";
-                                }
-                                if (!reader.IsDBNull(36))
-                                {
-                                    myHouseholdMembers.myIncomeAmount = reader.GetString(36);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeAmount = "";
-                                }
-                                if (!reader.IsDBNull(37))
-                                {
-                                    myHouseholdMembers.myIncomeFrequency = reader.GetString(37);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeFrequency = "";
-                                }
-                                if (!reader.IsDBNull(38))
-                                {
-                                    myHouseholdMembers.myIncomeMore = reader.GetString(38);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeMore = "";
-                                }
-                                myHouseholdMembers.myIncomeReduced = reader.GetString(39);
-                                if (!reader.IsDBNull(40))
-                                {
-                                    myHouseholdMembers.myIncomeAdjusted = reader.GetString(40);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myIncomeAdjusted = "";
-                                }
-                                myHouseholdMembers.myIncomeExpected = reader.GetString(41);
-                                myHouseholdMembers.myPassCount = reader.GetString(42);
-                                myHouseholdMembers.myMilitary = reader.GetString(43);
-                                if (!reader.IsDBNull(44))
-                                {
-                                    myHouseholdMembers.myMilitaryDate = Convert.ToString(reader.GetDateTime(44));
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myMilitaryDate = null;
-                                }
-                                myHouseholdMembers.myPrefContact = reader.GetString(45);
-                                myHouseholdMembers.myPhoneNum = reader.GetString(46);
-                                myHouseholdMembers.myPhoneType = reader.GetString(47);
-                                myHouseholdMembers.myAltNum = reader.GetString(48);
-                                myHouseholdMembers.myAltNumType = reader.GetString(49);
-                                myHouseholdMembers.myEmail = reader.GetString(50);
-                                myHouseholdMembers.myVoterCard = reader.GetString(51);
-                                myHouseholdMembers.myNotices = reader.GetString(52);
-                                myHouseholdMembers.myAuthRep = reader.GetString(53);
-                                myHouseholdMembers.myDependants = reader.GetString(54);
-                                myHouseholdMembers.myTaxFiler = reader.GetString(55);
-                                if (!reader.IsDBNull(56))
-                                {
-                                    myHouseholdMembers.myChildren = reader.GetString(56);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myChildren = "";
-                                }
-                                if (!reader.IsDBNull(57))
-                                {
-                                    myHouseholdMembers.myDueDate = Convert.ToString(reader.GetDateTime(57));
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myDueDate = null;
-                                }
-                                if (!reader.IsDBNull(58))
-                                {
-                                    myHouseholdMembers.myPregnancyEnded = Convert.ToString(reader.GetDateTime(58));
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myPregnancyEnded = null;
-                                }
-                                if (!reader.IsDBNull(59))
-                                {
-                                    myHouseholdMembers.myReEnroll = reader.GetString(59);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.myReEnroll = "";
-                                }
-                                if (!reader.IsDBNull(60))
-                                {
-                                    myHouseholdMembers.mySaveExit = reader.GetString(60);
-                                }
-                                else
-                                {
-                                    myHouseholdMembers.mySaveExit = "";
-                                }
-                                myHouseholdMembers.myRandom = reader.GetString(61);
-                            }
-                            com5.ExecuteNonQuery();
-                            com5.Dispose();
+                            dateTimeHMDueDate.Enabled = false;
+                            dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
+                            dateTimeHMDueDate.CustomFormat = " ";
                         }
-                    }
-
-                    SqlCeCommand cmd5 = con.CreateCommand();
-                    cmd5.CommandType = CommandType.Text;
-
-                    //Read configured rows if exist
-                    using (SqlCeCommand com6 = new SqlCeCommand("SELECT * FROM Assister where TestID = " + myTestId, con))
-                    {
-                        SqlCeDataReader reader = com6.ExecuteReader();
-                        while (reader.Read())
+                        if (myHouseholdMembers.myPregnancyEnded != null || myHouseholdMembers.myPregnancyEnded != "")
                         {
-                            myAssister.AssisterId = reader.GetString(2);
-                            myAssister.myCommunication = reader.GetString(3);
-                            myAssister.myLanguage = reader.GetString(4);
-                            myAssister.myMethod = reader.GetString(5);
-                            if (!reader.IsDBNull(6))
-                            {
-                                myAssister.myPhoneType = reader.GetString(6);
-                            }
-                            else
-                            {
-                                myAssister.myPhoneType = "";
-                            }
-                            if (!reader.IsDBNull(7))
-                            {
-                                myAssister.myPhoneNum = reader.GetString(7);
-                            }
-                            else
-                            {
-                                myAssister.myPhoneNum = "";
-                            }
-                            myAssister.myCategory = reader.GetString(8);
-                            myAssister.myType = reader.GetString(9);
-                            if (!reader.IsDBNull(10))
-                            {
-                                myAssister.myEmail = reader.GetString(10);
-                            }
-                            else
-                            {
-                                myAssister.myEmail = "";
-                            }
-                            if (!reader.IsDBNull(11))
-                            {
-                                myAssister.myLastName = reader.GetString(11);
-                            }
-                            else
-                            {
-                                myAssister.myLastName = "";
-                            }
-                            if (!reader.IsDBNull(12))
-                            {
-                                myAssister.myFirstName = reader.GetString(12);
-                            }
-                            else
-                            {
-                                myAssister.myFirstName = "";
-                            }
-                            if (!reader.IsDBNull(13))
-                            {
-                                myAssister.myRefNumber = reader.GetString(13);
-                            }
-                            else
-                            {
-                                myAssister.myRefNumber = "";
-                            }
-                            if (!reader.IsDBNull(14))
-                            {
-                                myAssister.mySSN = reader.GetString(14);
-                            }
-                            else
-                            {
-                                myAssister.mySSN = "";
-                            }
-                            if (!reader.IsDBNull(15))
-                            {
-                                myAssister.myDOB = reader.GetDateTime(15).ToShortDateString();
-                            }
-                            else
-                            {
-                                myAssister.myDOB = null;
-                            }
-                            if (!reader.IsDBNull(16))
-                            {
-                                myAssister.myRegNumber = reader.GetString(16);
-                            }
-                            else
-                            {
-                                myAssister.myRegNumber = "";
-                            }
+                            comboBoxHMPregnancyDone.Text = "Yes";
+                            dateTimeHMPregnancyEnded.Enabled = true;
+                            dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
                         }
-                        com6.ExecuteNonQuery();
-                        com6.Dispose();
-                    }
+                        else
+                        {
+                            comboBoxHMPregnancyDone.Text = "No";
+                            dateTimeHMPregnancyEnded.Enabled = false;
+                            dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
+                            dateTimeHMPregnancyEnded.CustomFormat = " ";
+                        }
+                        if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
+                        {
+                            string tempDueDate;
+                            tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
+                            tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
+                            dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
+                            dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
+                        }
+                        if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
+                        {
+                            comboBoxHMPregnancyDone.Text = "Yes";
+                            string tempPregnancyEnded;
+                            tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
+                            tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
+                            dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
+                            dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
+                        }
+                        else
+                        {
+                            comboBoxHMPregnancyDone.Text = "No";
+                            dateTimeHMPregnancyEnded.Enabled = false;
+                            dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
+                            dateTimeHMPregnancyEnded.CustomFormat = " ";
+                        }
 
-                }
-                catch (Exception f)
-                {
-                    MessageBox.Show("Did not find data for enroll " + f);
-                }
-
-                textBoxEnrollTest.Text = mySelectedTest.myTestName;
-                comboBoxRandom.Text = myApplication.myRandom;
-                if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
-                {
-                    myApplication.mySSNNum = "";
-                    myApplication.myFirstName = "";
-                    myApplication.myMiddleName = "";
-                    myApplication.myLastName = "";
-                    myApplication.mySuffix = "";
-                    myApplication.myGender = "";
-                    myApplication.myDOB = "";
-                }
-                if (comboBoxRandom.Text == "SSN, Name, Gender")
-                {
-                    myApplication.mySSNNum = "";
-                    myApplication.myFirstName = "";
-                    myApplication.myMiddleName = "";
-                    myApplication.myLastName = "";
-                    myApplication.mySuffix = "";
-                    myApplication.myGender = "";
-                }
-                if (comboBoxRandom.Text == "SSN, Name, DOB")
-                {
-                    myApplication.mySSNNum = "";
-                    myApplication.myFirstName = "";
-                    myApplication.myMiddleName = "";
-                    myApplication.myLastName = "";
-                    myApplication.mySuffix = "";
-                    myApplication.myDOB = "";
-                }
-                if (comboBoxRandom.Text == "SSN, Name")
-                {
-                    myApplication.mySSNNum = "";
-                    myApplication.myFirstName = "";
-                    myApplication.myMiddleName = "";
-                    myApplication.myLastName = "";
-                    myApplication.mySuffix = "";
-                }
-
-                textBoxEnrollFirstName.Text = myApplication.myFirstName;
-                textBoxEnrollMiddleName.Text = myApplication.myMiddleName;
-                textBoxEnrollLastName.Text = myApplication.myLastName;
-                comboBoxEnrollSuffix.Text = myApplication.mySuffix;
-                comboBoxEnrollAddressSame.Text = myApplication.myAddressSame;
-                comboBoxHomeCounty.Text = myApplication.myHomeCounty;
-                comboBoxEnrollGender.Text = myApplication.myGender;
-                comboBoxEnrollMaritalStatus.Text = myApplication.myMaritalStatus;
-                if (myApplication.myDOB == null)
-                {
-                    textBoxEnrollDOB.Text = myAccountCreate.myDOB;
-                }
-                else
-                {
-                    textBoxEnrollDOB.Text = myApplication.myDOB;
-                }
-                textBoxHomeAddr1.Text = myApplication.myHomeAddress1;
-                if (myApplication.myHomeAddress2 != null)
-                {
-                    textBoxHomeAddr2.Text = myApplication.myHomeAddress2;
-                }
-                textBoxHomeCity.Text = myApplication.myHomeCity;
-                comboBoxHomeState.Text = myApplication.myHomeState;
-                textBoxHomeZip.Text = myApplication.myHomeZip;
-                if (myApplication.myHomeZip4 != null)
-                {
-                    textBoxHomeZip4.Text = myApplication.myHomeZip4;
-                }
-                if (myApplication.myHomeAptSuite != null)
-                {
-                    textBoxHomeAptSuite.Text = myApplication.myHomeAptSuite;
-                }
-                textBoxMailAddr1.Text = myApplication.myMailAddress1;
-                if (myApplication.myMailAddress2 != null)
-                {
-                    textBoxMailAddr2.Text = myApplication.myMailAddress2;
-                }
-                textBoxMailCity.Text = myApplication.myMailCity;
-                comboBoxMailState.Text = myApplication.myMailState;
-                textBoxMailZip.Text = myApplication.myMailZip;
-                if (myApplication.myMailZip4 != null)
-                {
-                    textBoxMailZip4.Text = myApplication.myMailZip4;
-                }
-                if (myApplication.myMailAptSuite != null)
-                {
-                    textBoxMailAptSuite.Text = myApplication.myMailAptSuite;
-                }
-                comboBoxMailCounty.Text = myApplication.myMailCounty;
-                comboBoxLiveMN.Text = myApplication.myLiveMN;
-                comboBoxMailAddrYN.Text = myApplication.myMailingAddressYN;
-                comboBoxPlanLiveMN.Text = myApplication.myPlanLiveMN;
-                comboBoxEnrollPrefContact.Text = myApplication.myPrefContact;
-                textBoxPhoneNum.Text = myApplication.myPhoneNum;
-                comboBoxPhoneType.Text = myApplication.myPhoneType;
-                textBoxEnrollAltNum.Text = myApplication.myAltNum;
-                comboBoxEnrollAltPhoneType.Text = myApplication.myAltNumType;
-                textBoxEnrollEmail.Text = myAccountCreate.myEmail;
-                comboBoxEnrollLanguageMost.Text = myApplication.myLanguageMost;
-                comboBoxEnrollLanguageWritten.Text = myApplication.myLanguageWritten;
-                comboBoxEnrollHomeless.Text = myApplication.myHomeless;
-                comboBoxEnrollVoterCard.Text = myApplication.myVoterCard;
-                comboBoxEnrollNotices.Text = myApplication.myNotices;
-                comboBoxEnrollAuthRep.Text = myApplication.myAuthRep;
-                comboBoxEnrollApplyYourself.Text = myApplication.myApplyYourself;
-                comboBoxEnrollHispanic.Text = myApplication.myHispanic;
-                textBoxTribeName.Text = myApplication.myTribeName;
-                textBoxTribeId.Text = myApplication.myTribeId;
-                comboBoxRace.Text = myApplication.myRace;
-                comboBoxLiveRes.Text = myApplication.myLiveRes;
-                comboBoxFederalTribe.Text = myApplication.myFederalTribe;
-                comboBoxMilitary.Text = myApplication.myMilitary;
-                if (myApplication.myMilitary == "Yes")
-                {
-                    dateTimeMilitary.Enabled = true;
-                    dateTimeMilitary.Format = DateTimePickerFormat.Short;
-                }
-                else
-                {
-                    dateTimeMilitary.Enabled = false;
-                    dateTimeMilitary.Format = DateTimePickerFormat.Custom;
-                    dateTimeMilitary.CustomFormat = " ";
-                }
-                dateTimeMilitary.Text = myApplication.myMilitaryDate;
-                if (myApplication.myMilitaryDate != null && myApplication.myMilitaryDate != "")
-                {
-                    string tempMilitary;
-                    tempMilitary = Convert.ToString(myApplication.myMilitaryDate);
-                    tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
-                    dateTimeMilitary.Format = DateTimePickerFormat.Short;
-                    dateTimeMilitary.Value = Convert.ToDateTime(tempMilitary);
-                }
-
-                comboBoxEnrollSSN.Text = myApplication.mySSN;
-                textBoxEnrollSSNNum.Text = myApplication.mySSNNum;
-                comboBoxAppliedSSN.Text = myApplication.myAppliedSSN;
-                comboBoxWhyNoSSN.Text = myApplication.myWhyNoSSN;
-                comboBoxAssistSSN.Text = myApplication.myAssistSSN;
-                comboBoxEnrollCitizen.Text = myApplication.myCitizen;
-                comboBoxEnrollHouseholdOther.Text = myApplication.myHouseholdOther;
-                comboBoxEnrollDependants.Text = myApplication.myDependants;
-                comboBoxEnrollIncomeYN.Text = myApplication.myIncomeYN;
-                comboBoxEnrollIncomeType.Text = myApplication.myIncomeType;
-                textBoxEnrollIncomeEmployer.Text = myApplication.myIncomeEmployer;
-                comboBoxEnrollIncomeSeasonal.Text = myApplication.myIncomeSeasonal;
-                textBoxEnrollAmount.Text = myApplication.myIncomeAmount;
-                comboBoxEnrollFrequency.Text = myApplication.myIncomeFrequency;
-                comboBoxEnrollMoreIncome.Text = myApplication.myIncomeMore;
-                comboBoxEnrollIncomeReduced.Text = myApplication.myIncomeReduced;
-                comboBoxEnrollIncomeAdjustments.Text = myApplication.myIncomeAdjusted;
-                comboBoxEnrollIncomeExpected.Text = myApplication.myIncomeExpected;
-                textBoxEnrollFosterCare.Text = myApplication.myFosterCare;
-                comboBoxOtherIns.Text = myApplication.myOtherIns;
-                comboBoxKindIns.Text = myApplication.myKindIns;
-                comboBoxCoverageEnd.Text = myApplication.myCoverageEnd;
-                comboBoxAddIns.Text = myApplication.myAddIns;
-                comboBoxESC.Text = myApplication.myESC;
-                comboBoxRenewalCov.Text = myApplication.myRenewalCov;
-                comboBoxWithDiscounts.Text = myApplication.myWithDiscounts;
-                comboBoxPregnant.Text = myApplication.myIsPregnant;
-                comboBoxChildren.Text = myApplication.myChildren;
-                if (myApplication.myIsPregnant == "Yes")
-                {
-                    dateTimeDueDate.Enabled = true;
-                    dateTimeDueDate.Format = DateTimePickerFormat.Short;
-                }
-                else
-                {
-                    dateTimeDueDate.Enabled = false;
-                    dateTimeDueDate.Format = DateTimePickerFormat.Custom;
-                    dateTimeDueDate.CustomFormat = " ";
-                }
-                if (comboBoxPregnancyDone.Text == "Yes")
-                {
-                    dateTimePregnancyEnded.Enabled = true;
-                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
-                }
-                else
-                {
-                    dateTimePregnancyEnded.Enabled = false;
-                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Custom;
-                    dateTimePregnancyEnded.CustomFormat = " ";
-                }
-                if (myApplication.myDueDate != null && myApplication.myDueDate != "")
-                {
-                    string tempDueDate;
-                    tempDueDate = Convert.ToString(myApplication.myDueDate);
-                    tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
-                    dateTimeDueDate.Format = DateTimePickerFormat.Short;
-                    dateTimeDueDate.Value = Convert.ToDateTime(tempDueDate);
-                }
-                if (myApplication.myPregnancyEnded != null && myApplication.myPregnancyEnded != "")
-                {
-                    string tempPregnancyEnded;
-                    tempPregnancyEnded = Convert.ToString(myApplication.myPregnancyEnded);
-                    tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
-                    dateTimePregnancyEnded.Format = DateTimePickerFormat.Short;
-                    dateTimePregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-                    comboBoxPregnancyDone.Text = "Yes";
-                }
-                else
-                {
-                    comboBoxPregnancyDone.Text = "No";
-                }
-                textBoxRegDate.Text = myApplication.myRegDate;
-                textBoxDay2TestId.Text = myApplication.myDay2TestId;
-                comboBoxTobacco.Text = myApplication.myTobacco;
-                if (myApplication.myTobacco == "Yes")
-                {
-                    dateTimeTobacco.Enabled = true;
-                    dateTimeTobacco.Format = DateTimePickerFormat.Short;
-                }
-                else
-                {
-                    dateTimeTobacco.Enabled = false;
-                    dateTimeTobacco.Format = DateTimePickerFormat.Custom;
-                    dateTimeTobacco.CustomFormat = " ";
-                }
-                dateTimeTobacco.Text = myApplication.myTobaccoLast;
-                if (myApplication.myTobaccoLast != null && myApplication.myTobaccoLast != "")
-                {
-                    string tempTobacco;
-                    tempTobacco = Convert.ToString(myApplication.myTobaccoLast);
-                    tempTobacco = DateTime.Parse(tempTobacco).ToString("MM/dd/yyyy");
-                    dateTimeTobacco.Format = DateTimePickerFormat.Short;
-                    dateTimeTobacco.Value = Convert.ToDateTime(tempTobacco);
-                }
-                comboBoxRandom.Text = myApplication.myRandom;
-
-                if (myApplication.myHouseholdOther == "Yes")
-                {
-                    comboBoxHMRandom.Text = myHouseholdMembers.myRandom;
-                    if (comboBoxHMRandom.Text == "SSN, Name, Gender")
-                    {
-                        myHouseholdMembers.mySSN = "";
-                        myHouseholdMembers.myFirstName = "";
-                        myHouseholdMembers.myMiddleName = "";
-                        myHouseholdMembers.myLastName = "";
-                        myHouseholdMembers.mySuffix = "";
-                        myHouseholdMembers.myGender = "";
-                    }
-                    if (comboBoxHMRandom.Text == "SSN, Name")
-                    {
-                        myHouseholdMembers.mySSN = "";
-                        myHouseholdMembers.myFirstName = "";
-                        myHouseholdMembers.myMiddleName = "";
-                        myHouseholdMembers.myLastName = "";
-                        myHouseholdMembers.mySuffix = "";
-                    }
-                    textBoxHMFirstName.Text = myHouseholdMembers.myFirstName;
-                    textBoxHMMiddleName.Text = myHouseholdMembers.myMiddleName;
-                    textBoxHMLastName.Text = myHouseholdMembers.myLastName;
-                    comboBoxHMSuffix.Text = myHouseholdMembers.mySuffix;
-                    comboBoxHMGender.Text = myHouseholdMembers.myGender;
-                    textBoxHMDOB.Text = myHouseholdMembers.myDOB;
-                    comboBoxHMMaritalStatus.Text = myHouseholdMembers.myMaritalStatus;
-                    comboBoxHMLiveWithYou.Text = myHouseholdMembers.myLiveWithYou;
-                    comboBoxHMLiveMN.Text = myHouseholdMembers.myLiveInMN;
-                    comboBoxHMTempAbsentMN.Text = myHouseholdMembers.myTempAbsentMN;
-                    comboBoxHMHomeless.Text = myHouseholdMembers.myHomeless;
-                    textBoxHMAddress1.Text = myHouseholdMembers.myMailAddress1;
-                    textBoxHMAddress2.Text = myHouseholdMembers.myMailAddress2;
-                    textBoxHMAptSuite.Text = myHouseholdMembers.myMailAptSuite;
-                    textBoxHMCity.Text = myHouseholdMembers.myMailCity;
-                    comboBoxHMState.Text = myHouseholdMembers.myMailState;
-                    textBoxHMZip.Text = myHouseholdMembers.myMailZip;
-                    comboBoxHMCounty.Text = myHouseholdMembers.myMailCounty;
-                    comboBoxHMPlanToLiveInMN.Text = myHouseholdMembers.myPlanMakeMNHome;
-                    comboBoxHMSeekingEmployment.Text = myHouseholdMembers.mySeekEmplMN;
-                    comboBoxHMPersonHighlighted.Text = myHouseholdMembers.myPersonHighlighted;
-                    comboBoxHMHispanic.Text = myHouseholdMembers.myHispanic;
-                    textBoxHMTribeName.Text = myHouseholdMembers.myTribeName;
-                    textBoxHMTribeId.Text = myHouseholdMembers.myTribeId;
-                    comboBoxHMLiveRes.Text = myHouseholdMembers.myLiveRes;
-                    comboBoxHMFederalTribe.Text = myHouseholdMembers.myFederalTribe;
-                    comboBoxHMRace.Text = myHouseholdMembers.myRace;
-                    comboBoxHMHaveSSN.Text = myHouseholdMembers.myHaveSSN;
-                    //textBoxHMSSN.Text = myHouseholdMembers.mySSN;//auto generated
-                    comboBoxHMUSCitizen.Text = myHouseholdMembers.myUSCitizen;
-                    comboBoxHMUSNational.Text = myHouseholdMembers.myUSNational;
-                    comboBoxHMPregnant.Text = myHouseholdMembers.myIsPregnant;
-                    comboBoxHMBeenInFosterCare.Text = myHouseholdMembers.myBeenInFosterCare;
-                    comboBoxHMRelationship.Text = myHouseholdMembers.myRelationship;
-                    comboBoxHasIncome.Text = myHouseholdMembers.myHasIncome;
-                    comboBoxHMRelationship2.Text = myHouseholdMembers.myRelationshiptoNextHM;
-                    comboBoxHMFileJointly.Text = myHouseholdMembers.myFileJointly;
-                    comboBoxHMIncomeType.Text = myHouseholdMembers.myIncomeType;
-                    textBoxHMEmployerName.Text = myHouseholdMembers.myIncomeEmployer;
-                    comboBoxHMSeasonal.Text = myHouseholdMembers.myIncomeSeasonal;
-                    textBoxHMAmount.Text = myHouseholdMembers.myIncomeAmount;
-                    comboBoxHMFrequency.Text = myHouseholdMembers.myIncomeFrequency;
-                    comboBoxHMMoreIncome.Text = myHouseholdMembers.myIncomeMore;
-                    comboBoxHMIncomeReduced.Text = myHouseholdMembers.myIncomeReduced;
-                    comboBoxHMIncomeAdjustments.Text = myHouseholdMembers.myIncomeAdjusted;
-                    comboBoxHMAnnualIncome.Text = myHouseholdMembers.myIncomeExpected;
-                    comboBoxHMMilitary.Text = myHouseholdMembers.myMilitary;
-                    if (myHouseholdMembers.myMilitary == "Yes")
-                    {
-                        dateTimeHMMilitary.Enabled = true;
-                        dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
+                        textBoxCurrentMember.Text = "2";
+                        HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                        int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                        textBoxTotalMembers.Text = Convert.ToString(householdCount);
                     }
                     else
                     {
+                        textBoxHMFirstName.Text = "";
+                        textBoxHMMiddleName.Text = "";
+                        textBoxHMLastName.Text = "";
+                        comboBoxHMSuffix.Text = "";
+                        comboBoxHMGender.Text = "";
+                        comboBoxHMMaritalStatus.Text = "";
+                        textBoxHMDOB.Text = "";
+                        comboBoxHMLiveWithYou.Text = "";
+                        comboBoxHMLiveMN.Text = "";
+                        comboBoxHMTempAbsentMN.Text = "";
+                        comboBoxHMHomeless.Text = "";
+                        textBoxHMAddress1.Text = "";
+                        textBoxHMAddress2.Text = "";
+                        textBoxHMAptSuite.Text = "";
+                        textBoxHMCity.Text = "";
+                        comboBoxHMState.Text = "";
+                        textBoxHMZip.Text = "";
+                        comboBoxHMCounty.Text = "";
+                        comboBoxHMPlanToLiveInMN.Text = "";
+                        comboBoxHMSeekingEmployment.Text = "";
+                        comboBoxHMPersonHighlighted.Text = "";
+                        comboBoxHMHispanic.Text = "";
+                        textBoxHMTribeName.Text = "";
+                        textBoxHMTribeId.Text = "";
+                        comboBoxHMLiveRes.Text = "";
+                        comboBoxHMFederalTribe.Text = "";
+                        comboBoxHMRace.Text = "";
+                        comboBoxHMHaveSSN.Text = "";
+                        comboBoxHMUSCitizen.Text = "";
+                        comboBoxHMUSNational.Text = "";
+                        comboBoxHMPregnant.Text = "";
+                        comboBoxHMBeenInFosterCare.Text = "";
+                        comboBoxHMRelationship.Text = "";
+                        comboBoxHasIncome.Text = "";
+                        comboBoxHMRelationship2.Text = "";
+                        comboBoxHMFileJointly.Text = "";
+                        comboBoxHMIncomeType.Text = "";
+                        textBoxHMEmployerName.Text = "";
+                        comboBoxHMSeasonal.Text = "";
+                        textBoxHMAmount.Text = "";
+                        comboBoxHMFrequency.Text = "";
+                        comboBoxHMMoreIncome.Text = "";
+                        comboBoxHMIncomeReduced.Text = "";
+                        comboBoxHMIncomeAdjustments.Text = "";
+                        comboBoxHMAnnualIncome.Text = "";
+                        comboBoxHMMilitary.Text = "";
                         dateTimeHMMilitary.Enabled = false;
                         dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
                         dateTimeHMMilitary.CustomFormat = " ";
-                    }
-                    dateTimeHMMilitary.Text = myHouseholdMembers.myMilitaryDate;
-                    if (myHouseholdMembers.myMilitaryDate != null && myHouseholdMembers.myMilitaryDate != " ")
-                    {
-                        string tempMilitary;
-                        tempMilitary = Convert.ToString(myHouseholdMembers.myMilitaryDate);
-                        tempMilitary = DateTime.Parse(tempMilitary).ToString("MM/dd/yyyy");
-                        dateTimeHMMilitary.Format = DateTimePickerFormat.Short;
-                        dateTimeHMMilitary.Value = Convert.ToDateTime(tempMilitary);
-                    }
-                    comboBoxHMPrefContact.Text = myHouseholdMembers.myPrefContact;
-                    textBoxHMPhoneNum.Text = myHouseholdMembers.myPhoneNum;
-                    comboBoxHMPhoneType.Text = myHouseholdMembers.myPhoneType;
-                    textBoxHMAltNum.Text = myHouseholdMembers.myAltNum;
-                    comboBoxHMAltType.Text = myHouseholdMembers.myAltNumType;
-                    textBoxHMEmail.Text = myHouseholdMembers.myEmail;
-                    comboBoxHMVoterCard.Text = myHouseholdMembers.myVoterCard;
-                    comboBoxHMNotices.Text = myHouseholdMembers.myNotices;
-                    comboBoxHMAuthRep.Text = myHouseholdMembers.myAuthRep;
-                    comboBoxHMDependant.Text = myHouseholdMembers.myDependants;
-                    comboBoxHMTaxFiler.Text = myHouseholdMembers.myTaxFiler;
-                    comboBoxHMChildren.Text = myHouseholdMembers.myChildren;
-                    if (myHouseholdMembers.myIsPregnant == "Yes")
-                    {
-                        dateTimeHMDueDate.Enabled = true;
-                        dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
-                    }
-                    else
-                    {
+                        comboBoxHMPrefContact.Text = "";
+                        textBoxHMPhoneNum.Text = "";
+                        comboBoxHMPhoneType.Text = "";
+                        textBoxHMAltNum.Text = "";
+                        comboBoxHMAltType.Text = "";
+                        textBoxHMEmail.Text = "";
+                        comboBoxHMVoterCard.Text = "";
+                        comboBoxHMNotices.Text = "";
+                        comboBoxHMAuthRep.Text = "";
+                        comboBoxHMDependant.Text = "";
+                        comboBoxHMTaxFiler.Text = "";
+                        comboBoxHMChildren.Text = "";
                         dateTimeHMDueDate.Enabled = false;
                         dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
                         dateTimeHMDueDate.CustomFormat = " ";
-                    }
-                    if (myHouseholdMembers.myPregnancyEnded != null || myHouseholdMembers.myPregnancyEnded != "")
-                    {
-                        comboBoxHMPregnancyDone.Text = "Yes";
-                        dateTimeHMPregnancyEnded.Enabled = true;
-                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
-                    }
-                    else
-                    {
-                        comboBoxHMPregnancyDone.Text = "No";
                         dateTimeHMPregnancyEnded.Enabled = false;
                         dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
                         dateTimeHMPregnancyEnded.CustomFormat = " ";
-                    }
-                    if (myHouseholdMembers.myDueDate != null && myHouseholdMembers.myDueDate != " ")
-                    {
-                        string tempDueDate;
-                        tempDueDate = Convert.ToString(myHouseholdMembers.myDueDate);
-                        tempDueDate = DateTime.Parse(tempDueDate).ToString("MM/dd/yyyy");
-                        dateTimeHMDueDate.Format = DateTimePickerFormat.Short;
-                        dateTimeHMDueDate.Value = Convert.ToDateTime(tempDueDate);
-                    }
-                    if (myHouseholdMembers.myPregnancyEnded != null && myHouseholdMembers.myPregnancyEnded != " ")
-                    {
-                        comboBoxHMPregnancyDone.Text = "Yes";
-                        string tempPregnancyEnded;
-                        tempPregnancyEnded = Convert.ToString(myHouseholdMembers.myPregnancyEnded);
-                        tempPregnancyEnded = DateTime.Parse(tempPregnancyEnded).ToString("MM/dd/yyyy");
-                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Short;
-                        dateTimeHMPregnancyEnded.Value = Convert.ToDateTime(tempPregnancyEnded);
-                    }
-                    else
-                    {
-                        comboBoxHMPregnancyDone.Text = "No";
-                        dateTimeHMPregnancyEnded.Enabled = false;
-                        dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
-                        dateTimeHMPregnancyEnded.CustomFormat = " ";
+                        textBoxCurrentMember.Text = "1";
+                        textBoxTotalMembers.Text = "1";
                     }
 
+                    if (myAssister.myLastName != null)
+                    {
+                        textBoxAssisterFirstName.Text = myAssister.myFirstName;
+                        textBoxAssisterLastName.Text = myAssister.myLastName;
+                        textBoxAssisterDOB.Text = myAssister.myDOB;
+                        comboBoxAssisterCommunication.Text = myAssister.myCommunication;
+                        comboBoxAssisterLanguage.Text = myAssister.myLanguage;
+                        comboBoxAssisterMethod.Text = myAssister.myMethod;
+                        textBoxAssisterId.Text = Convert.ToString(myAssister.AssisterId);
+                        comboBoxAssisterPhoneType.Text = myAssister.myPhoneType;
+                        textBoxAssisterPhoneNumber.Text = myAssister.myPhoneNum;
+                        comboBoxAssisterCategory.Text = myAssister.myCategory;
+                        comboBoxAssisterType.Text = myAssister.myType;
+                        textBoxAssisterStreet1.Text = myAssister.myAddress1;
+                        textBoxAssisterStreet2.Text = myAssister.myAddress2;
+                        textBoxAssisterAptSuite.Text = myAssister.myAptSuite;
+                        textBoxAssisterCity.Text = myAssister.myCity;
+                        comboBoxAssisterState.Text = myAssister.myState;
+                        textBoxAssisterZip.Text = myAssister.myZip;
+                        comboBoxAssisterCounty.Text = myAssister.myCounty;
+                        textBoxAssisterEmail.Text = myAssister.myEmail;
+                    }
+
+                    groupBoxApplicantInformation.Visible = true;
+                    groupBoxMoreAboutYou.Visible = false;
+                    groupBoxHouseholdOther.Visible = false;
+                    groupBoxAssister.Visible = false;
+                    groupBoxDependants.Visible = false;
+                    groupBoxEnrollIncome.Visible = false;
+                }
+                radioButtonInformation.Checked = true;
+                buttonSaveConfiguration.BackColor = Color.Yellow;
+                HouseholdMembersDo myHouseholdCount = new HouseholdMembersDo();
+                int householdCount2 = myHouseholdCount.DoHouseholdCount(myHistoryInfo);
+                textBoxTotalMembers.Text = Convert.ToString(householdCount2);
+                if (householdCount2 < 2)
+                {
+                    buttonNextMember.Enabled = false;
+                    buttonPreviousMember.Enabled = false;
+                    textBoxCurrentMember.Text = "1";
+                }
+                else if (householdCount2 == 2)
+                {
+                    buttonNextMember.Enabled = false;
+                    buttonPreviousMember.Enabled = false;
                     textBoxCurrentMember.Text = "2";
-                    HouseholdMembersDo myHousehold = new HouseholdMembersDo();
-                    int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
-                    textBoxTotalMembers.Text = Convert.ToString(householdCount);
                 }
                 else
                 {
-                    textBoxHMFirstName.Text = "";
-                    textBoxHMMiddleName.Text = "";
-                    textBoxHMLastName.Text = "";
-                    comboBoxHMSuffix.Text = "";
-                    comboBoxHMGender.Text = "";
-                    comboBoxHMMaritalStatus.Text = "";
-                    textBoxHMDOB.Text = "";
-                    comboBoxHMLiveWithYou.Text = "";
-                    comboBoxHMLiveMN.Text = "";
-                    comboBoxHMTempAbsentMN.Text = "";
-                    comboBoxHMHomeless.Text = "";
-                    textBoxHMAddress1.Text = "";
-                    textBoxHMAddress2.Text = "";
-                    textBoxHMAptSuite.Text = "";
-                    textBoxHMCity.Text = "";
-                    comboBoxHMState.Text = "";
-                    textBoxHMZip.Text = "";
-                    comboBoxHMCounty.Text = "";
-                    comboBoxHMPlanToLiveInMN.Text = "";
-                    comboBoxHMSeekingEmployment.Text = "";
-                    comboBoxHMPersonHighlighted.Text = "";
-                    comboBoxHMHispanic.Text = "";
-                    textBoxHMTribeName.Text = "";
-                    textBoxHMTribeId.Text = "";
-                    comboBoxHMLiveRes.Text = "";
-                    comboBoxHMFederalTribe.Text = "";
-                    comboBoxHMRace.Text = "";
-                    comboBoxHMHaveSSN.Text = "";
-                    comboBoxHMUSCitizen.Text = "";
-                    comboBoxHMUSNational.Text = "";
-                    comboBoxHMPregnant.Text = "";
-                    comboBoxHMBeenInFosterCare.Text = "";
-                    comboBoxHMRelationship.Text = "";
-                    comboBoxHasIncome.Text = "";
-                    comboBoxHMRelationship2.Text = "";
-                    comboBoxHMFileJointly.Text = "";
-                    comboBoxHMIncomeType.Text = "";
-                    textBoxHMEmployerName.Text = "";
-                    comboBoxHMSeasonal.Text = "";
-                    textBoxHMAmount.Text = "";
-                    comboBoxHMFrequency.Text = "";
-                    comboBoxHMMoreIncome.Text = "";
-                    comboBoxHMIncomeReduced.Text = "";
-                    comboBoxHMIncomeAdjustments.Text = "";
-                    comboBoxHMAnnualIncome.Text = "";
-                    comboBoxHMMilitary.Text = "";
-                    dateTimeHMMilitary.Enabled = false;
-                    dateTimeHMMilitary.Format = DateTimePickerFormat.Custom;
-                    dateTimeHMMilitary.CustomFormat = " ";
-                    comboBoxHMPrefContact.Text = "";
-                    textBoxHMPhoneNum.Text = "";
-                    comboBoxHMPhoneType.Text = "";
-                    textBoxHMAltNum.Text = "";
-                    comboBoxHMAltType.Text = "";
-                    textBoxHMEmail.Text = "";
-                    comboBoxHMVoterCard.Text = "";
-                    comboBoxHMNotices.Text = "";
-                    comboBoxHMAuthRep.Text = "";
-                    comboBoxHMDependant.Text = "";
-                    comboBoxHMTaxFiler.Text = "";
-                    comboBoxHMChildren.Text = "";
-                    dateTimeHMDueDate.Enabled = false;
-                    dateTimeHMDueDate.Format = DateTimePickerFormat.Custom;
-                    dateTimeHMDueDate.CustomFormat = " ";
-                    dateTimeHMPregnancyEnded.Enabled = false;
-                    dateTimeHMPregnancyEnded.Format = DateTimePickerFormat.Custom;
-                    dateTimeHMPregnancyEnded.CustomFormat = " ";
-                    textBoxCurrentMember.Text = "1";
-                    textBoxTotalMembers.Text = "1";
+                    buttonNextMember.Enabled = true;
+                    buttonPreviousMember.Enabled = false;
+                    textBoxCurrentMember.Text = "2";
                 }
-
-                if (myAssister.myLastName != null)
-                {
-                    textBoxAssisterFirstName.Text = myAssister.myFirstName;
-                    textBoxAssisterLastName.Text = myAssister.myLastName;
-                    textBoxAssisterDOB.Text = myAssister.myDOB;
-                    comboBoxAssisterCommunication.Text = myAssister.myCommunication;
-                    comboBoxAssisterLanguage.Text = myAssister.myLanguage;
-                    comboBoxAssisterMethod.Text = myAssister.myMethod;
-                    textBoxAssisterId.Text = Convert.ToString(myAssister.AssisterId);
-                    comboBoxAssisterPhoneType.Text = myAssister.myPhoneType;
-                    textBoxAssisterPhoneNumber.Text = myAssister.myPhoneNum;
-                    comboBoxAssisterCategory.Text = myAssister.myCategory;
-                    comboBoxAssisterType.Text = myAssister.myType;
-                    textBoxAssisterStreet1.Text = myAssister.myAddress1;
-                    textBoxAssisterStreet2.Text = myAssister.myAddress2;
-                    textBoxAssisterAptSuite.Text = myAssister.myAptSuite;
-                    textBoxAssisterCity.Text = myAssister.myCity;
-                    comboBoxAssisterState.Text = myAssister.myState;
-                    textBoxAssisterZip.Text = myAssister.myZip;
-                    comboBoxAssisterCounty.Text = myAssister.myCounty;
-                    textBoxAssisterEmail.Text = myAssister.myEmail;
-                }
-
-                groupBoxApplicantInformation.Visible = true;
-                groupBoxMoreAboutYou.Visible = false;
-                groupBoxHouseholdOther.Visible = false;
-                groupBoxAssister.Visible = false;
-                groupBoxDependants.Visible = false;
-                groupBoxEnrollIncome.Visible = false;
-            }
-            radioButtonInformation.Checked = true;
-            buttonSaveConfiguration.BackColor = Color.Yellow;
-            HouseholdMembersDo myHouseholdCount = new HouseholdMembersDo();
-            int householdCount2 = myHouseholdCount.DoHouseholdCount(myHistoryInfo);
-            textBoxTotalMembers.Text = Convert.ToString(householdCount2);
-            if (householdCount2 < 2)
-            {
-                buttonNextMember.Enabled = false;
-                buttonPreviousMember.Enabled = false;
-                textBoxCurrentMember.Text = "1";
-            }
-            else if (householdCount2 == 2)
-            {
-                buttonNextMember.Enabled = false;
-                buttonPreviousMember.Enabled = false;
-                textBoxCurrentMember.Text = "2";
-            }
-            else
-            {
-                buttonNextMember.Enabled = true;
-                buttonPreviousMember.Enabled = false;
-                textBoxCurrentMember.Text = "2";
             }
         }
 
@@ -2311,39 +2334,39 @@ namespace MNsure_Regression_1
             mysTestId = dataGridViewSelectedTests.Rows[rowindex].Cells[0].Value.ToString();
             if (comboBoxRandom.Text == "SSN, Name, Gender, DOB")
             {
-                myApplication.mySSNNum = "";
-                myApplication.myFirstName = "";
-                myApplication.myMiddleName = "";
-                myApplication.myLastName = "";
-                myApplication.mySuffix = "";
-                myApplication.myGender = "";
-                myApplication.myDOB = "";
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                textBoxEnrollDOB.Text = "";
+                comboBoxEnrollGender.Text = "";
             }
             if (comboBoxRandom.Text == "SSN, Name, DOB")
             {
-                myApplication.mySSNNum = "";
-                myApplication.myFirstName = "";
-                myApplication.myMiddleName = "";
-                myApplication.myLastName = "";
-                myApplication.mySuffix = "";
-                myApplication.myDOB = "";
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                textBoxEnrollDOB.Text = "";
             }
             if (comboBoxRandom.Text == "SSN, Name, Gender")
             {
-                myApplication.mySSNNum = "";
-                myApplication.myFirstName = "";
-                myApplication.myMiddleName = "";
-                myApplication.myLastName = "";
-                myApplication.mySuffix = "";
-                myApplication.myGender = "";
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                comboBoxEnrollGender.Text = "";
             }
             if (comboBoxRandom.Text == "SSN, Name")
             {
-                myApplication.mySSNNum = "";
-                myApplication.myFirstName = "";
-                myApplication.myMiddleName = "";
-                myApplication.myLastName = "";
-                myApplication.mySuffix = "";
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
             }
             myApplication.mySSNNum = textBoxEnrollSSNNum.Text;
             myApplication.myFirstName = textBoxEnrollFirstName.Text;
@@ -8079,6 +8102,13 @@ namespace MNsure_Regression_1
                 comboBoxEnrollSuffix.Enabled = false;
                 comboBoxEnrollGender.Enabled = false;
                 textBoxEnrollDOB.Enabled = false;
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                textBoxEnrollDOB.Text = "";
+                comboBoxEnrollGender.Text = "";
             }
             else if (comboBoxRandom.Text == "SSN, Name, DOB")
             {
@@ -8089,6 +8119,12 @@ namespace MNsure_Regression_1
                 comboBoxEnrollSuffix.Enabled = false;
                 comboBoxEnrollGender.Enabled = true;
                 textBoxEnrollDOB.Enabled = false;
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                textBoxEnrollDOB.Text = "";
             }
             else if (comboBoxRandom.Text == "SSN, Name, Gender")
             {
@@ -8099,6 +8135,12 @@ namespace MNsure_Regression_1
                 comboBoxEnrollSuffix.Enabled = false;
                 comboBoxEnrollGender.Enabled = false;
                 textBoxEnrollDOB.Enabled = true;
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
+                comboBoxEnrollGender.Text = "";
             }
             else
             {
@@ -8109,6 +8151,11 @@ namespace MNsure_Regression_1
                 comboBoxEnrollSuffix.Enabled = false;
                 comboBoxEnrollGender.Enabled = true;
                 textBoxEnrollDOB.Enabled = true;
+                textBoxEnrollSSNNum.Text = "";
+                textBoxEnrollFirstName.Text = "";
+                textBoxEnrollMiddleName.Text = "";
+                textBoxEnrollLastName.Text = "";
+                comboBoxEnrollSuffix.Text = "";
             }
         }
 

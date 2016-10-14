@@ -1174,7 +1174,7 @@
             this.groupBoxAssister.Controls.Add(this.label185);
             this.groupBoxAssister.Controls.Add(this.label165);
             this.groupBoxAssister.Controls.Add(this.label76);
-            this.groupBoxAssister.Location = new System.Drawing.Point(0, 55);
+            this.groupBoxAssister.Location = new System.Drawing.Point(1000, 55);
             this.groupBoxAssister.Name = "groupBoxAssister";
             this.groupBoxAssister.Size = new System.Drawing.Size(800, 526);
             this.groupBoxAssister.TabIndex = 1;
@@ -1623,7 +1623,7 @@
             this.groupBoxEnrollIncome.Controls.Add(this.label40);
             this.groupBoxEnrollIncome.Controls.Add(this.comboBoxEnrollIncomeType);
             this.groupBoxEnrollIncome.Controls.Add(this.label39);
-            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(0, 214);
+            this.groupBoxEnrollIncome.Location = new System.Drawing.Point(1000, 214);
             this.groupBoxEnrollIncome.Name = "groupBoxEnrollIncome";
             this.groupBoxEnrollIncome.Size = new System.Drawing.Size(534, 394);
             this.groupBoxEnrollIncome.TabIndex = 61;
@@ -1982,7 +1982,7 @@
             this.groupBoxHouseholdOther.Controls.Add(this.label51);
             this.groupBoxHouseholdOther.Controls.Add(this.comboBoxEnrollHouseholdOther);
             this.groupBoxHouseholdOther.Controls.Add(this.label37);
-            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(0, 1);
+            this.groupBoxHouseholdOther.Location = new System.Drawing.Point(1000, 1);
             this.groupBoxHouseholdOther.Name = "groupBoxHouseholdOther";
             this.groupBoxHouseholdOther.Size = new System.Drawing.Size(1050, 600);
             this.groupBoxHouseholdOther.TabIndex = 59;
@@ -3621,7 +3621,7 @@
             this.groupBoxMoreAboutYou.Controls.Add(this.label34);
             this.groupBoxMoreAboutYou.Controls.Add(this.label33);
             this.groupBoxMoreAboutYou.Controls.Add(this.label32);
-            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(0, 48);
+            this.groupBoxMoreAboutYou.Location = new System.Drawing.Point(1000, 48);
             this.groupBoxMoreAboutYou.Name = "groupBoxMoreAboutYou";
             this.groupBoxMoreAboutYou.Size = new System.Drawing.Size(841, 600);
             this.groupBoxMoreAboutYou.TabIndex = 58;

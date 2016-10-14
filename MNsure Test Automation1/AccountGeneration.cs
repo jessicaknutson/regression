@@ -43,6 +43,7 @@ namespace MNsure_Regression_1
                 myAccountCreate.myLastName = myApplication.myLastName;
                 myAccountCreate.mySuffix = null;
                 myAccountCreate.myDOB = myApplication.myDOB;
+                myAccountCreate.mySSN = myApplication.mySSNNum;
 
                 result = 1;
             }
@@ -188,7 +189,8 @@ namespace MNsure_Regression_1
             myAccountCreate.myAnswer5 = "Duluth";
 
             string conString = Properties.Settings.Default.Database1ConnectionString;
-            SqlCeConnection con;
+            SqlCeConnection con;                       
+
             try
             {
                 con = new SqlCeConnection(conString);
