@@ -1175,7 +1175,7 @@ namespace MNsure_Regression_1
         public int DoGetExistingAccounts(ref mystructHistoryInfo myHistoryInfo, ref mystructExistingAccounts myExistingAccountInfo, ref mystructAccountCreate myAccountCreate,
             ref mystructApplication myApplication)
         {
-            for (int j = 0; j < 100; ++j)//must clear first before next test
+            for (int j = 0; j < 250; ++j)//must clear first before next test
             {
                 if (myExistingAccountInfo.myExistingAccountFirstName[j] != null)
                 {

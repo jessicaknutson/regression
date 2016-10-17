@@ -119,10 +119,10 @@ namespace MNsure_Regression_1
                     textboxGender.SendKeys(myEnrollment.myGender);
                 }
                 string tempDOB;
-                int tempDOBLength;
+                //int tempDOBLength;
                 tempDOB = Convert.ToString(myEnrollment.myDOB);
-                tempDOBLength = tempDOB.Length;
-                tempDOB = tempDOB.Substring(0, tempDOBLength);
+                //tempDOBLength = tempDOB.Length;
+                tempDOB = tempDOB.Substring(0, 10);
                 IWebElement textboxDOB = driver.FindElement(By.Id("__o3idb"));
                 textboxDOB.SendKeys(tempDOB);
                 if (myEnrollment.myRegDate != null && myEnrollment.myRegDate != "")
