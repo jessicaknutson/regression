@@ -3340,7 +3340,7 @@ namespace MNsure_Regression_1
                     }
                     else
                     {
-                        appwait = (12 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (14 + myHistoryInfo.myAppWait) * 1000;
                     }
                 }
                 System.Threading.Thread.Sleep(appwait);

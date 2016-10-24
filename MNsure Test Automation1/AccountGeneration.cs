@@ -173,8 +173,8 @@ namespace MNsure_Regression_1
             }
             myAccountCreate.myEmail = "Test@Gmail.com";
             myAccountCreate.myPhone = "(612)812-9996";
-            myAccountCreate.myUsername = "st" + myAccountCreate.myFirstName.Substring(0, 1) +
-            myAccountCreate.myLastName + rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9);
+            myAccountCreate.myUsername = "st" + myAccountCreate.myFirstName.Substring(0, 1) + myAccountCreate.myLastName +
+                rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9) + rand.Next(0, 9);
             myAccountCreate.myPassword = "Welcome1#";
             myAccountCreate.mySecret = "password";
             myAccountCreate.myQuestion1 = "What was the model of your first car?";
