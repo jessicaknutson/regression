@@ -191,6 +191,7 @@ namespace MNsure_Regression_1
                 doc.InsertParagraph("App Build: " + myHistoryInfo.myAppBuild);
                 doc.InsertParagraph("MNsure Build: " + myHistoryInfo.myMnsureBuild);
                 doc.InsertParagraph("Environment: " + myHistoryInfo.myEnvironment);
+                doc.InsertParagraph("Time Travel? " + myHistoryInfo.myInTimeTravel);
                 doc.InsertParagraph("Browser: " + myHistoryInfo.myBrowser);
                 doc.InsertParagraph("Additional Wait Time: " + myHistoryInfo.myAppWait);
                 doc.InsertParagraph(" ");
@@ -509,17 +510,18 @@ namespace MNsure_Regression_1
                     string day2Address = myCW.DoDay2PrimaryAddress(myApplication.myDay2TestId);
 
                     excelWorksheet.Cells[6, 5] = "Name: " + myCW.DoDay2PrimaryName(myApplication.myDay2TestId) +", SSN: " + hhssn
-                        + ", Address: " + day2Address + ", MNSure ID: " + myHistoryInfo.myMNSureID
-                        + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType + ", App Build: " + myHistoryInfo.myAppBuild
-                        + ", Browser: " + myHistoryInfo.myBrowser + ", Environment: " + myHistoryInfo.myEnvironment + ", MNSure Build: " + myHistoryInfo.myMnsureBuild; 
+                        + ", Address: " + day2Address + ", MNSure ID: " + myHistoryInfo.myMNSureID + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType
+                        + ", App Build: " + myHistoryInfo.myAppBuild + ", Browser: " + myHistoryInfo.myBrowser + ", Environment: " + myHistoryInfo.myEnvironment
+                        + ", Time Travel? " + myHistoryInfo.myInTimeTravel + ", MNSure Build: " + myHistoryInfo.myMnsureBuild; 
                 }
                 else
                 {
                     excelWorksheet.Cells[6, 5] = "Account Created, User Name: " + myAccountCreate.myUsername + ", Password:" + myAccountCreate.myPassword
-                        + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName + ", SSN: " + hhssn
-                        + ", Address: " + myApplication.myHomeAddress1 + ", " + myApplication.myHomeAddress2 + " " + myApplication.myHomeAptSuite + ", " + myApplication.myHomeCity + ", " + myApplication.myHomeState + " " + myApplication.myHomeZip + " " + myApplication.myHomeZip4
-                        + ", MNSure ID: " + myHistoryInfo.myMNSureID + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType + ", App Build: " + myHistoryInfo.myAppBuild
-                        + ", Browser: " + myHistoryInfo.myBrowser + ", Environment: " + myHistoryInfo.myEnvironment + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
+                        + ", Name: " + myApplication.myFirstName + " " + myApplication.myLastName + ", SSN: " + hhssn + ", Address: " + myApplication.myHomeAddress1
+                        + ", " + myApplication.myHomeAddress2 + " " + myApplication.myHomeAptSuite + ", " + myApplication.myHomeCity + ", " + myApplication.myHomeState
+                        + " " + myApplication.myHomeZip + " " + myApplication.myHomeZip4 + ", MNSure ID: " + myHistoryInfo.myMNSureID
+                        + ", Enrollment Plan Type: " + myApplication.myEnrollmentPlanType + ", App Build: " + myHistoryInfo.myAppBuild + ", Browser: " + myHistoryInfo.myBrowser
+                        + ", Environment: " + myHistoryInfo.myEnvironment + ", Time Travel? " + myHistoryInfo.myInTimeTravel + ", MNSure Build: " + myHistoryInfo.myMnsureBuild;
                 }
                 int i = 0; //offset for header rows
                 foreach (string s in myHistoryInfo.myRequiredScreenshots)
