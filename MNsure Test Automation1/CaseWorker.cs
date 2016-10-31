@@ -59,9 +59,9 @@ namespace MNsure_Regression_1
                     myAccountCreate.myCaseWorkerLoginId = "cwceb01";
                     driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");
                     */
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");
-                    myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome9#");
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw201");
+                    myAccountCreate.myCaseWorkerLoginId = "soacw201";
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@1");
 
                 }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -114,7 +114,7 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");
                     myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome9#");
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome6#");
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
