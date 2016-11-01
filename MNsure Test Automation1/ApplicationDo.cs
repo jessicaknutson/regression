@@ -1964,7 +1964,6 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    //We don't need a comment here
                     if (DateTime.Now > Convert.ToDateTime("10/31/2016") &&
                         DateTime.Now < Convert.ToDateTime("1/1/2017"))
                     {
