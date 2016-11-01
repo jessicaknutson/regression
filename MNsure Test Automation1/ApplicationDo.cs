@@ -1962,6 +1962,16 @@ namespace MNsure_Regression_1
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
                 }
+                else
+                {
+                    if (DateTime.Now > Convert.ToDateTime("10/31/2016") &&
+                        DateTime.Now < Convert.ToDateTime("1/1/2017"))
+                    {
+                        IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
+                        listboxIncomeNextYear.SendKeys(incomeExpected);
+                    }
+                }
+
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
