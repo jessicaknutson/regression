@@ -686,6 +686,7 @@ namespace MNsure_Regression_1
                     com2.Dispose();
                 }
 
+                // TFR 11-04-2016 Changes made because I added columns for Environment and Time travel 
                 string myInsertString;
                 myHistoryInfo.myStepException = "";
                 myHistoryInfo.myStepNotes = "";
@@ -695,7 +696,8 @@ namespace MNsure_Regression_1
                     myHistoryInfo.myTestStepClass + "', '" + myHistoryInfo.myTestStepWindow + "', '" +
                     myHistoryInfo.myTestStepMethod + "', '" + myHistoryInfo.myTestStepStatus + "', '" +
                     myHistoryInfo.myStepStartTime + "', '" + myHistoryInfo.myStepEndTime + "', '" +
-                    myHistoryInfo.myStepException + "','" + myHistoryInfo.myStepNotes + "','" + myHistoryInfo.myScreenShot + "');";
+                    myHistoryInfo.myStepException + "','" + myHistoryInfo.myStepNotes + "','" + myHistoryInfo.myScreenShot + "','" 
+                    + myHistoryInfo.myEnvironment + "','" + myHistoryInfo.myInTimeTravel + "'" + ");";
 
                 using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                 {
