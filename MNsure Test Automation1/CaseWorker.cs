@@ -155,7 +155,7 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                            appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                         }
                     }
                     else
@@ -166,7 +166,7 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                            appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                         }
                     }
                 }
@@ -180,7 +180,7 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                            appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                         }
                     }
                     else
@@ -191,7 +191,7 @@ namespace MNsure_Regression_1
                         }
                         else
                         {
-                            appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                            appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                         }
                     }
                 }
@@ -436,8 +436,8 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 // TFR 11-10-2016 There is no data so the drop down cannot be accessed.  Waiting for a fix on this.
-                if (myHistoryInfo.myEnvironment == "STST")
-                {
+                //if (myHistoryInfo.myEnvironment == "STST")
+                //{
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//select down arrow
                     myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"), myHistoryInfo);
@@ -446,11 +446,11 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a"), myHistoryInfo);
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a")).Click();//select pdf link
-                }
-                else
-                {
+                //}
+                //else
+                //{
                     writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                }
+                //}
                 // TFR end workaround
 
                 /*string pdfpath = @"C:\Mnsure Regression 1\EligibilityNotice_eec97f1453479993212.pdf";
