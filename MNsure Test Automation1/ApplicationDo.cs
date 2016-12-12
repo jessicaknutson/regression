@@ -17,10 +17,10 @@ using Microsoft.Office.Interop.Excel;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Net;
 using System.Data.Sql;
-using OpenQA.Selenium.Support;
 using OpenQA.Selenium.Support.UI;
 using System.Data.SqlClient;
 using System.Data.SqlServerCe;
+using System.Threading;
 
 namespace MNsure_Regression_1
 {
@@ -868,7 +868,14 @@ namespace MNsure_Regression_1
                 {
                     IWebElement listboxAppliedSSN = myDriver.FindElement(By.Id("__o3id1e"));
                     listboxAppliedSSN.SendKeys(myApplication.myAppliedSSN);
+                    // TFR 12-01-2016 sometimes the page is down further and this element is not visible.  It is a small window of opportunity but it does get hit on occasion.
+                    // Also most keystrokes like page up are non functional.  The code below calls some Javascript to scroll up and now the element is accessible. Test BHP14 exposed this issue.
+                    if(!outsideClick.Displayed)
+                    {
+                        var bogus = (IWebElement)((IJavaScriptExecutor)driver).ExecuteScript(("window.scrollBy(0,-250)"));
+                    }
                     outsideClick.Click();
+
                     if (myApplication.myAppliedSSN == "No")
                     {
                         IWebElement listboxWhyNoSSN = myDriver.FindElement(By.Id("__o3id1f"));
@@ -1128,12 +1135,35 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);
+                    bool isNotdone1 = true;
+                    int retries1 = 0;
+
+                  do
+                  {
+                      String retVal = DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
+                      //String retVal = DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);
+                      if (retVal.Equals("true"))
+                      {
+                          isNotdone1 = false;
+                      }
+                      else
+                      {
+                          retries1++;
+                      }
+
+                      if (retries1 > 3)
+                      {
+                          throw new System.Exception("Button never became active");
+                      }
+                  } while (isNotdone1);
+
                 }
 
+                // TFR 12-7-2016 Fix to QHP Smoke Regr test ID = 7.  This test always failed the first time it was ran and then passed. 
+                // See notes under DoWaitForPossibleStaleElement
+                DoWaitForPossibleStaleElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
+                IWebElement buttonNext = driver.FindElement(By.Id("__o3btn.next_label"));
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-
-                IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"));
                 buttonNext.Click();
 
                 returnStatus = "Pass";
@@ -1482,11 +1512,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (3 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -3815,6 +3845,52 @@ namespace MNsure_Regression_1
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 2;
             }
+        }
+
+        // TFR 12-08-2016 Element ID __o3btn.next_label is used by several pages and it has been found that during a process of rendering a page we can get either two instances 
+        // of this element or a stale element excetion can occur.  This work around was used in DoHouseholdAbout with success so I am making a generic version of the code
+        // This method either throws an exception which will be caught in the try/catch of the caller or simply returns if sucessful.
+        public void DoWaitForPossibleStaleElement(IWebDriver driver, By selector, mystructHistoryInfo myHistoryInfo)
+        {
+            bool isNotdone = true;
+            int staleRetries = 0;
+            int duplicateElementRetries = 0;
+            const int MAX_RETRIES = 180;
+
+            do
+            {
+                try
+                {
+                    var numElements = driver.FindElements(By.Id("__o3btn.next_label"));
+                    if (numElements.Count > 1)
+                    {
+                        if (duplicateElementRetries < MAX_RETRIES)
+                        {
+                            Thread.Sleep(1000);
+                            duplicateElementRetries++;
+                            continue;
+                        }
+                        else
+                        {
+                            throw new System.Exception("More than one element with the same name - Stale element retry");
+                        }
+                    }
+                    isNotdone = false;
+                }
+                catch (StaleElementReferenceException e)
+                {
+                    if (staleRetries < MAX_RETRIES)
+                    {
+                        Thread.Sleep(1000);
+                        staleRetries++;
+                        continue;
+                    }
+                    else
+                    {
+                        throw e;
+                    }
+                }
+            } while (isNotdone);
         }
 
 

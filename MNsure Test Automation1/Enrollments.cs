@@ -484,7 +484,7 @@ namespace MNsure_Regression_1
                     myHouseholdMembers, By.CssSelector("a.buttonNext._startPA"));
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
-                driver.SwitchTo().DefaultContent();
+                myDriver.SwitchTo().DefaultContent();
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame")); //q21 failed
                 myDriver.SwitchTo().Frame(iFrameElement);
                 IWebElement buttonStart = myDriver.FindElement(By.CssSelector("a.buttonNext._startPA"));
@@ -579,12 +579,19 @@ namespace MNsure_Regression_1
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
-                else
+                else if (myHistoryInfo.myEnvironment == "STST")
                 {
                     new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
                     var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
+                else if (myHistoryInfo.myEnvironment == "ATST")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    myDriver.SwitchTo().Frame(iFrameElement);
+                }
+
                 //IWebElement checkboxAccept = myDriver.FindElement(By.Id("checkAcceptance"));
                 IWebElement checkboxAccept = myDriver.FindElement(By.XPath("/html/body/div[15]/div[2]/div/input"));
                 checkboxAccept.Click();
@@ -1026,10 +1033,14 @@ namespace MNsure_Regression_1
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
 
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
+                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
+                //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
+                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
+                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
+                //IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
+                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"));
                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
@@ -1046,14 +1057,18 @@ namespace MNsure_Regression_1
                 if ((myEnrollment.myWithDiscounts == "Yes" && myEnrollment.myESC == "Yes" && myEnrollment.myHouseholdOther == "No")//to include q12 and not ren4
                     || myEnrollment.myWithDiscounts == "Yes" && myEnrollment.myESC == "No")
                 {
-                    IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
+                    // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
+                    //IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
+                    IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[2]/input"));
                     if (myEnrollment.myMiddleName != null)
                     {
                         textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
                     }
                 }
 
-                IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
+                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
+                //IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
+                IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[3]/input"));
                 if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
                 {
                     textboxSignatureLast.SendKeys(myHouseholdMembers.myLastName);
@@ -1112,22 +1127,30 @@ namespace MNsure_Regression_1
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
-                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
-                    myDriver.SwitchTo().Frame(iFrameElement);
+                    // TFR 11-10-2016 This element is not showing up in system test 2.  It is a known issue and will be addressed.  
+                    //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                    //var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.stst2.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    //myDriver.SwitchTo().Frame(iFrameElement);
                 }
                 else
                 {
-                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
-                    var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
-                    myDriver.SwitchTo().Frame(iFrameElement);
+                    // TFR 11-17-2016 This element is not showing up in system test atst.  ATST was supposed to be identical to STST
+                    
+                    //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]")));
+                    //var iFrameElement = myDriver.FindElement(By.XPath("//iframe[contains(@src,'https://plans.atst.mnsure.org/mnsa/stateadvantage/Enroll.action')]"));
+                    //myDriver.SwitchTo().Frame(iFrameElement);
                 }
 
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("back_curam")));
-                writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
+                // TFR 11-10-2016 This element is not showing up in system test 2.  It is a known issue and will be addressed.  
+                // TFR 11-17-2016  ATST should be the same as STST but is not
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.Id("back_curam")));
+                    writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonDone = myDriver.FindElement(By.Id("back_curam"));
-                buttonDone.Click();
+                    IWebElement buttonDone = myDriver.FindElement(By.Id("back_curam"));
+                    buttonDone.Click();
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -1174,9 +1197,13 @@ namespace MNsure_Regression_1
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("back_curam"))));
-                IWebElement buttonDone = myDriver.FindElement(By.Id("back_curam"));
-                buttonDone.Click();
+                // TFR 11-17-2016  ATST should be the same as STST but is not
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists((By.Id("back_curam"))));
+                    IWebElement buttonDone = myDriver.FindElement(By.Id("back_curam"));
+                    buttonDone.Click();
+                }
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;

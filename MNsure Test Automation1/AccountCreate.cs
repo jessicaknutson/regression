@@ -196,13 +196,24 @@ namespace MNsure_Regression_1
                     myselectDOB.SendKeys(myAccountCreate.myDOB);
                 }
 
-                IWebElement myselectCaptcha = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
-                myselectCaptcha.SendKeys("Google");
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    IWebElement myselectCaptcha = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[10]/span/div/div/table/tbody/tr[4]/td[1]/div/input"));
+                    myselectCaptcha.SendKeys("Google");
+                }
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement clickNextButton = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[2]/button"));
+                IWebElement clickNextButton = myDriver.FindElement(By.Id("next"));
                 clickNextButton.Click();
+
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    //new window
+                    System.Threading.Thread.Sleep(7);
+                    IWebElement clickNextButton2 = myDriver.FindElement(By.Id("next"));
+                    clickNextButton2.Click();
+                }
 
                 CaseWorker myCW = new CaseWorker();
                 myCW.DoUpdateSSN(myHistoryInfo, myAccountCreate.mySSN, myAccountCreate.myFirstName, myAccountCreate.myLastName);
@@ -246,60 +257,59 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"), myHistoryInfo);
 
-                IWebElement myselectUserName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[1]/div/input"));
+                IWebElement myselectUserName = myDriver.FindElement(By.Id("user_name"));
                 myselectUserName.SendKeys(myAccountCreate.myUsername);
 
-                IWebElement myselectPassword = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[4]/div/input"));
+                IWebElement myselectPassword = myDriver.FindElement(By.Id("user_password"));
                 myselectPassword.SendKeys(myAccountCreate.myPassword);
 
-                IWebElement myselectPassword2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[5]/div/input"));
+                IWebElement myselectPassword2 = myDriver.FindElement(By.Id("reenter_password"));
                 myselectPassword2.SendKeys(myAccountCreate.myPassword);
 
-                IWebElement myselectSecret = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[8]/div/input"));
+                IWebElement myselectSecret = myDriver.FindElement(By.Id("shared_secret")); ;
                 myselectSecret.SendKeys(myAccountCreate.mySecret);
 
                 string temp1;
                 temp1 = myAccountCreate.myQuestion1;
-                IWebElement myselectQuestion1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/select"));
+                IWebElement myselectQuestion1 = myDriver.FindElement(By.Id("ques1"));
                 var selectQuestion1 = new SelectElement(myselectQuestion1);
                 selectQuestion1.SelectByValue(myAccountCreate.myQuestion1);
 
-                IWebElement myselectAnswer1 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[12]/div[1]/input"));
+                IWebElement myselectAnswer1 = myDriver.FindElement(By.Id("answer1"));
                 myselectAnswer1.SendKeys(myAccountCreate.myAnswer1);
 
-                IWebElement myselectQuestion2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/select"));
+                IWebElement myselectQuestion2 = myDriver.FindElement(By.Id("ques2"));
                 var selectQuestion2 = new SelectElement(myselectQuestion2);
                 selectQuestion2.SelectByValue(myAccountCreate.myQuestion2);
 
-                IWebElement myselectAnswer2 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[13]/div[1]/input"));
+                IWebElement myselectAnswer2 = myDriver.FindElement(By.Id("answer2"));
                 myselectAnswer2.SendKeys(myAccountCreate.myAnswer2);
 
-                IWebElement myselectQuestion3 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/select"));
+                IWebElement myselectQuestion3 = myDriver.FindElement(By.Id("ques3"));
                 var selectQuestion3 = new SelectElement(myselectQuestion3);
-                selectQuestion3.SelectByValue(myAccountCreate.myQuestion3);
 
-                IWebElement myselectAnswer3 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[14]/div[1]/input"));
+                selectQuestion3.SelectByValue(myAccountCreate.myQuestion3);
+                IWebElement myselectAnswer3 = myDriver.FindElement(By.Id("answer3"));
                 myselectAnswer3.SendKeys(myAccountCreate.myAnswer3);
 
-                IWebElement myselectQuestion4 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/select"));
+                IWebElement myselectQuestion4 = myDriver.FindElement(By.Id("ques4"));
                 var selectQuestion4 = new SelectElement(myselectQuestion4);
                 selectQuestion4.SelectByValue(myAccountCreate.myQuestion4);
 
-                IWebElement myselectAnswer4 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[15]/div[1]/input"));
+                IWebElement myselectAnswer4 = myDriver.FindElement(By.Id("answer4"));
                 myselectAnswer4.SendKeys(myAccountCreate.myAnswer4);
 
-                IWebElement myselectQuestion5 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/select"));
+                IWebElement myselectQuestion5 = myDriver.FindElement(By.Id("ques5"));
                 var selectQuestion5 = new SelectElement(myselectQuestion5);
                 selectQuestion5.SelectByValue(myAccountCreate.myQuestion5);
 
-                IWebElement myselectAnswer5 = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[1]/form/div[16]/div[1]/input"));
+                IWebElement myselectAnswer5 = myDriver.FindElement(By.Id("answer5"));
                 myselectAnswer5.SendKeys(myAccountCreate.myAnswer5);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement myclickNext = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/div[2]/button"));
+                IWebElement myclickNext = myDriver.FindElement(By.Id("next"));
                 myclickNext.Click();
 
                 returnStatus = "Pass";
@@ -728,11 +738,25 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[3]/a/button"), myHistoryInfo);
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[3]/a/button"), myHistoryInfo);
+                }
+                else
+                {
+                    myApp.DoWaitForElement(myDriver, By.XPath("/html/body/div/div/div/div/div[2]/a/button"), myHistoryInfo);
+                }
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement myclickContinue = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[3]/a/button"));
+                IWebElement myclickContinue;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myclickContinue = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[3]/a/button"));
+                }
+                else
+                {
+                    myclickContinue = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/a/button"));
+                }
                 myclickContinue.Click();
 
                 returnStatus = "Pass";
@@ -776,17 +800,17 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                
-                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
-                IWebElement textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
-                textboxLogin.SendKeys(myAccountCreate.myUsername); 
 
-                IWebElement textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));                
-                textboxPW.SendKeys(myAccountCreate.myPassword);                
+                myApp.DoWaitForElement(myDriver, By.Id("username"), myHistoryInfo);
+                IWebElement textboxLogin = myDriver.FindElement(By.Id("username"));
+                textboxLogin.SendKeys(myAccountCreate.myUsername);
+
+                IWebElement textboxPW = myDriver.FindElement(By.Id("password"));
+                textboxPW.SendKeys(myAccountCreate.myPassword);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonSignIn = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
+                IWebElement buttonSignIn = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
                 buttonSignIn.Click();
 
                 returnStatus = "Pass";
