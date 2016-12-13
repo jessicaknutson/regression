@@ -206,7 +206,8 @@ namespace MNsure_Regression_1
 
                 IWebElement clickNextButton = myDriver.FindElement(By.Id("next"));
                 clickNextButton.Click();
-
+                
+                //this should be in a separate method but it's too much work to update 250 tests just for this....
                 if (myHistoryInfo.myEnvironment == "STST2")
                 {
                     //new window

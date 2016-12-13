@@ -3849,8 +3849,8 @@ namespace MNsure_Regression_1
         }
 
         // TFR 12-08-2016 Element ID __o3btn.next_label is used by several pages and it has been found that during a process of rendering a page we can get either two instances 
-        // of this element or a stale element excetion can occur.  This work around was used in DoHouseholdAbout with success so I am making a generic version of the code
-        // This method either throws an exception which will be caught in the try/catch of the caller or simply returns if sucessful.
+        // of this element or a stale element exception can occur.  This work around was used in DoHouseholdAbout with success so I am making a generic version of the code
+        // This method either throws an exception which will be caught in the try/catch of the caller or simply returns if successful.
         public void DoWaitForPossibleStaleElement(IWebDriver driver, By selector, mystructHistoryInfo myHistoryInfo)
         {
             bool isNotdone = true;
