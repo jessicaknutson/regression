@@ -870,7 +870,7 @@ namespace MNsure_Regression_1
                     listboxAppliedSSN.SendKeys(myApplication.myAppliedSSN);
                     // TFR 12-01-2016 sometimes the page is down further and this element is not visible.  It is a small window of opportunity but it does get hit on occasion.
                     // Also most keystrokes like page up are non functional.  The code below calls some Javascript to scroll up and now the element is accessible. Test BHP14 exposed this issue.
-                    if(!outsideClick.Displayed)
+                    if (!outsideClick.Displayed)
                     {
                         var bogus = (IWebElement)((IJavaScriptExecutor)driver).ExecuteScript(("window.scrollBy(0,-250)"));
                     }
@@ -894,7 +894,8 @@ namespace MNsure_Regression_1
 
                 IWebElement listboxCitizen = myDriver.FindElement(By.Id("__o3id21"));
                 listboxCitizen.SendKeys(myApplication.myCitizen);
-                myDriver.FindElement(By.Id("__o3id1b")).Click();
+                //is this needed?
+                //myDriver.FindElement(By.Id("__o3id1b")).Click();
 
                 //This will only appear if age 18-26
                 DateTime birth = Convert.ToDateTime(myApplication.myDOB);
@@ -1138,24 +1139,24 @@ namespace MNsure_Regression_1
                     bool isNotdone1 = true;
                     int retries1 = 0;
 
-                  do
-                  {
-                      String retVal = DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
-                      //String retVal = DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);
-                      if (retVal.Equals("true"))
-                      {
-                          isNotdone1 = false;
-                      }
-                      else
-                      {
-                          retries1++;
-                      }
+                    do
+                    {
+                        String retVal = DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
+                        //String retVal = DoWaitForElement(driver, By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td/span/span/span/span[3]"), myHistoryInfo);
+                        if (retVal.Equals("true"))
+                        {
+                            isNotdone1 = false;
+                        }
+                        else
+                        {
+                            retries1++;
+                        }
 
-                      if (retries1 > 3)
-                      {
-                          throw new System.Exception("Button never became active");
-                      }
-                  } while (isNotdone1);
+                        if (retries1 > 3)
+                        {
+                            throw new System.Exception("Button never became active");
+                        }
+                    } while (isNotdone1);
 
                 }
 
@@ -2559,7 +2560,7 @@ namespace MNsure_Regression_1
                 listboxCondition.SendKeys("No");
 
                 new WebDriverWait(driver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/form/div/div[3]/div[5]/div/div/div/div/div[3]/table/tbody/tr/td[1]/span[1]")));
-               
+
                 IWebElement listboxNative;
                 if (myApplication.myHouseholdOther == "No" || (myApplication.myHouseholdOther == "Yes" && myApplication.myApplyYourself == "No")
                     || (myApplication.myHouseholdOther == "Yes" && myHouseholdMembers.myPersonHighlighted == "No"))
@@ -2961,12 +2962,12 @@ namespace MNsure_Regression_1
                 string isBHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "BHP");
                 string isQHP = DoIsInTypeRange(myApplication, myHouseholdMembers, myHistoryInfo, "QHP");
 
-                if (myApplication.myHomeState == "Minnesota" && 
+                if (myApplication.myHomeState == "Minnesota" &&
                     (((householdCount == 1 || householdCount == 2) && (isMA == "True" || isBHP == "True")) //bd bhp1, ma1, bhp2, ma2
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 2 && isQHP == "True" && (age.Year - 1 < 21 || age2.Year - 1 < 21)) // 2 hh
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 21 || age2.Year - 1 < 21 || age3.Year - 1 < 21)) // 3 hh
                     || (myApplication.myHouseholdOther == "Yes" && householdCount == 3 && isQHP == "True" && (age.Year - 1 < 21 || age2.Year - 1 < 21 || age3.Year - 1 < 21)) // 3 hh
-                    )) 
+                    ))
                 {
                     IWebElement listboxMedicareInjury;
                     if (householdCount == 1 && age.Year - 1 < 19)
@@ -3046,7 +3047,7 @@ namespace MNsure_Regression_1
                     }
                     listboxMAStartDate.SendKeys("No");
                 }
-                else 
+                else
                 {
                     IWebElement listboxMAStartDate;
                     if (householdCount == 1 && age.Year - 1 < 19)

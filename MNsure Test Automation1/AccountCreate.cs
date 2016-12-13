@@ -631,7 +631,7 @@ namespace MNsure_Regression_1
 
                 var iFrameElement = myDriver.FindElement(By.TagName("iFrame"));
                 myDriver.SwitchTo().Frame(iFrameElement);
-                   
+
                 IWebElement myViewResults;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
@@ -672,7 +672,7 @@ namespace MNsure_Regression_1
             try
             {
                 int appwait;
-                ApplicationDo myApp = new ApplicationDo();               
+                ApplicationDo myApp = new ApplicationDo();
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {

@@ -107,7 +107,7 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome@4321");
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@1234");
                 }
                 else
                 {
@@ -431,27 +431,21 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[7]/div/div/div/span[1]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[7]/div/div/div/span[1]")).Click();//select notification tab
 
+                System.Threading.Thread.Sleep(3000);
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/MNHIX_listNoticesPage.do')]"), myHistoryInfo);
                 var iFrameElement4 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIX_listNoticesPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement4);
 
-                // TFR 11-10-2016 There is no data so the drop down cannot be accessed.  Waiting for a fix on this.
-                //if (myHistoryInfo.myEnvironment == "STST")
-                //{
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//select down arrow
-                    myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"), myHistoryInfo);
-                    var iFrameElement5 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"));
-                    driver.SwitchTo().Frame(iFrameElement5);
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a"), myHistoryInfo);
-                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a")).Click();//select pdf link
-                //}
-                //else
-                //{
-                    writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
-                //}
-                // TFR end workaround
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a"), myHistoryInfo);
+                driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[1]/a")).Click();//select down arrow
+                myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"), myHistoryInfo);
+                var iFrameElement5 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIX_viewNoticePage.do')]"));
+                driver.SwitchTo().Frame(iFrameElement5);
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a"), myHistoryInfo);
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                driver.FindElement(By.XPath("/html/body/div[3]/div[5]/div/table/tbody/tr/td[1]/a")).Click();//select pdf link
+
+                writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 /*string pdfpath = @"C:\Mnsure Regression 1\EligibilityNotice_eec97f1453479993212.pdf";
                 ProcessStartInfo psi = new ProcessStartInfo(pdfpath);
@@ -459,7 +453,7 @@ namespace MNsure_Regression_1
 
                 MessageBox.Show(new Form() { TopMost = true }, "Please Open or Save PDF.",
                 "Open or Save PDF", MessageBoxButtons.OK, MessageBoxIcon.Stop);*/
-                
+
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
                 return 1;
