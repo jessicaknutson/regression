@@ -1033,7 +1033,7 @@ namespace MNsure_Regression_1
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
 
-                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
+                // TFR 11-15-2016 div index was changed. Leaving old code here for the time being for historical purposes.
                 //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
                 new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);

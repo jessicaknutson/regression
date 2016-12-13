@@ -697,7 +697,7 @@ namespace MNsure_Regression_1
                     myHistoryInfo.myTestStepMethod + "', '" + myHistoryInfo.myTestStepStatus + "', '" +
                     myHistoryInfo.myStepStartTime + "', '" + myHistoryInfo.myStepEndTime + "', '" +
                     myHistoryInfo.myStepException + "','" + myHistoryInfo.myStepNotes + "','" + myHistoryInfo.myScreenShot + "','" 
-                    + myHistoryInfo.myEnvironment + "','" + myHistoryInfo.myInTimeTravel + "'" + ");";
+                    + myHistoryInfo.myEnvironment + "','" + myHistoryInfo.myInTimeTravel + "', "  +  myHistoryInfo.myAppWait.ToString() + " );";
 
                 using (SqlCeCommand com3 = new SqlCeCommand(myInsertString, con))
                 {
