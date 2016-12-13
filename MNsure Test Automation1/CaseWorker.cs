@@ -107,7 +107,7 @@ namespace MNsure_Regression_1
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USRST117");
                     myAccountCreate.myCaseWorkerLoginId = "USRST117";
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@1234");
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome@4321");
                 }
                 else
                 {
