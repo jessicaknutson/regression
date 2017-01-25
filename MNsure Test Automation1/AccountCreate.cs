@@ -124,8 +124,8 @@ namespace MNsure_Regression_1
                 {
                     myselectMiddleName.SendKeys(myAccountCreate.myMiddleName);
                 }
-                IWebElement myselectLasteName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
-                myselectLasteName.SendKeys(myAccountCreate.myLastName);
+                IWebElement myselectLastName = myDriver.FindElement(By.XPath("/html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/input"));
+                myselectLastName.SendKeys(myAccountCreate.myLastName);
 
                 IWebElement myselectSuffix = myDriver.FindElement(By.XPath("//html/body/div/div/div[2]/div[2]/form/div[1]/div[2]/div/select"));
                 if (myAccountCreate.mySuffix != null)

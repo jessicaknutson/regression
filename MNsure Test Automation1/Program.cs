@@ -53,6 +53,7 @@ struct mystructHistoryInfo
     public int myMultiples;
     public DateTime myScheduleRunTime;
     public string myMNSureID;
+    public string myAddresses;
 }
 
 struct mystructExistingAccounts
@@ -362,6 +363,22 @@ struct mystructSelectedTest
         public string myTemplateEditKey;
         public string myNextAddressId;
         public string myNextAssisterId;
+    }
+
+    struct mystructMyAddresses
+    {
+        public string[] myAddressFirstName;
+        public string[] myAddressMiddleName;
+        public string[] myAddressLastName;
+        public string[] myAddressSuffix;
+        public string[] myAddressAddress1;
+        public string[] myAddressAddress2;
+        public string[] myAddressSuite;
+        public string[] myAddressCity;
+        public string[] myAddressState;
+        public string[] myAddressZip;
+        public string[] myAddressZip4;
+        public string[] myAddressCounty;
     }
 
 

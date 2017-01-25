@@ -30,6 +30,7 @@ namespace MNsure_Regression_1
     {
         mystructSelectedTest mySelectedTest;
         mystructAccountCreate myAccountCreate;
+        mystructMyAddresses myAddressesInfo;
         mystructHistoryInfo myHistoryInfo;
         mystructExistingAccounts myExistingAccountInfo;
         mystructApplication myApplication;
@@ -85,6 +86,18 @@ namespace MNsure_Regression_1
             myExistingAccountInfo.myExistingAccountEnvironment = new string[250];
             myExistingAccountInfo.myExistingAccountGender = new string[250];
             myExistingAccountInfo.myExistingAccountUsed = new string[250];
+            myAddressesInfo.myAddressFirstName = new string[100];
+            myAddressesInfo.myAddressMiddleName = new string[100];
+            myAddressesInfo.myAddressLastName = new string[100];
+            myAddressesInfo.myAddressSuffix = new string[100];
+            myAddressesInfo.myAddressAddress1 = new string[100];
+            myAddressesInfo.myAddressAddress2 = new string[100];
+            myAddressesInfo.myAddressSuite = new string[100];
+            myAddressesInfo.myAddressCity = new string[100];
+            myAddressesInfo.myAddressState = new string[100];
+            myAddressesInfo.myAddressZip = new string[100];
+            myAddressesInfo.myAddressZip4 = new string[100];
+            myAddressesInfo.myAddressCounty = new string[100];
             myHistoryInfo.myIcnumber = null;
             myApplication.myDay2TestId = null;
             myHistoryInfo.myTestStartTime = DateTime.Now;
@@ -185,11 +198,21 @@ namespace MNsure_Regression_1
                         if (checkBoxTimeTravel.Checked == true && isDay2 == "")
                         {
                             result = myFillStructures.DoGetExistingAccounts(ref myHistoryInfo, ref myExistingAccountInfo, ref myAccountCreate, ref myApplication);
+                            if (checkBoxAddress.Checked == true)
+                            {
+                                result = myFillStructures.doGetMyAddresses(ref myAddressesInfo);
+                                result = myFillStructures.doUpdateWithMyAddress(ref myAccountCreate, ref myApplication, ref myAddressesInfo, ref myHistoryInfo, iloop2);//replace with my name and address
+                            }                            
                         }
                         else
                         {
                             //Fill primary structures for Test
                             result = myFillStructures.doCreateAccount(ref mySelectedTest, ref myAccountCreate, ref myApplication, ref myHistoryInfo);
+                            if (checkBoxAddress.Checked == true)
+                            {                               
+                                result = myFillStructures.doGetMyAddresses(ref myAddressesInfo);
+                                result = myFillStructures.doUpdateWithMyAddress(ref myAccountCreate, ref myApplication, ref myAddressesInfo, ref myHistoryInfo, iloop2);//replace with my name and address
+                            }
                         }
                         HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                         int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
@@ -356,9 +379,7 @@ namespace MNsure_Regression_1
                                         if (myMethod == "DoCaseWorkerURLOpen" || myMethod == "DoCaseWorkerURLOpenTimeTravel")
                                         {
                                             if (myHistoryInfo.myBrowser == "Firefox")
-                                            {
-                                                //driver.Dispose();
-
+                                            {                                                
                                                 FirefoxProfile profile2 = new FirefoxProfile();
 
                                                 profile2.SetPreference("browser.cache.disk.enable", false);
@@ -867,6 +888,17 @@ namespace MNsure_Regression_1
                     if (myHistoryInfo.myBrowser == "Chrome" && driver10 != null)
                     {
                         driver10.Quit();
+                    }
+                    if (checkBoxAddress.Checked == true)
+                    {
+                        if (myHistoryInfo.myBrowser == "Firefox" && driver != null)
+                        {
+                            driver.Dispose();
+                        }
+                        if (myHistoryInfo.myBrowser == "Firefox" && driver2 != null)
+                        {
+                            driver2.Dispose();
+                        }
                     }
                 }
             }
@@ -8223,6 +8255,29 @@ namespace MNsure_Regression_1
 
         }
 
+        private void buttonVerifyESOR_Click(object sender, EventArgs e)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                SqlCeCommand cmd3 = con.CreateCommand();
+                cmd3.CommandType = CommandType.Text;
+                cmd3.CommandText = "Delete from Address where TestId = " + myHistoryInfo.myTestId + " and Type = 'Household 3';";
+                cmd3.ExecuteNonQuery();
+            }
+            catch
+            {
+                //fail silently
+            }          
+        }
+
+        private void checkBoxAddress_CheckedChanged(object sender, EventArgs e)
+        {
+            myHistoryInfo.myAddresses = "Yes";
+        }
 
 
     }

@@ -1771,7 +1771,21 @@ namespace MNsure_Regression_1
 
                 IWebElement textboxIncomeMore = driver.FindElement(By.Id("__o3idd"));
                 textboxIncomeMore.SendKeys(more);
-
+                if (type == "Wages before taxes")
+                {
+                    IWebElement textboxEmployerEIN = driver.FindElement(By.Id("__o3ide"));
+                    textboxEmployerEIN.SendKeys("123456789");
+                    IWebElement textboxEmployerStreet1 = driver.FindElement(By.Id("__o3id10"));
+                    textboxEmployerStreet1.SendKeys("123 1st Ave");
+                    IWebElement textboxEmployerCity = driver.FindElement(By.Id("__o3id12"));
+                    textboxEmployerCity.SendKeys("Minneapolis");
+                    IWebElement textboxEmployerCounty = driver.FindElement(By.Id("__o3id13"));
+                    textboxEmployerCounty.SendKeys("Hennepin");
+                    IWebElement textboxEmployerState = driver.FindElement(By.Id("__o3id14"));
+                    textboxEmployerState.SendKeys("Minnesota");
+                    IWebElement textboxEmployerZip = driver.FindElement(By.Id("__o3id15"));
+                    textboxEmployerZip.SendKeys("55418");
+                }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext3 = driver.FindElement(By.Id("__o3btn.next_label"));

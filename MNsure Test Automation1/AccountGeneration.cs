@@ -49,6 +49,7 @@ namespace MNsure_Regression_1
             }
             else if (random == "SSN, Name, DOB")//all random but gender
             {
+                //<65 and >20 years old, otherwise need logic to handle other scenarios
                 if (gender == "Male")
                 {
                     Random rand2 = new Random();
@@ -56,7 +57,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = maleMiddleNames[rand2.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand2.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = null;//suffix[rand2.Next(1, 4)];
-                    myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1951, 1996);
+                    myAccountCreate.myDOB = rand2.Next(10, 12) + "/" + rand2.Next(10, 28) + "/" + rand2.Next(1956, 1995);
                     myApplication.myGender = "Male";
 
                     result = 1;
@@ -68,7 +69,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand3.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand3.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = null;//suffix[rand3.Next(1, 4)];
-                    myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1951, 1996);
+                    myAccountCreate.myDOB = rand3.Next(10, 12) + "/" + rand3.Next(10, 28) + "/" + rand3.Next(1956, 1995);
                     myApplication.myGender = "Female";
 
                     string temp1;
@@ -137,7 +138,7 @@ namespace MNsure_Regression_1
             }   
             else //all random
             {
-                //<65 and >18 years old, otherwise need logic to handle other scenarios
+                //<65 and >20 years old, otherwise need logic to handle other scenarios
                 if (rand.Next(1, 3) == 1)
                 {
                     Random rand4 = new Random();
@@ -145,7 +146,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = maleMiddleNames[rand4.Next(1, maleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand4.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = null;// suffix[rand4.Next(1, 4)];
-                    myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1951, 1996);
+                    myAccountCreate.myDOB = rand4.Next(10, 12) + "/" + rand4.Next(10, 28) + "/" + rand4.Next(1956, 1995);
                     myApplication.myGender = "Male";
 
                     result = 1;
@@ -157,7 +158,7 @@ namespace MNsure_Regression_1
                     myAccountCreate.myMiddleName = femaleMiddleNames[rand5.Next(1, femaleMiddleNames.Count())];
                     myAccountCreate.myLastName = lastNames[rand5.Next(1, lastNames.Count())];
                     myAccountCreate.mySuffix = null;// suffix[rand5.Next(1, 4)];
-                    myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1951, 1996);
+                    myAccountCreate.myDOB = rand5.Next(10, 12) + "/" + rand5.Next(10, 28) + "/" + rand5.Next(1956, 1995);
                     myApplication.myGender = "Female";
 
                     string temp1;

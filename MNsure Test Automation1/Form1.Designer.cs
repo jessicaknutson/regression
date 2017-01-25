@@ -520,6 +520,7 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.checkBoxAddress = new System.Windows.Forms.CheckBox();
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -761,6 +762,7 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.checkBoxAddress);
             this.groupBox8.Controls.Add(this.label205);
             this.groupBox8.Controls.Add(this.buttonStartScheduledRun);
             this.groupBox8.Controls.Add(this.dateTimeRun);
@@ -833,8 +835,7 @@
             "8",
             "9",
             "10",
-            "15",
-            "20"});
+            "15"});
             this.comboBoxMultiples.Location = new System.Drawing.Point(206, 76);
             this.comboBoxMultiples.Name = "comboBoxMultiples";
             this.comboBoxMultiples.Size = new System.Drawing.Size(65, 21);
@@ -897,7 +898,7 @@
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(237, 205);
+            this.label139.Location = new System.Drawing.Point(237, 228);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(49, 13);
             this.label139.TabIndex = 0;
@@ -906,7 +907,7 @@
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(35, 205);
+            this.label138.Location = new System.Drawing.Point(35, 228);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(135, 13);
             this.label138.TabIndex = 0;
@@ -930,7 +931,7 @@
             "60",
             "90",
             "120"});
-            this.comboBoxAppWait.Location = new System.Drawing.Point(176, 203);
+            this.comboBoxAppWait.Location = new System.Drawing.Point(176, 226);
             this.comboBoxAppWait.Name = "comboBoxAppWait";
             this.comboBoxAppWait.Size = new System.Drawing.Size(55, 21);
             this.comboBoxAppWait.TabIndex = 8;
@@ -6061,6 +6062,17 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // checkBoxAddress
+            // 
+            this.checkBoxAddress.AutoSize = true;
+            this.checkBoxAddress.Location = new System.Drawing.Point(41, 189);
+            this.checkBoxAddress.Name = "checkBoxAddress";
+            this.checkBoxAddress.Size = new System.Drawing.Size(167, 17);
+            this.checkBoxAddress.TabIndex = 18;
+            this.checkBoxAddress.Text = "Use My Name And Addresses";
+            this.checkBoxAddress.UseVisualStyleBackColor = true;
+            this.checkBoxAddress.CheckedChanged += new System.EventHandler(this.checkBoxAddress_CheckedChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6622,6 +6634,7 @@
         private System.Windows.Forms.ComboBox comboBoxRandom;
         private System.Windows.Forms.ComboBox comboBoxHMRandom;
         private System.Windows.Forms.Button buttonDeleteAddr;
+        private System.Windows.Forms.CheckBox checkBoxAddress;
 
     }
 }

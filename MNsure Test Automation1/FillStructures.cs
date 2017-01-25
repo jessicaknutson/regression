@@ -1681,6 +1681,251 @@ namespace MNsure_Regression_1
             return 1;
         }
 
+        public int doGetMyAddresses(ref mystructMyAddresses myAddressInfo)
+        {
+            Microsoft.Office.Interop.Excel.Application _excelApp = new Microsoft.Office.Interop.Excel.Application();
+            _excelApp.Visible = true;
+                        
+            //open the workbook   
+            String fullPathName = "C:\\Logs\\MyAddresses.xls";
+            Workbook workbook = _excelApp.Workbooks.Open(fullPathName,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
+                Type.Missing, Type.Missing);
+
+            //select the first sheet        
+            Worksheet worksheet = (Worksheet)workbook.Worksheets[1];
+
+            //find the used range in worksheet
+            Range excelRange = worksheet.UsedRange;
+
+            //get an object array of all of the cells in the worksheet (their values)
+            object[,] valueArray = (object[,])excelRange.get_Value(
+                        XlRangeValueDataType.xlRangeValueDefault);
+
+            string myFirstName;
+            string myMiddleName;
+            string myLastName;
+            string mySuffix;
+            string myAddress1;
+            string myAddress2;
+            string mySuite;
+            string myCity;
+            string myState;
+            string myZip;
+            string myZip4;
+            string myCounty;
+            int i = 0;
+            for (int row = 2; row < worksheet.UsedRange.Rows.Count; ++row)
+            {
+                //access each cell
+                myFirstName = Convert.ToString(valueArray[row, 1]);
+                if (myFirstName != "")
+                {
+                    myAddressInfo.myAddressFirstName[i] = myFirstName;
+                }
+                myMiddleName = Convert.ToString(valueArray[row, 2]);
+                if (myMiddleName != "")
+                {
+                    myAddressInfo.myAddressMiddleName[i] = myMiddleName;
+                }
+                myLastName = Convert.ToString(valueArray[row, 3]);
+                if (myLastName != "")
+                {
+                    myAddressInfo.myAddressLastName[i] = myLastName;
+                }
+                mySuffix = Convert.ToString(valueArray[row, 4]);
+                if (mySuffix != "")
+                {
+                    myAddressInfo.myAddressSuffix[i] = mySuffix;
+                }
+                myAddress1 = Convert.ToString(valueArray[row, 5]);
+                if (myAddress1 != "")
+                {
+                    myAddressInfo.myAddressAddress1[i] = myAddress1;
+                }
+                myAddress2 = Convert.ToString(valueArray[row, 6]);
+                if (myAddress2 != "")
+                {
+                    myAddressInfo.myAddressAddress2[i] = myAddress2;
+                }
+                mySuite = Convert.ToString(valueArray[row, 7]);
+                if (mySuite != "")
+                {
+                    myAddressInfo.myAddressSuite[i] = mySuite;
+                }
+                myCity = Convert.ToString(valueArray[row, 8]);
+                if (myCity != "")
+                {
+                    myAddressInfo.myAddressCity[i] = myCity;
+                }
+                myState = Convert.ToString(valueArray[row, 9]);
+                if (myState != "")
+                {
+                    myAddressInfo.myAddressState[i] = myState;
+                }
+                myZip = Convert.ToString(valueArray[row, 10]);
+                if (myZip != "")
+                {
+                    myAddressInfo.myAddressZip[i] = myZip;
+                }
+                myZip4 = Convert.ToString(valueArray[row, 11]);
+                if (myZip4 != "")
+                {
+                    myAddressInfo.myAddressZip4[i] = myZip4;
+                }
+                myCounty = Convert.ToString(valueArray[row, 12]);
+                if (myCounty != "")
+                {
+                    myAddressInfo.myAddressCounty[i] = myCounty;
+                }
+                i = i + 1;
+            }
+            workbook.Close(true, Type.Missing, Type.Missing);
+
+            _excelApp.Quit();
+
+            Marshal.ReleaseComObject(workbook);
+            Marshal.ReleaseComObject(_excelApp);
+
+            return 1;
+        }
+
+        public int doUpdateWithMyAddress(ref mystructAccountCreate myAccountCreate, ref mystructApplication myApplication, ref mystructMyAddresses myAddressInfo, ref mystructHistoryInfo myHistoryInfo, int iloop2)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Account where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Account set FirstName = @myFirstName, MiddleName = @myMiddleName, "
+                         + "LastName = @myLastName where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("myFirstName", myAddressInfo.myAddressFirstName[iloop2-1]);
+                            if (myAddressInfo.myAddressMiddleName[iloop2 - 1] != "" && myAddressInfo.myAddressMiddleName[iloop2 - 1] != null)
+                            {
+                                com5.Parameters.AddWithValue("myMiddleName", myAddressInfo.myAddressMiddleName[iloop2 - 1]);
+                            }
+                            else
+                            {
+                                com5.Parameters.AddWithValue("myMiddleName", DBNull.Value);
+                            }                            
+                            com5.Parameters.AddWithValue("myLastName", myAddressInfo.myAddressLastName[iloop2-1]);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                using (SqlCeCommand com4 = new SqlCeCommand("SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com4.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Application set FirstName = @myFirstName, MiddleName = @myMiddleName, "
+                           + "LastName = @myLastName where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com5 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com5.Parameters.AddWithValue("myFirstName", myAddressInfo.myAddressFirstName[iloop2-1]);
+                            if (myAddressInfo.myAddressMiddleName[iloop2 - 1] != "" && myAddressInfo.myAddressMiddleName[iloop2 - 1] != null)
+                            {
+                                com5.Parameters.AddWithValue("myMiddleName", myAddressInfo.myAddressMiddleName[iloop2 - 1]);
+                            }
+                            else
+                            {
+                                com5.Parameters.AddWithValue("myMiddleName", DBNull.Value);
+                            }  
+                            com5.Parameters.AddWithValue("myLastName", myAddressInfo.myAddressLastName[iloop2-1]);
+                            com5.ExecuteNonQuery();
+                            com5.Dispose();
+                        }
+                    }
+                }
+                using (SqlCeCommand com6 = new SqlCeCommand(
+                            "SELECT * FROM Address where TestID = " + myHistoryInfo.myTestId + " and Type = 'Home'", con))
+                {
+                    SqlCeDataReader reader = com6.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Address set Address1 = @myAddress1, Address2 = @myAddress2, City = @myCity, State = @myState, Zip = @myZip, "
+                        + "Zip4 = @myZip4, County = @myCounty, AptSuite = @mySuite where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com7 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com7.Parameters.AddWithValue("myAddress1", myAddressInfo.myAddressAddress1[iloop2 - 1]);
+                            if (myAddressInfo.myAddressAddress2[iloop2 - 1] != "" && myAddressInfo.myAddressAddress2[iloop2 - 1] != null)
+                            {
+                                com7.Parameters.AddWithValue("myAddress2", myAddressInfo.myAddressAddress2[iloop2 - 1]);
+                            }
+                            else
+                            {
+                                com7.Parameters.AddWithValue("myAddress2", DBNull.Value);
+                            } 
+                            com7.Parameters.AddWithValue("myCity", myAddressInfo.myAddressCity[iloop2 - 1]);
+                            com7.Parameters.AddWithValue("myState", myAddressInfo.myAddressState[iloop2 - 1]);
+                            com7.Parameters.AddWithValue("myZip", myAddressInfo.myAddressZip[iloop2 - 1]);
+                            if (myAddressInfo.myAddressZip4[iloop2 - 1] != "" && myAddressInfo.myAddressZip4[iloop2 - 1] != null)
+                            {
+                                com7.Parameters.AddWithValue("myZip4", myAddressInfo.myAddressZip4[iloop2 - 1]);
+                            }
+                            else
+                            {
+                                com7.Parameters.AddWithValue("myZip4", DBNull.Value);
+                            }
+                            com7.Parameters.AddWithValue("myCounty", myAddressInfo.myAddressCounty[iloop2 - 1]);
+                            if (myAddressInfo.myAddressSuite[iloop2 - 1] != "" && myAddressInfo.myAddressSuite[iloop2 - 1] != null)
+                            {
+                                com7.Parameters.AddWithValue("mySuite", myAddressInfo.myAddressSuite[iloop2 - 1]);
+                            }
+                            else
+                            {
+                                com7.Parameters.AddWithValue("mySuite", DBNull.Value);
+                            } 
+                            com7.ExecuteNonQuery();
+                            com7.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+
+                myAccountCreate.myFirstName = myAddressInfo.myAddressFirstName[iloop2-1];
+                myAccountCreate.myMiddleName = myAddressInfo.myAddressMiddleName[iloop2 - 1];
+                myAccountCreate.myLastName = myAddressInfo.myAddressLastName[iloop2 - 1];
+
+                myApplication.myFirstName = myAddressInfo.myAddressFirstName[iloop2 - 1];
+                myApplication.myMiddleName = myAddressInfo.myAddressMiddleName[iloop2 - 1];
+                myApplication.myLastName = myAddressInfo.myAddressLastName[iloop2 - 1];                
+
+                myApplication.myHomeAddress1 = myAddressInfo.myAddressAddress1[iloop2 - 1];                
+                myApplication.myHomeAddress2 = myAddressInfo.myAddressAddress2[iloop2 - 1];
+                myApplication.myHomeAptSuite = myAddressInfo.myAddressSuite[iloop2 - 1];
+                myApplication.myHomeCity = myAddressInfo.myAddressCity[iloop2 - 1];
+                myApplication.myHomeState = myAddressInfo.myAddressState[iloop2 - 1];
+                myApplication.myHomeZip = myAddressInfo.myAddressZip[iloop2 - 1];
+                myApplication.myHomeZip4 = myAddressInfo.myAddressZip4[iloop2 - 1];
+                myApplication.myHomeCounty = myAddressInfo.myAddressCounty[iloop2 - 1];
+
+            }
+            catch
+            {
+                MessageBox.Show("Update With My Address Info didn't work");
+            }
+            return 1;
+        }
+
 
     }
 }
