@@ -802,16 +802,16 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
 
-                myApp.DoWaitForElement(myDriver, By.Id("username"), myHistoryInfo);
-                IWebElement textboxLogin = myDriver.FindElement(By.Id("username"));
+                myApp.DoWaitForElement(myDriver, By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"), myHistoryInfo);
+                IWebElement textboxLogin = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input"));
                 textboxLogin.SendKeys(myAccountCreate.myUsername);
 
-                IWebElement textboxPW = myDriver.FindElement(By.Id("password"));
+                IWebElement textboxPW = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input"));
                 textboxPW.SendKeys(myAccountCreate.myPassword);
 
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                IWebElement buttonSignIn = myDriver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button"));
+                IWebElement buttonSignIn = myDriver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[3]/td/font/input[1]"));
                 buttonSignIn.Click();
 
                 returnStatus = "Pass";

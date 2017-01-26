@@ -48,6 +48,7 @@
             this.dataGridViewTestRunHistory = new System.Windows.Forms.DataGridView();
             this.tabPageRun = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.checkBoxAddress = new System.Windows.Forms.CheckBox();
             this.label205 = new System.Windows.Forms.Label();
             this.buttonStartScheduledRun = new System.Windows.Forms.Button();
             this.dateTimeRun = new System.Windows.Forms.DateTimePicker();
@@ -520,7 +521,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.checkBoxAddress = new System.Windows.Forms.CheckBox();
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -791,6 +791,17 @@
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
             // 
+            // checkBoxAddress
+            // 
+            this.checkBoxAddress.AutoSize = true;
+            this.checkBoxAddress.Location = new System.Drawing.Point(41, 189);
+            this.checkBoxAddress.Name = "checkBoxAddress";
+            this.checkBoxAddress.Size = new System.Drawing.Size(167, 17);
+            this.checkBoxAddress.TabIndex = 18;
+            this.checkBoxAddress.Text = "Use My Name And Addresses";
+            this.checkBoxAddress.UseVisualStyleBackColor = true;
+            this.checkBoxAddress.CheckedChanged += new System.EventHandler(this.checkBoxAddress_CheckedChanged);
+            // 
             // label205
             // 
             this.label205.AutoSize = true;
@@ -835,7 +846,24 @@
             "8",
             "9",
             "10",
-            "15"});
+            "11",
+            "12",
+            "13",
+            "14",
+            "15",
+            "16",
+            "17",
+            "18",
+            "19",
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80",
+            "90",
+            "100"});
             this.comboBoxMultiples.Location = new System.Drawing.Point(206, 76);
             this.comboBoxMultiples.Name = "comboBoxMultiples";
             this.comboBoxMultiples.Size = new System.Drawing.Size(65, 21);
@@ -6061,17 +6089,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // checkBoxAddress
-            // 
-            this.checkBoxAddress.AutoSize = true;
-            this.checkBoxAddress.Location = new System.Drawing.Point(41, 189);
-            this.checkBoxAddress.Name = "checkBoxAddress";
-            this.checkBoxAddress.Size = new System.Drawing.Size(167, 17);
-            this.checkBoxAddress.TabIndex = 18;
-            this.checkBoxAddress.Text = "Use My Name And Addresses";
-            this.checkBoxAddress.UseVisualStyleBackColor = true;
-            this.checkBoxAddress.CheckedChanged += new System.EventHandler(this.checkBoxAddress_CheckedChanged);
             // 
             // FormMain
             // 

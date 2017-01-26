@@ -457,14 +457,16 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver2.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
+                    //this is still coming - driver2.Navigate().GoToUrl("https://id.mneiamstst.mn.gov/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/Curam");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver2.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/Curam");
+                    driver2.Navigate().GoToUrl("https://id.mneiamstst2.mn.gov/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/Curam");
                 }
                 else
                 {
                     driver2.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/Curam");
+                    //this is still coming - driver2.Navigate().GoToUrl("https://id.mneiamatst.mn.gov/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/Curam");
                 }
 
                 returnStatus = "Pass";
@@ -490,14 +492,16 @@ namespace MNsure_Regression_1
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     driver.Navigate().GoToUrl("https://id.stst.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
+                    //this is still coming - driver.Navigate().GoToUrl("https://id.mneiamstst.mn.gov/fed/idp/initiatesso?providerid=https://people.stst.mnsure.org/samlsps/Curam&returnurl=https://people.stst.mnsure.org/CitizenPortal/application.do");
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver.Navigate().GoToUrl("https://id.stst2.mnsure.org/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/CitizenPortal/application.do");
+                    driver.Navigate().GoToUrl("https://id.mneiamstst2.mn.gov/fed/idp/initiatesso?providerid=https://people.stst2.mnsure.org/samlsps/Curam&returnurl=https://people.stst2.mnsure.org/CitizenPortal/application.do");
                 }
                 else
                 {
                     driver.Navigate().GoToUrl("https://id.atst.mnsure.org/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
+                    //this is still coming - driver.Navigate().GoToUrl("https://id.mneiamatst.mn.gov/fed/idp/initiatesso?providerid=https://people.atst.mnsure.org/samlsps/Curam&returnurl=https://people.atst.mnsure.org/CitizenPortal/application.do");
                 }
 
                 assisterNavigator = "No";
