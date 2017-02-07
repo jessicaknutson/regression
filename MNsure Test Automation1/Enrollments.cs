@@ -950,11 +950,23 @@ namespace MNsure_Regression_1
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
 
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));
-                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"));
-                IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[2]/input"));
-                IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[3]/input"));
-
+                IWebElement textboxSignatureFirst=null;
+                IWebElement textboxSignatureMiddle = null;
+                IWebElement textboxSignatureLast = null;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
+                    textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
+                    textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
+                    textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
+                }
+                else
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));
+                    textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"));
+                    textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[2]/input"));
+                    textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[3]/input"));
+                }
                 if (myEnrollment.myApplyYourself == "Yes")
                 {
                     textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
@@ -1033,14 +1045,19 @@ namespace MNsure_Regression_1
                     myDriver.SwitchTo().Frame(iFrameElement);
                 }
 
-                // TFR 11-15-2016 div index was changed. Leaving old code here for the time being for historical purposes.
-                //new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));
-                new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));
+                IWebElement textboxSignatureFirst;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input")));                
+                    textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
+                }
+                else
+                {
+                    new WebDriverWait(myDriver, TimeSpan.FromSeconds(timeOut)).Until(ExpectedConditions.ElementExists(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input")));                
+                    textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"));
+                }
                 writeLogs.DoGetScreenshot(myDriver, ref myHistoryInfo);
 
-                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
-                //IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[1]/input"));
-                IWebElement textboxSignatureFirst = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[1]/input"));
                 HouseholdMembersDo myHousehold = new HouseholdMembersDo();
                 int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
                 if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
@@ -1053,22 +1070,31 @@ namespace MNsure_Regression_1
                 {
                     textboxSignatureFirst.SendKeys(myEnrollment.myFirstName);
                 }
-
+                IWebElement textboxSignatureMiddle;
                 if ((myEnrollment.myWithDiscounts == "Yes" && myEnrollment.myESC == "Yes" && myEnrollment.myHouseholdOther == "No")//to include q12 and not ren4
                     || myEnrollment.myWithDiscounts == "Yes" && myEnrollment.myESC == "No")
                 {
-                    // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
-                    //IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
-                    IWebElement textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[2]/input"));
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[2]/input"));
+                    } else {
+                        textboxSignatureMiddle = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[2]/input"));
+                    }
                     if (myEnrollment.myMiddleName != null)
                     {
                         textboxSignatureMiddle.SendKeys(myEnrollment.myMiddleName);
                     }
                 }
 
-                // TFR 11-15-2016 div index was changed. Leaving old code her for the time being for historical purposes.
-                //IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
-                IWebElement textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[3]/input"));
+                IWebElement textboxSignatureLast;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[9]/fieldset/div[2]/div[1]/div[3]/input"));
+                }
+                else
+                {
+                    textboxSignatureLast = myDriver.FindElement(By.XPath("/html/body/div[1]/div[3]/div[2]/form/div[8]/fieldset/div[2]/div[1]/div[3]/input"));
+                }
                 if (myEnrollment.myESC == "Yes" && (householdCount == 2 || householdCount == 3))
                 {
                     textboxSignatureLast.SendKeys(myHouseholdMembers.myLastName);

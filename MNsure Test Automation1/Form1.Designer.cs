@@ -5108,6 +5108,7 @@
             this.comboBoxEnrollMaritalStatus.Name = "comboBoxEnrollMaritalStatus";
             this.comboBoxEnrollMaritalStatus.Size = new System.Drawing.Size(120, 21);
             this.comboBoxEnrollMaritalStatus.TabIndex = 12;
+            this.comboBoxEnrollMaritalStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxEnrollMaritalStatus_SelectedIndexChanged);
             // 
             // label19
             // 
@@ -6095,7 +6096,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1388, 705);
+            this.ClientSize = new System.Drawing.Size(1344, 640);
             this.Controls.Add(this.tabControlMain);
             this.Name = "FormMain";
             this.Text = "MNsure Regression Automation1";
