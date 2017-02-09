@@ -203,19 +203,25 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (14 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (16 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//actions
-                driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[9]/table/tbody/tr[3]/td[2]")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'New Application Form')]")).Click();
+                }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -260,15 +266,36 @@ namespace MNsure_Regression_1
                 IWebElement listboxThird = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[2]"));
                 if (listboxFirst.Text == "Health Care Application")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    }
                 }
                 else if (listboxSecond.Text == "Health Care Application")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    }
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span/input")).Click();
+                    }
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -2617,10 +2644,22 @@ namespace MNsure_Regression_1
 
                 IWebElement checkboxIDeclare = driver.FindElement(By.Id("__o3id3"));
                 checkboxIDeclare.Click();
-
-                IWebElement checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
-                checkboxIAgreeStatementsBelow.Click();
-
+                
+                IWebElement checkboxIAgreeStatementsBelow;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                    action.SendKeys(OpenQA.Selenium.Keys.PageDown).Build().Perform();
+                    checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td"));
+                    checkboxIAgreeStatementsBelow.Click();
+                    checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
+                    checkboxIAgreeStatementsBelow.Click();
+                }
+                else
+                {
+                    checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
+                    checkboxIAgreeStatementsBelow.Click();
+                }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));

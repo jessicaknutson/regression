@@ -2047,11 +2047,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (5 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (5 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 DoWaitForElement(driver, By.Id("__o3btn.next_label"), myHistoryInfo);
