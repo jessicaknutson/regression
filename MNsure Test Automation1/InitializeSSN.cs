@@ -13,7 +13,7 @@ namespace MNsure_Regression_1
 {
     class InitializeSSN
     {
-        public int DoReadLines(ref mystructSSN myLastSSN, ref mystructReadFileValues myReadFileValues)
+        public int DoReadLines(ref mystructSSN myLastSSN, ref mystructMyCaseWorker myCaseWorker, ref mystructReadFileValues myReadFileValues)
         {
             // Read all values from the text file if there.
             try
@@ -70,6 +70,14 @@ namespace MNsure_Regression_1
                         {
                             myReadFileValues.myAccountSaveFileName = line;
                         }
+                        if (icount == 11)
+                        {
+                            myCaseWorker.myCaseWorkerId = line;
+                        }
+                        if (icount == 12)
+                        {
+                            myCaseWorker.myCaseWorkerPassword = line;
+                        }
 
                         icount = icount + 1;
                     }
@@ -84,7 +92,7 @@ namespace MNsure_Regression_1
         }
 
 
-        public int DoWriteLines(ref mystructSSN myLastSSN, mystructReadFileValues myReadFileValues)
+        public int DoWriteLines(ref mystructSSN myLastSSN, ref mystructMyCaseWorker myCaseWorker, mystructReadFileValues myReadFileValues)
         {
             try
                 {
@@ -93,7 +101,8 @@ namespace MNsure_Regression_1
                         string[] SSNToWrite = new string[] { myLastSSN.myLastSSN, myReadFileValues.myHomeAddress1, 
                         myReadFileValues.myHomeAddress2, myReadFileValues.myHomeCity, myReadFileValues.myHomeState, 
                         myReadFileValues.myHomeZip, myReadFileValues.myHomeZip4, myReadFileValues.myEmail, 
-                        myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName};
+                        myReadFileValues.myPhone, myReadFileValues.myAccountSaveFileName, myCaseWorker.myCaseWorkerId, 
+                        myCaseWorker.myCaseWorkerPassword};
                         if (SSNToWrite.Length != 0)
                         {
                             using (StreamWriter sw = new StreamWriter("C:\\Logs\\SSN.txt"))
@@ -125,7 +134,7 @@ namespace MNsure_Regression_1
                 }
             return 1;
         }
+        
 
-    }
-    
+    }    
 }

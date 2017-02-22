@@ -225,6 +225,12 @@ struct mystructSelectedTest
         public string myLastSSN;
     }
 
+    struct mystructMyCaseWorker
+    {
+        public string myCaseWorkerId;
+        public string myCaseWorkerPassword;
+    }
+
     struct mystructNavHelper
     {
         public string myConfigureClicked;
@@ -243,6 +249,8 @@ struct mystructSelectedTest
         public string myPhone;
         public int myAccountSaveFileNum;
         public string myAccountSaveFileName;
+        public string myCaseWorkerId;
+        public string myCaseWorkerPassword;
     }
 
     struct mystructHouseholdMembers

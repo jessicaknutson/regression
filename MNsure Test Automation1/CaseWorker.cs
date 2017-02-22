@@ -32,7 +32,8 @@ namespace MNsure_Regression_1
         WriteLogs writeLogs = new WriteLogs();
 
         public int DoCaseWorkerLogin(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, 
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId )
         {
             try
             {
@@ -40,34 +41,40 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a"), myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div/header/div[2]/div[3]/div[1]/a")).Click();
-
-                if (myHistoryInfo.myEnvironment == "STST")
+                string user;
+                string password;
+                if (myCaseWorkerId.myCaseWorkerId != null && myCaseWorkerId.myCaseWorkerId != "")
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USR9889");
-                    myAccountCreate.myCaseWorkerLoginId = "USR9889";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome123#");
-                    /* Please do not use this username. It was created solely for use in the mets automation application in STST.
-                     * if this user needs to be changed here are the key pieces of information on this user: 
-                     * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
-                     * */
-                }
-                else if (myHistoryInfo.myEnvironment == "STST2")
-                {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USR9889S2");
-                    myAccountCreate.myCaseWorkerLoginId = "USR9889S2";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome123#");
-                    /* Please do not use this username. It was created solely for use in the mets automation application in STST2.
-                     * if this user needs to be changed here are the key pieces of information on this user: 
-                     * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
-                     * */
+                    user = myCaseWorkerId.myCaseWorkerId;
+                    password = myCaseWorkerId.myCaseWorkerPassword;
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");
-                    myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome10#");
-
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        user = "USR9889";
+                        password = "Welcome123#";
+                    }
+                    else if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        user = "USR9889S2";
+                        password = "Welcome123#";
+                    }
+                    else
+                    {
+                        user = "soacw200";
+                        password = "Welcome10#";
+                    }
                 }
+                /* Please do not use these usernames. It was created solely for use in the mets automation application.
+                 * if this user needs to be changed here are the key pieces of information on this user: 
+                 * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
+                 * */
+                 
+                driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys(user);
+                myAccountCreate.myCaseWorkerLoginId = user;
+                driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys(password);
+
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[3]/div/div/button")).Click();
@@ -92,38 +99,57 @@ namespace MNsure_Regression_1
         }
 
         public int DoCaseWorkerLoginTimeTravel(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
                 driver.Manage().Window.Maximize();
                 ApplicationDo myApp = new ApplicationDo();
 
+                string user;
+                string password;
+                if (myCaseWorkerId.myCaseWorkerId != null && myCaseWorkerId.myCaseWorkerId != "")
+                {
+                    user = myCaseWorkerId.myCaseWorkerId;
+                    password = myCaseWorkerId.myCaseWorkerPassword;
+                }
+                else
+                {
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        user = "USR9889";
+                        password = "Welcome123#";
+                    }
+                    else if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        user = "USR9889S2";
+                        password = "Welcome123#";
+                    }
+                    else
+                    {
+                        user = "soacw200";
+                        password = "Welcome10#";
+                    }
+                }
+                /* Please do not use these usernames. It was created solely for use in the mets automation application.
+                 * if this user needs to be changed here are the key pieces of information on this user: 
+                 * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
+                 * */
+                myAccountCreate.myCaseWorkerLoginId = user;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("USR9889");
-                    myAccountCreate.myCaseWorkerLoginId = "USR9889";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome123#");
-                    /* Please do not use this username. It was created solely for use in the mets automation application in STST.
-                     * if this user needs to be changed here are the key pieces of information on this user: 
-                     * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
-                     * */
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys(user);                    
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys(password);                    
                 }
                 else if (myHistoryInfo.myEnvironment == "STST2")
                 {
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys("USR9889S2");
-                    myAccountCreate.myCaseWorkerLoginId = "USR9889S2";
-                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys("Welcome123#");
-                    /* Please do not use this username. It was created solely for use in the mets automation application in STST2.
-                     * if this user needs to be changed here are the key pieces of information on this user: 
-                     * email: greg.pesall@state.mn.us, shared secret: Pontiac, Q1: Pontiac, Q2: Mark, Q3: Twins, Q4: Grand Rapids, Q5: Lasagna
-                     * */
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[1]/td[2]/input")).SendKeys(user);
+                    driver.FindElement(By.XPath("/html/body/center/form/table/tbody/tr[2]/td/input")).SendKeys(password);
                 } else
                 {
-                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input"), myHistoryInfo);
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys("soacw200");
-                    myAccountCreate.myCaseWorkerLoginId = "soacw200";
-                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys("Welcome10#");
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[1]/div/input")).SendKeys(user);
+                    driver.FindElement(By.XPath("/html/body/div/div/div/div/div[2]/div[1]/div/form/div[2]/div/input")).SendKeys(password);
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -148,7 +174,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoHCRCases(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -305,7 +332,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoPersonHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -350,7 +378,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoRegisterPerson(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -436,7 +465,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNotification(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -499,7 +529,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoIAHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -555,7 +586,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoEvidenceIA(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -608,7 +640,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoLifeEventsAdd(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -625,8 +658,16 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div")).Click();
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_listCaseMemberPage.do')]"));
@@ -649,8 +690,15 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement2);
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIXIntegratedCase_viewLifeEventsPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
-                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/div/table/tbody/tr[3]/td[4]/span/span/span")).Click(); //add hh member wizard  
-                driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/div/table/tbody/tr[3]/td[4]/span/span/span")).Click(); //add hh member wizard 
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click(); 
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(2000);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -677,7 +725,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoLifeEventsRemove(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -694,8 +743,17 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
-                IWebElement lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"));
+                IWebElement lifeevents;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div"), myHistoryInfo);
+                    lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div"));
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
+                    lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"));
+                }
                 lifeevents.Click();
                 System.Threading.Thread.Sleep(3000);
 
@@ -720,7 +778,14 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIXIntegratedCase_viewLifeEventsPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/div/table/tbody/tr[2]/td[4]/span/span/span")).Click(); //remove hh member wizard  
-                driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(2000);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -751,7 +816,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoLifeEventsCoverage(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -768,8 +834,17 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().DefaultContent();
 
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
-                IWebElement lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"));
+                IWebElement lifeevents;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div"), myHistoryInfo);
+                    lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[7]/div"));
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"), myHistoryInfo);
+                    lifeevents = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[2]/div[3]/div/div/ul/li[8]/div"));
+                }
                 lifeevents.Click();
                 System.Threading.Thread.Sleep(3000);
 
@@ -794,7 +869,14 @@ namespace MNsure_Regression_1
                 var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'MNHIXIntegratedCase_viewLifeEventsPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement3);
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/div/table/tbody/tr[1]/td[4]/span/span/span")).Click(); //add coverage wizard  
-                driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Launch…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(2000);
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -815,7 +897,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoPersonEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -852,7 +935,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoPersonEvidenceOldAddressCorrection(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -870,9 +954,15 @@ namespace MNsure_Regression_1
                 ApplicationDo myApp = new ApplicationDo();
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_listEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
-                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[3]/td[7]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[3]/td[7]/span/span/span")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {                    
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {            
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -931,7 +1021,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoIAEvidenceOldAddressCorrection(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -951,8 +1042,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Addresses']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -1003,7 +1094,14 @@ namespace MNsure_Regression_1
                 }
                 textboxOriginal.Click();//action menu
                 OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1067,7 +1165,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1115,7 +1214,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoPersonNewEvidence(IWebDriver driver, ref  mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1156,7 +1256,8 @@ namespace MNsure_Regression_1
             }
         }
         public int DoActiveEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1265,7 +1366,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateTaxEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1285,8 +1387,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Tax Filing Status']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -1327,7 +1429,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1400,7 +1509,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateIncomeEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1420,8 +1530,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Income']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -1446,7 +1556,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1509,7 +1626,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateAddressEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1529,9 +1647,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Addresses']")).Click();
-
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -1564,7 +1681,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1658,7 +1782,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateStateEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1678,8 +1803,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='State Residency']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -1704,7 +1829,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1798,7 +1930,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdatePAIEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1818,8 +1951,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Projected Annual Income']")).Click();
+
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -1844,7 +1977,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -1891,11 +2031,11 @@ namespace MNsure_Regression_1
                 buttonSave.Click();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (11 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (13 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (11 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (13 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
 
@@ -1925,7 +2065,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoClosePDCTab(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1968,7 +2109,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateMaritalEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -1988,8 +2130,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Marital Status']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -2022,7 +2164,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -2085,7 +2234,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUpdateBirthEvidence(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2105,8 +2255,8 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/HCRDefaultIC_dashboardPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-
                 driver.FindElement(By.XPath("//a[text()='Birth and Death Details']")).Click();
+                
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -2131,7 +2281,14 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement4);
 
                 driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
-                driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
+                }
                 System.Threading.Thread.Sleep(3000);
 
                 driver.SwitchTo().DefaultContent();
@@ -2202,7 +2359,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceESC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2306,7 +2464,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceAppDetails(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2325,9 +2484,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[7]/td[3]/span/span/span")).Click();//app details actions button               
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[7]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[7]/td[3]/span/span/span")).Click();//app details actions button               
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -2393,7 +2559,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceSSNDetails(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2412,9 +2579,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();//ssn details actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[75]/td[3]/span/span/span")).Click();//ssn details actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (8 + myHistoryInfo.myAppWait) * 1000;
@@ -2475,7 +2649,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceMaritalStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2494,9 +2669,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[53]/td[3]/span/span/span")).Click();//marital status actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[53]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[53]/td[3]/span/span/span")).Click();//marital status actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -2553,7 +2735,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceStateResidency(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2572,9 +2755,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[77]/td[3]/span/span/span")).Click();//state residency actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[77]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[77]/td[3]/span/span/span")).Click();//state residency actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -2647,7 +2837,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidencePregnancy(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2666,9 +2857,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[68]/td[3]/span/span/span")).Click();//pregnancy actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[68]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[68]/td[3]/span/span/span")).Click();//pregnancy actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (12 + myHistoryInfo.myAppWait) * 1000;
@@ -2697,7 +2895,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(1000);
 
                 IWebElement textboxDueDate = driver.FindElement(By.Id("__o3id7"));
-                textboxDueDate.SendKeys("01/01/2017");
+                textboxDueDate.SendKeys("09/01/2017");
 
                 IWebElement textboxStartDate = driver.FindElement(By.Id("__o3id9"));
                 if (myHistoryInfo.myInTimeTravel == "Yes")
@@ -2730,7 +2928,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceParticipantAddress(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2749,9 +2948,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();//addr actions button                
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();//addr actions button                
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
@@ -2773,10 +2979,24 @@ namespace MNsure_Regression_1
 
                 string firstName = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[2]")).Text;
                 if (firstName == fullName)
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    }
                 }
 
                 IWebElement textboxApt = driver.FindElement(By.Id("__o3idd"));
@@ -2827,7 +3047,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoPersonNewEvidenceAddress(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2846,9 +3067,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/PDCEvidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
-                driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/table/tbody/tr[1]/td[3]/span/span/span")).Click();//addresses actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/table/tbody/tr[1]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[2]/div/div/table/tbody/tr[1]/td[3]/span/span/span")).Click();//addresses actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -2906,7 +3134,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceParticipantAddressMailing(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -2925,9 +3154,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();//addr actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[4]/td[3]/span/span/span")).Click();//addr actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -2949,10 +3185,24 @@ namespace MNsure_Regression_1
 
                 string firstName = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[2]")).Text;
                 if (firstName == fullName)
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/div[2]/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    }
                 }
                 IWebElement textboxType;
                 textboxType = driver.FindElement(By.Id("__o3id9"));
@@ -3014,7 +3264,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceProjectedAnnualIncome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3033,9 +3284,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[69]/td[3]/span/span/span")).Click();//projected annual income actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[69]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[69]/td[3]/span/span/span")).Click();//projected annual income actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3092,7 +3350,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceMedicaid(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3111,9 +3370,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[54]/td[3]/span/span/span")).Click();//medicaid enrollment actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[54]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[54]/td[3]/span/span/span")).Click();//medicaid enrollment actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3164,7 +3430,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceBirth(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3183,9 +3450,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[16]/td[3]/span/span/span")).Click();//birth and death details actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[16]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[16]/td[3]/span/span/span")).Click();//birth and death details actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3240,7 +3514,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceRelationship(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3259,9 +3534,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[56]/td[3]/span/span/span")).Click();//member relationship actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[56]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[56]/td[3]/span/span/span")).Click();//member relationship actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3319,7 +3601,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceCitizenStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3338,9 +3621,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[19]/td[3]/span/span/span")).Click();//citizen status actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[19]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[19]/td[3]/span/span/span")).Click();//citizen status actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3394,7 +3684,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceTaxStatus(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3413,9 +3704,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[80]/td[3]/span/span/span")).Click();//tax filing status actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[80]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[80]/td[3]/span/span/span")).Click();//tax filing status actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3477,7 +3775,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoNewEvidenceGender(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3496,9 +3795,16 @@ namespace MNsure_Regression_1
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"), myHistoryInfo);
                 var iFrameElement2 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Evidence_addNewEvidencePage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement2);
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[43]/td[3]/span/span/span")).Click();//gender actions button
-                driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[43]/td[3]/span/span/span")).Click();
+                    driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
+                }
+                else
+                {
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/div/table/tbody/tr[43]/td[3]/span/span/span")).Click();//gender actions button
+                    driver.FindElement(By.XPath("//td[contains(text(), 'Add…')]")).Click(); //new evidence button
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (6 + myHistoryInfo.myAppWait) * 1000;
@@ -3554,7 +3860,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoValidateEvidenceChanges(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3625,7 +3932,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoApplyEvidenceChanges(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3704,18 +4012,19 @@ namespace MNsure_Regression_1
         }
 
         public int DoAppFilerConsent(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
@@ -3777,7 +4086,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoVerification(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3810,12 +4120,12 @@ namespace MNsure_Regression_1
 
                     myApp.DoWaitForElement(driver, By.XPath("//a[contains(@href,'HCRIC_home')]"), myHistoryInfo);
                     driver.FindElement(By.XPath("//a[contains(@href,'HCRIC_home')]")).Click(); //select insurance affordability
-                    System.Threading.Thread.Sleep(2000);
+                    System.Threading.Thread.Sleep(4000);
 
                     driver.SwitchTo().DefaultContent();
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div"), myHistoryInfo);
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[3]/div/div/div[4]/div/div/div[1]/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div")).Click();//select  evidence
-                    System.Threading.Thread.Sleep(2000);
+                    System.Threading.Thread.Sleep(4000);
                 }
 
                 driver.SwitchTo().DefaultContent();
@@ -3866,7 +4176,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoTasks(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3931,7 +4242,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoCloseTasks(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -3960,11 +4272,11 @@ namespace MNsure_Regression_1
                     driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr/td[2]/a")).Click();//select link
                     if (myHistoryInfo.myInTimeTravel == "Yes")
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                     }
                     else
                     {
-                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                        appwait = (8 + myHistoryInfo.myAppWait) * 1000;
                     }
                     System.Threading.Thread.Sleep(appwait);
 
@@ -3992,9 +4304,31 @@ namespace MNsure_Regression_1
                     driver.SwitchTo().DefaultContent();
                     driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div/div[3]/div[3]/div[2]/div/div/div[2]/div/div[1]/div/span[1]/span/span/span[2]")).Click();//select actions
                     System.Threading.Thread.Sleep(1000);
-                    driver.FindElement(By.XPath("//td[contains(text(), 'Close…')]")).Click(); //close, close is there twice so must state ...
+                    OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        //driver.FindElement(By.XPath("/html/body/div[8]/table/tbody/tr[14]/td[2]")).Click();
+                        //driver.FindElement(By.Id("menuItem_dojox_layout_ContentPane_18_Close_text")).Click();
+                        //driver.FindElement(By.Id("menuItem_dojox_layout_ContentPane_17_Close_text")).Click();
+                        //driver.FindElement(By.XPath("//td[contains(text(), 'Close')]")).Click();
+                        
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
+                        action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("//td[contains(text(), 'Close…')]")).Click(); //close, close is there twice so must state ...
+                    }
                     System.Threading.Thread.Sleep(2000);
-
                     driver.SwitchTo().Window(driver.WindowHandles.Last());
                     driver.SwitchTo().DefaultContent();
                     var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/TaskManagement_closeTaskPage.do')]"));
@@ -4015,7 +4349,7 @@ namespace MNsure_Regression_1
                     IWebElement secondTab;
                     myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div/div[3]/div[1]/div[4]/div/div[2]"), myHistoryInfo);
                     secondTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[3]/div/div[3]/div[1]/div[4]/div/div[2]"));
-                    OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
+                    //OpenQA.Selenium.Interactions.Actions action2 = new OpenQA.Selenium.Interactions.Actions(driver);
                     var rClick = action.ContextClick(secondTab); //right click
                     rClick.Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
@@ -4051,7 +4385,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoAddProof(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4185,7 +4520,7 @@ namespace MNsure_Regression_1
                         {
                             hh2fullname = hh2firstname + " " + hh2lastname;
                         }
-                        if (hh2ageplus.Text.Contains("months"))
+                        if (hh2ageplus.Text.Contains("month"))
                         {
                             hh2age = "0";
                         }
@@ -4222,7 +4557,7 @@ namespace MNsure_Regression_1
                         {
                             hh3fullname = hh3firstname + " " + hh3lastname;
                         }
-                        if (hh3ageplus.Text.Contains("months"))
+                        if (hh3ageplus.Text.Contains("month"))
                         {
                             hh3age = "0";
                         }
@@ -4331,7 +4666,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoMAHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4434,7 +4770,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoMAActivateCase(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4490,7 +4827,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoClosePDC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4546,7 +4884,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoCloseIC(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4597,7 +4936,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoBHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4705,7 +5045,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoQHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4812,7 +5153,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoUQHPHome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -4918,7 +5260,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoDeterminations(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -5031,7 +5374,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoDecision(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {
@@ -5046,9 +5390,16 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 ApplicationDo myApp = new ApplicationDo();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a"), myHistoryInfo);
-                driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a")).Click(); //coverage link
-
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td[2]/a"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div/table/tbody/tr[1]/td[2]/a")).Click(); //coverage link
+                }
+                else
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a"), myHistoryInfo);
+                    driver.FindElement(By.XPath("/html/body/div[2]/div[3]/div[2]/div/table/tbody/tr[1]/td[2]/a")).Click(); //coverage link
+                }
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
                     appwait = (5 + myHistoryInfo.myAppWait) * 1000;
@@ -5059,8 +5410,7 @@ namespace MNsure_Regression_1
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
-                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div[3]/div[3]/div[6]/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
-
+                myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div[5]/div/div/div[4]/div/div/div[1]/div[1]/div[4]/div/div[3]/div/div/div/span[1]"), myHistoryInfo);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -5079,7 +5429,8 @@ namespace MNsure_Regression_1
         }
 
         public int DoIncome(IWebDriver driver, ref mystructAccountCreate myAccountCreate, mystructApplication myEnrollment,
-            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber, ref string returnMNSureID)
+            ref mystructHistoryInfo myHistoryInfo, ref string returnStatus, ref string returnException, ref string returnScreenshot, ref string returnICNumber,
+            ref string returnMNSureID, ref mystructMyCaseWorker myCaseWorkerId)
         {
             try
             {

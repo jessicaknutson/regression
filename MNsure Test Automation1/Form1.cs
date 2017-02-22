@@ -36,6 +36,7 @@ namespace MNsure_Regression_1
         mystructApplication myApplication;
         mystructAssister myAssister;
         mystructSSN myLastSSN;
+        mystructMyCaseWorker myCaseWorkerId;
         mystructNavHelper myNavHelper;
         mystructReadFileValues myReadFileValues;
         mystructHouseholdMembers myHouseholdMembers;
@@ -189,10 +190,15 @@ namespace MNsure_Regression_1
                     try
                     {
                         InitializeSSN myInitializeSSN = new InitializeSSN();
-                        result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myReadFileValues);
+                        result = myInitializeSSN.DoReadLines(ref myLastSSN, ref myCaseWorkerId, ref myReadFileValues);
                         int temp1 = Convert.ToInt32(myLastSSN.myLastSSN) + 1;
                         myAccountCreate.mySSN = Convert.ToString(temp1);
-
+                       /* if (myCaseWorkerId.myCaseWorkerId != null && myCaseWorkerId.myCaseWorkerId != "")
+                        {
+                           checkBoxMyId.Checked = true;
+                           textBoxMyId.Text = myCaseWorkerId.myCaseWorkerId;
+                           textBoxMyPassword.Text = myCaseWorkerId.myCaseWorkerPassword;
+                        }*/
                         FillStructures myFillStructures = new FillStructures();
                         string isDay2 = myFillStructures.DoGetAppDay2(ref myHistoryInfo);
                         if (checkBoxTimeTravel.Checked == true && isDay2 == "")
@@ -280,7 +286,18 @@ namespace MNsure_Regression_1
                         }
 
                         InitializeSSN myInitializeSSN2 = new InitializeSSN();
-                        result = myInitializeSSN2.DoWriteLines(ref myLastSSN, myReadFileValues);
+                        if (checkBoxMyId.Checked == true)
+                        {
+                            myCaseWorkerId.myCaseWorkerId = textBoxMyId.Text;
+                            myCaseWorkerId.myCaseWorkerPassword = textBoxMyPassword.Text;
+                            //result = myInitializeSSN.DoWriteCaseWorkerLines(ref myLastSSN, myCaseWorkerId, myReadFileValues);
+                        }
+                        else
+                        {
+                            myCaseWorkerId.myCaseWorkerId = null;
+                            myCaseWorkerId.myCaseWorkerPassword = null;
+                        }
+                        result = myInitializeSSN2.DoWriteLines(ref myLastSSN, ref myCaseWorkerId, myReadFileValues);
 
                         string hhssn = myAccountCreate.mySSN;
                         if (myHistoryInfo.myEnvironment == "STST2")
@@ -317,8 +334,7 @@ namespace MNsure_Regression_1
                                     temp = Convert.ToInt32(Convert.ToString(temp).Remove(0, 3).Insert(0, "144"));
                                     result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp), "2");
                                 }
-                            }
-                            
+                            }                            
                         }
                         if (myApplication.myHouseholdOther == "Yes" && householdCount == 3) //for 3 household
                         {
@@ -338,7 +354,7 @@ namespace MNsure_Regression_1
                                     result = myFillStructures.doUpdateHouseholdSSN(ref myHistoryInfo, Convert.ToString(temp2), "3");
                                 }
                             }                            
-                        }
+                        }                                                
 
                         con = new SqlCeConnection(conString);
                         con.Open();
@@ -764,7 +780,7 @@ namespace MNsure_Regression_1
                                         break;
 
                                     case "CaseWorker":
-                                        object[] parmscw = new object[9];
+                                        object[] parmscw = new object[10];
                                         if (myHistoryInfo.myBrowser == "Firefox")
                                         {
                                             parmscw[0] = driver2;
@@ -782,6 +798,7 @@ namespace MNsure_Regression_1
                                         parmscw[6] = returnScreenshot;
                                         parmscw[7] = returnICNumber;
                                         parmscw[8] = returnMNSureID;
+                                        parmscw[9] = myCaseWorkerId;
 
                                         CaseWorker myCaseWorker = new CaseWorker();
                                         Type reflectTestTypecw = typeof(CaseWorker);
@@ -3377,6 +3394,15 @@ namespace MNsure_Regression_1
             dateTimePickerLogs.Value = DateTime.Now.AddMonths(-1);
             dateTimePickerTemp.Value = DateTime.Now;
             dateTimePickerTemplates.Value = DateTime.Now.AddMonths(-1);
+
+            InitializeSSN myInitializeSSN = new InitializeSSN();
+            int result2 = myInitializeSSN.DoReadLines(ref myLastSSN, ref myCaseWorkerId, ref myReadFileValues);
+            if (myCaseWorkerId.myCaseWorkerId != null && myCaseWorkerId.myCaseWorkerId != "")
+            {
+                checkBoxMyId.Checked = true;
+                textBoxMyId.Text = myCaseWorkerId.myCaseWorkerId;
+                textBoxMyPassword.Text = myCaseWorkerId.myCaseWorkerPassword;
+            }
         }
 
         private void tabPageAccountConfigure_Leave(object sender, EventArgs e)
@@ -8280,6 +8306,16 @@ namespace MNsure_Regression_1
         }
 
         private void comboBoxEnrollMaritalStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxMyPassword_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxMyId_CheckedChanged(object sender, EventArgs e)
         {
 
         }

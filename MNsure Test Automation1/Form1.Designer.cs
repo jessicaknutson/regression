@@ -521,6 +521,12 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
+            this.label183 = new System.Windows.Forms.Label();
+            this.label213 = new System.Windows.Forms.Label();
+            this.checkBoxMyId = new System.Windows.Forms.CheckBox();
+            this.textBoxMyId = new System.Windows.Forms.TextBox();
+            this.textBoxMyPassword = new System.Windows.Forms.TextBox();
+
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -762,6 +768,11 @@
             // 
             // groupBox8
             // 
+            this.groupBox8.Controls.Add(this.textBoxMyPassword);
+            this.groupBox8.Controls.Add(this.textBoxMyId);
+            this.groupBox8.Controls.Add(this.checkBoxMyId);
+            this.groupBox8.Controls.Add(this.label213);
+            this.groupBox8.Controls.Add(this.label183);
             this.groupBox8.Controls.Add(this.checkBoxAddress);
             this.groupBox8.Controls.Add(this.label205);
             this.groupBox8.Controls.Add(this.buttonStartScheduledRun);
@@ -794,7 +805,7 @@
             // checkBoxAddress
             // 
             this.checkBoxAddress.AutoSize = true;
-            this.checkBoxAddress.Location = new System.Drawing.Point(41, 189);
+            this.checkBoxAddress.Location = new System.Drawing.Point(41, 209);
             this.checkBoxAddress.Name = "checkBoxAddress";
             this.checkBoxAddress.Size = new System.Drawing.Size(167, 17);
             this.checkBoxAddress.TabIndex = 18;
@@ -864,7 +875,7 @@
             "80",
             "90",
             "100"});
-            this.comboBoxMultiples.Location = new System.Drawing.Point(206, 76);
+            this.comboBoxMultiples.Location = new System.Drawing.Point(491, 76);
             this.comboBoxMultiples.Name = "comboBoxMultiples";
             this.comboBoxMultiples.Size = new System.Drawing.Size(65, 21);
             this.comboBoxMultiples.TabIndex = 4;
@@ -873,7 +884,7 @@
             // label204
             // 
             this.label204.AutoSize = true;
-            this.label204.Location = new System.Drawing.Point(35, 78);
+            this.label204.Location = new System.Drawing.Point(320, 78);
             this.label204.Name = "label204";
             this.label204.Size = new System.Drawing.Size(165, 13);
             this.label204.TabIndex = 0;
@@ -885,7 +896,7 @@
             this.comboBoxBrowser.Items.AddRange(new object[] {
             "Chrome",
             "Firefox"});
-            this.comboBoxBrowser.Location = new System.Drawing.Point(492, 139);
+            this.comboBoxBrowser.Location = new System.Drawing.Point(491, 48);
             this.comboBoxBrowser.Name = "comboBoxBrowser";
             this.comboBoxBrowser.Size = new System.Drawing.Size(125, 21);
             this.comboBoxBrowser.TabIndex = 11;
@@ -894,7 +905,7 @@
             // label203
             // 
             this.label203.AutoSize = true;
-            this.label203.Location = new System.Drawing.Point(438, 141);
+            this.label203.Location = new System.Drawing.Point(437, 50);
             this.label203.Name = "label203";
             this.label203.Size = new System.Drawing.Size(48, 13);
             this.label203.TabIndex = 0;
@@ -907,7 +918,7 @@
             "ATST",
             "STST",
             "STST2"});
-            this.comboBoxEnvironment.Location = new System.Drawing.Point(492, 96);
+            this.comboBoxEnvironment.Location = new System.Drawing.Point(491, 17);
             this.comboBoxEnvironment.Name = "comboBoxEnvironment";
             this.comboBoxEnvironment.Size = new System.Drawing.Size(65, 21);
             this.comboBoxEnvironment.TabIndex = 10;
@@ -917,7 +928,7 @@
             // label180
             // 
             this.label180.AutoSize = true;
-            this.label180.Location = new System.Drawing.Point(417, 98);
+            this.label180.Location = new System.Drawing.Point(416, 19);
             this.label180.Name = "label180";
             this.label180.Size = new System.Drawing.Size(69, 13);
             this.label180.TabIndex = 0;
@@ -926,7 +937,7 @@
             // label139
             // 
             this.label139.AutoSize = true;
-            this.label139.Location = new System.Drawing.Point(237, 228);
+            this.label139.Location = new System.Drawing.Point(237, 243);
             this.label139.Name = "label139";
             this.label139.Size = new System.Drawing.Size(49, 13);
             this.label139.TabIndex = 0;
@@ -935,7 +946,7 @@
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(35, 228);
+            this.label138.Location = new System.Drawing.Point(35, 243);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(135, 13);
             this.label138.TabIndex = 0;
@@ -959,7 +970,7 @@
             "60",
             "90",
             "120"});
-            this.comboBoxAppWait.Location = new System.Drawing.Point(176, 226);
+            this.comboBoxAppWait.Location = new System.Drawing.Point(176, 241);
             this.comboBoxAppWait.Name = "comboBoxAppWait";
             this.comboBoxAppWait.Size = new System.Drawing.Size(55, 21);
             this.comboBoxAppWait.TabIndex = 8;
@@ -968,7 +979,7 @@
             // 
             // textBoxExecutedBy
             // 
-            this.textBoxExecutedBy.Location = new System.Drawing.Point(111, 108);
+            this.textBoxExecutedBy.Location = new System.Drawing.Point(111, 59);
             this.textBoxExecutedBy.Name = "textBoxExecutedBy";
             this.textBoxExecutedBy.Size = new System.Drawing.Size(156, 20);
             this.textBoxExecutedBy.TabIndex = 5;
@@ -977,7 +988,7 @@
             // label118
             // 
             this.label118.AutoSize = true;
-            this.label118.Location = new System.Drawing.Point(35, 110);
+            this.label118.Location = new System.Drawing.Point(35, 61);
             this.label118.Name = "label118";
             this.label118.Size = new System.Drawing.Size(70, 13);
             this.label118.TabIndex = 0;
@@ -986,7 +997,7 @@
             // checkBoxTimeTravel
             // 
             this.checkBoxTimeTravel.AutoSize = true;
-            this.checkBoxTimeTravel.Location = new System.Drawing.Point(41, 153);
+            this.checkBoxTimeTravel.Location = new System.Drawing.Point(41, 174);
             this.checkBoxTimeTravel.Name = "checkBoxTimeTravel";
             this.checkBoxTimeTravel.Size = new System.Drawing.Size(110, 17);
             this.checkBoxTimeTravel.TabIndex = 6;
@@ -996,7 +1007,7 @@
             // 
             // dateTimePickerTimeTravel
             // 
-            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(217, 151);
+            this.dateTimePickerTimeTravel.Location = new System.Drawing.Point(217, 172);
             this.dateTimePickerTimeTravel.Name = "dateTimePickerTimeTravel";
             this.dateTimePickerTimeTravel.Size = new System.Drawing.Size(97, 20);
             this.dateTimePickerTimeTravel.TabIndex = 7;
@@ -1005,7 +1016,7 @@
             // label104
             // 
             this.label104.AutoSize = true;
-            this.label104.Location = new System.Drawing.Point(401, 52);
+            this.label104.Location = new System.Drawing.Point(400, 140);
             this.label104.Name = "label104";
             this.label104.Size = new System.Drawing.Size(85, 13);
             this.label104.TabIndex = 0;
@@ -1013,7 +1024,7 @@
             // 
             // textBoxMNSureBuild
             // 
-            this.textBoxMNSureBuild.Location = new System.Drawing.Point(492, 50);
+            this.textBoxMNSureBuild.Location = new System.Drawing.Point(491, 138);
             this.textBoxMNSureBuild.Name = "textBoxMNSureBuild";
             this.textBoxMNSureBuild.Size = new System.Drawing.Size(65, 20);
             this.textBoxMNSureBuild.TabIndex = 9;
@@ -1022,7 +1033,7 @@
             // labelAppBuild
             // 
             this.labelAppBuild.AutoSize = true;
-            this.labelAppBuild.Location = new System.Drawing.Point(388, 20);
+            this.labelAppBuild.Location = new System.Drawing.Point(387, 108);
             this.labelAppBuild.Name = "labelAppBuild";
             this.labelAppBuild.Size = new System.Drawing.Size(98, 13);
             this.labelAppBuild.TabIndex = 0;
@@ -1031,7 +1042,7 @@
             // labelTimeTravel
             // 
             this.labelTimeTravel.AutoSize = true;
-            this.labelTimeTravel.Location = new System.Drawing.Point(161, 153);
+            this.labelTimeTravel.Location = new System.Drawing.Point(161, 174);
             this.labelTimeTravel.Name = "labelTimeTravel";
             this.labelTimeTravel.Size = new System.Drawing.Size(50, 13);
             this.labelTimeTravel.TabIndex = 0;
@@ -6091,6 +6102,50 @@
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
             // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Location = new System.Drawing.Point(38, 116);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(44, 13);
+            this.label183.TabIndex = 19;
+            this.label183.Text = "User Id:";
+            // 
+            // label213
+            // 
+            this.label213.AutoSize = true;
+            this.label213.Location = new System.Drawing.Point(37, 141);
+            this.label213.Name = "label213";
+            this.label213.Size = new System.Drawing.Size(56, 13);
+            this.label213.TabIndex = 20;
+            this.label213.Text = "Password:";
+            // 
+            // checkBoxMyId
+            // 
+            this.checkBoxMyId.AutoSize = true;
+            this.checkBoxMyId.Location = new System.Drawing.Point(41, 94);
+            this.checkBoxMyId.Name = "checkBoxMyId";
+            this.checkBoxMyId.Size = new System.Drawing.Size(145, 17);
+            this.checkBoxMyId.TabIndex = 21;
+            this.checkBoxMyId.Text = "Use My Case Worker Id?";
+            this.checkBoxMyId.UseVisualStyleBackColor = true;
+            this.checkBoxMyId.CheckedChanged += new System.EventHandler(this.checkBoxMyId_CheckedChanged);
+            // 
+            // textBoxMyId
+            // 
+            this.textBoxMyId.Location = new System.Drawing.Point(88, 113);
+            this.textBoxMyId.Name = "textBoxMyId";
+            this.textBoxMyId.Size = new System.Drawing.Size(112, 20);
+            this.textBoxMyId.TabIndex = 22;
+            // 
+            // textBoxMyPassword
+            // 
+            this.textBoxMyPassword.Location = new System.Drawing.Point(99, 137);
+            this.textBoxMyPassword.Name = "textBoxMyPassword";
+            this.textBoxMyPassword.Size = new System.Drawing.Size(112, 20);
+            this.textBoxMyPassword.TabIndex = 23;
+            this.textBoxMyPassword.TextChanged += new System.EventHandler(this.textBoxMyPassword_TextChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -6653,6 +6708,11 @@
         private System.Windows.Forms.ComboBox comboBoxHMRandom;
         private System.Windows.Forms.Button buttonDeleteAddr;
         private System.Windows.Forms.CheckBox checkBoxAddress;
+        private System.Windows.Forms.Label label183;
+        private System.Windows.Forms.TextBox textBoxMyPassword;
+        private System.Windows.Forms.TextBox textBoxMyId;
+        private System.Windows.Forms.CheckBox checkBoxMyId;
+        private System.Windows.Forms.Label label213;
 
     }
 }

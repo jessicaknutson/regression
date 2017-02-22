@@ -344,15 +344,36 @@ namespace MNsure_Regression_1
                 IWebElement listboxThird = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[2]"));
                 if (listboxFirst.Text == "Health Care Unassisted application")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[1]/td[1]/span/input")).Click();
+                    }
                 }
                 else if (listboxSecond.Text == "Health Care Unassisted application")
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]")).Click();                        
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[2]/td[1]/span/input")).Click();
+                    }
                 }
                 else
                 {
-                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span/input")).Click();
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]")).Click();
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[2]/div/table/tbody/tr[3]/td[1]/span/input")).Click();
+                    }
                 }
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
@@ -1678,7 +1699,7 @@ namespace MNsure_Regression_1
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
                 }
-                 
+
 
                 // TFR 12-15-2016 commenting this out.  Not displayed in Case Worker                
                 //if (DateTime.Now > Convert.ToDateTime("10/31/2016") && DateTime.Now < Convert.ToDateTime("1/1/2017"))
@@ -2440,7 +2461,7 @@ namespace MNsure_Regression_1
                 string isBHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "BHP");
                 string isQHP = myApp.DoIsInTypeRange(myEnrollment, myHouseholdMembers, myHistoryInfo, "QHP");
 
-                if (myEnrollment.myHomeState == "Minnesota" && 
+                if (myEnrollment.myHomeState == "Minnesota" &&
                     (((householdCount == 1 || householdCount == 2) && (isMA == "True" || isBHP == "True")) //bd bhp1,2, ma1,2
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 2 && isQHP == "True" && (age.Year - 1 < 20 || age2.Year - 1 < 20)) // bd qhp2
                     || (myEnrollment.myHouseholdOther == "Yes" && householdCount == 3 && (isMA == "True" || isBHP == "True") && (age.Year - 1 < 20 || age2.Year - 1 < 20 || age3.Year - 1 < 20)) // 3 hh
@@ -2639,21 +2660,34 @@ namespace MNsure_Regression_1
                 IWebElement checkboxIAgreeNoticeRR = driver.FindElement(By.Id("__o3id1"));
                 checkboxIAgreeNoticeRR.Click();
 
-                IWebElement checkboxIAgreeInfoApplication = driver.FindElement(By.Id("__o3id2"));
+                IWebElement checkboxIAgreeInfoApplication;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {                    
+                    checkboxIAgreeInfoApplication = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[7]/div/table/tbody/tr/td"));
+                }
+                else
+                {
+                    checkboxIAgreeInfoApplication = driver.FindElement(By.Id("__o3id2"));
+                }
                 checkboxIAgreeInfoApplication.Click();
 
                 IWebElement checkboxIDeclare = driver.FindElement(By.Id("__o3id3"));
                 checkboxIDeclare.Click();
-                
+
                 IWebElement checkboxIAgreeStatementsBelow;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     action.SendKeys(OpenQA.Selenium.Keys.PageDown).Build().Perform();
+                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td"));
                     checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td"));
                     checkboxIAgreeStatementsBelow.Click();
                     checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
+                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("//td[@headers='N20D5F-1-1']"));
+                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td/input"));                    
                     checkboxIAgreeStatementsBelow.Click();
+                    //checkboxIAgreeStatementsBelow.Click();
+                    //action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
                 }
                 else
                 {

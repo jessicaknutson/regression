@@ -3043,7 +3043,7 @@ namespace MNsure_Regression_1
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id2e"));
                     }
-                    else if (householdCount == 3 && ((age3.Year - 1 > 11 && age3.Year - 1 < 15) || age3.Year - 1 == 0))
+                    else if (householdCount == 3 && ((age3.Year - 1 > 11 && age3.Year - 1 < 15) || age3.Year - 1 == 0 ))
                     {
                         listboxMAStartDate = driver.FindElement(By.Id("__o3id38"));
                     }
