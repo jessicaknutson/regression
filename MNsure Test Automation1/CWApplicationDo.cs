@@ -1683,8 +1683,8 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
-                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
+                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2017") &&
+                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2018"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
@@ -1692,21 +1692,13 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    if (DateTime.Now > Convert.ToDateTime("10/31/2016") &&
-                        DateTime.Now < Convert.ToDateTime("1/1/2017"))
+                    if (DateTime.Now > Convert.ToDateTime("10/31/2017") &&
+                        DateTime.Now < Convert.ToDateTime("1/1/2018"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
                     }
                 }
-
-
-                // TFR 12-15-2016 commenting this out.  Not displayed in Case Worker                
-                //if (DateTime.Now > Convert.ToDateTime("10/31/2016") && DateTime.Now < Convert.ToDateTime("1/1/2017"))
-                //{
-                //    IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
-                //    listboxIncomeNextYear.SendKeys(incomeExpected);
-                //}
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
@@ -2674,20 +2666,24 @@ namespace MNsure_Regression_1
                 IWebElement checkboxIDeclare = driver.FindElement(By.Id("__o3id3"));
                 checkboxIDeclare.Click();
 
+                HouseholdMembersDo myHousehold = new HouseholdMembersDo();
+                int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+
                 IWebElement checkboxIAgreeStatementsBelow;
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
                     OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);
                     action.SendKeys(OpenQA.Selenium.Keys.PageDown).Build().Perform();
-                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td"));
-                    checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td"));
+                    if (myEnrollment.myEnrollmentPlanType == "MN Care QHP" || (myEnrollment.myEnrollmentPlanType == "MN Care UQHP" && householdCount == 3))
+                    {
+                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td/label[2]"));
+                    }
+                    else
+                    {
+                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td/label[2]"));
+                        
+                    }
                     checkboxIAgreeStatementsBelow.Click();
-                    checkboxIAgreeStatementsBelow = driver.FindElement(By.Id("__o3id4"));
-                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("//td[@headers='N20D5F-1-1']"));
-                    //checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td/input"));                    
-                    checkboxIAgreeStatementsBelow.Click();
-                    //checkboxIAgreeStatementsBelow.Click();
-                    //action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
                 }
                 else
                 {
@@ -2698,9 +2694,7 @@ namespace MNsure_Regression_1
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[3]/div/a[1]/span/span/span"));
                 buttonNext.Click();
-
-                HouseholdMembersDo myHousehold = new HouseholdMembersDo();
-                int householdCount = myHousehold.DoHouseholdCount(myHistoryInfo);
+                
                 if (myEnrollment.myEnrollmentPlanType != "MN Care UQHP" || (myEnrollment.myEnrollmentPlanType == "MN Care UQHP" && householdCount == 3))
                 {
                     System.Threading.Thread.Sleep(2000);

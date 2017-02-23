@@ -2000,8 +2000,8 @@ namespace MNsure_Regression_1
 
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2016") &&
-                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2017"))
+                    if (myHistoryInfo.myTimeTravelDate > Convert.ToDateTime("10/31/2017") &&
+                        myHistoryInfo.myTimeTravelDate < Convert.ToDateTime("1/1/2018"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);
@@ -2009,8 +2009,8 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    if (DateTime.Now > Convert.ToDateTime("10/31/2016") &&
-                        DateTime.Now < Convert.ToDateTime("1/1/2017"))
+                    if (DateTime.Now > Convert.ToDateTime("10/31/2017") &&
+                        DateTime.Now < Convert.ToDateTime("1/1/2018"))
                     {
                         IWebElement listboxIncomeNextYear = driver.FindElement(By.Id("__o3id8"));
                         listboxIncomeNextYear.SendKeys(incomeExpected);

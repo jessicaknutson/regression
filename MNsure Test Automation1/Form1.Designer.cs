@@ -48,6 +48,11 @@
             this.dataGridViewTestRunHistory = new System.Windows.Forms.DataGridView();
             this.tabPageRun = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.textBoxMyPassword = new System.Windows.Forms.TextBox();
+            this.textBoxMyId = new System.Windows.Forms.TextBox();
+            this.checkBoxMyId = new System.Windows.Forms.CheckBox();
+            this.label213 = new System.Windows.Forms.Label();
+            this.label183 = new System.Windows.Forms.Label();
             this.checkBoxAddress = new System.Windows.Forms.CheckBox();
             this.label205 = new System.Windows.Forms.Label();
             this.buttonStartScheduledRun = new System.Windows.Forms.Button();
@@ -521,12 +526,6 @@
             this.label98 = new System.Windows.Forms.Label();
             this.label97 = new System.Windows.Forms.Label();
             this.dataGridViewTestsPick = new System.Windows.Forms.DataGridView();
-            this.label183 = new System.Windows.Forms.Label();
-            this.label213 = new System.Windows.Forms.Label();
-            this.checkBoxMyId = new System.Windows.Forms.CheckBox();
-            this.textBoxMyId = new System.Windows.Forms.TextBox();
-            this.textBoxMyPassword = new System.Windows.Forms.TextBox();
-
             this.tabPageHistory.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTestHistory)).BeginInit();
@@ -801,6 +800,51 @@
             this.groupBox8.Size = new System.Drawing.Size(623, 271);
             this.groupBox8.TabIndex = 12;
             this.groupBox8.TabStop = false;
+            // 
+            // textBoxMyPassword
+            // 
+            this.textBoxMyPassword.Location = new System.Drawing.Point(99, 137);
+            this.textBoxMyPassword.Name = "textBoxMyPassword";
+            this.textBoxMyPassword.Size = new System.Drawing.Size(112, 20);
+            this.textBoxMyPassword.TabIndex = 23;
+            this.textBoxMyPassword.UseSystemPasswordChar = true;
+            this.textBoxMyPassword.TextChanged += new System.EventHandler(this.textBoxMyPassword_TextChanged);
+            // 
+            // textBoxMyId
+            // 
+            this.textBoxMyId.Location = new System.Drawing.Point(88, 113);
+            this.textBoxMyId.Name = "textBoxMyId";
+            this.textBoxMyId.Size = new System.Drawing.Size(112, 20);
+            this.textBoxMyId.TabIndex = 22;
+            // 
+            // checkBoxMyId
+            // 
+            this.checkBoxMyId.AutoSize = true;
+            this.checkBoxMyId.Location = new System.Drawing.Point(41, 94);
+            this.checkBoxMyId.Name = "checkBoxMyId";
+            this.checkBoxMyId.Size = new System.Drawing.Size(145, 17);
+            this.checkBoxMyId.TabIndex = 21;
+            this.checkBoxMyId.Text = "Use My Case Worker Id?";
+            this.checkBoxMyId.UseVisualStyleBackColor = true;
+            this.checkBoxMyId.CheckedChanged += new System.EventHandler(this.checkBoxMyId_CheckedChanged);
+            // 
+            // label213
+            // 
+            this.label213.AutoSize = true;
+            this.label213.Location = new System.Drawing.Point(37, 141);
+            this.label213.Name = "label213";
+            this.label213.Size = new System.Drawing.Size(56, 13);
+            this.label213.TabIndex = 20;
+            this.label213.Text = "Password:";
+            // 
+            // label183
+            // 
+            this.label183.AutoSize = true;
+            this.label183.Location = new System.Drawing.Point(38, 116);
+            this.label183.Name = "label183";
+            this.label183.Size = new System.Drawing.Size(44, 13);
+            this.label183.TabIndex = 19;
+            this.label183.Text = "User Id:";
             // 
             // checkBoxAddress
             // 
@@ -6101,50 +6145,6 @@
             this.dataGridViewTestsPick.TabStop = false;
             this.dataGridViewTestsPick.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridViewTestsPick_ColumnHeaderMouseClick);
             this.dataGridViewTestsPick.SelectionChanged += new System.EventHandler(this.dataGridViewTestsPick_SelectionChanged);
-            // 
-            // label183
-            // 
-            this.label183.AutoSize = true;
-            this.label183.Location = new System.Drawing.Point(38, 116);
-            this.label183.Name = "label183";
-            this.label183.Size = new System.Drawing.Size(44, 13);
-            this.label183.TabIndex = 19;
-            this.label183.Text = "User Id:";
-            // 
-            // label213
-            // 
-            this.label213.AutoSize = true;
-            this.label213.Location = new System.Drawing.Point(37, 141);
-            this.label213.Name = "label213";
-            this.label213.Size = new System.Drawing.Size(56, 13);
-            this.label213.TabIndex = 20;
-            this.label213.Text = "Password:";
-            // 
-            // checkBoxMyId
-            // 
-            this.checkBoxMyId.AutoSize = true;
-            this.checkBoxMyId.Location = new System.Drawing.Point(41, 94);
-            this.checkBoxMyId.Name = "checkBoxMyId";
-            this.checkBoxMyId.Size = new System.Drawing.Size(145, 17);
-            this.checkBoxMyId.TabIndex = 21;
-            this.checkBoxMyId.Text = "Use My Case Worker Id?";
-            this.checkBoxMyId.UseVisualStyleBackColor = true;
-            this.checkBoxMyId.CheckedChanged += new System.EventHandler(this.checkBoxMyId_CheckedChanged);
-            // 
-            // textBoxMyId
-            // 
-            this.textBoxMyId.Location = new System.Drawing.Point(88, 113);
-            this.textBoxMyId.Name = "textBoxMyId";
-            this.textBoxMyId.Size = new System.Drawing.Size(112, 20);
-            this.textBoxMyId.TabIndex = 22;
-            // 
-            // textBoxMyPassword
-            // 
-            this.textBoxMyPassword.Location = new System.Drawing.Point(99, 137);
-            this.textBoxMyPassword.Name = "textBoxMyPassword";
-            this.textBoxMyPassword.Size = new System.Drawing.Size(112, 20);
-            this.textBoxMyPassword.TabIndex = 23;
-            this.textBoxMyPassword.TextChanged += new System.EventHandler(this.textBoxMyPassword_TextChanged);
             // 
             // FormMain
             // 
