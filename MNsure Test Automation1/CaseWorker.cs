@@ -426,7 +426,7 @@ namespace MNsure_Regression_1
                 driver.FindElement(By.LinkText("Person…")).Click();
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (4 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (6 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
@@ -1427,14 +1427,15 @@ namespace MNsure_Regression_1
 
                 var iFrameElement4 = driver.FindElement(By.XPath("//iframe[contains(@src,'Evidence_listEvdInstanceChangesPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement4);
-
-                driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
+                               
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
+                    driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span")).Click();//action menu
                     driver.FindElement(By.Id("dijit_MenuItem_0")).Click();
                 }
                 else
                 {
+                    driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div/table/tbody/tr[1]/td[9]/span/span/span")).Click();//action menu
                     driver.FindElement(By.XPath("//td[contains(text(), 'Edit…')]")).Click();
                 }
                 System.Threading.Thread.Sleep(3000);
@@ -1456,7 +1457,15 @@ namespace MNsure_Regression_1
                 textboxEffDate.Clear();
                 textboxEffDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
 
-                IWebElement textboxJointly = driver.FindElement(By.Id("__o3idc"));
+                IWebElement textboxJointly;
+                if (myHistoryInfo.myEnvironment == "STST")
+                {
+                    textboxJointly = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/div/div/table/tbody/tr[1]/td[2]/label[2]"));
+                }
+                else
+                {
+                    textboxJointly = driver.FindElement(By.Id("__o3idc"));
+                }
                 textboxJointly.Click();
 
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);

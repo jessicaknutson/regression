@@ -272,11 +272,11 @@ namespace MNsure_Regression_1
                 int appwait;
                 if (myHistoryInfo.myInTimeTravel == "Yes")
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 else
                 {
-                    appwait = (0 + myHistoryInfo.myAppWait) * 1000;
+                    appwait = (2 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
                 driver.SwitchTo().DefaultContent();
@@ -627,7 +627,15 @@ namespace MNsure_Regression_1
                     listboxIndian.SendKeys("No");
                 }
 
-                IWebElement listboxHispanic = driver.FindElement(By.Id("__o3idc"));
+                IWebElement listboxHispanic;
+                if (myHistoryInfo.myEnvironment == "STST2")
+                {
+                    listboxHispanic = driver.FindElement(By.Id("__o3idd"));
+                }
+                else
+                {
+                    listboxHispanic = driver.FindElement(By.Id("__o3idc"));
+                }
                 listboxHispanic.SendKeys(myHouseholdMembers.myHispanic);
 
                 if (myHouseholdMembers.myRace == "Indian")
@@ -637,7 +645,15 @@ namespace MNsure_Regression_1
                 }
                 else
                 {
-                    IWebElement checkboxRace = driver.FindElement(By.Id("__o3id1d"));
+                    IWebElement checkboxRace;
+                    if (myHistoryInfo.myEnvironment == "STST2")
+                    {
+                        checkboxRace = driver.FindElement(By.Id("__o3id1e"));
+                    }
+                    else
+                    {
+                        checkboxRace = driver.FindElement(By.Id("__o3id1d"));
+                    }
                     checkboxRace.Click();
                 }
 
@@ -1131,6 +1147,16 @@ namespace MNsure_Regression_1
                 var iFrameElement = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/MNHIXIntegratedCase_resolveLaunchLifeEventScriptPage.do')]"));
                 driver.SwitchTo().Frame(iFrameElement);
 
+                if (myHistoryInfo.myInTimeTravel == "Yes")
+                {
+                    IWebElement textboxReceivedDate = driver.FindElement(By.Id("__o3id6"));
+                    textboxReceivedDate.Clear();
+                    textboxReceivedDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+
+                    IWebElement textboxStartDate = driver.FindElement(By.Id("__o3id7"));
+                    textboxStartDate.Clear();
+                    textboxStartDate.SendKeys(DateTime.Now.ToString("MM/dd/yyyy"));
+                }
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 IWebElement buttonNext = driver.FindElement(By.XPath("/html/body/div[1]/div[2]/a/span/span/span"));
