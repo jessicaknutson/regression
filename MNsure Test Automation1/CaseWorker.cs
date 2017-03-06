@@ -82,6 +82,8 @@ namespace MNsure_Regression_1
                 myEnrollment.myPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
                 myApp.DoUpdateAppPassCount(myHistoryInfo, myEnrollment.myPassCount);
                 DoUpdateCWUserName(myHistoryInfo, myAccountCreate.myCaseWorkerLoginId);
+                myEnrollment.myHcrPassCount = "1";//reset count back to 1 on start in case an error happened during previous run
+                myApp.DoUpdateAppHCRPassCount(myHistoryInfo, myEnrollment.myHcrPassCount);
 
                 returnStatus = "Pass";
                 returnScreenshot = myHistoryInfo.myScreenShot;
@@ -266,9 +268,7 @@ namespace MNsure_Regression_1
                 System.Threading.Thread.Sleep(2000);
                 rClick.Perform();
                 driver.FindElement(By.XPath("//td[contains(text(), 'Close all tabs')]")).Click();
-
                 System.Threading.Thread.Sleep(1000);
-
                 driver.FindElement(By.LinkText("Person…")).Click();
 
                 myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]"), myHistoryInfo);
@@ -276,27 +276,45 @@ namespace MNsure_Regression_1
                 driver.SwitchTo().Frame(iFrameElement3);
                 System.Threading.Thread.Sleep(1000);
 
+                String locateThisSSN = null;
                 if (myEnrollment.mySSN == "Yes")
                 {
                     IWebElement textboxSSN = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input"));
                     textboxSSN.Clear();
                     if (myEnrollment.myDay2TestId != null)
                     {
-                        textboxSSN.SendKeys(DoDay2PrimarySSN(myEnrollment.myDay2TestId)); //search for primary member
+                        locateThisSSN = DoDay2PrimarySSN(myEnrollment.myDay2TestId);
+                        textboxSSN.SendKeys(locateThisSSN); //search for primary member
                     }
                     else
                     {
                         if (myEnrollment.myApplyYourself == "No")
                         {
                             int temp = Convert.ToInt32(myEnrollment.mySSNNum) + 1;
-                            textboxSSN.SendKeys(Convert.ToString(temp));
+                            locateThisSSN = Convert.ToString(temp);
+                            textboxSSN.SendKeys(locateThisSSN);
                         }
                         else
                         {
-                            string hhssn = myEnrollment.mySSNNum;
-                            textboxSSN.SendKeys(hhssn);
+                            locateThisSSN = myEnrollment.mySSNNum;
+                            textboxSSN.SendKeys(locateThisSSN);
                             //DoUpdateSSN(myHistoryInfo, myEnrollment.mySSNNum, myEnrollment.myFirstName, myEnrollment.myLastName);
                             //textboxSSN.SendKeys("344688097"); 
+                        }
+                    }
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search
+
+                    if (myEnrollment.myHcrPassCount == "1" && myEnrollment.myDay2TestId == null && (myHistoryInfo.myInTimeTravel == "No" || myHistoryInfo.myInTimeTravel == null)) //this makes sure the ssn has not already been used, first pass only, not day 2 and not tt 
+                    {
+                        System.Threading.Thread.Sleep(4000);
+                        myEnrollment.myHcrPassCount = "2";//update count to 2 to do the screens another time
+                        myApp.DoUpdateAppHCRPassCount(myHistoryInfo, myEnrollment.myHcrPassCount);
+                        Boolean foundDuplicate = false;
+                        foundDuplicate = DoFoundDuplicateSSN(driver, locateThisSSN, ref myHistoryInfo);
+                        if (foundDuplicate == true)
+                        {
+                            MessageBox.Show("Your SSN has already been used. Modify your ssn and try again.");
+                            return 2;
                         }
                     }
                 }
@@ -311,9 +329,10 @@ namespace MNsure_Regression_1
                     IWebElement textboxDOB = driver.FindElement(By.Id("__o3id5"));
                     textboxDOB.Clear();
                     textboxDOB.SendKeys(myEnrollment.myDOB);
-                }
-                driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search
 
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search
+                }
+                
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
 
                 returnStatus = "Pass";
@@ -433,17 +452,64 @@ namespace MNsure_Regression_1
                     appwait = (4 + myHistoryInfo.myAppWait) * 1000;
                 }
                 System.Threading.Thread.Sleep(appwait);
+                if (myHistoryInfo.myInTimeTravel == "No" || myHistoryInfo.myInTimeTravel == null)  //this makes sure the ssn has not already been used, this is not valid in tt              
+                {
+                    myApp.DoWaitForElement(driver, By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]"), myHistoryInfo);
+                    var iFrameElement3 = driver.FindElement(By.XPath("//iframe[contains(@src,'en_US/Person_search1Page.do?o3ctx=4096')]"));
+                    driver.SwitchTo().Frame(iFrameElement3);
+                    System.Threading.Thread.Sleep(1000);
+                    IWebElement textboxSSN = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[1]/div/table/tbody/tr/td[1]/input"));
+                    textboxSSN.Clear();
+                    textboxSSN.SendKeys(myEnrollment.mySSNNum); 
+                    driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[3]/a[1]/span/span/span")).Click(); //search                    
+                    System.Threading.Thread.Sleep(4000);                       
+                    Boolean foundDuplicate = false;
+                    foundDuplicate = DoFoundDuplicateSSN(driver, myEnrollment.mySSNNum, ref myHistoryInfo);
+                    if (foundDuplicate == true)
+                    {
+                       MessageBox.Show("Your SSN has already been used. Modify your ssn and try again.");                     
+                       returnStatus = "Fail";
+                       myHistoryInfo.myTestStepStatus = "Fail";
+                       writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
+                       returnScreenshot = myHistoryInfo.myScreenShot;
+                       return 2;                    
+                    }
+                    driver.SwitchTo().DefaultContent();
+                    personSearchTab = driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[1]/div[4]/div/div[1]"));
+                    rClick = action.ContextClick(personSearchTab); //right click
+                    System.Threading.Thread.Sleep(1000);
+                    rClick.Perform();
+                    System.Threading.Thread.Sleep(1000);
+                    if (myHistoryInfo.myEnvironment == "STST")
+                    {
+                        driver.FindElement(By.Id("curam_widget_MenuItem_2_text")).Click();//close all tabs
+                    }
+                    else
+                    {
+                        driver.FindElement(By.XPath("/html/body/div[3]/table/tbody/tr[2]/td[1]")).Click();//close all tabs
+                    }
+                    System.Threading.Thread.Sleep(1000);
+
+                    driver.FindElement(By.LinkText("Person…")).Click();
+                    if (myHistoryInfo.myInTimeTravel == "Yes")
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    else
+                    {
+                        appwait = (6 + myHistoryInfo.myAppWait) * 1000;
+                    }
+                    System.Threading.Thread.Sleep(appwait);
+                }
                 myApp.DoWaitForElement(driver, By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div/div/div/div[2]/div/div/div/span/span/span/span[2]"), myHistoryInfo);
                 writeLogs.DoGetScreenshot(driver, ref myHistoryInfo);
                 driver.FindElement(By.XPath("/html/body/div[1]/div[4]/div[3]/div[2]/div/div[3]/div[3]/div/div/div/div[2]/div/div/div/span/span/span/span[2]")).Click();//actions
-                //System.Threading.Thread.Sleep(1000); 
+                
                 if (myHistoryInfo.myEnvironment == "STST")
                 {
-                    //driver.FindElement(By.XPath("/html/body/div[5]/table/tbody/tr[2]/td[2]")).Click(); //keeps changing
-                    //OpenQA.Selenium.Interactions.Actions action = new OpenQA.Selenium.Interactions.Actions(driver);                   
+                    System.Threading.Thread.Sleep(2000); 
                     action.SendKeys(OpenQA.Selenium.Keys.ArrowDown).Build().Perform();
                     action.SendKeys(OpenQA.Selenium.Keys.Enter).Build().Perform();
-
                 }
                 else
                 {
@@ -5766,6 +5832,26 @@ namespace MNsure_Regression_1
                 MessageBox.Show("Update cw username didn't work");
             }
             return 1;
+        }
+
+        public Boolean DoFoundDuplicateSSN(IWebDriver driver, string ssn, ref mystructHistoryInfo myHistoryInfo)
+        {
+            try
+            {
+                IWebElement mnSureID = driver.FindElement(By.XPath("/html/body/div[2]/div/ul"));
+                if (mnSureID.Text == "There are no matching items based on the Search Criteria entered.")
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            catch
+            {
+                return true;
+            }
         }
 
     }

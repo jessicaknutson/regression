@@ -3908,6 +3908,41 @@ namespace MNsure_Regression_1
             } while (isNotdone);
         }
 
+        public int DoUpdateAppHCRPassCount(mystructHistoryInfo myHistoryInfo, string updateValue)
+        {
+            SqlCeConnection con;
+            string conString = Properties.Settings.Default.Database1ConnectionString;
+
+
+            try
+            {
+                con = new SqlCeConnection(conString);
+                con.Open();
+                using (SqlCeCommand com3 = new SqlCeCommand(
+                    "SELECT * FROM Application where TestID = " + myHistoryInfo.myTestId, con))
+                {
+                    SqlCeDataReader reader = com3.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        string myUpdateString;
+                        myUpdateString = "Update Application set HcrPassCount = @HcrPasscount where TestID = " + myHistoryInfo.myTestId;
+
+                        using (SqlCeCommand com4 = new SqlCeCommand(myUpdateString, con))
+                        {
+                            com4.Parameters.AddWithValue("HcrPassCount", updateValue);
+                            com4.ExecuteNonQuery();
+                            com4.Dispose();
+                        }
+                    }
+                }
+                con.Close();
+            }
+            catch
+            {
+                MessageBox.Show("Update hcr pass count didn't work");
+            }
+            return 1;
+        }
 
     }
 }

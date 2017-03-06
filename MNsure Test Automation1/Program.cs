@@ -216,6 +216,7 @@ struct mystructSelectedTest
         public string myRegDate;
         public string myDay2TestId;
         public string myPassCount;
+        public string myHcrPassCount;
         public string myTobacco;
         public string myTobaccoLast;
         public string myRandom;

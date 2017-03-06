@@ -161,6 +161,7 @@ namespace MNsure_Regression_1
                         if (!reader.IsDBNull(68)) { myApplication.myTobacco = reader.GetString(68); } else { myApplication.myTobacco = null; }
                         if (!reader.IsDBNull(69)) { myApplication.myTobaccoLast = Convert.ToDateTime(reader.GetDateTime(69)).ToString("MM/dd/yyyy"); } else { myApplication.myTobaccoLast = null; }
                         if (!reader.IsDBNull(70)) { myApplication.myRandom = reader.GetString(70); } else { myApplication.myRandom = null; }
+                        if (!reader.IsDBNull(71)) { myApplication.myHcrPassCount = reader.GetString(71); } else { myApplication.myHcrPassCount = null; }
                     }
                 }
 

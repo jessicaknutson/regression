@@ -2676,11 +2676,11 @@ namespace MNsure_Regression_1
                     action.SendKeys(OpenQA.Selenium.Keys.PageDown).Build().Perform();
                     if (myEnrollment.myEnrollmentPlanType == "MN Care QHP" || (myEnrollment.myEnrollmentPlanType == "MN Care UQHP" && householdCount == 3))
                     {
-                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td/label[2]"));
+                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td/label[2]"));
                     }
                     else
                     {
-                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[11]/div/table/tbody/tr/td/label[2]"));
+                        checkboxIAgreeStatementsBelow = driver.FindElement(By.XPath("/html/body/div[2]/form/div/div[14]/div/table/tbody/tr/td/label[2]"));
                         
                     }
                     checkboxIAgreeStatementsBelow.Click();

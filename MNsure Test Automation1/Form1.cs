@@ -1293,6 +1293,7 @@ namespace MNsure_Regression_1
                                     myApplication.myTobaccoLast = null;
                                 }
                                 myApplication.myRandom = reader.GetString(70);
+                                myApplication.myHcrPassCount = reader.GetString(71);
                             }
                             else
                             {
@@ -1960,7 +1961,7 @@ namespace MNsure_Regression_1
                     comboBoxPhoneType.Text = myApplication.myPhoneType;
                     textBoxEnrollAltNum.Text = myApplication.myAltNum;
                     comboBoxEnrollAltPhoneType.Text = myApplication.myAltNumType;
-                    textBoxEnrollEmail.Text = myAccountCreate.myEmail;
+                    textBoxEnrollEmail.Text = myApplication.myEmail;
                     comboBoxEnrollLanguageMost.Text = myApplication.myLanguageMost;
                     comboBoxEnrollLanguageWritten.Text = myApplication.myLanguageWritten;
                     comboBoxEnrollHomeless.Text = myApplication.myHomeless;
@@ -2609,7 +2610,7 @@ namespace MNsure_Regression_1
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
                                     "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate," +
-                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random );";
+                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random, @HcrPassCount );";
                 using (SqlCeCommand com6 = new SqlCeCommand(myInsertString, con))
                 {
                     com6.Parameters.AddWithValue("FirstName", myApplication.myFirstName);
@@ -2752,6 +2753,7 @@ namespace MNsure_Regression_1
                         com6.Parameters.AddWithValue("TobaccoLast", DBNull.Value);
                     }
                     com6.Parameters.AddWithValue("Random", myApplication.myRandom);
+                    com6.Parameters.AddWithValue("HcrPassCount", myApplication.myHcrPassCount);
 
                     com6.ExecuteNonQuery();
                     com6.Dispose();
@@ -5500,7 +5502,7 @@ namespace MNsure_Regression_1
                                     "@IncomeMore, @Employer, @Seasonal, @Reduced, @Adjusted, @Expected, @PlanType, @Foster, @MailAddrYN, @TribeName," +
                                     "@LiveRes, @TribeId, @FederalTribe, @Military, @MilitaryDate, @AppliedSSN, @WhyNoSSN, @AssistSSN, @OtherIns," +
                                     "@KindIns, @CoverageEnd, @AddIns, @ESC, @RenewalCov, @WithDiscounts, @Pregnant, @Children, @DueDate," +
-                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random );";
+                                    "@PregnancyEnded, @RegDate, @Day2TestId, @PassCount, @Tobacco, @TobaccoLast, @Random, @HcrPassCount );";
                         using (SqlCeCommand com54 = new SqlCeCommand(myInsertString, con))
                         {
                             com54.Parameters.AddWithValue("FirstName", reader.GetString(2));
@@ -5643,6 +5645,7 @@ namespace MNsure_Regression_1
                                 com54.Parameters.AddWithValue("TobaccoLast", DBNull.Value);
                             }
                             com54.Parameters.AddWithValue("Random", reader.GetString(70));
+                            com54.Parameters.AddWithValue("HcrPassCount", reader.GetString(71));
 
                             com54.ExecuteNonQuery();
                             com54.Dispose();
