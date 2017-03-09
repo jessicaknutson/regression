@@ -58,7 +58,7 @@ namespace MNsure_Regression_1
                     else if (myHistoryInfo.myEnvironment == "STST2")
                     {
                         user = "USR9889S2";
-                        password = "Welcome123#";
+                        password = "Welcome12#";
                     }
                     else
                     {
@@ -126,7 +126,7 @@ namespace MNsure_Regression_1
                     else if (myHistoryInfo.myEnvironment == "STST2")
                     {
                         user = "USR9889S2";
-                        password = "Welcome123#";
+                        password = "Welcome12#";
                     }
                     else
                     {
